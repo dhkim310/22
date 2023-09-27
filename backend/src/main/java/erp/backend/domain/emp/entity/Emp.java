@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -26,7 +27,7 @@ public class Emp implements UserDetails {
     @Column(name = "EMP_ID")
     private Long empId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "EMP_DEPT_ID")
     private Dept empDeptId;
 
@@ -46,7 +47,7 @@ public class Emp implements UserDetails {
     private String roles;
 
     @Column(name = "EMP_BIRTHDAY")
-    private LocalDate empBirthday;
+    private Date empBirthday;
 
     @Column(name = "EMP_PHONENUMBER")
     private String empPhoneNumber;
@@ -54,8 +55,8 @@ public class Emp implements UserDetails {
     @Column(name = "EMP_ADDRESS")
     private String empAddress;
 
-    @Column(name = "EMP_ADDRESSDETAIL")
-    private String empAddressDetail;
+    @Column(name = "EMP_DETAILADDRESS")
+    private String empDetailAddress;
 
     @Column(name = "EMP_GENDER")
     private String empGender;
