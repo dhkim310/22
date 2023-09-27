@@ -1,45 +1,103 @@
 package erp.backend.domain.emp.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import erp.backend.domain.dept.entity.Dept;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collection;
 
-@Entity //jpa 사용할때!
-@AllArgsConstructor // 파라미터있는생성자
-@NoArgsConstructor // 기본생성자
-@Data // setter, getter 자동생성
+@Entity
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Emp implements UserDetails {
 
-public class Emp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long emp_id;
-    //@Column(name="username")
-    private long emp_dept_id; // 이녀석이 데이터베이스의 이름과 다르다면??? @Column(name="username") << 여기서의 name은 데이터베이스 컬럼 이름
-    private String emp_name;
-    private String emp_email;
-    private String emp_password;
-    private String emp_phonenumber;
-    private String emp_position;
-    private String emp_roles;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @CreationTimestamp // 추가. SYSDATE쓰지않고 생성해주는 것. SYSDATE는 오라클에서는 있지만 다른 데이터베이스엔 없을 수도있다. 이녀석은 각 데이터베이스에 맞는 것을 찾아준다.
-    private Date birthday;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @CreationTimestamp
-    private Date startdate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @CreationTimestamp
-    private Date enddate;
-    private String emp_status;
-    private String emp_gender;
-    private String emp_address;
-    private String emp_detailaddress;
+    @Column(name = "EMP_ID")
+    private Long empId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "EMP_DEPT_ID")
+    private Dept empDeptId;
+
+    @Column(name = "EMP_NAME")
+    private String empName;
+
+    @Column(name = "EMP_EMAIL")
+    private String empEmail;
+
+    @Column(name = "EMP_PASSWORD")
+    private String password;
+
+    @Column(name = "EMP_POSITION")
+    private String empPosition;
+
+    @Column(name = "EMP_ROLES")
+    private String roles;
+
+    @Column(name = "EMP_BIRTHDAY")
+    private LocalDate empBirthday;
+
+    @Column(name = "EMP_PHONENUMBER")
+    private String empPhoneNumber;
+
+    @Column(name = "EMP_ADDRESS")
+    private String empAddress;
+
+    @Column(name = "EMP_DETAILADDRESS")
+    private String empAddressDetail;
+
+    @Column(name = "EMP_GENDER")
+    private String empGender;
+
+    @Column(name = "EMP_STARTDATE")
+    private LocalDate empStartDate;
+
+    @Column(name = "EMP_ENDDATE")
+    private LocalDate empEndDate;
+
+    @Column(name = "EMP_STATUS")
+    private String empStatus;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.stream(this.roles.split(","))
+                .map(SimpleGrantedAuthority::new)
+                .toList();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.empEmail;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
