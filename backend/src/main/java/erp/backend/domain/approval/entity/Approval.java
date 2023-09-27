@@ -1,10 +1,8 @@
 package erp.backend.domain.approval.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,19 +16,23 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Approval {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long approval_id;
-    //외래키
-    private long approval_emp_id;
+    @Column(name = "APPROVAL_ID")
+    private long approvalId;
 
-    private String approval_subject;
+    @JoinColumn(name = "APPROVAL_EMP_ID")
+    private long approvalEmpId;
 
-    private String approval_content;
+    @Column(name = "APPROVAL_SUBJECT")
+    private String approvalSubject;
 
-    private String approval_check;
+    @Column(name = "APPROVAL_CONTENT")
+    private String approvalContent;
 
-    private String approval_checkman;
+    private String approvalCheck;
 
-    private String approval_checkmanposition;
+    private String approvalCheckman;
+
+    private String approvalCheckmanposition;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
