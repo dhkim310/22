@@ -1,6 +1,7 @@
 DROP table IF EXISTS `final`.EMP;
 
 create table `final`.EMP (
+
 	`EMP_ID`            BIGINT       NOT NULL AUTO_INCREMENT COMMENT '사원코드', -- 사원코드
 	`EMP_DEPT_ID`       BIGINT       NOT NULL COMMENT '부서코드', -- 부서코드
 	`EMP_NAME`          VARCHAR(255) NOT NULL COMMENT '이름', -- 이름

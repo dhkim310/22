@@ -1,4 +1,3 @@
--- 댓글
 DROP TABLE IF EXISTS `final`.COMMENT;
 
 CREATE TABLE `final`.COMMENT
