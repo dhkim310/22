@@ -13,6 +13,7 @@ import java.sql.Date;
 @AllArgsConstructor // 파라미터있는생성자
 @NoArgsConstructor // 기본생성자
 @Data // setter, getter 자동생성
+
 //Binint = long , int = int
 public class Board {
     @Id
