@@ -1,0 +1,5 @@
+CREATE TABLE `final`.DEPT (
+	`DEPT_ID`   BIGINT       NOT NULL COMMENT '부서코드', -- 부서코드
+	`DEPT_NAME` VARCHAR(255) NOT NULL COMMENT '부서명', -- 부서명
+	PRIMARY KEY (`DEPT_ID`)
+) ENGINE = InnoDB COMMENT '부서';
