@@ -16,6 +16,8 @@ public class Memo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long memo_id;
+
+    //외래키
     private long memo_emp_id;
     private String memo_content;
 
