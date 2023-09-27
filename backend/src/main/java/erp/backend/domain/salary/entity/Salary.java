@@ -1,10 +1,7 @@
 package erp.backend.domain.salary.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,21 +15,29 @@ public class Salary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long salary_id;
+    @Column(name = "SALARY_ID")
+    private long salaryId;
 
-    private long salary_emp_id;
+    @Column(name = "SALARY_EMP_ID")
+    private long salaryEmpId;
 
-    private int salary_amount;
+    @Column(name = "SALARY_AMOUNT")
+    private int salaryAmount;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private String salary_paydate;
+    @Column(name = "SALARY_PAYDATE")
+    private String salaryPayDate;
 
-    private int salary_paymoney;
+    @Column(name = "SALARY_PAYMONEY")
+    private int salarPayMoney;
 
-    private String salary_bank;
+    @Column(name = "SALARY_BANK")
+    private String salaryBank;
 
-    private String salary_accountnumber;
+    @Column(name = "SALARY_ACCOUNTNUMBER")
+    private String salaryAccountNumber;
 
-    private int salary_bonus;
+    @Column(name = "SALARY_BONUS")
+    private int salaryBonus;
 }

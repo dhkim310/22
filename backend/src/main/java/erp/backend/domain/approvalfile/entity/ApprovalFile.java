@@ -1,9 +1,6 @@
 package erp.backend.domain.approvalfile.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,13 +12,19 @@ import lombok.NoArgsConstructor;
 public class ApprovalFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long approvalfile_id;
+    @Column(name = "APPROVALFILE_ID")
+    private long approvalFileId;
+
     //외래키
-    private long approvalfile_approval_id;
+    @Column(name = "APPROVALFILE_APPROVAL_ID")
+    private long approvalFileApprovalId;
 
-    private String approvalfile_name;
+    @Column(name = "APPROVALFILE_NAME")
+    private String approvalFileName;
 
-    private String approvalfile_originname;
+    @Column(name = "APPROVALFILE_ORIGINNAME")
+    private String approvalFileOriginname;
 
-    private String approvalfile_path;
+    @Column(name = "APPROVALFILE_PATH")
+    private String approvalFilePath;
 }
