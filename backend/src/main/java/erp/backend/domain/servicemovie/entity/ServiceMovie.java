@@ -1,10 +1,8 @@
 package erp.backend.domain.servicemovie.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,17 +16,23 @@ import org.hibernate.annotations.CreationTimestamp;
 public class ServiceMovie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long servicemovie_id;
+    @Column(name = "SERVICEMOVIE_ID")
+    private long serviceMovieId;
     //외래키
-    private String servicemovie_movie_id;
+    @Column(name = "SERVICEMOVIE_MOVIE_ID")
+    private String serviceMovieMovieId;
 
-    private int servicemovie_amount;
+    @Column(name = "SERVICEMOVIE_AMOUNT")
+    private int serviceMovieAmount;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date servicemovie_paymentdate;
+    @Column(name = "SERVICEMOVIE_PAYMENTDATE")
+    private Date serviceMoviePaymentDate;
 
-    private String servicemovie_paymentbank;
+    @Column(name = "SERVICEMOVIE_PAYMENTBANK")
+    private String serviceMoviePaymentBank;
 
-    private String servicemovie_accountnumber;
+    @Column(name = "SERVICEMOVIE_ACCOUNTNUMBER")
+    private String serviceMovieAccountNumber;
 }

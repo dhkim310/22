@@ -1,9 +1,6 @@
 package erp.backend.domain.emppicture.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,13 +12,18 @@ import lombok.NoArgsConstructor;
 public class EmpPicture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long emppicture_id;
+    @Column(name = "EMPPICTURE_ID")
+    private long empPictureId;
     //외래키
-    private long emppicture_emp_id;
+    @Column(name = "EMPPICTURE_EMP_ID")
+    private long empPictureEmpId;
 
-    private String emppicture_name;
+    @Column(name = "EMPPICTURE_NAME")
+    private String empPictureName;
 
-    private String emppicture_originname;
+    @Column(name = "EMPPICTURE_ORIGINNAME")
+    private String empPictureOriginName;
 
-    private String emppicture_path;
+    @Column(name = "EMPPICTURE_PATH")
+    private String empPicturePath;
 }

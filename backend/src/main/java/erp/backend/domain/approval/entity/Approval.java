@@ -28,21 +28,26 @@ public class Approval {
     @Column(name = "APPROVAL_CONTENT")
     private String approvalContent;
 
+    @Column(name = "APPROVAL_CHECK")
     private String approvalCheck;
 
-    private String approvalCheckman;
-
-    private String approvalCheckmanposition;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
-    @CreationTimestamp
-    private Date approval_uploaddate;
+    @Column(name = "APPROVAL_CHECKMAN")
+    private String approvalCheckMan;
+    @Column(name = "APPROVAL_CHECKMANPOSITION")
+    private String approvalCheckManPosition;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date approval_backdate;
+    @Column(name = "APPROVAL_UPLOADDATE")
+    private Date approvalUpLoadDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date approval_successdate;
+    @Column(name = "APPROVAL_BACKDATE")
+    private Date approvalBackDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
+    @CreationTimestamp
+    @Column(name = "APPROVAL_SUCCESSDATE")
+    private Date approvalSuccessDate;
 }
