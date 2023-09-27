@@ -54,7 +54,7 @@ public class Emp implements UserDetails {
     @Column(name = "EMP_ADDRESS")
     private String empAddress;
 
-    @Column(name = "EMP_DETAILADDRESS")
+    @Column(name = "EMP_ADDRESSDETAIL")
     private String empAddressDetail;
 
     @Column(name = "EMP_GENDER")
