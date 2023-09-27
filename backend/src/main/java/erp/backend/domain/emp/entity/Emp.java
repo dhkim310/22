@@ -49,7 +49,7 @@ public class Emp implements UserDetails {
     private LocalDate empBirthday;
 
     @Column(name = "EMP_PHONENUMBER")
-    private String empPhoneNumber;
+    private String emp_PhoneNumber;
 
     @Column(name = "EMP_ADDRESS")
     private String empAddress;
