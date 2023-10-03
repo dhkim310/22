@@ -10,10 +10,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -27,7 +26,7 @@ public class Emp implements UserDetails {
     @Column(name = "EMP_ID")
     private Long empId;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EMP_DEPT_ID")
     private Dept empDeptId;
 
@@ -62,10 +61,10 @@ public class Emp implements UserDetails {
     private String empGender;
 
     @Column(name = "EMP_STARTDATE")
-    private LocalDate empStartDate;
+    private Date empStartDate;
 
     @Column(name = "EMP_ENDDATE")
-    private LocalDate empEndDate;
+    private Date empEndDate;
 
     @Column(name = "EMP_STATUS")
     private String empStatus;
