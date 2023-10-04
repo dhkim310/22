@@ -25,7 +25,9 @@ import java.util.Arrays;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
+
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
     private final JwtSecurityFilter jwtSecurityFilter;
 
     @Bean
@@ -47,6 +49,9 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/api/notice/management/**"
                                 ).hasRole("ADMIN")
+                                .requestMatchers(
+                                        "/main"
+                                ).hasRole("USER")
                                 .requestMatchers(
                                         "/api/emp/sign-in",
                                         "/api/emp/sign-up",

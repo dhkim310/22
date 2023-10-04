@@ -18,13 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmpController {
     private final EmpService empService;
 
-    // 로그인
     @PostMapping("/sign-in")
     public ResponseEntity<SignInResponse> signIn(@RequestBody @Valid SignInRequest request) {
+        System.out.println(request.toString());
         return ResponseEntity.ok(empService.signIn(request));
     }
 
-    // 회원가입
     @PostMapping("/sign-up")
     public ResponseEntity<Boolean> signUp(@RequestBody @Valid SignUpRequest request) {
         empService.signUp(request);

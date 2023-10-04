@@ -17,7 +17,7 @@ function Login() {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
-
+    
     const onValid = async ({ empEmail, password }) => {
         await loginApi({ empEmail, password })
         .then((res) => {
@@ -30,7 +30,7 @@ function Login() {
                 const userInfo = { ...data }
                 dispatch(SET_USER_INFO(userInfo))
                 alert('로그인 성공');
-                return navigate('/')
+                return navigate('/main')
             }
             console.log(res);
         })
