@@ -20,8 +20,10 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BOARD_ID")
     private long boardId;
+
     //외래키
-    @Column(name = "BOARD_EMP_ID")
+    @ManyToOne
+    @JoinColumn(name = "BOARD_EMP_ID")
     private long boardEmpId;
 
     @Column(name = "BOARD_SUBJECT")
