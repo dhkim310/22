@@ -1,6 +1,7 @@
 package erp.backend.domain.board.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import erp.backend.domain.emp.entity.Emp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,8 +24,10 @@ public class Board {
 
     //외래키
     @ManyToOne
-    @JoinColumn(name = "BOARD_EMP_ID")
-    private long boardEmpId;
+    @JoinColumn(name = "EMP_ID")
+    private Emp emp;
+//    @Column(name = "BOARD_EMP_ID")
+//    private long boardEmpId;
 
     @Column(name = "BOARD_SUBJECT")
     private String boardSubject;
