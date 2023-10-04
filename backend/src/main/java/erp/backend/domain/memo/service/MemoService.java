@@ -25,4 +25,13 @@ public class MemoService {
             .build();
         return memoRepository.save(entity).getMemoId();
     }
+
+    @Transactional
+    public void updateMemo(Long memoId, MemoInsert request){
+        Memo memo = memoRepository.findById(memoId)
+                .orElseThrow(() -> new IllegalArgumentException("메모가 없습니다."));
+
+        memo.setMemoContent(request.getContent());
+        memoRepository.save(memo);
+    }
 }
