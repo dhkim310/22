@@ -1,6 +1,6 @@
 -- 게시판
 DROP TABLE IF EXISTS `final`.board;
-CREATE TABLE `final`.BOARD
+CREATE TABLE `final`.board
 (
     `BOARD_ID`           BIGINT       NOT NULL AUTO_INCREMENT COMMENT '게시판코드',
     `BOARD_EMP_ID`       BIGINT       NOT NULL COMMENT '사원코드',
