@@ -1,5 +1,5 @@
 -- 게시판
-DROP TABLE IF EXISTS `final`.BOARD;
+DROP TABLE IF EXISTS `final`.board;
 CREATE TABLE `final`.BOARD
 (
     `BOARD_ID`           BIGINT       NOT NULL AUTO_INCREMENT COMMENT '게시판코드',
@@ -14,5 +14,5 @@ CREATE TABLE `final`.BOARD
     ENGINE = InnoDB COMMENT '게시판'
     AUTO_INCREMENT = 1;
 
-ALTER TABLE `final`.BOARD
+ALTER TABLE `final`.board
     ADD CONSTRAINT `FK_BOARD_EMP` FOREIGN KEY (`BOARD_EMP_ID`) REFERENCES `final`.emp (`EMP_ID`);
