@@ -18,8 +18,8 @@ function Login() {
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
 
-    const onValid = async ({ email, password }) => {
-        await loginApi({ email, password })
+    const onValid = async ({ empEmail, password }) => {
+        await loginApi({ empEmail, password })
         .then((res) => {
             if (res.status === 200) {
                 setCookie('Authorization', 'Bearer ' + res.data.token)
@@ -29,7 +29,8 @@ function Login() {
                 delete data.token;
                 const userInfo = { ...data }
                 dispatch(SET_USER_INFO(userInfo))
-                return navigate('/welcome')
+                alert('로그인 성공');
+                return navigate('/')
             }
             console.log(res);
         })
@@ -66,7 +67,7 @@ function Login() {
                 <div className="justify-content-xxl-center align-items-xxl-center" style={{height: '350px'}}>
                     <div className="d-xxl-flex justify-content-xxl-center" style={{width: '100%', height: '70%'}}>
                     <form className="text-start" id="form-login" onSubmit={ handleSubmit(onValid) }>
-                        <div className="mb-3"><label className="form-label" id="lbl-usuario" htmlFor="txt-usuario" style={{color: 'white'}}>Email</label><input className="form-control" type="email" id="txt-usuario" {...register('email')} style={{width: '245px'}} /></div>
+                        <div className="mb-3"><label className="form-label" id="lbl-usuario" htmlFor="txt-usuario" style={{color: 'white'}}>Email</label><input className="form-control" type="text" id="txt-usuario" {...register('empEmail')} style={{width: '245px'}} /></div>
                         <div className="mb-3"><label className="form-label" id="lbl-password" htmlFor="txt-password" style={{color: 'white'}}>Password</label><input className="form-control" type="password" id="txt-password" {...register('password')} style={{width: '245px'}} /></div>
                     <div className="d-xxl-flex justify-content-xxl-center" style={{width: '100%', height: '30%'}}><button className="btn btn-primary" data-bss-hover-animate="pulse" type="submit" style={{width: '245px', height: '36px', background: 'rgba(13,110,253,0)', borderRadius: '6px', borderStyle: 'ridge', borderColor: 'white'}}>Login</button></div>
                     </form>

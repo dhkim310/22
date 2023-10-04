@@ -13,8 +13,8 @@ import java.util.List;
 public class SignInResponse {
 
     private String token;
-    private Long id;
-    private String name;
-    private String email;
+    private Long empId;
+    private String empName;
+    private String empEmail;
     private List<String> roles;
 }

@@ -22,7 +22,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public SignInResponse signIn(SignInRequest request) {
-        Emp user = userRepository.findByEmpEmail(request.getEmail())
+        Emp user = userRepository.findByEmpEmail(request.getEmpEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("이메일/비밀번호가 맞지않습니다."));
         String encPassword = user.getPassword();
         boolean matches = passwordEncoder.matches(request.getPassword(), encPassword);
@@ -36,9 +36,9 @@ public class UserService {
 
         return SignInResponse.builder()
                 .token(token)
-                .id(user.getEmpId())
-                .name(user.getEmpName())
-                .email(user.getEmpEmail())
+                .empId(user.getEmpId())
+                .empName(user.getEmpName())
+                .empEmail(user.getEmpEmail())
                 .roles(roles)
                 .build();
 

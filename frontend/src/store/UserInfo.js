@@ -3,23 +3,23 @@ import { createSlice } from '@reduxjs/toolkit';
 export const userInfoSlice = createSlice({
     name: 'userInfo',
     initialState: {
-        email: null,
-        id: null,
-        name: null,
+        empEmail: null,
+        empId: null,
+        empName: null,
         roles: []
     },
     reducers:{
         SET_USER_INFO: (state, action) => {
-          state.email = action.payload.email;
-          state.id = action.payload.id;
-          state.name = action.payload.name;
+          state.empEmail = action.payload.email;
+          state.empId = action.payload.id;
+          state.empName = action.payload.name;
           state.roles = action.payload.roles;
           console.log(action.payload);
         },
         DELETE_USER_INFO: (state) => {
-            state.email = null;
-            state.id = null;
-            state.name = null;
+            state.empEmail = null;
+            state.empId = null;
+            state.empName = null;
             state.roles = [];
         },
     }
