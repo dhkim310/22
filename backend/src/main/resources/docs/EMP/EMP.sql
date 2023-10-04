@@ -1,4 +1,4 @@
-DROP table IF EXISTS `final`.EMP;
+DROP table IF EXISTS `final`.emp;
 
 create table `final`.EMP (
 
@@ -21,8 +21,8 @@ create table `final`.EMP (
 ) ENGINE = InnoDB COMMENT '사원' AUTO_INCREMENT = 101;
 
 -- EMP_EMAIL 유니크 키 추가
-ALTER TABLE `final`.EMP
+ALTER TABLE `final`.emp
 ADD CONSTRAINT `UK_EMP_EMAIL` UNIQUE (`EMP_EMAIL`);
 
-ALTER TABLE `final`.EMP
-ADD CONSTRAINT `FK_EMP_DEPT` FOREIGN KEY (`EMP_DEPT_ID`) REFERENCES `final`.DEPT (`DEPT_ID`);
+ALTER TABLE `final`.emp
+ADD CONSTRAINT `FK_EMP_DEPT` FOREIGN KEY (`EMP_DEPT_ID`) REFERENCES `final`.dept (`DEPT_ID`);

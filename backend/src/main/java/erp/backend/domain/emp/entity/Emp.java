@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -42,7 +42,7 @@ public class Emp implements UserDetails {
     private String password;
 
     @Column(name = "EMP_PHONENUMBER")
-    private String emp_PhoneNumber;
+    private String empPhoneNumber;
 
     @Column(name = "EMP_POSITION")
     private String empPosition;
@@ -53,17 +53,17 @@ public class Emp implements UserDetails {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @CreationTimestamp
     @Column(name = "EMP_BIRTHDAY")
-    private LocalDate empBirthday;
+    private Date empBirthday;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @CreationTimestamp
     @Column(name = "EMP_STARTDATE")
-    private LocalDate empStartDate;
+    private Date empStartDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @CreationTimestamp
     @Column(name = "EMP_ENDDATE")
-    private LocalDate empEndDate;
+    private Date empEndDate;
 
     @Column(name = "EMP_STATUS")
     private String empStatus;
