@@ -50,7 +50,8 @@ public class SecurityConfig {
                                         "/api/notice/management/**"
                                 ).hasRole("ADMIN")
                                 .requestMatchers(
-                                        "/main"
+                                        "/main",
+                                        "/api/log/commute"
                                 ).hasRole("USER")
                                 .requestMatchers(
                                         "/api/emp/sign-in",
