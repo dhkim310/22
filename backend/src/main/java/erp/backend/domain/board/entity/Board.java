@@ -18,22 +18,29 @@ import java.sql.Date;
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long board_id;
+    @Column(name = "BOARD_ID")
+    private long boardId;
     //외래키
-    private long board_emp_id;
+    @Column(name = "BOARD_EMP_ID")
+    private long boardEmpId;
 
-    private String board_subject;
+    @Column(name = "BOARD_SUBJECT")
+    private String boardSubject;
 
-    private String board_content;
+    @Column(name = "BOARD_CONTENT")
+    private String boardContent;
 
-    private int board_views;
+    @Column(name = "BOARD_VIEWS")
+    private int boardViews;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date board_createddate;
+    @Column(name = "BOARD_CREATEDDATE")
+    private Date boardCreatedDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date board_modifieddate;
+    @Column(name = "BOARD_MODIFIEDDATE")
+    private Date boardModifiedDate;
 
 }

@@ -1,9 +1,6 @@
 package erp.backend.domain.boardfile.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,14 +12,20 @@ import lombok.NoArgsConstructor;
 public class BoardFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long boardfile_id;
+    @Column(name = "BOARDFILE_ID")
+    private long boardFileId;
+
     //외래키
-    private long boardfile_board_id;
+    @Column(name = "BOARDFILE_BOARD_ID")
+    private long boardFileBoardId;
 
-    private String boardfile_name;
+    @Column(name = "BOARDFILE_NAME")
+    private String boardFileName;
 
-    private String boardfile_originname;
+    @Column(name = "BOARDFILE_ORIGINNAME")
+    private String boardFileOriginName;
 
-    private String boardfile_path;
+    @Column(name = "BOARDFILE_PATH")
+    private String boardFilePath;
 
 }

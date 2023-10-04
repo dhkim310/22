@@ -1,10 +1,8 @@
 package erp.backend.domain.notice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,21 +16,28 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long notice_id;
+    @Column(name = "NOTICE_ID")
+    private long noticeId;
     //외래키
-    private long notice_emp_id;
+    @Column(name = "NOTICE_EMP_ID")
+    private long noticeEmpId;
 
-    private String notice_subject;
+    @Column(name = "NOTICE_SUBJECT")
+    private String noticeSubject;
 
-    private String notice_content;
+    @Column(name = "NOTICE_CONTENT")
+    private String noticeContent;
 
-    private int notice_views;
+    @Column(name = "NOTICE_VIEWS")
+    private int noticeViews;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date notice_createddate;
+    @Column(name = "NOTICE_CREATEDDATE")
+    private Date noticeCreatedDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date notice_modifieddate;
+    @Column(name = "NOTICE_MODIFIEDDATE")
+    private Date noticeModifiedDate;
 }
