@@ -47,7 +47,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(
-                                        "/api/notice/management/**"
+                                        "/api/notice/management/**",
+                                    "/api/memo/write"
                                 ).hasRole("ADMIN")
                                 .requestMatchers(
                                         "/main"
