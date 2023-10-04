@@ -1,5 +1,5 @@
 -- 영상
-DROP TABLE IF EXISTS `final`.MOVIE;
+DROP TABLE IF EXISTS `final`.movie;
 CREATE TABLE `final`.MOVIE
 (
     `MOVIE_ID`         VARCHAR(255) NOT NULL COMMENT '영상 코드',

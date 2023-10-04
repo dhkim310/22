@@ -2,8 +2,6 @@ package erp.backend.domain.emp.controller;
 
 import erp.backend.domain.emp.dto.SignInRequest;
 import erp.backend.domain.emp.dto.SignInResponse;
-import erp.backend.domain.emp.dto.SignUpRequest;
-import erp.backend.domain.emp.service.EmpService;
 import erp.backend.domain.emp.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +22,6 @@ public class EmpController {
     public ResponseEntity<SignInResponse> signIn(@RequestBody @Valid SignInRequest request) {
         System.out.println(request.toString());
         return ResponseEntity.ok(userService.signIn(request));
-    }
 
     @PostMapping("/sign-up")
     public ResponseEntity<Boolean> signUp(@RequestBody @Valid SignUpRequest request) {
