@@ -1,6 +1,6 @@
 -- 사원근태
-DROP TABLE IF EXISTS `final`.LOG;
-CREATE TABLE `final`.LOG
+DROP TABLE IF EXISTS `final`.log;
+CREATE TABLE `final`.log
 (
     `LOG_ID`            BIGINT       NOT NULL AUTO_INCREMENT COMMENT '근태코드',
     `LOG_EMP_ID`        BIGINT       NOT NULL COMMENT '사원코드',
@@ -17,5 +17,5 @@ CREATE TABLE `final`.LOG
 ) ENGINE = InnoDB COMMENT '사원근태'
   AUTO_INCREMENT = 1;
 
-ALTER TABLE `final`.LOG
-    ADD CONSTRAINT `FK_LOG_EMP` FOREIGN KEY (`LOG_EMP_ID`) REFERENCES `final`.EMP (`EMP_ID`);
+ALTER TABLE `final`.log
+    ADD CONSTRAINT `FK_LOG_EMP` FOREIGN KEY (`LOG_EMP_ID`) REFERENCES `final`.emp (`EMP_ID`);
