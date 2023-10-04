@@ -1,9 +1,6 @@
 package erp.backend.domain.noticefile.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,13 +12,18 @@ import lombok.NoArgsConstructor;
 public class NoticeFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long noticefile_id;
+    @Column(name = "NOTICEFILE_ID")
+    private long noticeFileId;
     // 외래키
-    private long noticefile_notice_id;
+    @Column(name = "NOTICEFILE_NOTICE_ID")
+    private long noticeFileNoticeId;
 
-    private String noticefile_name;
+    @Column(name = "NOTICEFILE_NAME")
+    private String noticeFileName;
 
-    private String noticefile_originname;
+    @Column(name = "NOTICEFILE_ORIGINNAME")
+    private String noticeFileOriginName;
 
-    private String noticefile_path;
+    @Column(name = "NOTICEFILE_PATH")
+    private String noticeFilePath;
 }

@@ -1,10 +1,8 @@
 package erp.backend.domain.comment.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,20 +17,26 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long comment_id;
+    @Column(name = "COMMENT_ID")
+    private long commentId;
     //외래키
-    private long comment_board_id;
+    @Column(name = "COMMENT_BOARD_ID")
+    private long commentBoardId;
     //외래키
-    private long comment_emp_id;
+    @Column(name = "COMMENT_EMP_ID")
+    private long commentEmpId;
 
-    private String comment_comment;
+    @Column(name = "COMMENT_COMMENT")
+    private String commentComment;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date comment_created_date;
+    @Column(name = "COMMENT_CREATED_DATE")
+    private Date commentCreatedDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date comment_modified_date;
+    @Column(name = "COMMENT_MODIFIED_DATE")
+    private Date commentModifiedDate;
 
 }

@@ -1,10 +1,8 @@
 package erp.backend.domain.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,29 +17,40 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long member_id;
+    @Column(name = "MEMBER_ID")
+    private long memberId;
 
-    private String member_name;
+    @Column(name = "MEMBER_NAME")
+    private String memberName;
 
-    private String member_email;
+    @Column(name = "MEMBER_EMAIL")
+    private String memberEmail;
 
-    private String member_password;
+    @Column(name = "MEMBER_PASSWORD")
+    private String memberPassword;
 
-    private String member_phonenumber;
+    @Column(name = "MEMBER_PHONENUMBER")
+    private String memberPhoneNumber;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date member_birthday;
+    @Column(name = "MEMBER_BIRTHDAY")
+    private Date memberBirthDay;
 
-    private String member_rateplan;
+    @Column(name = "MEMBER_RATEPLAN")
+    private String memberRatePlan;
 
-    private int member_paymentprice;
+    @Column(name = "MEMBER_PAYMENTPRICE")
+    private int memberPaymentPrice;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date member_paymentdate;
+    @Column(name = "MEMBER_PAYMENTDATE")
+    private Date memberPaymentDate;
 
-    private String member_paymentbank;
+    @Column(name = "MEMBER_PAYMENTBANK")
+    private String memberPaymentBank;
 
-    private String member_accountnumber;
+    @Column(name = "MEMBER_ACCOUNTNUMBER")
+    private String memberAccountNumber;
 }

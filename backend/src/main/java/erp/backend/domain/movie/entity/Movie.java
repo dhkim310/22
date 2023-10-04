@@ -1,10 +1,8 @@
 package erp.backend.domain.movie.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,27 +15,37 @@ import org.hibernate.annotations.CreationTimestamp;
 @Data // setter, getter 자동생성
 public class Movie {
     @Id
-    private String movie_id;
+    @Column(name = "MOVIE_ID")
+    private String movieId;
 
-    private String movie_krname;
+    @Column(name = "MOVIE_KRNAME")
+    private String movieKrname;
 
-    private String movie_enname;
+    @Column(name = "MOVIE_ENGNAME")
+    private String movieEngName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date movie_madedate;
+    @Column(name = "MOVIE_MADEDATE")
+    private Date movieMadeDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date movie_opendate;
+    @Column(name = "MOVIE_OPENDATE")
+    private Date movieOpenDate;
 
-    private String movie_status;
+    @Column(name = "MOVIE_STATUS")
+    private String movieStatus;
 
-    private String movie_country;
+    @Column(name = "MOVIE_COUNTRY")
+    private String movieCountry;
 
-    private String movie_genre;
+    @Column(name = "MOVIE_GENRE")
+    private String movieGenre;
 
-    private String movie_producer;
+    @Column(name = "MOVIE_PRODUCER")
+    private String movieProducer;
 
-    private String movie_producerid;
+    @Column(name = "MOVIE_PRODUCERID")
+    private String movieProducerId;
 }

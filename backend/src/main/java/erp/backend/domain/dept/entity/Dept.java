@@ -1,20 +1,15 @@
 package erp.backend.domain.dept.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Dept {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "DEPT_ID")
+    @Column(name = "DEPT_ID")
     private Long deptId;
 
     @Column(name = "DEPT_NAME")

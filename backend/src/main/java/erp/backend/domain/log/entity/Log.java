@@ -1,10 +1,8 @@
 package erp.backend.domain.log.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,33 +16,44 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Log {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long log_id;
+    @Column(name = "LOG_ID")
+    private long logId;
     //외래키
-    private long log_emp_id;
+    @Column(name = "LOG_EMP_ID")
+    private long logEmpId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date log_date;
+    @Column(name = "LOG_DATE")
+    private Date logDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date log_checkin;
+    @Column(name = "LOG_CHECKIN")
+    private Date logCheckIn;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date log_checkout;
+    @Column(name = "LOG_CHECKOUT")
+    private Date logCheckOut;
 
-    private String log_status;
+    @Column(name = "LOG_STATUS")
+    private String logStatus;
 
-    private int log_totalvacation;
+    @Column(name = "LOG_TOTALVACATION")
+    private int logTotalVacation;
 
-    private int log_usedvacation;
+    @Column(name = "LOG_USEDVACATION")
+    private int logUsedVacation;
 
-    private int log_totaldayoff;
+    @Column(name = "LOG_TOTALDAYOFF")
+    private int logTotalDayOff;
 
-    private int log_useddayoff;
+    @Column(name = "LOG_USEDDAYOFF")
+    private int logUsedDayOff;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date log_datedayoff;
+    @Column(name = "LOG_DATEDAYOFF")
+    private Date logDateDayOff;
 }

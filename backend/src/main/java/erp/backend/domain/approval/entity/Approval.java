@@ -1,10 +1,8 @@
 package erp.backend.domain.approval.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.sql.Date;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,29 +16,38 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Approval {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long approval_id;
-    //외래키
-    private long approval_emp_id;
+    @Column(name = "APPROVAL_ID")
+    private long approvalId;
 
-    private String approval_subject;
+    @JoinColumn(name = "APPROVAL_EMP_ID")
+    private long approvalEmpId;
 
-    private String approval_content;
+    @Column(name = "APPROVAL_SUBJECT")
+    private String approvalSubject;
 
-    private String approval_check;
+    @Column(name = "APPROVAL_CONTENT")
+    private String approvalContent;
 
-    private String approval_checkman;
+    @Column(name = "APPROVAL_CHECK")
+    private String approvalCheck;
 
-    private String approval_checkmanposition;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
-    @CreationTimestamp
-    private Date approval_uploaddate;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
-    @CreationTimestamp
-    private Date approval_backdate;
+    @Column(name = "APPROVAL_CHECKMAN")
+    private String approvalCheckMan;
+    @Column(name = "APPROVAL_CHECKMANPOSITION")
+    private String approvalCheckManPosition;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
-    private Date approval_successdate;
+    @Column(name = "APPROVAL_UPLOADDATE")
+    private Date approvalUpLoadDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
+    @CreationTimestamp
+    @Column(name = "APPROVAL_BACKDATE")
+    private Date approvalBackDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
+    @CreationTimestamp
+    @Column(name = "APPROVAL_SUCCESSDATE")
+    private Date approvalSuccessDate;
 }

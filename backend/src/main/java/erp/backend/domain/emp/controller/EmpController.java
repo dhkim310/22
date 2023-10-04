@@ -16,10 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/emp")
 public class EmpController {
     private final UserService userService;
+    private final EmpService empService;
 
     @PostMapping("/sign-in")
     public ResponseEntity<SignInResponse> signIn(@RequestBody @Valid SignInRequest request) {
         System.out.println(request.toString());
         return ResponseEntity.ok(userService.signIn(request));
+
+    @PostMapping("/sign-up")
+    public ResponseEntity<Boolean> signUp(@RequestBody @Valid SignUpRequest request) {
+        empService.signUp(request);
+        return ResponseEntity.ok().build();
     }
 }
