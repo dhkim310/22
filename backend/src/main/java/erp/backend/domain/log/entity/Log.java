@@ -1,13 +1,17 @@
 package erp.backend.domain.log.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import erp.backend.domain.emp.entity.Emp;
+import erp.backend.domain.log.Vo.LogVo;
 import erp.backend.domain.log.dto.LogUpdate;
 import jakarta.persistence.*;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity //jpa 사용할때!
 @Getter
@@ -38,6 +42,6 @@ public class Log {
 
     public void update(Emp emp, LogUpdate request){
         this.logCheckOut = LocalDateTime.now();
-        this.logStatus = "퇴근";
+        this.logStatus = new LogVo().type2(LocalDateTime.now());
     }
 }
