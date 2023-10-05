@@ -2,8 +2,8 @@ package erp.backend.domain.log.service;
 
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.log.Vo.LogVo;
-import erp.backend.domain.log.dto.CreateLog;
-import erp.backend.domain.log.dto.UpdateLog;
+import erp.backend.domain.log.dto.LogInsert;
+import erp.backend.domain.log.dto.LogUpdate;
 import erp.backend.domain.log.entity.Log;
 import erp.backend.domain.log.repository.LogRepository;
 import erp.backend.global.config.security.SecurityHelper;
@@ -21,7 +21,7 @@ public class LogService {
     private final LogRepository logRepository;
 
     @Transactional
-    public Long createLog(CreateLog request) {
+    public Long logInsert(LogInsert request) {
         Emp emp = SecurityHelper.getAccount();
         Log entity = Log.builder()
                 .emp(emp)
@@ -33,7 +33,7 @@ public class LogService {
         return logRepository.save(entity).getLogId();
     }
     @Transactional
-    public Long updateLog(Long logId, UpdateLog request) {
+    public Long logUpdate(LogUpdate request) {
         Emp emp  = SecurityHelper.getAccount();
         Log entity = logRepository.findTopByEmpEmpIdOrderByLogIdDesc(emp.getEmpId());
         entity.update(emp,request);

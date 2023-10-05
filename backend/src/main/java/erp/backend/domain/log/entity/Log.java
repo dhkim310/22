@@ -3,7 +3,7 @@ package erp.backend.domain.log.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.log.Vo.LogVo;
-import erp.backend.domain.log.dto.UpdateLog;
+import erp.backend.domain.log.dto.LogUpdate;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -40,7 +40,7 @@ public class Log {
     @Column(name = "LOG_STATUS")
     private String logStatus;
 
-    public void update(Emp emp, UpdateLog request){
+    public void update(Emp emp, LogUpdate request){
         this.logCheckOut = LocalDateTime.now();
         this.logStatus = new LogVo().type2(LocalDateTime.now());
     }
