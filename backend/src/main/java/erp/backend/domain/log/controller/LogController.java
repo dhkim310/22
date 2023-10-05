@@ -19,7 +19,7 @@ public class LogController {
         return ResponseEntity.ok(logService.createLog(request));
     }
     @PutMapping("/commute")
-    public ResponseEntity<Long> updateLog(Long id,@RequestBody UpdateLog request) {
-        return ResponseEntity.ok(logService.updateLog(id,request));
+    public ResponseEntity<Long> updateLog(Long id, @RequestBody UpdateLog request) {
+        return ResponseEntity.ok(logService.updateLog(id, request));
     }
 }

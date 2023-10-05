@@ -5,6 +5,8 @@ import erp.backend.domain.log.dto.CreateLog;
 import erp.backend.domain.log.dto.UpdateLog;
 import erp.backend.domain.log.entity.Log;
 import erp.backend.domain.log.repository.LogRepository;
+import erp.backend.domain.notice.dto.NoticeUpdate;
+import erp.backend.domain.notice.entity.Notice;
 import erp.backend.global.config.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,12 +32,25 @@ public class LogService {
                 .build();
         return logRepository.save(entity).getLogId();
     }
-    @Transactional
-    public Long updateLog(Long logId, UpdateLog request) {
-        Emp emp  = SecurityHelper.getAccount();
-        Log entity = logRepository.findTopByOrderByLogIdDesc();
-        entity.update(emp,request);
+//    @Transactional
+//    public Long updateLog(UpdateLog request) {
+//        Emp emp  = SecurityHelper.getAccount();
+//        Log entity = logRepository.findTopByOrderByLogIdDescAndFindByEmpEmpId(emp.getEmpId());
+//        entity.update(emp,request);
+//
+//        return entity.getLogId();
+//    }
 
+    @Transactional
+    public Long updateLog(Long id, UpdateLog request) {
+        Emp emp = SecurityHelper.getAccount();
+        Log entity = getLog(id);
+        Long empId = entity.getEmp().getEmpId();
+        if (emp.getEmpId() != empId) {
+            return -1L;
+        } else {
+            entity.update(request);
+        }
         return entity.getLogId();
     }
 

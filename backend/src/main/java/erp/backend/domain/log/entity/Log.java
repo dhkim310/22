@@ -39,7 +39,7 @@ public class Log {
     @Column(name = "LOG_STATUS")
     private String logStatus;
 
-    public void update(Emp emp, UpdateLog request){
+    public void update(UpdateLog request){
         this.logCheckOut = LocalDateTime.now();
         this.logStatus = "퇴근";
     }
