@@ -1,15 +1,14 @@
 package erp.backend.domain.noticefile.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity //jpa 사용할때!
+@Getter
+@Builder
 @AllArgsConstructor // 파라미터있는생성자
 @NoArgsConstructor // 기본생성자
-@Data // setter, getter 자동생성
-public class NoticeFile {
+public class NoticeFile{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NOTICEFILE_ID")
