@@ -57,7 +57,6 @@ public class EmpService {
         String token = jwtProvider.createToken(emp.getEmpEmail(), emp.getAuthorities());
 
         List<String> roles = Arrays.stream(emp.getRoles().split(",")).toList();
-
         return SignInResponse.builder()
                 .token(token)
                 .empId(emp.getEmpId())
