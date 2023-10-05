@@ -2,6 +2,7 @@ package erp.backend.domain.notice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import erp.backend.domain.emp.entity.Emp;
+import erp.backend.domain.notice.dto.NoticeUpdate;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,8 +46,14 @@ public class Notice {
     @Column(name = "NOTICE_MODIFIEDDATE")
     private LocalDateTime noticeModifiedDate;
 
-    public Notice updateViewCount(int noticeViews){
-        this.noticeViews = getNoticeViews()+1;
+    public Notice updateViewCount(int noticeViews) {
+        this.noticeViews = getNoticeViews() + 1;
         return this;
+    }
+
+    public void update(NoticeUpdate request) {
+        this.noticeSubject = request.getSubject();
+        this.noticeContent = request.getContent();
+        this.noticeModifiedDate = LocalDateTime.now();
     }
 }
