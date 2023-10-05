@@ -2,6 +2,7 @@ package erp.backend.domain.log.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import erp.backend.domain.emp.entity.Emp;
+import erp.backend.domain.log.Vo.LogVo;
 import erp.backend.domain.log.dto.UpdateLog;
 import jakarta.persistence.*;
 
@@ -41,6 +42,6 @@ public class Log {
 
     public void update(Emp emp, UpdateLog request){
         this.logCheckOut = LocalDateTime.now();
-        this.logStatus = "퇴근";
+        this.logStatus = new LogVo().type2(LocalDateTime.now());
     }
 }

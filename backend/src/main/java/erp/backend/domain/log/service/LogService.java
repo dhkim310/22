@@ -1,6 +1,7 @@
 package erp.backend.domain.log.service;
 
 import erp.backend.domain.emp.entity.Emp;
+import erp.backend.domain.log.Vo.LogVo;
 import erp.backend.domain.log.dto.CreateLog;
 import erp.backend.domain.log.dto.UpdateLog;
 import erp.backend.domain.log.entity.Log;
@@ -26,8 +27,9 @@ public class LogService {
                 .emp(emp)
                 .logDate(LocalDate.now())
                 .logCheckIn(LocalDateTime.now())
-                .logStatus("출근 or 지각")
+                .logStatus(new LogVo().type1(LocalDateTime.now()))
                 .build();
+
         return logRepository.save(entity).getLogId();
     }
     @Transactional
