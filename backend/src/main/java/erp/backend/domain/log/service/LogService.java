@@ -33,7 +33,7 @@ public class LogService {
     @Transactional
     public Long updateLog(Long logId, UpdateLog request) {
         Emp emp  = SecurityHelper.getAccount();
-        Log entity = logRepository.findTopByOrderByLogIdDesc();
+        Log entity = logRepository.findTopByEmpEmpIdOrderByLogIdDesc(emp.getEmpId());
         entity.update(emp,request);
 
         return entity.getLogId();
