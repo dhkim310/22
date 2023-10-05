@@ -1,13 +1,13 @@
 package erp.backend.domain.board.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import erp.backend.domain.board.dto.BoardUpdate;
 import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.notice.entity.Notice;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Date;
+
 import java.time.LocalDateTime;
 
 @Entity //jpa 사용할때!
@@ -51,6 +51,11 @@ public class Board {
     public Board updateViewCount(int boardViews){
         this.boardViews = getBoardViews()+1;
         return this;
+    }
+    public void update(BoardUpdate request) {
+        this.boardSubject = request.getSubject();
+        this.boardContent = request.getContent();
+        this.boardModifiedDate = LocalDateTime.now();
     }
 
 }
