@@ -23,7 +23,7 @@ public class Notice {
     private long noticeId;
     //외래키
     @ManyToOne(fetch = FetchType.LAZY) // 필요할때만 호출
-    @JoinColumn(name = "NOTICE_EMP_ID", referencedColumnName = "EMP_ID", updatable = false) // 작성자 수정 불가
+    @JoinColumn(name = "NOTICE_EMP_ID", referencedColumnName = "EMP_ID", updatable = false) // 작성자만 수정 가능
     private Emp emp;
 
     @Column(name = "NOTICE_SUBJECT")
@@ -44,4 +44,9 @@ public class Notice {
     @CreationTimestamp
     @Column(name = "NOTICE_MODIFIEDDATE")
     private LocalDateTime noticeModifiedDate;
+
+    public Notice updateViewCount(int noticeViews){
+        this.noticeViews = getNoticeViews()+1;
+        return this;
+    }
 }
