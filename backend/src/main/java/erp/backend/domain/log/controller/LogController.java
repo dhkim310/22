@@ -1,7 +1,7 @@
 package erp.backend.domain.log.controller;
 
-import erp.backend.domain.log.dto.CreateLog;
-import erp.backend.domain.log.dto.UpdateLog;
+import erp.backend.domain.log.dto.LogInsert;
+import erp.backend.domain.log.dto.LogUpdate;
 import erp.backend.domain.log.service.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +15,11 @@ public class LogController {
     private final LogService logService;
 
     @PostMapping("/commute")
-    public ResponseEntity<Long> createLog(@RequestBody CreateLog request) {
-        return ResponseEntity.ok(logService.createLog(request));
+    public ResponseEntity<Long> createLog(@RequestBody LogInsert request) {
+        return ResponseEntity.ok(logService.logInsert(request));
     }
     @PutMapping("/commute")
-    public ResponseEntity<Long> updateLog(Long id,@RequestBody UpdateLog request) {
-        return ResponseEntity.ok(logService.updateLog(id,request));
+    public ResponseEntity<Long> updateLog(@RequestBody LogUpdate request) {
+        return ResponseEntity.ok(logService.logUpdate(request));
     }
 }

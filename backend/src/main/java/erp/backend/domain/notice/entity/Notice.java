@@ -2,6 +2,7 @@ package erp.backend.domain.notice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import erp.backend.domain.emp.entity.Emp;
+import erp.backend.domain.notice.dto.NoticeUpdate;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +24,7 @@ public class Notice {
     private long noticeId;
     //외래키
     @ManyToOne(fetch = FetchType.LAZY) // 필요할때만 호출
-    @JoinColumn(name = "NOTICE_EMP_ID", referencedColumnName = "EMP_ID", updatable = false) // 작성자만 수정 가능
+    @JoinColumn(name = "NOTICE_EMP_ID", referencedColumnName = "EMP_ID", updatable = false) // 작성자 수정 불가
     private Emp emp;
 
     @Column(name = "NOTICE_SUBJECT")
@@ -45,8 +46,14 @@ public class Notice {
     @Column(name = "NOTICE_MODIFIEDDATE")
     private LocalDateTime noticeModifiedDate;
 
-    public Notice updateViewCount(int noticeViews){
-        this.noticeViews = getNoticeViews()+1;
+    public Notice updateViewCount(int noticeViews) {
+        this.noticeViews = getNoticeViews() + 1;
         return this;
+    }
+
+    public void update(NoticeUpdate request) {
+        this.noticeSubject = request.getSubject();
+        this.noticeContent = request.getContent();
+        this.noticeModifiedDate = LocalDateTime.now();
     }
 }

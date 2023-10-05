@@ -58,7 +58,10 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/api/emp/sign-in",
                                         "/api/emp/sign-up",
-                                        "/api/notice"
+                                        "/api/notice",
+                                        "/api/board/**",
+                                        "/api/board/update",
+                                        "/api/board/list"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )
