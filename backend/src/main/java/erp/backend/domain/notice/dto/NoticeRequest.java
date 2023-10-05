@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class NoticeInsert {
+public class NoticeRequest {
     private String subject;
     private String content;
 }
