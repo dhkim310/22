@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface LogRepository extends JpaRepository<Log, Long> {
 
-    Log findTopByOrderByLogIdDesc();
+    Log findTopByEmpEmpIdOrderByLogIdDesc(Long empId);
 
     //Log findByEmpEmpId(Long id);
 
