@@ -7,14 +7,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface BoardRepository extends JpaRepository<Board, Long> {
+    public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    Page<Board> findByOrderByBoardIdDesc(Pageable pageable);
+        Page<Board> findByOrderByBoardIdDesc(Pageable pageable);
 
-    List<Board> findByBoardId(long boardId);
+        List<Board> findByBoardId(long boardId);
 
-    List<Board> findByBoardIdAndEmpEmpId(long boardId, long empId);
+        List<Board> findByBoardIdAndEmpEmpId(long boardId, long empId);
 
-    List<Board> findByEmpEmpIdContaining(long empId);
+        List<Board> findByEmpEmpIdContaining(long empId);
 
 }

@@ -1,21 +1,18 @@
 package erp.backend.domain.board.service;
 
 
-import erp.backend.domain.board.dto.BoardDelete;
-import erp.backend.domain.board.dto.BoardDetailResponse;
-import erp.backend.domain.board.dto.BoardInsert;
+import erp.backend.domain.board.dto.*;
 import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.board.repository.BoardRepository;
 import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.notice.dto.NoticeDetailResponse;
-import erp.backend.domain.notice.entity.Notice;
 import erp.backend.global.config.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -57,9 +54,37 @@ public class BoardService {
                 .build();
     }
 
+    @Transactional
+    public Long boardUpdate(Long id, BoardUpdate request) {
+        Emp emp = SecurityHelper.getAccount();
+        Board entity = getBoard(id);
+        Long empId = entity.getEmp().getEmpId();
+        if (emp.getEmpId() == empId) {
+            entity.update(request);
+        } else {
+            return -1L;
+        }
+        return entity.getBoardId();
+    }
+
+    @Transactional
+    public Page<Board> findAll(Pageable pageable) {
+        System.out.println("@findAll() pageable: " + pageable);
+        return boardRepository.findByOrderByBoardIdDesc(pageable);
+    }
+
+    @Transactional
+    public BoardListResult getBoardListResult(Pageable pageable) {
+        Page<Board> list = findAll(pageable);
+        int page = pageable.getPageNumber();
+        long totalCount = boardRepository.count();
+        int size = pageable.getPageSize();
+        System.out.println("@getBoardListResult() page: "+page+", totalCount: "+totalCount+", size: "+size);
+        return new BoardListResult(page, totalCount, size, list);
+    }
+
     private Board getBoard(Long id) {
         return boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 데이터입니다."));
     }
-
 }

@@ -59,7 +59,9 @@ public class SecurityConfig {
                                         "/api/emp/sign-in",
                                         "/api/emp/sign-up",
                                         "/api/notice",
-                                        "/api/board/**"
+                                        "/api/board/**",
+                                        "/api/board/update",
+                                        "/api/board/list"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )
