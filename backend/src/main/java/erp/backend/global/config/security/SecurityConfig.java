@@ -52,7 +52,8 @@ public class SecurityConfig {
                                         "/api/memo/update/7"
                                 ).hasRole("ADMIN")
                                 .requestMatchers(
-                                        "/main"
+                                        "/main",
+                                        "/api/log/commute"
                                 ).hasRole("USER")
                                 .requestMatchers(
                                         "/api/emp/sign-in",
