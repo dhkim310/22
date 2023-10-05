@@ -48,16 +48,19 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers(
                                         "/api/notice/management/**",
-                                    "/api/memo/write",
-                                        "/api/memo/update/7"
+                                        "/api/memo/**"
                                 ).hasRole("ADMIN")
                                 .requestMatchers(
-                                        "/main"
+                                        "/main",
+                                        "/api/log/commute"
                                 ).hasRole("USER")
                                 .requestMatchers(
                                         "/api/emp/sign-in",
                                         "/api/emp/sign-up",
-                                        "/api/notice"
+                                        "/api/notice",
+                                        "/api/board/**",
+                                        "/api/board/update",
+                                        "/api/board/list"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )

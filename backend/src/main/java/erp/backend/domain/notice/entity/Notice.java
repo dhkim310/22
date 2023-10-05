@@ -24,7 +24,7 @@ public class Notice {
     private long noticeId;
     //외래키
     @ManyToOne(fetch = FetchType.LAZY) // 필요할때만 호출
-    @JoinColumn(name = "NOTICE_EMP_ID", referencedColumnName = "EMP_ID", updatable = false) // 작성자만 수정 가능
+    @JoinColumn(name = "NOTICE_EMP_ID", referencedColumnName = "EMP_ID", updatable = false) // 작성자 수정 불가
     private Emp emp;
 
     @Column(name = "NOTICE_SUBJECT")
