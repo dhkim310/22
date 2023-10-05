@@ -1,14 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
+import { commuteApi, commuteUpdateApi } from '../api/Commute';
+import { useForm } from 'react-hook-form';
 
 
 function Main() {
 
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
-
-
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    
+    const onValid = async ({today}) => {
+        await commuteApi({today})
+        .then((res) => {
+            if (res.status === 200) {
+                alert('출근')
+            }
+                console.log(res);
+        })
+        .catch((err) => {
+            alert('Error')
+            console.log("err", err);
+        })
+    };
+    
+    const onValid1 = async ({today}) => {
+        await commuteUpdateApi({today})
+        .then((res) => {
+            if (res.status === 200) {
+                alert('퇴근')
+            }
+        })
+        .catch((err) => {
+            alert('Error')
+            console.log("err", err);
+        })
+    };
 
     useEffect(() => {
         const getWidth = () => {
@@ -61,11 +89,17 @@ function Main() {
                         <div className="d-lg-flex justify-content-lg-start justify-content-xxl-center" style={{width: '170px', height: '35px', background: 'black', color: 'white'}}><span style={{fontSize: '17px', width: 'auto'}}>근태관리</span></div>
                         </div>
                     </div>
-                    <div className="d-lg-flex justify-content-xxl-center" style={{height: '30px', background: 'rgba(126,126,126,0)', paddingTop: '10px'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" style={{width: '150px', height: '30px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '6px', borderColor: 'black'}}>출근</button></div>
-                    <div className="d-lg-flex justify-content-xxl-center" style={{height: '30px', background: 'rgba(126,126,126,0)', paddingTop: '22px'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" style={{width: '150px', height: '30px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '6px', borderColor: 'black'}}>퇴근</button></div>
+                    <form onSubmit={onValid}>
+                    <div className="d-lg-flex justify-content-xxl-center" style={{height: '30px', background: 'rgba(126,126,126,0)', paddingTop: '10px'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="submit" style={{width: '150px', height: '30px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '6px', borderColor: 'black'}}>출근</button></div>
+                    </form>
+                    
+                    <form onSubmit={onValid1}>
+                    <div className="d-lg-flex justify-content-xxl-center" style={{height: '30px', background: 'rgba(126,126,126,0)', paddingTop: '22px'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="submit" style={{width: '150px', height: '30px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '6px', borderColor: 'black'}}>퇴근</button></div>
+                    </form>
+
                     <div style={{height: 'auto', background: 'rgba(0,0,0,0)', paddingBottom: '15px', paddingTop: '37px'}}>
-                        <div className="d-lg-flex justify-content-xxl-start" style={{height: '30px', background: 'rgba(126,126,126,0)', fontSize: '12px'}}><span style={{fontWeight: 'bold'}}>&nbsp; 출근시간 :&nbsp;</span></div>
-                        <div className="d-lg-flex justify-content-xxl-start" style={{height: '30px', background: 'rgba(126,126,126,0)'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>&nbsp; 퇴근시간 :&nbsp;</span></div>
+                    <div className="d-lg-flex justify-content-xxl-start" style={{height: '30px', background: 'rgba(126,126,126,0)', fontSize: '12px'}}><span style={{fontWeight: 'bold'}}>&nbsp; 출근시간 :&nbsp;</span></div>
+                    <div className="d-lg-flex justify-content-xxl-start" style={{height: '30px', background: 'rgba(126,126,126,0)'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>&nbsp; 퇴근시간 :&nbsp;</span></div>
                     </div>
                     </div>
                     <div style={{width: '90%', background: 'var(--bs-gray-200)', height: '100%'}}>
