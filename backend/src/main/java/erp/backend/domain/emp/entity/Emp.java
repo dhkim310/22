@@ -1,5 +1,6 @@
 package erp.backend.domain.emp.entity;
 
+import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.dept.entity.Dept;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
