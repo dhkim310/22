@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -30,7 +30,7 @@ public class SignUpRequest {
     private String roles;
 
     @NotNull(message = "사원의 생년월일을 입력해 주세요")
-    private Date empBirthday;
+    private LocalDate empBirthday;
 
     @NotBlank(message = "사원의 핸드폰 번호를 입력해 주세요.")
     private String empPhoneNumber;
@@ -44,6 +44,6 @@ public class SignUpRequest {
     private String empGender;
 
     @NotNull(message = "사원의 입사일 입니다.")
-    private Date empStartDate;
+    private LocalDate empStartDate;
 
 }

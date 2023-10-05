@@ -1,12 +1,15 @@
 package erp.backend.domain.notice.controller;
 
 import erp.backend.domain.notice.dto.NoticeDetailResponse;
-import erp.backend.domain.notice.dto.NoticeInsert;
-import erp.backend.domain.notice.dto.NoticeUpdate;
+import erp.backend.domain.notice.dto.NoticeRequest;
 import erp.backend.domain.notice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,8 +18,8 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @PostMapping("/management")
-    public ResponseEntity<Long> noticeInsert(@RequestBody NoticeInsert request) {
-        return ResponseEntity.ok(noticeService.noticeInsert(request));
+    public void noticeInsert(@RequestPart(value = "requestDto") NoticeRequest request, @RequestPart(value = "files") List<MultipartFile> files) throws IOException {
+        noticeService.noticeInsert(request, files);
     }
 
     @GetMapping("/management/detail/{id}")
@@ -25,12 +28,12 @@ public class NoticeController {
     }
 
     @DeleteMapping("/management/delete/{id}")
-    public ResponseEntity<Boolean> noticeDelete(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(noticeService.noticeDelete(id));
+    public void noticeDelete(@PathVariable("id") Long id) {
+        ResponseEntity.ok(noticeService.noticeDelete(id));
     }
 
     @PutMapping("/management/update/{id}")
-    public ResponseEntity<Long> noticeUpdate(@PathVariable("id") Long id, @RequestBody NoticeUpdate request) {
+    public ResponseEntity<Long> noticeUpdate(@PathVariable("id") Long id, @RequestBody NoticeRequest request) {
         return ResponseEntity.ok(noticeService.noticeUpdate(id, request));
     }
 }

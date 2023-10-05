@@ -29,7 +29,7 @@ public class EmpService {
         Emp emp = Emp.builder()
                 .empName(request.getEmpName())
                 .empEmail(request.getEmpEmail())
-                .empDeptId(request.getEmpDeptId())
+                .dept(request.getEmpDeptId())
                 .password(passwordEncoder.encode("1541")) // 사원의 초기 비밀번호 1541
                 .empPosition(request.getEmpPosition())
                 .roles(request.getRoles())

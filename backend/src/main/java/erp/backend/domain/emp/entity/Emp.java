@@ -1,19 +1,16 @@
 package erp.backend.domain.emp.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.dept.entity.Dept;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -33,7 +30,7 @@ public class Emp implements UserDetails {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EMP_DEPT_ID")
-    private Dept empDeptId;
+    private Dept dept;
 
     @Column(name = "EMP_NAME")
     private String empName;
@@ -53,20 +50,14 @@ public class Emp implements UserDetails {
     @Column(name = "EMP_ROLES")
     private String roles;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @CreationTimestamp
     @Column(name = "EMP_BIRTHDAY")
-    private Date empBirthday;
+    private LocalDate empBirthday;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @CreationTimestamp
     @Column(name = "EMP_STARTDATE")
-    private Date empStartDate;
+    private LocalDate empStartDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @CreationTimestamp
     @Column(name = "EMP_ENDDATE")
-    private Date empEndDate;
+    private LocalDate empEndDate;
 
     @Column(name = "EMP_STATUS")
     private String empStatus;
