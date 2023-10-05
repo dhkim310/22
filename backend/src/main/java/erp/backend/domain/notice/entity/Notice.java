@@ -44,4 +44,9 @@ public class Notice {
     @CreationTimestamp
     @Column(name = "NOTICE_MODIFIEDDATE")
     private LocalDateTime noticeModifiedDate;
+
+    public Notice updateViewCount(int noticeViews){
+        this.noticeViews = getNoticeViews()+1;
+        return this;
+    }
 }

@@ -2,17 +2,20 @@ package erp.backend.domain.board.service;
 
 
 import erp.backend.domain.board.dto.BoardDelete;
+import erp.backend.domain.board.dto.BoardDetailResponse;
 import erp.backend.domain.board.dto.BoardInsert;
 import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.board.repository.BoardRepository;
 import erp.backend.domain.emp.entity.Emp;
+import erp.backend.domain.notice.dto.NoticeDetailResponse;
+import erp.backend.domain.notice.entity.Notice;
 import erp.backend.global.config.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +26,6 @@ public class BoardService {
     public Long boardInsert(BoardInsert request) {
         // 사원 id
         Emp emp = SecurityHelper.getAccount();
-        System.out.println(emp.toString());
         Board entity = Board.builder()
                 .emp(emp)
                 .boardSubject(request.getSubject())
@@ -40,9 +42,24 @@ public class BoardService {
     }
 
     @Transactional
-    public void boardUpdate(BoardDelete request) {
-        Date date = boardRepository.findById(request.getBoardId()).get().getRdate();
-        board.setRdate(date);
-        boardRepository.save(board);
+    public BoardDetailResponse getBoardDetail(Long id) {
+        Board entity = getBoard(id);
+        // 상세보기 클릭시 조회수 1 증가
+        int view = entity.updateViewCount(entity.getBoardViews()).getBoardViews();
+        return BoardDetailResponse.builder()
+                .boardId(entity.getBoardId())
+                .writer(entity.getEmp().getEmpName())
+                .subject(entity.getBoardSubject())
+                .content(entity.getBoardContent())
+                .views(view)
+                .boardCreatedDate(entity.getBoardCreatedDate())
+                .boardModifiedDate(entity.getBoardModifiedDate())
+                .build();
     }
+
+    private Board getBoard(Long id) {
+        return boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 데이터입니다."));
+    }
+
 }

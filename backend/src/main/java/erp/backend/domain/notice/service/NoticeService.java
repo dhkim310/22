@@ -49,6 +49,6 @@ public class NoticeService {
 
     private Notice getNotice(Long id) {
         return noticeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 데이터입니."));
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 데이터입니다."));
     }
 }

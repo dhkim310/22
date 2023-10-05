@@ -2,6 +2,7 @@ package erp.backend.domain.board.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import erp.backend.domain.emp.entity.Emp;
+import erp.backend.domain.notice.entity.Notice;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -46,5 +47,10 @@ public class Board {
     @CreationTimestamp
     @Column(name = "BOARD_MODIFIEDDATE")
     private LocalDateTime boardModifiedDate;
+
+    public Board updateViewCount(int boardViews){
+        this.boardViews = getBoardViews()+1;
+        return this;
+    }
 
 }
