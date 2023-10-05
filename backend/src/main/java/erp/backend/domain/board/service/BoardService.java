@@ -1,27 +1,48 @@
 package erp.backend.domain.board.service;
 
-import erp.backend.domain.board.dto.BoardListResult;
+
+import erp.backend.domain.board.dto.BoardDelete;
+import erp.backend.domain.board.dto.BoardInsert;
 import erp.backend.domain.board.entity.Board;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import erp.backend.domain.board.repository.BoardRepository;
+import erp.backend.domain.emp.entity.Emp;
+import erp.backend.global.config.security.SecurityHelper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.sql.Date;
+import java.time.LocalDateTime;
 
-public interface BoardService {
-    List<Board> listS();
+@Service
+@RequiredArgsConstructor
+public class BoardService {
+    private final BoardRepository boardRepository;
 
-    Board insertS(Board board);
+    @Transactional
+    public Long boardInsert(BoardInsert request) {
+        // 사원 id
+        Emp emp = SecurityHelper.getAccount();
+        System.out.println(emp.toString());
+        Board entity = Board.builder()
+                .emp(emp)
+                .boardSubject(request.getSubject())
+                .boardContent(request.getContent())
+                .boardViews(0)
+                .boardCreatedDate(LocalDateTime.now())
+                .build();
+        return boardRepository.save(entity).getBoardId();
+    }
 
-    boolean deleteS(long seq);
+    @Transactional
+    public void boardDelete(BoardDelete request) {
+        boardRepository.deleteById(request.getBoardId());
+    }
 
-    Board updateS(Board board);
-
-    List<Board> contentS(String empId);
-
-    Board selectS(long boardCode);
-
-    Page<Board> findAll(Pageable pageable);
-
-    BoardListResult getBoardListResult(Pageable pageable);
-
+    @Transactional
+    public void boardUpdate(BoardDelete request) {
+        Date date = boardRepository.findById(request.getBoardId()).get().getRdate();
+        board.setRdate(date);
+        boardRepository.save(board);
+    }
 }
