@@ -1,31 +1,35 @@
 package erp.backend.domain.companyschedule.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import erp.backend.domain.emp.entity.Emp;
 import jakarta.persistence.*;
-
-import java.sql.Date;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDate;
 
 @Entity //jpa 사용할때!
+@Getter
+@Builder
 @AllArgsConstructor // 파라미터있는생성자
 @NoArgsConstructor // 기본생성자
-@Data // setter, getter 자동생성
+@Table(name = "companyschedule")
 public class CompanySchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "COMPANYSCHEDULE_ID")
     private long companyScheduleId;
     //외래키
-    @Column(name = "COMPANYSCHEDULE_EMP_ID")
-    private long companyScheduleEmpId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMPANYSCHEDULE_EMP_ID")
+    private Emp emp;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @CreationTimestamp
-    @Column(name = "COMPANYSCHEDULE_DATE")
-    private Date companyScheduleDate;
+    @Column(name = "COMPANYSCHEDULE_STARTDATE")
+    private LocalDate companyScheduleStartDate;
+
+    @Column(name = "COMPANYSCHEDULE_ENDDATE")
+    private LocalDate companyScheduleEndDate;
 
     @Column(name = "COMPANYSCHEDULE_CONTENT")
     private String companyScheduleContent;
