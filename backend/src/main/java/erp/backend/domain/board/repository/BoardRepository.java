@@ -11,7 +11,7 @@ import java.util.List;
 
         Page<Board> findByOrderByBoardIdDesc(Pageable pageable);
 
-        List<Board> findByBoardId(long boardId);
+        Board findByBoardId(Long boardId);
 
         List<Board> findByBoardIdAndEmpEmpId(long boardId, long empId);
 

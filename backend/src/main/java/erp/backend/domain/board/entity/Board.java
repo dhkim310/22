@@ -2,6 +2,7 @@ package erp.backend.domain.board.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import erp.backend.domain.board.dto.BoardUpdate;
+import erp.backend.domain.comment.entity.Comment;
 import erp.backend.domain.emp.entity.Emp;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity //jpa 사용할때!
 @AllArgsConstructor // 파라미터있는생성자
@@ -23,7 +25,7 @@ public class Board {
     private long boardId;
 
     //외래키
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "BOARD_EMP_ID", referencedColumnName = "EMP_ID")
     private Emp emp;
 //    @Column(name = "BOARD_EMP_ID")
@@ -57,5 +59,7 @@ public class Board {
         this.boardContent = request.getContent();
         this.boardModifiedDate = LocalDateTime.now();
     }
-
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.REMOVE)
+    @OrderBy("commentId desc") // 댓글 정렬
+    private List<Comment> comment;
 }
