@@ -19,4 +19,10 @@ public class CommentController {
         Emp emp = SecurityHelper.getAccount();
         return ResponseEntity.ok(commentService.commentInsert(emp.getEmpName(), boardId, dto));
     }
+
+    @DeleteMapping("/board/{boardId}/commentDelete/{commentId}") //보드 상세보기랑 합쳐야 함.
+    public ResponseEntity<Long> commentDelete(@PathVariable Long boardId, @PathVariable Long commentId) {
+        commentService.commentDelete(boardId, commentId);
+        return ResponseEntity.ok(commentId);
+    }
 }

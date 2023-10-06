@@ -5,7 +5,6 @@ import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.emp.entity.Emp;
 import jakarta.persistence.*;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 import lombok.*;
