@@ -62,7 +62,8 @@ public class SecurityConfig {
                                         "/api/notice",
                                         "/api/board/**",
                                         "/api/board/update",
-                                        "/api/board/list"
+                                        "/api/board/list",
+                                        "/api/comment/board/**"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )
