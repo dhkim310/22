@@ -3,6 +3,7 @@ import Login from './pages/Login';
 import Main from "./pages/Main";
 import Header from "./component/Header";
 import PrivateRoute from "./routes/PrivateRoute";
+import ReactBigCalendar from "./pages/ReactBigCalendar";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 
             <Route element={<PrivateRoute />}>
             <Route path="/main" element={ <Main /> }/>
+            <Route path="/schedule" element={ <ReactBigCalendar />}/>
             </Route>
         </Routes>
     </Router>
