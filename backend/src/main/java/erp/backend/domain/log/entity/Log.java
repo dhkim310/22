@@ -1,17 +1,16 @@
 package erp.backend.domain.log.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.log.Vo.LogVo;
 import erp.backend.domain.log.dto.LogUpdate;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 @Entity //jpa 사용할때!
 @Getter
