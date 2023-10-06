@@ -32,4 +32,11 @@ public class CommentService {
         return dto.getCommentId();
     }
 
+    @Transactional
+    public void commentDelete(Long boardId, Long commentId){
+        Comment comment = commentRepository.findByBoardBoardIdAndCommentId(boardId, commentId);
+
+        commentRepository.delete(comment);
+    }
+
 }
