@@ -39,8 +39,6 @@ public class Vacation {
     @Column(name = "VACATION_USEDDAYOFF")
     private int vacationUsedDayOff;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
-    @CreationTimestamp
     @Column(name = "VACATION_DATEDAYOFF")
     private LocalDateTime vacationDateDayOff;
 }

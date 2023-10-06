@@ -2,6 +2,7 @@ package erp.backend.domain.memo.service;
 
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.memo.dto.MemoInsert;
+import erp.backend.domain.memo.dto.MemoUpdate;
 import erp.backend.domain.memo.entity.Memo;
 import erp.backend.domain.memo.repository.MemoRepository;
 import erp.backend.global.config.security.SecurityHelper;
@@ -27,11 +28,24 @@ public class MemoService {
     }
 
     @Transactional
-    public void updateMemo(Long memoId, MemoInsert request){
+    public Long updateMemo(Long memoId, MemoUpdate request){
+        Emp emp = SecurityHelper.getAccount();
+        Memo memo = memoRepository.findByEmpEmpIdOrderByMemoIdDesc(emp.getEmpId());
+        memo.update(emp, request);
+        return memo.getMemoId();
+//        Memo memo = memoRepository.findById(memoId)
+//                .orElseThrow(() -> new IllegalArgumentException("메모가 없습니다."));
+//
+//        memo.update(request.getContent());
+//        memoRepository.save(memo);
+    }
+
+    @Transactional
+    public void deleteMemo(Long memoId){
+        Emp emp = SecurityHelper.getAccount();
         Memo memo = memoRepository.findById(memoId)
                 .orElseThrow(() -> new IllegalArgumentException("메모가 없습니다."));
 
-        memo.setMemoContent(request.getContent());
-        memoRepository.save(memo);
+        memoRepository.deleteById(memoId);
     }
 }

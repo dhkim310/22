@@ -1,6 +1,7 @@
 package erp.backend.domain.memo.entity;
 
 import erp.backend.domain.emp.entity.Emp;
+import erp.backend.domain.memo.dto.MemoUpdate;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +23,7 @@ public class Memo {
     @Column(name = "MEMO_CONTENT")
     private String memoContent;
 
-    public void setMemoContent(String memoContent) {
-        this.memoContent = memoContent;
+    public void update(Emp emp, MemoUpdate request) {
+        this.memoContent = request.getContent();
     }
 }
