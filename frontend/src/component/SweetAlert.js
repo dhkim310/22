@@ -17,6 +17,7 @@ const Workspace = () => {
       `
     });
   }, []); // 빈 배열을 넘겨줘서 페이지가 처음 로드될 때 한 번만 실행되도록 합니다.
+
 };
 
 export default Workspace;

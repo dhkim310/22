@@ -9,7 +9,6 @@ import { useCookies } from 'react-cookie';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
 
-
 function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
