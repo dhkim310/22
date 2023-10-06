@@ -12,8 +12,8 @@ export const insertEventApi = async (params) => {
       })
     });
   }
-  //달력 select
-  export const selectEventApi = async (params) => {
+//달력 select
+export const selectEventApi = async (params) => {
     return new Promise ((resolve,reject) => {
       axios.get('/api/schedule', { params: params })
       .then((res)=>{
