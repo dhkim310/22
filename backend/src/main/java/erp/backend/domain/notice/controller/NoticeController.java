@@ -2,6 +2,7 @@ package erp.backend.domain.notice.controller;
 
 import erp.backend.domain.notice.dto.NoticeDetailResponse;
 import erp.backend.domain.notice.dto.NoticeRequest;
+import erp.backend.domain.notice.dto.UpdateNotice;
 import erp.backend.domain.notice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +29,13 @@ public class NoticeController {
     }
 
     @DeleteMapping("/management/delete/{id}")
-    public void noticeDelete(@PathVariable("id") Long id) {
-        ResponseEntity.ok(noticeService.noticeDelete(id));
+    public ResponseEntity<Void> noticeDelete(@PathVariable("id") Long id) {
+        noticeService.noticeDelete(id);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/management/update/{id}")
-    public ResponseEntity<Long> noticeUpdate(@PathVariable("id") Long id, @RequestBody NoticeRequest request) {
-        return ResponseEntity.ok(noticeService.noticeUpdate(id, request));
+    public ResponseEntity<Long> noticeUpdate(@PathVariable("id") Long id, @RequestPart(value = "requestDto") UpdateNotice request, @RequestPart(value = "files") List<MultipartFile> files) {
+        return ResponseEntity.ok(noticeService.noticeUpdate(id, request, files));
     }
 }

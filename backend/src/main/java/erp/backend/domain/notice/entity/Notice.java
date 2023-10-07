@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity //jpa 사용할때!
 @Getter
@@ -46,6 +48,15 @@ public class Notice {
     @Column(name = "NOTICE_MODIFIEDDATE")
     private LocalDateTime noticeModifiedDate;
 
+    @OneToMany(
+            mappedBy = "notice",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Builder.Default
+    private List<NoticeFile> noticeFileList = new ArrayList<>();
+
     public Notice updateViewCount(int noticeViews) {
         this.noticeViews = getNoticeViews() + 1;
         return this;
@@ -55,5 +66,9 @@ public class Notice {
         this.noticeSubject = request.getSubject();
         this.noticeContent = request.getContent();
         this.noticeModifiedDate = LocalDateTime.now();
+    }
+
+    public void addAllNoticeFileList(List<NoticeFile> list) {
+        this.noticeFileList.addAll(list);
     }
 }
