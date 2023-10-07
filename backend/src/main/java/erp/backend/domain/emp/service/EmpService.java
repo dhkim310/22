@@ -6,12 +6,16 @@ import erp.backend.domain.emp.dto.SignUpRequest;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
 import erp.backend.global.config.security.jwt.JwtProvider;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,7 +49,7 @@ public class EmpService {
     }
 
     @Transactional(readOnly = true)
-    public SignInResponse signIn(SignInRequest request) {
+    public SignInResponse signIn(SignInRequest request, HttpServletResponse httpResponse) {
         Emp emp = empRepository.findByEmpEmail(request.getEmpEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("이메일/비밀번호가 맞지않습니다."));
         String encPassword = emp.getPassword();
@@ -57,6 +61,16 @@ public class EmpService {
         String token = jwtProvider.createToken(emp.getEmpEmail(), emp.getAuthorities());
 
         List<String> roles = Arrays.stream(emp.getRoles().split(",")).toList();
+        String encode = URLEncoder
+                .encode("Bearer ", StandardCharsets.UTF_8)
+                .replaceAll("\\+", "%20")
+                + token;
+        Cookie cookie = new Cookie("Authorization", encode);
+//        cookie.setHttpOnly(true);
+//        cookie.setSecure(true);
+        cookie.setPath("/");
+
+        httpResponse.addCookie(cookie);
         return SignInResponse.builder()
                 .token(token)
                 .empId(emp.getEmpId())

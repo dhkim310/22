@@ -4,6 +4,7 @@ import erp.backend.domain.emp.dto.SignInRequest;
 import erp.backend.domain.emp.dto.SignInResponse;
 import erp.backend.domain.emp.dto.SignUpRequest;
 import erp.backend.domain.emp.service.EmpService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,9 @@ public class EmpController {
     private final EmpService empService;
 
     @PostMapping("/sign-in")
-    public ResponseEntity<SignInResponse> signIn(@RequestBody @Valid SignInRequest request) {
+    public ResponseEntity<SignInResponse> signIn(@RequestBody @Valid SignInRequest request, HttpServletResponse httpResponse) {
         System.out.println(request.toString());
-        return ResponseEntity.ok(empService.signIn(request));
+        return ResponseEntity.ok(empService.signIn(request, httpResponse));
     }
 
     @PostMapping("/sign-up")
