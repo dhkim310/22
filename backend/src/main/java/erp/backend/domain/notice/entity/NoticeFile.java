@@ -4,6 +4,7 @@ import erp.backend.domain.upload.entity.UploadFile;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
@@ -11,17 +12,20 @@ import java.time.LocalDateTime;
 @Entity //jpa 사용할때!
 @NoArgsConstructor
 @Getter
+@Table(name = "noticefile")
 public class NoticeFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "NOTICEFILE_ID")
+    private Long noticeFileId;
 
-    @CreatedDate
-    private LocalDateTime createdDate;
+    @CreationTimestamp
+    @Column(name = "NOTICEFILE_CREATEDDATE")
+    private LocalDateTime noticeFileCreatedDate;
 
     // 외래키
     @ManyToOne
-    @JoinColumn(name = "notice_id")
+    @JoinColumn(name = "NOTICEFILE_NOTICE_ID")
     private Notice notice;
 
     @OneToOne(
@@ -29,7 +33,7 @@ public class NoticeFile {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JoinColumn(name = "upload_file_id")
+    @JoinColumn(name = "NOTICEFILE_UPLOADFILE_ID")
     private UploadFile uploadFile;
 
     public NoticeFile(Notice notice, UploadFile uploadFile) {

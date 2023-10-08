@@ -38,24 +38,25 @@ public class UploadFileService {
         return uploadFileRepository.save(uploadFile);
     }
 
+//    @Transactional
+//    public List<UploadFile> createUploadFileList(List<MultipartFile> files, SchemaType schema) {
+//        List<UploadFile> uploadFileList = new ArrayList<>();
+//        if (files == null) return uploadFileList;
+//        files.forEach(file -> {
+//            UploadFile uploadFile = null;
+//            try {
+//                uploadFile = uploadFile(file, schema);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//            uploadFileList.add(uploadFile);
+//        });
+//
+//        return uploadFileRepository.saveAll(uploadFileList);
+//    }
+
     @Transactional
-    public List<UploadFile> createUploadFileList(List<MultipartFile> files, SchemaType schema) {
-        List<UploadFile> uploadFileList = new ArrayList<>();
-        if (files == null) return uploadFileList;
-        files.forEach(file -> {
-            UploadFile uploadFile = null;
-            try {
-                uploadFile = uploadFile(file, schema);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            uploadFileList.add(uploadFile);
-        });
-
-        return uploadFileRepository.saveAll(uploadFileList);
-    }
-
-    public UploadFile uploadFile(MultipartFile uploadFile, SchemaType schema) throws IOException {
+    public UploadFile uploadFile(MultipartFile uploadFile, SchemaType schema) throws IOException, NullPointerException {
         String uuid = UUID.randomUUID().toString();
         String fileName = uploadFile.getOriginalFilename();
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
@@ -63,7 +64,7 @@ public class UploadFileService {
         String contentType = uploadFile.getContentType();
 
         if (DENIED_EXTENSION.contains(extension) || DENIED_CONTENT_TYPE.contains(contentType)) {
-            throw new IOException("지원 하지 않는 파일 확장자 입니다.");
+            throw new IOException("지원 하지 않는 확장자.");
         }
 
         String path = generatorFilePath(saveId, schema.getName());
@@ -72,7 +73,7 @@ public class UploadFileService {
         uploadFile.transferTo(uploadPath);
 
         return UploadFile.builder()
-                .schema(schema)
+                .fschema(schema)
                 .uuid(saveId)
                 .name(fileName)
                 .extension(extension)
@@ -80,4 +81,5 @@ public class UploadFileService {
                 .size(uploadFile.getSize())
                 .build();
     }
+
 }

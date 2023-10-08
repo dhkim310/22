@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum SchemaType {
-    NOTICE("notice"),
-    BOARD("board")
-    ;
+    notice("공지사항"),
+    board("게시판"),
+    approval("결재");
 
     private final String name;
 

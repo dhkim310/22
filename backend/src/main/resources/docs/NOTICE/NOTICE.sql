@@ -6,7 +6,7 @@ CREATE TABLE `final`.notice
     `NOTICE_EMP_ID`       BIGINT       NOT NULL COMMENT '사원코드',
     `NOTICE_SUBJECT`      VARCHAR(255) NOT NULL COMMENT '공지사항제목',
     `NOTICE_CONTENT`      LONGTEXT     NOT NULL COMMENT '공지사항내용',
-    `NOTICE_VIEWS`        INT          NOT NULL COMMENT '공지사항조회수',
+    `NOTICE_VIEWS`        INT          NULL COMMENT '공지사항조회수',
     `NOTICE_CREATEDDATE`  DATETIME     NOT NULL COMMENT '공지사항작성일',
     `NOTICE_MODIFIEDDATE` DATETIME     NULL COMMENT '공지사항수정일',
     PRIMARY KEY (`NOTICE_ID`)

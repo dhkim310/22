@@ -1,6 +1,5 @@
 package erp.backend.domain.notice.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.notice.dto.NoticeRequest;
 import jakarta.persistence.*;
@@ -38,13 +37,10 @@ public class Notice {
     @Column(name = "NOTICE_VIEWS")
     private int noticeViews;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
     @Column(name = "NOTICE_CREATEDDATE")
     private LocalDateTime noticeCreatedDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
-    @CreationTimestamp
     @Column(name = "NOTICE_MODIFIEDDATE")
     private LocalDateTime noticeModifiedDate;
 
@@ -57,9 +53,8 @@ public class Notice {
     @Builder.Default
     private List<NoticeFile> noticeFileList = new ArrayList<>();
 
-    public Notice updateViewCount(int noticeViews) {
-        this.noticeViews = getNoticeViews() + 1;
-        return this;
+    public void updateViewCount() {
+        this.noticeViews += 1;
     }
 
     public void update(NoticeRequest request) {

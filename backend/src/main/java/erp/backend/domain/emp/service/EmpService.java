@@ -24,7 +24,6 @@ public class EmpService {
 
     @Transactional
     public void signUp(SignUpRequest request) {
-
         // 신입 사원은 초기 비밀번호가 1541로 설정
         Emp emp = Emp.builder()
                 .empName(request.getEmpName())
@@ -55,7 +54,6 @@ public class EmpService {
         }
 
         String token = jwtProvider.createToken(emp.getEmpEmail(), emp.getAuthorities());
-
         List<String> roles = Arrays.stream(emp.getRoles().split(",")).toList();
         return SignInResponse.builder()
                 .token(token)

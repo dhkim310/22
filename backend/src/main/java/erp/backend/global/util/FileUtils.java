@@ -9,7 +9,7 @@ public class FileUtils {
 
     public static String generatorFilePath(String saveId, String schema) {
         String rootDir = System.getProperty("user.dir");
-        return rootDir + "/backend/resources/media/" + schema + "/" + saveId;
+        return rootDir + "/backend/src/main/resources/media/" + schema + "/" + saveId;
     }
 
     public static void deleteFile(String path) {
