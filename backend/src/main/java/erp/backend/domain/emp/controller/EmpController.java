@@ -2,11 +2,14 @@ package erp.backend.domain.emp.controller;
 
 import erp.backend.domain.emp.dto.*;
 import erp.backend.domain.emp.service.EmpService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.UnsupportedEncodingException;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,8 +33,7 @@ public class EmpController {
         return ResponseEntity.ok(empService.empDetailResponse());
     }
     @PutMapping("/fix-info")
-    public ResponseEntity<Long> fixInfoPasswordUpdate(@RequestBody EmpPasswordUpdateRequest request){
-        System.out.println("#4 " + request.getPassword());
+    public ResponseEntity<Long> fixInfoPasswordUpdate(@RequestBody EmpPasswordUpdateRequest request) throws MessagingException, UnsupportedEncodingException {
         return ResponseEntity.ok(empService.passwordUpdate(request));
     }
 }

@@ -5,6 +5,7 @@ import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
 import erp.backend.global.config.security.SecurityHelper;
 import erp.backend.global.config.security.jwt.JwtProvider;
+import erp.backend.global.mailsender.service.MailService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class EmpService {
     private final EmpRepository empRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
+    private final MailService mailService;
 
     @Transactional
     public void signUp(SignUpRequest request) {
@@ -99,10 +101,16 @@ public class EmpService {
 
     }
     @Transactional
-    public Long passwordUpdate(EmpPasswordUpdateRequest request){
+    public Long passwordUpdate(EmpPasswordUpdateRequest request) {
         Emp emp = SecurityHelper.getAccount();
         emp.update(request,passwordEncoder);
         empRepository.save(emp);
+
+        try {
+            mailService.sendSimpleMessage(emp.getEmpEmail());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return emp.getEmpId();
     }
 }
