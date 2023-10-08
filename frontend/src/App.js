@@ -4,6 +4,7 @@ import Main from "./pages/Main";
 import Header from "./component/Header";
 import PrivateRoute from "./routes/PrivateRoute";
 import ReactBigCalendar from "./pages/ReactBigCalendar";
+import FixInfo from "./pages/FixInfo";
 import SweetAlert from "./component/SweetAlert"
 
 
@@ -17,6 +18,7 @@ function App() {
 
             <Route element={<PrivateRoute />}>
             <Route path="/main" element={ <Main /> }/>
+            <Route path="/fix-info" element={ <FixInfo /> }/>
             <Route path="/schedule" element={ <ReactBigCalendar />}/>
             <Route path="/sweetalert" element={ <SweetAlert />}/>
             </Route>

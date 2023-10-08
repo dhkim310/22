@@ -1,17 +1,12 @@
 package erp.backend.domain.emp.controller;
 
-import erp.backend.domain.emp.dto.SignInRequest;
-import erp.backend.domain.emp.dto.SignInResponse;
-import erp.backend.domain.emp.dto.SignUpRequest;
+import erp.backend.domain.emp.dto.*;
 import erp.backend.domain.emp.service.EmpService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,5 +24,14 @@ public class EmpController {
     public ResponseEntity<Boolean> signUp(@RequestBody @Valid SignUpRequest request) {
         empService.signUp(request);
         return ResponseEntity.ok().build();
+    }
+    @GetMapping("/fix-info")
+    public ResponseEntity<EmpDetailResponse> fixInfo(){
+        return ResponseEntity.ok(empService.empDetailResponse());
+    }
+    @PutMapping("/fix-info")
+    public ResponseEntity<Long> fixInfoPasswordUpdate(@RequestBody EmpPasswordUpdateRequest request){
+        System.out.println("#4 " + request.getPassword());
+        return ResponseEntity.ok(empService.passwordUpdate(request));
     }
 }

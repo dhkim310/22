@@ -1,10 +1,9 @@
 package erp.backend.domain.emp.service;
 
-import erp.backend.domain.emp.dto.SignInRequest;
-import erp.backend.domain.emp.dto.SignInResponse;
-import erp.backend.domain.emp.dto.SignUpRequest;
+import erp.backend.domain.emp.dto.*;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
+import erp.backend.global.config.security.SecurityHelper;
 import erp.backend.global.config.security.jwt.JwtProvider;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -81,4 +80,29 @@ public class EmpService {
 
     }
 
+    @Transactional
+    public EmpDetailResponse empDetailResponse(){
+        Emp emp = SecurityHelper.getAccount();
+
+        return EmpDetailResponse.builder()
+                .empName(emp.getEmpName())
+                .dept(emp.getDept().getDeptName())
+                .empPosition(emp.getEmpPosition())
+                .empPhoneNumber(emp.getEmpPhoneNumber())
+                .empBirthday(emp.getEmpBirthday())
+                .empStartDate(emp.getEmpStartDate())
+                .empAddress(emp.getEmpAddress())
+                .empDetailAddress(emp.getEmpDetailAddress())
+                .empEmail(emp.getEmpEmail())
+                .password(emp.getPassword())
+                .build();
+
+    }
+    @Transactional
+    public Long passwordUpdate(EmpPasswordUpdateRequest request){
+        Emp emp = SecurityHelper.getAccount();
+        emp.update(request,passwordEncoder);
+        empRepository.save(emp);
+        return emp.getEmpId();
+    }
 }
