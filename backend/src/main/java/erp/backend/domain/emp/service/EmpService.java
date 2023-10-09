@@ -82,7 +82,7 @@ public class EmpService {
 
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public EmpDetailResponse empDetailResponse(){
         Emp emp = SecurityHelper.getAccount();
 
