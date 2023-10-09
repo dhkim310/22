@@ -24,7 +24,7 @@ public class MailService implements MailServiceImpl{
         message.setSubject("(주) 엄용민 프로덕션 : 알림");
 
         String msgg = "";
-        msgg += "비밀번호가 변경되었습니다. 본인이 아니라면 담당자에게 연락 바람";
+        msgg += "비밀번호가 변경되었습니다. 본인이 아닐 시 담당자에게 연락 바람 010-9307-0468 담당자 : 홍길동 부장";
         message.setText(msgg, "utf-8", "html");
 
         message.setFrom(new InternetAddress("umanmyeong@naver.com", "엄용민 프로덕션"));
@@ -32,7 +32,7 @@ public class MailService implements MailServiceImpl{
         return message;
     }
     @Override
-    public String sendSimpleMessage(String to) throws Exception {
+    public void sendSimpleMessage(String to) throws Exception {
 
         MimeMessage message = message(to); // "to" 로 메일 발송
 
@@ -42,7 +42,5 @@ public class MailService implements MailServiceImpl{
             e.printStackTrace();
             throw new IllegalArgumentException();
         }
-
-        return to;
     }
 }
