@@ -2,6 +2,7 @@ package erp.backend.domain.emp.entity;
 
 import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.dept.entity.Dept;
+import erp.backend.domain.emp.dto.EmpPasswordUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -29,7 +31,7 @@ public class Emp implements UserDetails {
     @Column(name = "EMP_ID")
     private Long empId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "EMP_DEPT_ID")
     private Dept dept;
 
@@ -71,7 +73,6 @@ public class Emp implements UserDetails {
 
     @Column(name = "EMP_DETAILADDRESS")
     private String empDetailAddress;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.stream(this.roles.split(","))
@@ -106,4 +107,11 @@ public class Emp implements UserDetails {
 
     @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Board> boardList = new HashSet<>();
+
+    public void update(EmpPasswordUpdateRequest request,PasswordEncoder passwordEncoder){
+        System.out.println("#1"+password);
+        this.password = passwordEncoder.encode(request.getPassword());
+        System.out.println("#2"+password);
+    }
+
 }

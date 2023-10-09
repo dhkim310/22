@@ -1,16 +1,19 @@
 package erp.backend.domain.salary.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import erp.backend.domain.emp.entity.Emp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity //jpa 사용할때!
+@Getter
+@Builder
 @AllArgsConstructor // 파라미터있는생성자
 @NoArgsConstructor // 기본생성자
-@Data // setter, getter 자동생성
 public class Salary {
 
     @Id
@@ -18,16 +21,15 @@ public class Salary {
     @Column(name = "SALARY_ID")
     private long salaryId;
 
-    @Column(name = "SALARY_EMP_ID")
-    private long salaryEmpId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SALARY_EMP_ID")
+    private Emp emp;
 
     @Column(name = "SALARY_AMOUNT")
     private int salaryAmount;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
-    @CreationTimestamp
     @Column(name = "SALARY_PAYDATE")
-    private String salaryPayDate;
+    private LocalDateTime salaryPayDate;
 
     @Column(name = "SALARY_PAYMONEY")
     private int salarPayMoney;

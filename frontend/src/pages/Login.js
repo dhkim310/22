@@ -9,7 +9,6 @@ import { useCookies } from 'react-cookie';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
 
-
 function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -22,7 +21,7 @@ function Login() {
         await loginApi({ empEmail, password })
         .then((res) => {
             if (res.status === 200) {
-                setCookie('Authorization', 'Bearer ' + res.data.token)
+//                setCookie('Authorization', 'Bearer ' + res.data.token)
                 dispatch(SET_TOKEN(res.data.token))
                 console.log(res.data.token)
                 const data = res.data
