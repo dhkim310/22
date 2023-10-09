@@ -55,7 +55,8 @@ public class SecurityConfig {
                                         "/main",
                                         "/api/log/commute",
                                         "/api/schedule",
-                                        "/api/emp/fix-info"
+                                        "/api/emp/fix-info",
+                                        "/api/emp/approval"
                                 ).hasRole("USER")
                                 .requestMatchers(
                                         "/api/emp/sign-in",
