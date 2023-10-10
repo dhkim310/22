@@ -29,4 +29,5 @@ public class EmpController {
         empService.signUp(request);
         return ResponseEntity.ok().build();
     }
+
 }
