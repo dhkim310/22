@@ -47,26 +47,23 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(
-                                        "/api/notice/**",
-                                        "/api/notice/management/**",
-                                        "/api/memo/write",
-                                        "/api/memo/update/7"
+                                        "/api/notice/management/**"
                                 ).hasRole("ADMIN")
                                 .requestMatchers(
                                         "/main",
                                         "/api/log/commute",
                                         "/api/schedule",
                                         "/api/emp/fix-info",
-                                        "/api/emp/approval"
+                                        "/api/emp/approval",
+                                        "/api/board/**",
+                                        "/api/comment/board/**"
                                 ).hasRole("USER")
                                 .requestMatchers(
                                         "/api/emp/sign-in",
                                         "/api/emp/sign-up",
-                                        "/api/notice",
-                                        "/api/board/**",
-                                        "/api/board/update",
-                                        "/api/board/list",
-                                        "/api/comment/board/**"
+                                        "/api/notice/list",
+                                        "/api/notice/detail",
+                                        "/api/memo/**"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )

@@ -4,11 +4,11 @@ CREATE TABLE `final`.salary
 (
     `SALARY_ID`            BIGINT       NOT NULL AUTO_INCREMENT COMMENT '급여코드',
     `SALARY_EMP_ID`        BIGINT       NOT NULL COMMENT '사원코드',
-    `SALARY_AMOUNT`        INT          NOT NULL COMMENT '연봉',
     `SALARY_PAYDATE`       DATETIME     NOT NULL COMMENT '지급일',
-    `SALARY_PAYMONEY`      INT          NOT NULL COMMENT '지급금액',
     `SALARY_BANK`          VARCHAR(255) NOT NULL COMMENT '지급은행',
     `SALARY_ACCOUNTNUMBER` VARCHAR(255) NOT NULL COMMENT '지급계좌',
+    `SALARY_PAYMONEY`      INT          NOT NULL COMMENT '지급금액',
+    `SALARY_TAX`           INT          NOT NULL COMMENT '제세공과금',
     `SALARY_BONUS`         INT          NULL COMMENT '보너스',
     PRIMARY KEY (`SALARY_ID`)
 ) ENGINE = InnoDB COMMENT '사원급여'

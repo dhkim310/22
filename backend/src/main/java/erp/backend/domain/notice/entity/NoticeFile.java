@@ -1,11 +1,10 @@
 package erp.backend.domain.notice.entity;
 
-import erp.backend.domain.upload.entity.UploadFile;
+import erp.backend.domain.uploadfile.entity.UploadFile;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -18,10 +17,6 @@ public class NoticeFile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NOTICEFILE_ID")
     private Long noticeFileId;
-
-    @CreationTimestamp
-    @Column(name = "NOTICEFILE_CREATEDDATE")
-    private LocalDateTime noticeFileCreatedDate;
 
     // 외래키
     @ManyToOne
