@@ -2,12 +2,18 @@ package erp.backend.domain.notice.service;
 
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.notice.dto.NoticeDetailResponse;
+import erp.backend.domain.notice.dto.NoticeListResponse;
 import erp.backend.domain.notice.dto.NoticeRequest;
+import erp.backend.domain.notice.dto.UpdateNotice;
 import erp.backend.domain.notice.entity.Notice;
+import erp.backend.domain.notice.entity.NoticeFile;
+import erp.backend.domain.notice.repository.NoticeFileRepository;
 import erp.backend.domain.notice.repository.NoticeRepository;
-import erp.backend.domain.noticefile.entity.NoticeFile;
-import erp.backend.domain.noticefile.repository.NoticeFileRepository;
+import erp.backend.domain.upload.entity.UploadFile;
+import erp.backend.domain.upload.service.UploadFileService;
 import erp.backend.global.config.security.SecurityHelper;
+import erp.backend.global.util.FileUtils;
+import erp.backend.global.util.SchemaType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,10 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static erp.backend.global.util.ArrayUtils.isNullOrEmpty;
+import static erp.backend.global.util.FileUtils.generatorFilePath;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +33,24 @@ import java.util.List;
 public class NoticeService {
     private final NoticeRepository noticeRepository;
     private final NoticeFileRepository noticeFileRepository;
+
+    private final UploadFileService uploadFileService;
+
+    @Transactional(readOnly = true)
+    public List<NoticeListResponse> noticeList() {
+        Emp emp = SecurityHelper.getAccount();
+        List<Notice> list = noticeRepository.findAll();
+
+        return list.stream()
+                .map(notice -> NoticeListResponse.builder()
+                        .id(notice.getNoticeId())
+                        .writer(notice.getEmp().getEmpName())
+                        .subject(notice.getNoticeSubject())
+                        .noticeCreatedDate(notice.getNoticeCreatedDate())
+                        .build()
+                )
+                .toList();
+    }
 
     @Transactional
     public void noticeInsert(NoticeRequest request, List<MultipartFile> files) throws IOException {
@@ -35,118 +60,100 @@ public class NoticeService {
                 .emp(emp)
                 .noticeSubject(request.getSubject())
                 .noticeContent(request.getContent())
-                .noticeViews(0)
-                .noticeCreatedDate(LocalDateTime.now())
                 .build();
-        noticeRepository.save(entity);
+        Notice save = noticeRepository.save(entity);
 
-        /*지원하지 않는 확장자 파일 제거*/
-        List<MultipartFile> validatedFiles = filesValidation(files);
-
-        /*걸러진 파일들 업로드*/
-        filesUpload(validatedFiles, entity.getNoticeId());
-
-        /*유효성 검증을 끝낸 파일들을 하나씩 꺼냄.*/
-        for (MultipartFile validatedFile : validatedFiles) {
-
-            /*File Entity 생성 후 저장*/
-            NoticeFile file = new NoticeFile(validatedFile, entity);
-            noticeFileRepository.save(file);
-
-        }
+        createNoticeFileList(save, files);
     }
 
     @Transactional
+    public void updateView(Long id) {
+        Notice entity = getNotice(id);
+        entity.updateViewCount();
+    }
+
+    @Transactional(readOnly = true)
     public NoticeDetailResponse getNoticeDetail(Long id) {
         Notice entity = getNotice(id);
         // 상세보기 클릭시 조회수 1 증가
-        int view = entity.updateViewCount(entity.getNoticeViews()).getNoticeViews();
         return NoticeDetailResponse.builder()
                 .id(entity.getNoticeId())
                 .writer(entity.getEmp().getEmpName())
                 .subject(entity.getNoticeSubject())
                 .content(entity.getNoticeContent())
-                .views(view)
+                .views(entity.getNoticeViews())
                 .noticeCreatedDate(entity.getNoticeCreatedDate())
                 .noticeModifiedDate(entity.getNoticeModifiedDate())
                 .build();
     }
 
     @Transactional
-    public Long noticeUpdate(Long id, NoticeRequest request) {
+    public Long noticeUpdate(Long id, UpdateNotice request, List<MultipartFile> files) {
         Emp emp = SecurityHelper.getAccount();
-        Notice entity = getNotice(id);
-        Long empId = entity.getEmp().getEmpId();
-        if (emp.getEmpId() != empId) {
-            return -1L;
+        Notice entity = getNotice(id, emp);
+        entity.update(request);
+
+        List<Long> deleteUploadFileIds = request.getDeleteUploadFileIds();
+
+        if (deleteUploadFileIds != null) {
+            List<NoticeFile> noticeFileList = entity.getNoticeFileList();
+            noticeFileList = noticeFileList.stream()
+                    .filter(noticeFile -> !deleteUploadFileIds.contains(noticeFile.getNoticeFileId()))
+                    .toList();
+
+            noticeFileList.addAll(createNoticeFileList(entity, files));
+
+            entity.addAllNoticeFileList(noticeFileList);
         } else {
-            entity.update(request);
+            return null;
         }
+
+
         return entity.getNoticeId();
     }
 
     @Transactional
-    public Boolean noticeDelete(Long id) {
-        // 현재 로그인 된 사용자와 게시글의 작성자가 일치하면 글 삭제
+    public void noticeDelete(Long id) {
         Emp emp = SecurityHelper.getAccount(); // 현재 로그인 된 사용자 확인
-        Notice entity = getNotice(id); // 게시글 정보 확인
-        Long empId = entity.getEmp().getEmpId(); // 게시글의 작성자 확인
-        if (emp.getEmpId() != empId) {
-            return false;
-        } else {
-            noticeRepository.deleteById(id);
-            return true;
+        Notice entity = getNotice(id, emp);
+
+        // 연결된 파일 정보를 삭제
+        List<NoticeFile> noticeFiles = entity.getNoticeFileList();
+        for (NoticeFile noticeFile : noticeFiles) {
+            // 파일 시스템에서 삭제
+            UploadFile uploadFile = noticeFile.getUploadFile();
+            FileUtils.deleteFile(generatorFilePath(uploadFile.getUuid(), uploadFile.getFschema().getName()));
+            // 파일 데이터베이스 테이블에서 삭제
+            noticeFileRepository.delete(noticeFile);
         }
+
+        // 공지사항 삭제
+        noticeRepository.delete(entity);
     }
 
+    private List<NoticeFile> createNoticeFileList(Notice notice, List<MultipartFile> files) {
+        List<NoticeFile> noticeFileList = new ArrayList<>();
+
+        if (isNullOrEmpty(files)) return noticeFileList;
+
+        for (MultipartFile file : files) {
+            UploadFile uploadFile = uploadFileService.createUploadFile(file, SchemaType.notice);
+            NoticeFile noticeFile = new NoticeFile(notice, uploadFile);
+            noticeFileList.add(noticeFile);
+        }
+        return noticeFileRepository.saveAll(noticeFileList);
+    }
+
+    // 게시글 존재 여부 확인
     private Notice getNotice(Long id) {
         return noticeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException(id + "번 글은 존재하지 않는 데이터입니다."));
     }
 
-    /*파일의 유효성 검증*/
-    private List<MultipartFile> filesValidation(List<MultipartFile> files) throws IOException {
-        /*접근 거부 파일 확장자명*/
-        String[] accessDeniedFileExtension = {"exe", "zip"};
-        /*접근 거부 파일 컨텐츠 타입*/
-        String[] accessDeniedFileContentType = {"application/x-msdos-program", "application/zip"};
-
-
-        ArrayList<MultipartFile> validatedFiles = new ArrayList<>();
-
-
-        for (MultipartFile file : files) {
-            /*원본 파일 이름*/
-            String originalFileName = file.getOriginalFilename();
-            /*파일의 확장자명*/
-            String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-            /*파일의 컨텐츠타입*/
-            String fileContentType = file.getContentType();
-
-            /*accessDeniedFileExtension, accessDeniedFileContentType -> 업로드 불가*/
-            if (Arrays.asList(accessDeniedFileExtension).contains(fileExtension) ||
-                    Arrays.asList(accessDeniedFileContentType).contains(fileContentType)) {
-                System.err.println("지원 하지 않는 파일 확장자 입니다.");
-            } else {/*업로드 가능*/
-                validatedFiles.add(file);
-            }
-
-
-        }
-        return validatedFiles;
+    // 게시글 작성자와 사용자가 일치하는지 확인
+    private Notice getNotice(Long id, Emp emp) {
+        return noticeRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
     }
 
-    /*파일 업로드 메소드*/
-    private void filesUpload(List<MultipartFile> files, Long noticeId) throws IOException {
-
-        /*프로젝트 루트 경로*/
-        String rootDir = System.getProperty("user.dir");
-
-        for (MultipartFile file : files) {
-            /*업로드 경로*/
-            java.io.File uploadPath = new java.io.File(rootDir + "/backend/media/" + noticeId + "_" + file.getOriginalFilename());
-            /*업로드*/
-            file.transferTo(uploadPath);
-        }
-    }
 }

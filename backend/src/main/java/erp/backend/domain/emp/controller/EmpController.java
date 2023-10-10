@@ -28,6 +28,7 @@ public class EmpController {
         empService.signUp(request);
         return ResponseEntity.ok().build();
     }
+
     @GetMapping("/fix-info")
     public ResponseEntity<EmpDetailResponse> fixInfo(){
         return ResponseEntity.ok(empService.empDetailResponse());
@@ -36,4 +37,5 @@ public class EmpController {
     public ResponseEntity<Long> fixInfoPasswordUpdate(@RequestBody EmpPasswordUpdateRequest request) throws MessagingException, UnsupportedEncodingException {
         return ResponseEntity.ok(empService.passwordUpdate(request));
     }
+
 }

@@ -1,6 +1,5 @@
 package erp.backend.domain.notice.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.notice.dto.NoticeRequest;
 import jakarta.persistence.*;
@@ -11,6 +10,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity //jpa 사용할때!
 @Getter
@@ -36,24 +37,33 @@ public class Notice {
     @Column(name = "NOTICE_VIEWS")
     private int noticeViews;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @CreationTimestamp
     @Column(name = "NOTICE_CREATEDDATE")
     private LocalDateTime noticeCreatedDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
-    @CreationTimestamp
     @Column(name = "NOTICE_MODIFIEDDATE")
     private LocalDateTime noticeModifiedDate;
 
-    public Notice updateViewCount(int noticeViews) {
-        this.noticeViews = getNoticeViews() + 1;
-        return this;
+    @OneToMany(
+            mappedBy = "notice",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Builder.Default
+    private List<NoticeFile> noticeFileList = new ArrayList<>();
+
+    public void updateViewCount() {
+        this.noticeViews += 1;
     }
 
     public void update(NoticeRequest request) {
         this.noticeSubject = request.getSubject();
         this.noticeContent = request.getContent();
         this.noticeModifiedDate = LocalDateTime.now();
+    }
+
+    public void addAllNoticeFileList(List<NoticeFile> list) {
+        this.noticeFileList.addAll(list);
     }
 }

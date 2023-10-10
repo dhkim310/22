@@ -47,6 +47,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(
+                                        "/api/notice/**"
+
                                         "/api/notice/management/**",
                                         "/api/memo/write",
                                         "/api/memo/update/7"
