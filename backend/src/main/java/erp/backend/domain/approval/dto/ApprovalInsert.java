@@ -12,5 +12,4 @@ public class ApprovalInsert {
     private String approvalContent;
     private String approvalCheckMan;
     private String approvalCheckManPosition;
-    private LocalDate approvalUploadDate;
 }

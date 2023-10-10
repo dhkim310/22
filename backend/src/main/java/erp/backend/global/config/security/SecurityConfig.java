@@ -47,8 +47,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(
-                                        "/api/notice/**"
-
+                                        "/api/notice/**",
                                         "/api/notice/management/**",
                                         "/api/memo/write",
                                         "/api/memo/update/7"
@@ -58,7 +57,8 @@ public class SecurityConfig {
                                         "/api/log/commute",
                                         "/api/schedule",
                                         "/api/emp/fix-info",
-                                        "/api/emp/approval"
+                                        "/api/emp/approval",
+                                        "/api/emp/approval-success"
                                 ).hasRole("USER")
                                 .requestMatchers(
                                         "/api/emp/sign-in",
