@@ -41,8 +41,8 @@ public class Salary {
     private double salaryPayMoney;
 
     @Column(name = "SALARY_TAX")
-    private int salaryTax;
+    private double salaryTax;
 
     @Column(name = "SALARY_BONUS")
-    private int salaryBonus;
+    private double salaryBonus;
 }

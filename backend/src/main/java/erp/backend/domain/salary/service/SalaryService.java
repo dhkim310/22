@@ -18,16 +18,16 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class SalaryService {
     private final SalaryRepository salaryRepository;
-    private final SalaryVO salaryVO;
     @Transactional
     public Long salaryInsert(SalaryInsert request){
         Emp emp = SecurityHelper.getAccount();
         Salary entity = Salary.builder()
                 .emp(emp)
                 .salaryPayDate(LocalDateTime.now().withDayOfMonth(15).withHour(9).withMinute(0).withSecond(0))
-                .salaryPayMoney(salaryVO.position(emp.getEmpPosition()))
-                .salaryBank("신한")
+                .salaryPayMoney(2)
+                .salaryBank(request.getBank())
                 .salaryAccountNumber(request.getAccountNumber())
+                .salaryTax(request.getTax())
                 .salaryBonus(request.getBonus())
                 .build();
         return salaryRepository.save(entity).getSalaryId();
