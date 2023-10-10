@@ -1,16 +1,15 @@
 package erp.backend.domain.emp.controller;
 
-import erp.backend.domain.emp.dto.SignInRequest;
-import erp.backend.domain.emp.dto.SignInResponse;
-import erp.backend.domain.emp.dto.SignUpRequest;
+import erp.backend.domain.emp.dto.*;
 import erp.backend.domain.emp.service.EmpService;
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.UnsupportedEncodingException;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,15 +18,24 @@ public class EmpController {
     private final EmpService empService;
 
     @PostMapping("/sign-in")
-    public ResponseEntity<SignInResponse> signIn(@RequestBody @Valid SignInRequest request) {
+    public ResponseEntity<SignInResponse> signIn(@RequestBody @Valid SignInRequest request, HttpServletResponse httpResponse) {
         System.out.println(request.toString());
-        return ResponseEntity.ok(empService.signIn(request));
+        return ResponseEntity.ok(empService.signIn(request, httpResponse));
     }
 
     @PostMapping("/sign-up")
     public ResponseEntity<Boolean> signUp(@RequestBody @Valid SignUpRequest request) {
         empService.signUp(request);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/fix-info")
+    public ResponseEntity<EmpDetailResponse> fixInfo(){
+        return ResponseEntity.ok(empService.empDetailResponse());
+    }
+    @PutMapping("/fix-info")
+    public ResponseEntity<Long> fixInfoPasswordUpdate(@RequestBody EmpPasswordUpdateRequest request) throws MessagingException, UnsupportedEncodingException {
+        return ResponseEntity.ok(empService.passwordUpdate(request));
     }
 
 }

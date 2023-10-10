@@ -3,9 +3,14 @@ import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
 import { commuteApi, commuteUpdateApi } from '../api/Commute';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 
 function Main() {
+    const navigate = useNavigate();
+    const navigateToFixInfo = () => {
+        navigate("/fix-info");
+    };
 
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
@@ -115,7 +120,7 @@ function Main() {
                                 <div style={{height: '300px', background: 'url("assets/img/f05ee6c832afa3bac801c2c1825426ba.jpg") center / contain no-repeat'}} />
                                 <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{height: '70px'}}>
                                     <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center" style={{width: '50%', height: '100%'}}><span style={{fontSize: '26px', fontWeight: 'bold'}}>엄용민 대표</span></div>
-                                    <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{width: '50%', height: '100%'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" style={{width: '120px', height: '30px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '6px', borderColor: 'black'}}>정보수정</button></div>
+                                    <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{width: '50%', height: '100%'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" onClick={ navigateToFixInfo } style={{width: '120px', height: '30px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '6px', borderColor: 'black'}}>정보수정</button></div>
                                 </div>
                                 </div>
                                 <div className="d-xxl-flex justify-content-xxl-center" style={{background: 'white', width: '100%', height: '200px', marginTop: '20px', borderStyle: 'solid'}}>
