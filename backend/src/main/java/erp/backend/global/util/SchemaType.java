@@ -8,7 +8,8 @@ import lombok.RequiredArgsConstructor;
 public enum SchemaType {
     notice("notice_file"),
     board("board_file"),
-    approval("approval_file");
+    approval("approval_file"),
+    emppicture("emppicture_file");
 
     private final String name;
 

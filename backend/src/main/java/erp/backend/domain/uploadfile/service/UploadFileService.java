@@ -1,7 +1,7 @@
-package erp.backend.domain.upload.service;
+package erp.backend.domain.uploadfile.service;
 
-import erp.backend.domain.upload.entity.UploadFile;
-import erp.backend.domain.upload.repository.UploadFileRepository;
+import erp.backend.domain.uploadfile.entity.UploadFile;
+import erp.backend.domain.uploadfile.repository.UploadFileRepository;
 import erp.backend.global.util.SchemaType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +22,7 @@ public class UploadFileService {
 
     private final UploadFileRepository uploadFileRepository;
 
+    // 지원하지 않는 확장자
     private final List<String> DENIED_EXTENSION = Arrays.asList("exe", "zip");
     private final List<String> DENIED_CONTENT_TYPE = Arrays.asList("application/x-msdos-program", "application/zip");
 

@@ -9,8 +9,8 @@ import erp.backend.domain.notice.entity.Notice;
 import erp.backend.domain.notice.entity.NoticeFile;
 import erp.backend.domain.notice.repository.NoticeFileRepository;
 import erp.backend.domain.notice.repository.NoticeRepository;
-import erp.backend.domain.upload.entity.UploadFile;
-import erp.backend.domain.upload.service.UploadFileService;
+import erp.backend.domain.uploadfile.entity.UploadFile;
+import erp.backend.domain.uploadfile.service.UploadFileService;
 import erp.backend.global.config.security.SecurityHelper;
 import erp.backend.global.util.FileUtils;
 import erp.backend.global.util.SchemaType;
@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static erp.backend.global.util.ArrayUtils.isNullOrEmpty;
@@ -41,15 +42,23 @@ public class NoticeService {
         Emp emp = SecurityHelper.getAccount();
         List<Notice> list = noticeRepository.findAll();
 
-        return list.stream()
-                .map(notice -> NoticeListResponse.builder()
-                        .id(notice.getNoticeId())
-                        .writer(notice.getEmp().getEmpName())
-                        .subject(notice.getNoticeSubject())
-                        .noticeCreatedDate(notice.getNoticeCreatedDate())
-                        .build()
-                )
-                .toList();
+        if (!list.isEmpty())
+            return list.stream()
+                    .map(notice -> NoticeListResponse.builder()
+                            .id(notice.getNoticeId())
+                            .writer(notice.getEmp().getEmpName())
+                            .subject(notice.getNoticeSubject())
+                            .noticeCreatedDate(notice.getNoticeCreatedDate())
+                            .build()
+                    )
+                    .toList();
+        else {
+            // 게시글이 없을 때
+            NoticeListResponse noticeListResponse = NoticeListResponse.builder()
+                    .subject(" 게시글이 없습니다. ")
+                    .build();
+            return Collections.singletonList(noticeListResponse);
+        }
     }
 
     @Transactional

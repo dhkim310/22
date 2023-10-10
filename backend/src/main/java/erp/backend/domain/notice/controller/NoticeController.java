@@ -19,20 +19,21 @@ import java.util.List;
 public class NoticeController {
     private final NoticeService noticeService;
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<NoticeListResponse>> noticeList() {
         return ResponseEntity.ok(noticeService.noticeList());
     }
 
-    @PostMapping("/management")
-    public void noticeInsert(@RequestPart(value = "requestDto") NoticeRequest request, @RequestPart(value = "files") List<MultipartFile> files) throws IOException {
-        noticeService.noticeInsert(request, files);
-    }
-
-    @GetMapping("/management/detail/{id}")
+    @GetMapping("/detail/{id}")
     public ResponseEntity<NoticeDetailResponse> noticeDetail(@PathVariable("id") Long id) {
         noticeService.updateView(id);
         return ResponseEntity.ok(noticeService.getNoticeDetail(id));
+    }
+
+    @PostMapping("/management")
+    public ResponseEntity<List<NoticeListResponse>> noticeInsert(@RequestPart(value = "requestDto") NoticeRequest request, @RequestPart(value = "files") List<MultipartFile> files) throws IOException {
+        noticeService.noticeInsert(request, files);
+        return ResponseEntity.ok(noticeService.noticeList());
     }
 
     @DeleteMapping("/management/delete/{id}")
