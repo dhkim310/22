@@ -8,10 +8,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class SalaryInsert {
-    private int amount;
-    private LocalDateTime paydate;
-    private int paymoney;
-    private String bank;
-    private String accountnumber;
+    private String accountNumber;
     private int bonus;
 }

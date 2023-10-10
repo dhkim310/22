@@ -2,6 +2,7 @@ package erp.backend.domain.salary.service;
 
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
+import erp.backend.domain.salary.Vo.SalaryVO;
 import erp.backend.domain.salary.dto.SalaryInsert;
 import erp.backend.domain.salary.entity.Salary;
 import erp.backend.domain.salary.repository.SalaryRepository;
@@ -17,19 +18,17 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class SalaryService {
     private final SalaryRepository salaryRepository;
-    private final EmpRepository empRepository;
-
+    private final SalaryVO salaryVO;
     @Transactional
     public Long salaryInsert(SalaryInsert request){
         Emp emp = SecurityHelper.getAccount();
         Salary entity = Salary.builder()
-                .emp(empRepository.findByEmpId(emp.getEmpId()))
-                .salaryAmount(request.getAmount())
-                .salaryPayDate(LocalDateTime.now())
-                .salaryPayMoney(request.getPaymoney())
-                .salaryBank(request.getBank())
-                .salaryAccountNumber(request.getAccountnumber())
-                .salaryBonus(0)
+                .emp(emp)
+                .salaryPayDate(LocalDateTime.now().withDayOfMonth(15).withHour(9).withMinute(0).withSecond(0))
+                .salaryPayMoney(salaryVO.position(emp.getEmpPosition()))
+                .salaryBank("신한")
+                .salaryAccountNumber(request.getAccountNumber())
+                .salaryBonus(request.getBonus())
                 .build();
         return salaryRepository.save(entity).getSalaryId();
     }

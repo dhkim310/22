@@ -31,14 +31,17 @@ public class Salary {
     @Column(name = "SALARY_PAYDATE")
     private LocalDateTime salaryPayDate;
 
-    @Column(name = "SALARY_PAYMONEY")
-    private int salaryPayMoney;
-
     @Column(name = "SALARY_BANK")
     private String salaryBank;
 
     @Column(name = "SALARY_ACCOUNTNUMBER")
     private String salaryAccountNumber;
+
+    @Column(name = "SALARY_PAYMONEY")
+    private double salaryPayMoney;
+
+    @Column(name = "SALARY_TAX")
+    private int salaryTax;
 
     @Column(name = "SALARY_BONUS")
     private int salaryBonus;
