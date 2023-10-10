@@ -32,7 +32,7 @@ public class Salary {
     private LocalDateTime salaryPayDate;
 
     @Column(name = "SALARY_PAYMONEY")
-    private int salarPayMoney;
+    private int salaryPayMoney;
 
     @Column(name = "SALARY_BANK")
     private String salaryBank;

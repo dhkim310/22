@@ -49,8 +49,8 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/api/notice/**",
                                         "/api/notice/management/**",
-                                        "/api/memo/write",
-                                        "/api/memo/update/7"
+                                        "/api/memo/**",
+                                        "/api/salary/**"
                                 ).hasRole("ADMIN")
                                 .requestMatchers(
                                         "/main",
