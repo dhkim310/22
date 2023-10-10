@@ -1,15 +1,13 @@
 package erp.backend.domain.vacation.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import erp.backend.domain.emp.entity.Emp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @AllArgsConstructor
@@ -40,5 +38,5 @@ public class Vacation {
     private int vacationUsedDayOff;
 
     @Column(name = "VACATION_DATEDAYOFF")
-    private LocalDateTime vacationDateDayOff;
+    private LocalDate vacationDateDayOff;
 }
