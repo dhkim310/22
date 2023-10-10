@@ -37,6 +37,7 @@ public class EmpService {
                 .password(passwordEncoder.encode("1541")) // 사원의 초기 비밀번호 1541
                 .empPosition(request.getEmpPosition())
                 .roles(request.getRoles())
+                .empAmount(request.getEmpAmount())
                 .empBirthday(request.getEmpBirthday())
                 .empPhoneNumber(request.getEmpPhoneNumber())
                 .empAddress(request.getEmpAddress())

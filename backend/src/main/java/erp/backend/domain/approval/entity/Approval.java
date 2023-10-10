@@ -1,5 +1,6 @@
 package erp.backend.domain.approval.entity;
 
+import erp.backend.domain.approval.dto.ApprovalUpdate;
 import erp.backend.domain.emp.entity.Emp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ public class Approval {
     @Column(name = "APPROVAL_ID")
     private long approvalId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "APPROVAL_EMP_ID")
     private Emp emp;
 
@@ -47,4 +48,14 @@ public class Approval {
 
     @Column(name = "APPROVAL_SUCCESSDATE")
     private LocalDate approvalSuccessDate;
+
+    public void update(Emp emp, ApprovalUpdate request) {
+        this.approvalCheck = request.getApprovalCheck();
+        this.approvalSuccessDate = LocalDate.now();
+    }
+    public void reject(Emp emp, ApprovalUpdate request) {
+        this.approvalCheck = request.getApprovalCheck();
+        this.approvalBackDate = LocalDate.now();
+    }
+
 }
