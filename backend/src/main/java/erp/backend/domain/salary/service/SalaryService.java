@@ -1,6 +1,7 @@
 package erp.backend.domain.salary.service;
 
 import erp.backend.domain.emp.entity.Emp;
+import erp.backend.domain.emp.repository.EmpRepository;
 import erp.backend.domain.salary.dto.SalaryInsert;
 import erp.backend.domain.salary.entity.Salary;
 import erp.backend.domain.salary.repository.SalaryRepository;
@@ -16,12 +17,13 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class SalaryService {
     private final SalaryRepository salaryRepository;
+    private final EmpRepository empRepository;
 
     @Transactional
     public Long salaryInsert(SalaryInsert request){
         Emp emp = SecurityHelper.getAccount();
         Salary entity = Salary.builder()
-                .emp(emp)
+                .emp(empRepository.findByEmpId(emp.getEmpId()))
                 .salaryAmount(request.getAmount())
                 .salaryPayDate(LocalDateTime.now())
                 .salaryPayMoney(request.getPaymoney())
