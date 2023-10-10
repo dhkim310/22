@@ -109,9 +109,9 @@ public class Emp implements UserDetails {
         return true;
     }
 
+    @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    //private Set<Board> boardList = new HashSet<>();
 
-//    @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-//    private Set<Board> boardList = new HashSet<>();
 
     public void update(EmpPasswordUpdateRequest request,PasswordEncoder passwordEncoder){
         System.out.println("#1"+password);
