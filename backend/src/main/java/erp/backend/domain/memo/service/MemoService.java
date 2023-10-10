@@ -17,9 +17,8 @@ public class MemoService {
     private final MemoRepository memoRepository;
 
     @Transactional
-    public Long createMemo(MemoInsert request) {
+    public Long memoInsert(MemoInsert request) {
         Emp emp = SecurityHelper.getAccount();
-        System.out.println("emp: " + emp);
         Memo entity = Memo.builder()
             .emp(emp)
             .memoContent(request.getContent())
@@ -28,7 +27,7 @@ public class MemoService {
     }
 
     @Transactional
-    public Long updateMemo(Long memoId, MemoUpdate request){
+    public Long memoUpdate(Long memoId, MemoUpdate request){
         Emp emp = SecurityHelper.getAccount();
         Memo memo = memoRepository.findByEmpEmpIdOrderByMemoIdDesc(emp.getEmpId());
         memo.update(emp, request);
@@ -41,7 +40,7 @@ public class MemoService {
     }
 
     @Transactional
-    public void deleteMemo(Long memoId){
+    public void memoDelete(Long memoId){
         Emp emp = SecurityHelper.getAccount();
         Memo memo = memoRepository.findById(memoId)
                 .orElseThrow(() -> new IllegalArgumentException("메모가 없습니다."));
