@@ -4,15 +4,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity //jpa 사용할때!
+@Getter
+@Builder
 @AllArgsConstructor // 파라미터있는생성자
 @NoArgsConstructor // 기본생성자
-@Data // setter, getter 자동생성
 
 public class Member {
     @Id
@@ -32,10 +34,11 @@ public class Member {
     @Column(name = "MEMBER_PHONENUMBER")
     private String memberPhoneNumber;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @CreationTimestamp
     @Column(name = "MEMBER_BIRTHDAY")
-    private Date memberBirthDay;
+    private LocalDate memberBirthDay;
+
+    @Column(name = "MEMBER_JOINDATE")
+    private LocalDate memberJoinDate;
 
     @Column(name = "MEMBER_RATEPLAN")
     private String memberRatePlan;
@@ -43,10 +46,8 @@ public class Member {
     @Column(name = "MEMBER_PAYMENTPRICE")
     private int memberPaymentPrice;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
-    @CreationTimestamp
     @Column(name = "MEMBER_PAYMENTDATE")
-    private Date memberPaymentDate;
+    private LocalDateTime memberPaymentDate;
 
     @Column(name = "MEMBER_PAYMENTBANK")
     private String memberPaymentBank;
