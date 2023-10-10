@@ -25,9 +25,6 @@ public class Salary {
     @JoinColumn(name = "SALARY_EMP_ID")
     private Emp emp;
 
-    @Column(name = "SALARY_AMOUNT")
-    private int salaryAmount;
-
     @Column(name = "SALARY_PAYDATE")
     private LocalDateTime salaryPayDate;
 
