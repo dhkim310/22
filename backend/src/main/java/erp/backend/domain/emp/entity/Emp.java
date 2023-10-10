@@ -53,6 +53,9 @@ public class Emp implements UserDetails {
     @Column(name = "EMP_ROLES")
     private String roles;
 
+    @Column(name = "EMP_AMOUNT")
+    private Long empAmount;
+
     @Column(name = "EMP_BIRTHDAY")
     private LocalDate empBirthday;
 
