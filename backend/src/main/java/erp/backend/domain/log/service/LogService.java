@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,17 +44,10 @@ public class LogService {
     @Transactional
     public LogResponse logResponse() {
         Emp emp = SecurityHelper.getAccount();
-        Log entity = logRepository.findTopByEmpEmpIdOrderByLogIdDesc(emp.getEmpId());
-
-        if (entity == null) {
-            return LogResponse.builder()
-                    .logCheckIn(logVo.type3(null))  // 또는 다른 기본값 설정
-                    .logCheckOut(logVo.type3(null))  // 또는 다른 기본값 설정
-                    .build();
-        }
+        Optional<Log> entity = Optional.ofNullable(logRepository.findTopByEmpEmpIdOrderByLogIdDesc(emp.getEmpId()));
         return LogResponse.builder()
-                .logCheckIn(logVo.type3(entity.getLogCheckIn()))
-                .logCheckOut(logVo.type3(entity.getLogCheckOut()))
+                .logCheckIn(entity.map(e -> logVo.type3(e.getLogCheckIn())).orElse(null))
+                .logCheckOut(entity.map(e -> logVo.type3(e.getLogCheckOut())).orElse(null))
                 .build();
     }
 
