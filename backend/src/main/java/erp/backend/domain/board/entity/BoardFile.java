@@ -1,4 +1,4 @@
-package erp.backend.domain.notice.entity;
+package erp.backend.domain.board.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import erp.backend.domain.uploadfile.entity.UploadFile;
@@ -9,30 +9,31 @@ import lombok.NoArgsConstructor;
 @Entity //jpa 사용할때!
 @NoArgsConstructor
 @Getter
-@Table(name = "noticefile")
-public class NoticeFile {
+@Table(name = "boardfile")
+public class BoardFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "NOTICEFILE_ID")
-    private Long noticeFileId;
+    @Column(name = "BOARDFILE_ID")
+    private long boardFileId;
 
-    // 외래키
+    //외래키
     @ManyToOne
-    @JoinColumn(name = "NOTICEFILE_NOTICE_ID")
+    @JoinColumn(name = "BOARDFILE_BOARD_ID")
     @JsonIgnore
-    private Notice notice;
+    private Board board;
 
     @OneToOne(
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JoinColumn(name = "NOTICEFILE_UPLOADFILE_ID")
+    @JoinColumn(name = "BOARDFILE_UPLOADFILE_ID")
     @JsonIgnore
     private UploadFile uploadFile;
 
-    public NoticeFile(Notice notice, UploadFile uploadFile) {
-        this.notice = notice;
+    public BoardFile(Board board, UploadFile uploadFile) {
+        this.board = board;
         this.uploadFile = uploadFile;
     }
+
 }

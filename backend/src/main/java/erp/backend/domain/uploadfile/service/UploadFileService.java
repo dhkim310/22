@@ -38,23 +38,6 @@ public class UploadFileService {
         return uploadFileRepository.save(uploadFile);
     }
 
-//    @Transactional
-//    public List<UploadFile> createUploadFileList(List<MultipartFile> files, SchemaType schema) {
-//        List<UploadFile> uploadFileList = new ArrayList<>();
-//        if (files == null) return uploadFileList;
-//        files.forEach(file -> {
-//            UploadFile uploadFile = null;
-//            try {
-//                uploadFile = uploadFile(file, schema);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//            uploadFileList.add(uploadFile);
-//        });
-//
-//        return uploadFileRepository.saveAll(uploadFileList);
-//    }
-
     @Transactional
     public UploadFile uploadFile(MultipartFile uploadFile, SchemaType schema) throws IOException, NullPointerException {
         String uuid = UUID.randomUUID().toString();

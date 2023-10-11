@@ -1,9 +1,13 @@
 package erp.backend.domain.board.dto;
 
-import lombok.Data;
+import erp.backend.domain.board.dto.BoardRequest;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class BoardUpdate {
-    private String subject;
-    private String content;
+import java.util.List;
+
+@Getter
+@Setter
+public class BoardUpdate extends BoardRequest {
+    private List<Long> deleteUploadFileIds;
 }

@@ -20,6 +20,7 @@ public class Memo {
     @ManyToOne(fetch = FetchType.LAZY) // 필요할때만 호출
     @JoinColumn(name = "MEMO_EMP_ID", referencedColumnName = "EMP_ID")
     private Emp emp;
+
     @Column(name = "MEMO_CONTENT")
     private String memoContent;
 
