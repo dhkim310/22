@@ -1,16 +1,15 @@
 package erp.backend.domain.vacation.service;
 
-import erp.backend.domain.board.repository.BoardRepository;
-import erp.backend.domain.emp.entity.Emp;
+
 import erp.backend.domain.emp.repository.EmpRepository;
 import erp.backend.domain.vacation.dto.VacationInsert;
+import erp.backend.domain.vacation.dto.VacationUpdate;
 import erp.backend.domain.vacation.entity.Vacation;
 import erp.backend.domain.vacation.repository.VacationRepository;
-import erp.backend.global.config.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.LocalDateTime;
+
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +27,15 @@ public class VacationService {
                 .vacationUsedVacation(request.getVacationUsedVacation())
                 .vacationTotalDayOff(request.getVacationTotalDayOff())
                 .vacationUsedDayOff(request.getVacationUsedDayOff())
-                .vacationDateDayOff(request.getVacationDateDayOff())
+                .vacationDayOffDate(request.getVacationDayOffDate())
                 .build();
         return vacationRepository.save(entity).getVacationId();
+    }
+
+    @Transactional
+    public Long vacationUpdate(VacationUpdate request) {
+        Vacation entity = vacationRepository.findByVacationId(request.getVacationId());
+        entity.update(request);
+        return entity.getVacationId();
     }
 }

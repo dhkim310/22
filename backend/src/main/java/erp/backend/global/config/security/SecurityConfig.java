@@ -59,15 +59,17 @@ public class SecurityConfig {
                                         "/api/emp/fix-info",
                                         "/api/emp/approval",
                                         "/api/board/**",
-                                        "/api/comment/board/**"
-                                        "/api/emp/approval-success"
+                                        "/api/comment/board/**",
+                                        "/api/emp/approval-success",
+                                        "/api/vacation/insert"
                                 ).hasRole("USER")
                                 .requestMatchers(
                                         "/api/emp/sign-in",
                                         "/api/emp/sign-up",
                                         "/api/notice/list",
                                         "/api/notice/detail",
-                                        "/api/memo/**"
+                                        "/api/memo/**",
+                                        "/api/vacation/**"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )
