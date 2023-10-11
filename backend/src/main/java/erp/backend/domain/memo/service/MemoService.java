@@ -2,6 +2,7 @@ package erp.backend.domain.memo.service;
 
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.memo.dto.MemoInsert;
+import erp.backend.domain.memo.dto.MemoResponse;
 import erp.backend.domain.memo.dto.MemoUpdate;
 import erp.backend.domain.memo.entity.Memo;
 import erp.backend.domain.memo.repository.MemoRepository;
@@ -9,6 +10,8 @@ import erp.backend.global.config.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,24 +30,19 @@ public class MemoService {
     }
 
     @Transactional
-    public Long memoUpdate(Long memoId, MemoUpdate request){
+    public Long memoUpdate(MemoUpdate request){
         Emp emp = SecurityHelper.getAccount();
-        Memo memo = memoRepository.findByEmpEmpIdOrderByMemoIdDesc(emp.getEmpId());
+        Memo memo = memoRepository.findTopByEmpEmpIdOrderByMemoIdDesc(emp.getEmpId());
         memo.update(emp, request);
         return memo.getMemoId();
-//        Memo memo = memoRepository.findById(memoId)
-//                .orElseThrow(() -> new IllegalArgumentException("메모가 없습니다."));
-//
-//        memo.update(request.getContent());
-//        memoRepository.save(memo);
     }
 
     @Transactional
-    public void memoDelete(Long memoId){
+    public MemoResponse memoResponse() {
         Emp emp = SecurityHelper.getAccount();
-        Memo memo = memoRepository.findById(memoId)
-                .orElseThrow(() -> new IllegalArgumentException("메모가 없습니다."));
-
-        memoRepository.deleteById(memoId);
+        Optional<Memo> entity = Optional.ofNullable(memoRepository.findTopByEmpEmpIdOrderByMemoIdDesc(emp.getEmpId()));
+        return MemoResponse.builder()
+                .memoContent(entity.map(e -> e.getMemoContent()).orElse(""))
+                .build();
     }
 }
