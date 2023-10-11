@@ -1,10 +1,8 @@
 package erp.backend.domain.notice.service;
 
+import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.notice.dto.NoticeDetailResponse;
-import erp.backend.domain.notice.dto.NoticeListResponse;
-import erp.backend.domain.notice.dto.NoticeRequest;
-import erp.backend.domain.notice.dto.UpdateNotice;
+import erp.backend.domain.notice.dto.*;
 import erp.backend.domain.notice.entity.Notice;
 import erp.backend.domain.notice.entity.NoticeFile;
 import erp.backend.domain.notice.repository.NoticeFileRepository;
@@ -16,6 +14,9 @@ import erp.backend.global.util.FileUtils;
 import erp.backend.global.util.SchemaType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,32 +38,34 @@ public class NoticeService {
 
     private final UploadFileService uploadFileService;
 
-    @Transactional(readOnly = true)
-    public List<NoticeListResponse> noticeList() {
-        Emp emp = SecurityHelper.getAccount();
-        List<Notice> list = noticeRepository.findAll();
-
-        if (!list.isEmpty())
-            return list.stream()
-                    .map(notice -> NoticeListResponse.builder()
-                            .id(notice.getNoticeId())
-                            .writer(notice.getEmp().getEmpName())
-                            .subject(notice.getNoticeSubject())
-                            .noticeCreatedDate(notice.getNoticeCreatedDate())
-                            .build()
-                    )
-                    .toList();
-        else {
-            // 게시글이 없을 때
-            NoticeListResponse noticeListResponse = NoticeListResponse.builder()
-                    .subject(" 게시글이 없습니다. ")
-                    .build();
-            return Collections.singletonList(noticeListResponse);
-        }
+    @Transactional
+    public Page<Notice> findAll(Pageable pageable) {
+        System.out.println("@findAll() pageable: " + pageable);
+        return noticeRepository.findByOrderByNoticeIdDesc(pageable);
     }
 
+    @Transactional(readOnly = true)
+    public NoticeListResult getBoardListResult(Pageable pageable) {
+        List<NoticeListResponse> noticeListResponses = new ArrayList<>();
+        List<Notice> list = noticeRepository.findAll();
+
+        for (Notice notice : list) {
+            NoticeListResponse response = NoticeListResponse.fromNotice(notice);
+            noticeListResponses.add(response);
+        }
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), noticeListResponses.size());
+        List<NoticeListResponse> sublist = noticeListResponses.subList(start, end);
+
+        Page<NoticeListResponse> page = new PageImpl<>(sublist, pageable, noticeListResponses.size());
+
+        return new NoticeListResult(pageable.getPageNumber(), noticeListResponses.size(), pageable.getPageSize(), page);
+    }
+
+
     @Transactional
-    public void noticeInsert(NoticeRequest request, List<MultipartFile> files) throws IOException {
+    public Long noticeInsert(NoticeRequest request, List<MultipartFile> files) throws IOException {
         // 공지사항 entity 생성
         Emp emp = SecurityHelper.getAccount();
         Notice entity = Notice.builder()
@@ -70,21 +73,19 @@ public class NoticeService {
                 .noticeSubject(request.getSubject())
                 .noticeContent(request.getContent())
                 .build();
-        Notice save = noticeRepository.save(entity);
+        noticeRepository.save(entity);
 
-        createNoticeFileList(save, files);
+        createNoticeFileList(entity, files);
+
+        return entity.getNoticeId();
     }
 
-    @Transactional
-    public void updateView(Long id) {
-        Notice entity = getNotice(id);
-        entity.updateViewCount();
-    }
-
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // 읽기 전용
     public NoticeDetailResponse getNoticeDetail(Long id) {
         Notice entity = getNotice(id);
-        // 상세보기 클릭시 조회수 1 증가
+        updateView(id);
+        List<NoticeFile> noticeFiles = entity.getNoticeFileList();
+
         return NoticeDetailResponse.builder()
                 .id(entity.getNoticeId())
                 .writer(entity.getEmp().getEmpName())
@@ -93,30 +94,31 @@ public class NoticeService {
                 .views(entity.getNoticeViews())
                 .noticeCreatedDate(entity.getNoticeCreatedDate())
                 .noticeModifiedDate(entity.getNoticeModifiedDate())
+                .noticeFileList(noticeFiles)
                 .build();
     }
 
     @Transactional
-    public Long noticeUpdate(Long id, UpdateNotice request, List<MultipartFile> files) {
+    public Long noticeUpdate(Long id, NoticeUpdate request, List<MultipartFile> files) {
         Emp emp = SecurityHelper.getAccount();
         Notice entity = getNotice(id, emp);
         entity.update(request);
 
         List<Long> deleteUploadFileIds = request.getDeleteUploadFileIds();
 
-        if (deleteUploadFileIds != null) {
+        if (deleteUploadFileIds != null || !entity.getNoticeFileList().isEmpty()) {
             List<NoticeFile> noticeFileList = entity.getNoticeFileList();
-            noticeFileList = noticeFileList.stream()
-                    .filter(noticeFile -> !deleteUploadFileIds.contains(noticeFile.getNoticeFileId()))
-                    .toList();
-
-            noticeFileList.addAll(createNoticeFileList(entity, files));
-
-            entity.addAllNoticeFileList(noticeFileList);
-        } else {
-            return null;
+            noticeFileList.removeIf(noticeFile -> deleteUploadFileIds != null && deleteUploadFileIds.contains(noticeFile.getNoticeFileId()));
         }
 
+        if (files != null && !files.isEmpty()) {
+            List<NoticeFile> newFiles = createNoticeFileList(entity, files);
+            entity.getNoticeFileList().clear(); // 현재 파일 목록을 모두 지우고
+            entity.getNoticeFileList().addAll(newFiles); // 새로운 파일 목록으로 교체
+        } else {
+            // files가 null이면 해당 공지사항 원래 있던 파일 삭제
+            entity.getNoticeFileList().clear();
+        }
 
         return entity.getNoticeId();
     }
@@ -143,26 +145,40 @@ public class NoticeService {
     private List<NoticeFile> createNoticeFileList(Notice notice, List<MultipartFile> files) {
         List<NoticeFile> noticeFileList = new ArrayList<>();
 
-        if (isNullOrEmpty(files)) return noticeFileList;
-
-        for (MultipartFile file : files) {
-            UploadFile uploadFile = uploadFileService.createUploadFile(file, SchemaType.notice);
-            NoticeFile noticeFile = new NoticeFile(notice, uploadFile);
-            noticeFileList.add(noticeFile);
+        if (isNullOrEmpty(files)) {
+            return noticeFileList;
+        } else {
+            for (MultipartFile file : files) {
+                UploadFile uploadFile = uploadFileService.createUploadFile(file, SchemaType.notice);
+                NoticeFile noticeFile = new NoticeFile(notice, uploadFile);
+                noticeFileList.add(noticeFile);
+            }
         }
         return noticeFileRepository.saveAll(noticeFileList);
+    }
+
+    @Transactional
+    public void updateView(Long id) {
+        Notice entity = getNotice(id);
+        entity.updateViewCount();
     }
 
     // 게시글 존재 여부 확인
     private Notice getNotice(Long id) {
         return noticeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(id + "번 글은 존재하지 않는 데이터입니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 글은 존재하지 않는 데이터입니다."));
     }
 
     // 게시글 작성자와 사용자가 일치하는지 확인
     private Notice getNotice(Long id, Emp emp) {
-        return noticeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("잘못된 접근입니다."));
+
+        Notice notice = noticeRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("잘못된 접근"));
+        if (notice.getEmp().getEmpId().equals(emp.getEmpId())) {
+            return notice;
+        } else {
+            throw new IllegalArgumentException("현재 로그인 된 사용자와 게시글 작성자가 일치하지 않습니다.");
+        }
     }
 
 }

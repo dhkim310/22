@@ -82,7 +82,7 @@ public class EmpService {
     }
 
     @Transactional(readOnly = true)
-    public EmpDetailResponse empDetailResponse(){
+    public EmpDetailResponse empDetailResponse() {
         Emp emp = SecurityHelper.getAccount();
 
         return EmpDetailResponse.builder()
@@ -99,12 +99,13 @@ public class EmpService {
                 .build();
 
     }
+
     @Transactional
     public Long passwordUpdate(EmpPasswordUpdateRequest request) {
         Emp emp = SecurityHelper.getAccount();
-        emp.update(request,passwordEncoder);
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+        emp.updatePassword(encodedPassword);
         empRepository.save(emp);
-
         try {
             mailService.sendSimpleMessage(emp.getEmpEmail());
         } catch (Exception e) {

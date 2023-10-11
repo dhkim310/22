@@ -1,9 +1,11 @@
 package erp.backend.domain.board.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class BoardInsert {
+@Getter
+@Setter
+public class BoardRequest {
     private String subject;
     private String content;
 }
