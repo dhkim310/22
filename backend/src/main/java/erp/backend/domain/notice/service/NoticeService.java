@@ -64,6 +64,7 @@ public class NoticeService {
 
         return list.stream()
                 .map(notice -> NoticeMainListResponse.builder()
+                        .id(notice.getNoticeId())
                         .subject(notice.getNoticeSubject())
                         .build()
                 )
