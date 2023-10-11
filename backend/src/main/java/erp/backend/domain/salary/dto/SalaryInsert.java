@@ -10,6 +10,5 @@ import java.time.LocalDateTime;
 public class SalaryInsert {
     private String bank;
     private String accountNumber;
-    private int tax;
     private int bonus;
 }

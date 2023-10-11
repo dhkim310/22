@@ -10,5 +10,4 @@ import java.util.Optional;
 public interface EmpRepository extends JpaRepository<Emp, Long> {
     Optional<Emp> findByEmpEmail(String empEmail);
     Emp findByEmpName(String empName);
-    Emp findByEmpId(Long empId);
 }
