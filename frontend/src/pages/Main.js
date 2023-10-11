@@ -151,15 +151,15 @@ function Main() {
                             <div style={{height: '850px', background: 'transparent', width: '370px'}}>
                                 <div style={{background: 'white', width: '100%', height: '400px'}}>
                                 <div style={{height: '30px'}} />
-                                <div style={{height: '300px', background: 'url("assets/img/f05ee6c832afa3bac801c2c1825426ba.jpg") center / contain no-repeat'}} />
+                                <div style={{height: '300px', background: 'url("img/f05ee6c832afa3bac801c2c1825426ba.jpg") center / contain no-repeat'}} />
                                 <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{height: '70px'}}>
-                                    <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center" style={{width: '50%', height: '100%'}}><span style={{fontSize: '26px', fontWeight: 'bold'}}>엄용민 대표</span></div>
+                                    <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center" style={{width: '50%', height: '100%'}}><span style={{fontSize: '26px', fontWeight: 'bold'}}>한소희 대표</span></div>
                                     <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{width: '50%', height: '100%'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" onClick={ navigateToFixInfo } style={{width: '120px', height: '30px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '6px', borderColor: 'black'}}>정보수정</button></div>
                                 </div>
                                 </div>
                                 <div className="d-xxl-flex justify-content-xxl-center" style={{background: 'white', width: '100%', height: '200px', marginTop: '20px', borderStyle: 'solid'}}>
                                 <div />
-                                <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{width: '50%', height: '100%'}}><button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{background: 'url("assets/img/3.png") center / contain no-repeat', width: '55%', height: '65%', borderWidth: '0px'}} /></div>
+                                <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{width: '50%', height: '100%'}}><button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{background: 'url("img/3.png") center / contain no-repeat', width: '55%', height: '65%', borderWidth: '0px'}} /></div>
                                 <div style={{width: '50%', height: '100%'}}>
                                     <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-end" style={{background: 'transparent', width: '100%', height: '50%'}}><span style={{fontSize: '27px', fontWeight: 'bold'}}>진행중 결재</span></div>
                                     <div className="d-xxl-flex justify-content-xxl-center" style={{background: 'transparent', width: '100%', height: '50%'}}><span style={{fontSize: '31px', fontWeight: 'bold'}}>0</span></div>
@@ -171,12 +171,12 @@ function Main() {
                                 <div style={{background: 'white', width: '100%', height: '450px'}}>
                                 <div className="d-xxl-flex align-items-xxl-center" style={{height: '50px', borderBottom: '1px ridge rgba(128,128,128,0.24)'}}><span style={{fontSize: '25px', fontWeight: 'bold', paddingLeft: '23px'}}>공지사항</span></div>
                                 <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{width: '100%', height: '400px'}}>
-                                    <div className="d-xxl-flex justify-content-center justify-content-xxl-center align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '0px', maxHeight: '1000px', width: '100%'}}>
+                                    <div className="d-xxl-flex justify-content-center justify-content-xxl-center align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '34px', maxHeight: '1000px', width: '100%'}}>
 
                                     <ul>
                                     {notice.map(e => (
                                     <li key={e.id} style={{ listStyleType: 'none' }}>
-                                    <a className="d-xxl-flex justify-content-xxl-center list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '70px', marginBottom: '2px', width: '561px'}}>
+                                    <a className="d-xxl-flex justify-content-xxl-center list-group-item list-group-item-action flex-column align-items-start" style={{height: '70px', marginBottom: '2px', width: '561px'}}>
                                         <div className="d-flex w-100 justify-content-between" style={{width: '100%'}}>
                                         <h5 className="mb-1" style={{width: '100%'}}>{e.subject}</h5>
                                         </div>
