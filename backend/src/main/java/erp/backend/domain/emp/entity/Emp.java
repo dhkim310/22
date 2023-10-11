@@ -1,8 +1,8 @@
 package erp.backend.domain.emp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.dept.entity.Dept;
-import erp.backend.domain.emp.dto.EmpPasswordUpdateRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -62,6 +61,7 @@ public class Emp implements UserDetails {
     @Column(name = "EMP_STARTDATE")
     private LocalDate empStartDate;
 
+    @JsonIgnore
     @Column(name = "EMP_ENDDATE")
     private LocalDate empEndDate;
 
@@ -74,9 +74,12 @@ public class Emp implements UserDetails {
     @Column(name = "EMP_ADDRESS")
     private String empAddress;
 
+    @JsonIgnore
     @Column(name = "EMP_DETAILADDRESS")
     private String empDetailAddress;
 
+//    @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+//    private Set<Board> boardList = new HashSet<>();
     @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Board> boardList = new HashSet<>();
 
@@ -112,14 +115,8 @@ public class Emp implements UserDetails {
         return true;
     }
 
-    @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    //private Set<Board> boardList = new HashSet<>();
-
-
-    public void update(EmpPasswordUpdateRequest request,PasswordEncoder passwordEncoder){
-        System.out.println("#1"+password);
-        this.password = passwordEncoder.encode(request.getPassword());
-        System.out.println("#2"+password);
+    public void updatePassword(String newPassword) {
+        this.password = newPassword;
     }
 
 }

@@ -1,8 +1,13 @@
 package erp.backend.domain.board.dto;
 
-import lombok.*;
+import erp.backend.domain.board.entity.BoardFile;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Builder
@@ -16,4 +21,5 @@ public class BoardDetailResponse {
     private int views;
     private LocalDateTime boardCreatedDate;
     private LocalDateTime boardModifiedDate;
+    private List<BoardFile> boardFileList;
 }

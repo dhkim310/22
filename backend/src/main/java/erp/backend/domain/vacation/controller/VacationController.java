@@ -1,10 +1,7 @@
 package erp.backend.domain.vacation.controller;
 
-import erp.backend.domain.board.dto.BoardInsert;
-import erp.backend.domain.notice.dto.NoticeListResponse;
 import erp.backend.domain.vacation.dto.VacationInsert;
 import erp.backend.domain.vacation.dto.VacationListResponse;
-import erp.backend.domain.vacation.entity.Vacation;
 import erp.backend.domain.vacation.service.VacationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

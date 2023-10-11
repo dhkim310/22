@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
-import { commuteApi, commuteUpdateApi } from '../api/Commute';
+import { commuteApi, commuteUpdateApi, commuteSelectApi } from '../api/Commute';
+import { selectNoticeTop4Api } from "../api/Notice";
+import { selectMemoApi } from '../api/Memo';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +13,9 @@ function Main() {
     const navigateToFixInfo = () => {
         navigate("/fix-info");
     };
-
+    const [notice, setNotice] = useState([]);
+    const [memo, setMemo] = useState({});
+    const [logInfo, setLogInfo] = useState({});
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -44,6 +48,33 @@ function Main() {
     };
 
     useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await commuteSelectApi();
+                setLogInfo(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        async function fetchData1() {
+            try {
+                const data1 = await selectMemoApi();
+                setMemo(data1);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        async function fetchData2() {
+            try {
+                const data2 = await selectNoticeTop4Api();
+                setNotice(data2);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
         const getWidth = () => {
             return window.innerWidth;
         };
@@ -61,6 +92,9 @@ function Main() {
             element.classList.remove('animated', element.dataset.bssHoverAnimate);
             });
         });
+    fetchData();
+    fetchData1();
+    fetchData2();
     }, []);
 
     return (
@@ -103,8 +137,8 @@ function Main() {
                     </form>
 
                     <div style={{height: 'auto', background: 'rgba(0,0,0,0)', paddingBottom: '15px', paddingTop: '37px'}}>
-                    <div className="d-lg-flex justify-content-xxl-start" style={{height: '30px', background: 'rgba(126,126,126,0)', fontSize: '12px'}}><span style={{fontWeight: 'bold'}}>&nbsp; 출근시간 :&nbsp;</span></div>
-                    <div className="d-lg-flex justify-content-xxl-start" style={{height: '30px', background: 'rgba(126,126,126,0)'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>&nbsp; 퇴근시간 :&nbsp;</span></div>
+                    <div className="d-lg-flex justify-content-xxl-start" style={{height: '30px', background: 'rgba(126,126,126,0)', fontSize: '12px'}}><span style={{fontWeight: 'bold'}}>&nbsp; 출근시간 :&nbsp; {logInfo.logCheckIn}</span></div>
+                    <div className="d-lg-flex justify-content-xxl-start" style={{height: '30px', background: 'rgba(126,126,126,0)'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>&nbsp; 퇴근시간 :&nbsp; {logInfo.logCheckOut}</span></div>
                     </div>
                     </div>
                     <div style={{width: '90%', background: 'var(--bs-gray-200)', height: '100%'}}>
@@ -137,23 +171,22 @@ function Main() {
                                 <div style={{background: 'white', width: '100%', height: '450px'}}>
                                 <div className="d-xxl-flex align-items-xxl-center" style={{height: '50px', borderBottom: '1px ridge rgba(128,128,128,0.24)'}}><span style={{fontSize: '25px', fontWeight: 'bold', paddingLeft: '23px'}}>공지사항</span></div>
                                 <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{width: '100%', height: '400px'}}>
-                                    <div className="d-xxl-flex justify-content-center justify-content-xxl-center align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '0px', maxHeight: '1000px', width: '100%'}}><a className="d-xxl-flex justify-content-xxl-center list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '70px', marginBottom: '2px', width: '561px'}}>
+                                    <div className="d-xxl-flex justify-content-center justify-content-xxl-center align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '0px', maxHeight: '1000px', width: '100%'}}>
+
+                                    <ul>
+                                    {notice.map(e => (
+                                    <li key={e.id} style={{ listStyleType: 'none' }}>
+                                    <a className="d-xxl-flex justify-content-xxl-center list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '70px', marginBottom: '2px', width: '561px'}}>
                                         <div className="d-flex w-100 justify-content-between" style={{width: '100%'}}>
-                                        <h5 className="mb-1" style={{width: '100%'}}>엄용민</h5>
+                                        <h5 className="mb-1" style={{width: '100%'}}>{e.subject}</h5>
                                         </div>
-                                    </a><a className="d-xxl-flex justify-content-xxl-center list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '70px', marginBottom: '2px', width: '561px'}}>
-                                        <div className="d-flex w-100 justify-content-between" style={{width: '100%'}}>
-                                        <h5 className="mb-1" style={{width: '100%'}}>고구려의 흥망성쇠</h5>
-                                        </div>
-                                    </a><a className="d-xxl-flex justify-content-xxl-center list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '70px', marginBottom: '2px', width: '561px'}}>
-                                        <div className="d-flex w-100 justify-content-between" style={{width: '100%'}}>
-                                        <h5 className="mb-1" style={{width: '100%'}}>수수가라희</h5>
-                                        </div>
-                                    </a><a className="d-xxl-flex justify-content-xxl-center list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '70px', marginBottom: '2px', width: '561px'}}>
-                                        <div className="d-flex w-100 justify-content-between" style={{width: '100%'}}>
-                                        <h5 className="mb-1" style={{width: '100%'}}>가나다</h5>
-                                        </div>
-                                    </a></div>
+                                    </a>
+                                    </li>
+                                    ))}
+                                    </ul>
+
+
+                                    </div>
                                 </div>
                                 </div>
                                 <div style={{background: 'white', width: '100%', height: '300px', marginTop: '20px'}}>
@@ -161,7 +194,7 @@ function Main() {
                                 <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{width: '100%', height: '300px'}}>
                                     <div className="d-xxl-flex justify-content-center justify-content-xxl-center align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '0px', maxHeight: '1000px', width: '100%'}}><a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '300px', marginBottom: '2px', width: '561px'}}>
                                         <div className="d-flex w-100 justify-content-between" style={{width: '100%'}}>
-                                        <h5 className="mb-1" style={{width: '100%'}}>엄용민</h5>
+                                        <h5 className="mb-1" style={{width: '100%'}}>{memo.memoContent}</h5>
                                         </div>
                                     </a></div>
                                 </div>

@@ -7,6 +7,6 @@ import java.util.List;
 
 @Getter
 @Setter
-public class UpdateNotice extends NoticeRequest {
+public class NoticeUpdate extends NoticeRequest {
     private List<Long> deleteUploadFileIds;
 }
