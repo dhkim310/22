@@ -3,9 +3,12 @@ package erp.backend.domain.emp.service;
 import erp.backend.domain.emp.dto.*;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
+import erp.backend.domain.salary.dto.SalaryResponse;
+import erp.backend.domain.salary.entity.Salary;
 import erp.backend.global.config.security.SecurityHelper;
 import erp.backend.global.config.security.jwt.JwtProvider;
 import erp.backend.global.mailsender.service.MailService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +16,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -113,18 +118,57 @@ public class EmpService {
         }
         return emp.getEmpId();
     }
+
     @Transactional
     public List<EmpListResponse> empList() {
         Emp emp = SecurityHelper.getAccount();
-        List<Emp> list = empRepository.findAll();
-
-        return list.stream()
+        List<Emp> empList;
+        if (emp.getDept().getDeptId() == 20) {
+            empList = empRepository.findAll();
+        } else {
+            return null;
+        }
+        return empList.stream()
                 .map(emp1 -> EmpListResponse.builder()
-                        .empName(emp.getEmpName())
-                        .empId(emp.getEmpId())
-                        .empPosition(emp.getEmpPosition())
+                        .empId(emp1.getEmpId())
+                        .empName(emp1.getEmpName())
+                        .empPosition(emp1.getEmpPosition())
+                        .dept(emp1.getDept())
                         .build()
                 )
                 .toList();
     }
+    @Transactional(readOnly = true)
+    public EmpListSalaryResponse empSalary(Long id) {
+        Emp emp = SecurityHelper.getAccount();
+
+        List<Salary> entity = empRepository.findSalaryByEmpId(emp.getEmpId());
+
+        return EmpListSalaryResponse.builder()
+                .empId(id)
+                .empName(emp.getEmpName())
+                .salary(entity)
+                .build();
+    }
+
+
+
+//    @Transactional
+//    public EmpListSalaryResponse empSalary(@PathVariable Long id){
+//        Emp emp = SecurityHelper.getAccount();
+//        List<Salary> entity = empRepository.findSalaryByEmpId(emp.getEmpId());
+//
+//        return EmpListSalaryResponse.builder()
+//                .empId(id)
+//                .empName(emp.getEmpName())
+//                .salary(entity.stream()
+//                        .map(salary -> SalaryResponse.builder()
+//                                .salaryPayDate(salary.getSalaryPayDate())
+//                                .salaryPayMoney(salary.getSalaryPayMoney())
+//                                .salaryTax(salary.getSalaryTax())
+//                                .salaryBonus(salary.getSalaryBonus())
+//                                .build())
+//                        .toList())
+//                .build();
+//    }
 }

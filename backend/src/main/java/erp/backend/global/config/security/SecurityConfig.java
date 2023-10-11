@@ -50,7 +50,9 @@ public class SecurityConfig {
                                         "/api/notice/**",
                                         "/api/notice/management/**",
                                         "/api/memo/**",
-                                        "/api/salary/**"
+                                        "/api/salary/**",
+                                        "/api/emp/list",
+                                        "api/emp/list/101"
                                 ).hasRole("ADMIN")
                                 .requestMatchers(
                                         "/main",

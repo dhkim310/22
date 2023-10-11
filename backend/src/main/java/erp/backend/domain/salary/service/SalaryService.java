@@ -11,24 +11,29 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class SalaryService {
     private final SalaryRepository salaryRepository;
+    private final SalaryVO salaryVO;
+
     @Transactional
-    public Long salaryInsert(SalaryInsert request){
+    public Long salaryInsert(SalaryInsert request) {
         Emp emp = SecurityHelper.getAccount();
+
+        salaryVO.setBonus(request.getBonus());
+
         Salary entity = Salary.builder()
                 .emp(emp)
                 .salaryPayDate(LocalDateTime.now().withDayOfMonth(15).withHour(9).withMinute(0).withSecond(0))
-                .salaryPayMoney(new SalaryVO().paymoney(emp.getEmpPosition()))
+                .salaryPayMoney(salaryVO.paymoney(emp.getEmpPosition()))
                 .salaryBank(request.getBank())
                 .salaryAccountNumber(request.getAccountNumber())
-                .salaryTax(request.getTax())
-                .salaryBonus(request.getBonus())
+                .salaryTax(salaryVO.taxmoney(emp.getEmpPosition()))
+                .salaryBonus(salaryVO.getBonus())
                 .build();
         return salaryRepository.save(entity).getSalaryId();
     }
