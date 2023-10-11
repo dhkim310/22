@@ -23,7 +23,7 @@ public class SalaryService {
         Salary entity = Salary.builder()
                 .emp(emp)
                 .salaryPayDate(LocalDateTime.now().withDayOfMonth(15).withHour(9).withMinute(0).withSecond(0))
-                .salaryPayMoney(new SalaryVO().position(emp.getEmpPosition()))
+//                .salaryPayMoney(new SalaryVO().position(emp.getEmpPosition()))
                 .salaryBank("신한")
                 .salaryAccountNumber(request.getAccountNumber())
                 .salaryBonus(request.getBonus())
