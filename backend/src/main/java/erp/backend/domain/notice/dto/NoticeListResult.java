@@ -1,20 +1,21 @@
-package erp.backend.domain.board.dto;
+package erp.backend.domain.notice.dto;
 
-import erp.backend.domain.board.entity.Board;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 
-@NoArgsConstructor
 @Getter
-public class BoardListResult {
-    private Page<Board> list;
+@NoArgsConstructor
+@AllArgsConstructor
+public class NoticeListResult {
+    private Page<NoticeListResponse> list;
     private int page;
     private int size;
     private long totalCount;
     private long totalPageCount;
 
-    public BoardListResult(int page, long totalCount, int size, Page<Board> list) {
+    public NoticeListResult(int page, long totalCount, int size, Page<NoticeListResponse> list) {
         this.page = page;
         this.totalCount = totalCount;
         this.size = size;
