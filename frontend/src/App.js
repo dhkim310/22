@@ -7,8 +7,8 @@ import ReactBigCalendar from "./pages/ReactBigCalendar";
 import FixInfo from "./pages/FixInfo";
 import Approval from "./pages/Approval"
 import SweetAlert from "./component/SweetAlert"
-import Editor from "./component/Editor"
 import Write from "./pages/Write"
+import NoticeList from "./pages/NoticeList"
 
 
 
@@ -26,8 +26,8 @@ function App() {
             <Route path="/fix-info" element={ <FixInfo /> }/>
             <Route path="/schedule" element={ <ReactBigCalendar />}/>
             <Route path="/sweetalert" element={ <SweetAlert />}/>
-            <Route path="/editor" element={ <Editor />}/>
             <Route path="/write" element={ <Write />}/>
+            <Route path="/notice" element={ <NoticeList />}/>
             </Route>
         </Routes>
     </Router>
