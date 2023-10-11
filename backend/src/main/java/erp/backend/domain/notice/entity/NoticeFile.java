@@ -1,12 +1,10 @@
 package erp.backend.domain.notice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import erp.backend.domain.uploadfile.entity.UploadFile;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-
-import java.time.LocalDateTime;
 
 @Entity //jpa 사용할때!
 @NoArgsConstructor
@@ -21,6 +19,7 @@ public class NoticeFile {
     // 외래키
     @ManyToOne
     @JoinColumn(name = "NOTICEFILE_NOTICE_ID")
+    @JsonIgnore
     private Notice notice;
 
     @OneToOne(
@@ -29,6 +28,7 @@ public class NoticeFile {
             orphanRemoval = true
     )
     @JoinColumn(name = "NOTICEFILE_UPLOADFILE_ID")
+    @JsonIgnore
     private UploadFile uploadFile;
 
     public NoticeFile(Notice notice, UploadFile uploadFile) {

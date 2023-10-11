@@ -29,7 +29,7 @@ public class SignUpRequest {
     @NotBlank(message = "사원의 권한을 입력해 주세요")
     private String roles;
 
-    @NotBlank(message = "사원의 권한을 입력해 주세요")
+    @NotNull(message = "사원의 연봉을 입력해 주세요")
     private Long empAmount;
 
     @NotNull(message = "사원의 생년월일을 입력해 주세요")

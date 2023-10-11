@@ -1,12 +1,12 @@
 package erp.backend.domain.board.dto;
 
 import erp.backend.domain.board.entity.Board;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 
 @NoArgsConstructor
-@Data
+@Getter
 public class BoardListResult {
     private Page<Board> list;
     private int page;

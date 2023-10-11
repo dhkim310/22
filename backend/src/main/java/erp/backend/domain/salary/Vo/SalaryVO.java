@@ -1,44 +1,23 @@
 package erp.backend.domain.salary.Vo;
 
-import org.springframework.context.annotation.Bean;
-
 import java.time.LocalDateTime;
+
 public class SalaryVO {
-    double amount = 30000000;
-    private final double ASSISTANT = amount;
-    private final double SENIOR_ASSISTANT = amount * 1.1;
-    private final double MANAGER = amount * 1.45;
-    private final double SENIOR_MANAGER = amount * 2.25;
-    private final double PRESIDENT = amount * 3.5;
+    private double basic_salary = 2200000;
+    private final double ASSISTANT = basic_salary;
+    private final double SENIOR_ASSISTANT = basic_salary * 1.05;
+    private final double MANAGER = basic_salary * 1.9;
+    private final double SENIOR_MANAGER = basic_salary * 2.5;
+    private final double PRESIDENT = basic_salary * 3.1;
 
-    private final double nationalInsurance = 0.045;
-    private final double healthInsurance = 0.03495;
-    private final double nursingInsurance = healthInsurance * 0.1227;
-    private final double employmentInsurance = 0.009;
-
-    private final double year = 12;
-    private final double paymoney = (nationalInsurance * healthInsurance * nursingInsurance * employmentInsurance) / year;
-
-    // 실수령액
-    public Double paymoney(String position){
-        Double pay = null;
+    public Double position(String position){
         switch (position){
-            case "사원": pay = ASSISTANT * paymoney; break;
-            case "대리": pay = SENIOR_ASSISTANT * paymoney; break;
-            case "차장": pay = MANAGER * paymoney; break;
-            case "부장": pay = SENIOR_MANAGER * paymoney; break;
-            case "사장": pay = PRESIDENT * paymoney; break;
-            default: break;
+            case "사원": return ASSISTANT;
+            case "대리": return SENIOR_ASSISTANT;
+            case "차장": return MANAGER;
+            case "부장": return SENIOR_MANAGER;
+            case "사장": return PRESIDENT;
+            default: return null;
         }
-        if(pay != null) {
-            Double real = tax(pay);
-        }
-            return pay;
-    }
-
-
-    public Double tax(double paymoney){
-
-        return null;
     }
 }
