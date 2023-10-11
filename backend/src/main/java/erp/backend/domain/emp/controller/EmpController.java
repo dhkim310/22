@@ -1,15 +1,18 @@
 package erp.backend.domain.emp.controller;
 
 import erp.backend.domain.emp.dto.*;
+import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.service.EmpService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,4 +41,8 @@ public class EmpController {
         return ResponseEntity.ok(empService.passwordUpdate(request));
     }
 
+    @GetMapping("/list")
+    public ResponseEntity<List<EmpListResponse>> list(){
+        return ResponseEntity.ok(empService.empList());
+    }
 }
