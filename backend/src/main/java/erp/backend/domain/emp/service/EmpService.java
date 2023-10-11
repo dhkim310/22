@@ -112,4 +112,18 @@ public class EmpService {
         }
         return emp.getEmpId();
     }
+    @Transactional
+    public List<EmpListResponse> empList() {
+        Emp emp = SecurityHelper.getAccount();
+        List<Emp> list = empRepository.findAll();
+
+        return list.stream()
+                .map(emp1 -> EmpListResponse.builder()
+                        .empName(emp.getEmpName())
+                        .empId(emp.getEmpId())
+                        .empPosition(emp.getEmpPosition())
+                        .build()
+                )
+                .toList();
+    }
 }

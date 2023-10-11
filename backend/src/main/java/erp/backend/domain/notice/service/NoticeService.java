@@ -37,6 +37,7 @@ public class NoticeService {
 
     private final UploadFileService uploadFileService;
 
+
     @Transactional(readOnly = true)
     public List<NoticeListResponse> noticeList() {
         Emp emp = SecurityHelper.getAccount();

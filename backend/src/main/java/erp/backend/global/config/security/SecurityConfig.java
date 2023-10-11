@@ -50,7 +50,9 @@ public class SecurityConfig {
                                         "/api/notice/**",
                                         "/api/notice/management/**",
                                         "/api/memo/**",
-                                        "/api/salary/**"
+                                        "/api/board/**",
+                                        "/api/salary/**",
+                                        "/api/emp/list"
                                 ).hasRole("ADMIN")
                                 .requestMatchers(
                                         "/main",
@@ -58,10 +60,8 @@ public class SecurityConfig {
                                         "/api/schedule",
                                         "/api/emp/fix-info",
                                         "/api/emp/approval",
-                                        "/api/board/**",
                                         "/api/comment/board/**",
-                                        "/api/emp/approval-success",
-                                        "/api/salary/**"
+                                        "/api/emp/approval-success"
                                 ).hasRole("USER")
                                 .requestMatchers(
                                         "/api/emp/sign-in",

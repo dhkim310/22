@@ -11,14 +11,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class SalaryService {
     private final SalaryRepository salaryRepository;
     private final SalaryVO salaryVO;
+
+    private final EmpRepository empRepository;
+
 
     @Transactional
     public Long salaryInsert(SalaryInsert request){
@@ -32,8 +35,8 @@ public class SalaryService {
                 .salaryTax(salaryVO.taxmoney(emp.getEmpPosition()))
                 .salaryBonus(request.getBonus())
                 .build();
-        System.err.println("PayMoney:" + entity.getSalaryPayMoney());
-        System.err.println("Tax:" + entity.getSalaryTax());
         return salaryRepository.save(entity).getSalaryId();
     }
+
+
 }

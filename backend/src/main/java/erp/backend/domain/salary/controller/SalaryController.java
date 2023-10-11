@@ -1,13 +1,15 @@
 package erp.backend.domain.salary.controller;
 
+import erp.backend.domain.emp.entity.Emp;
+import erp.backend.domain.emp.service.EmpService;
 import erp.backend.domain.salary.dto.SalaryInsert;
 import erp.backend.domain.salary.service.SalaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
