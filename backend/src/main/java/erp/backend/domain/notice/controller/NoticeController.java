@@ -1,9 +1,6 @@
 package erp.backend.domain.notice.controller;
 
-import erp.backend.domain.notice.dto.NoticeDetailResponse;
-import erp.backend.domain.notice.dto.NoticeListResponse;
-import erp.backend.domain.notice.dto.NoticeRequest;
-import erp.backend.domain.notice.dto.UpdateNotice;
+import erp.backend.domain.notice.dto.*;
 import erp.backend.domain.notice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +19,10 @@ public class NoticeController {
     @GetMapping("/list")
     public ResponseEntity<List<NoticeListResponse>> noticeList() {
         return ResponseEntity.ok(noticeService.noticeList());
+    }
+    @GetMapping("/first-list")
+    public ResponseEntity<List<NoticeMainListResponse>> noticeMainList() {
+        return ResponseEntity.ok(noticeService.noticeMainListResponses());
     }
 
     @GetMapping("/detail/{id}")

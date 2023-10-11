@@ -37,7 +37,7 @@ public class MemoService {
         return memo.getMemoId();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public MemoResponse memoResponse() {
         Emp emp = SecurityHelper.getAccount();
         Optional<Memo> entity = Optional.ofNullable(memoRepository.findTopByEmpEmpIdOrderByMemoIdDesc(emp.getEmpId()));

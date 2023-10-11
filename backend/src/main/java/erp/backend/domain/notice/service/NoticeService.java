@@ -1,10 +1,7 @@
 package erp.backend.domain.notice.service;
 
 import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.notice.dto.NoticeDetailResponse;
-import erp.backend.domain.notice.dto.NoticeListResponse;
-import erp.backend.domain.notice.dto.NoticeRequest;
-import erp.backend.domain.notice.dto.UpdateNotice;
+import erp.backend.domain.notice.dto.*;
 import erp.backend.domain.notice.entity.Notice;
 import erp.backend.domain.notice.entity.NoticeFile;
 import erp.backend.domain.notice.repository.NoticeFileRepository;
@@ -59,6 +56,19 @@ public class NoticeService {
                     .build();
             return Collections.singletonList(noticeListResponse);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<NoticeMainListResponse> noticeMainListResponses() {
+        List<Notice> list = noticeRepository.findTop4ByOrderByNoticeIdDesc();
+
+        return list.stream()
+                .map(notice -> NoticeMainListResponse.builder()
+                        .subject(notice.getNoticeSubject())
+                        .build()
+                )
+                .toList();
+
     }
 
     @Transactional
