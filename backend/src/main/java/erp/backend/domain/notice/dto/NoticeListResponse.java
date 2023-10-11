@@ -16,6 +16,7 @@ public class NoticeListResponse {
     private Long id; // 글 번호
     private String writer; //작성자
     private String subject; // 제목
+    private int views; // 조회수
     private LocalDateTime noticeCreatedDate; // 작성일
     private LocalDateTime noticeModifiedDate; // 수정일
 
@@ -24,6 +25,7 @@ public class NoticeListResponse {
                 .id(notice.getNoticeId())
                 .writer(notice.getEmp().getEmpName())
                 .subject(notice.getNoticeSubject())
+                .views(notice.getNoticeViews())
                 .noticeCreatedDate(notice.getNoticeCreatedDate())
                 .noticeModifiedDate(notice.getNoticeModifiedDate())
                 .build();

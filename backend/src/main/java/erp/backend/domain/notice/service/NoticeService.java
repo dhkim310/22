@@ -83,7 +83,6 @@ public class NoticeService {
     @Transactional(readOnly = true) // 읽기 전용
     public NoticeDetailResponse noticeDetail(Long id) {
         Notice entity = getNotice(id);
-        updateView(id);
         List<NoticeFile> noticeFiles = entity.getNoticeFileList();
 
         return NoticeDetailResponse.builder()
