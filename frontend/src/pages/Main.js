@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
 import { commuteApi, commuteUpdateApi, commuteSelectApi } from '../api/Commute';
+import { selectMemoApi } from '../api/Memo';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +12,7 @@ function Main() {
     const navigateToFixInfo = () => {
         navigate("/fix-info");
     };
+    const [memo, setMemo] = useState({});
     const [logInfo, setLogInfo] = useState({});
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
@@ -53,6 +55,15 @@ function Main() {
             }
         };
 
+        async function fetchData1() {
+            try {
+                const data1 = await selectMemoApi();
+                setMemo(data1);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
         const getWidth = () => {
             return window.innerWidth;
         };
@@ -71,6 +82,7 @@ function Main() {
             });
         });
     fetchData();
+    fetchData1();
     }, []);
 
     return (
@@ -149,7 +161,7 @@ function Main() {
                                 <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{width: '100%', height: '400px'}}>
                                     <div className="d-xxl-flex justify-content-center justify-content-xxl-center align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '0px', maxHeight: '1000px', width: '100%'}}><a className="d-xxl-flex justify-content-xxl-center list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '70px', marginBottom: '2px', width: '561px'}}>
                                         <div className="d-flex w-100 justify-content-between" style={{width: '100%'}}>
-                                        <h5 className="mb-1" style={{width: '100%'}}>엄용민</h5>
+                                        <h5 className="mb-1" style={{width: '100%'}}>첫번째 글</h5>
                                         </div>
                                     </a><a className="d-xxl-flex justify-content-xxl-center list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '70px', marginBottom: '2px', width: '561px'}}>
                                         <div className="d-flex w-100 justify-content-between" style={{width: '100%'}}>
@@ -171,7 +183,7 @@ function Main() {
                                 <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{width: '100%', height: '300px'}}>
                                     <div className="d-xxl-flex justify-content-center justify-content-xxl-center align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '0px', maxHeight: '1000px', width: '100%'}}><a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '300px', marginBottom: '2px', width: '561px'}}>
                                         <div className="d-flex w-100 justify-content-between" style={{width: '100%'}}>
-                                        <h5 className="mb-1" style={{width: '100%'}}>엄용민</h5>
+                                        <h5 className="mb-1" style={{width: '100%'}}>{memo.memoContent}</h5>
                                         </div>
                                     </a></div>
                                 </div>
