@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
-import { commuteApi, commuteUpdateApi } from '../api/Commute';
+import { commuteApi, commuteUpdateApi, commuteSelectApi } from '../api/Commute';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ function Main() {
     const navigateToFixInfo = () => {
         navigate("/fix-info");
     };
-
+    const [logInfo, setLogInfo] = useState({});
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -44,6 +44,15 @@ function Main() {
     };
 
     useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await commuteSelectApi();
+                setLogInfo(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
         const getWidth = () => {
             return window.innerWidth;
         };
@@ -61,6 +70,7 @@ function Main() {
             element.classList.remove('animated', element.dataset.bssHoverAnimate);
             });
         });
+    fetchData();
     }, []);
 
     return (
@@ -103,8 +113,8 @@ function Main() {
                     </form>
 
                     <div style={{height: 'auto', background: 'rgba(0,0,0,0)', paddingBottom: '15px', paddingTop: '37px'}}>
-                    <div className="d-lg-flex justify-content-xxl-start" style={{height: '30px', background: 'rgba(126,126,126,0)', fontSize: '12px'}}><span style={{fontWeight: 'bold'}}>&nbsp; 출근시간 :&nbsp;</span></div>
-                    <div className="d-lg-flex justify-content-xxl-start" style={{height: '30px', background: 'rgba(126,126,126,0)'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>&nbsp; 퇴근시간 :&nbsp;</span></div>
+                    <div className="d-lg-flex justify-content-xxl-start" style={{height: '30px', background: 'rgba(126,126,126,0)', fontSize: '12px'}}><span style={{fontWeight: 'bold'}}>&nbsp; 출근시간 :&nbsp; {logInfo.logCheckIn}</span></div>
+                    <div className="d-lg-flex justify-content-xxl-start" style={{height: '30px', background: 'rgba(126,126,126,0)'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>&nbsp; 퇴근시간 :&nbsp; {logInfo.logCheckOut}</span></div>
                     </div>
                     </div>
                     <div style={{width: '90%', background: 'var(--bs-gray-200)', height: '100%'}}>
