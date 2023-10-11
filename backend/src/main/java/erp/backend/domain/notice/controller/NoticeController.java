@@ -31,7 +31,7 @@ public class NoticeController {
     @GetMapping("/detail/{id}")
     public ResponseEntity<NoticeDetailResponse> noticeDetail(@PathVariable("id") Long id) {
         noticeService.updateView(id);
-        return ResponseEntity.ok(noticeService.getNoticeDetail(id));
+        return ResponseEntity.ok(noticeService.noticeDetail(id));
     }
 
     @PostMapping("/management")

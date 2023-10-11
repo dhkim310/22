@@ -22,7 +22,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public ResponseEntity<BoardListResult> BoardList(@PageableDefault(size = 3, sort = "boardId", direction = Sort.Direction.DESC) Pageable pageable,
+    public ResponseEntity<BoardListResult> boardList(@PageableDefault(size = 3, sort = "boardId", direction = Sort.Direction.DESC) Pageable pageable,
                                                      Model model) {
         BoardListResult listResult = boardService.getBoardListResult(pageable);
         model.addAttribute("listResult", listResult);
@@ -31,8 +31,9 @@ public class BoardController {
     }
 
     @GetMapping("/detail/{id}")
-    public ResponseEntity<BoardDetailResponse> detailBoard(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(boardService.getBoardDetail(id));
+    public ResponseEntity<BoardDetailResponse> boardDetail(@PathVariable("id") Long id) {
+        boardService.updateView(id);
+        return ResponseEntity.ok(boardService.boardDetail(id));
     }
 
     @PostMapping("/insert")
@@ -46,8 +47,7 @@ public class BoardController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Long> BoardUpdate(@PathVariable("id") Long id, @RequestPart(value = "requestDto") BoardUpdate request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
-        boardService.updateView(id);
+    public ResponseEntity<Long> boardUpdate(@PathVariable("id") Long id, @RequestPart(value = "requestDto") BoardUpdate request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
         return ResponseEntity.ok(boardService.boardUpdate(id, request, files));
     }
 
