@@ -27,6 +27,10 @@ public class NoticeController {
         model.addAttribute("listResult", listResult);
         return ResponseEntity.ok(listResult);
     }
+    @GetMapping("/first-list")
+    public ResponseEntity<List<NoticeMainListResponse>> noticeMainList() {
+        return ResponseEntity.ok(noticeService.noticeMainListResponses());
+    }
 
     @GetMapping("/detail/{id}")
     public ResponseEntity<NoticeDetailResponse> noticeDetail(@PathVariable("id") Long id) {

@@ -56,6 +56,7 @@ public class SecurityConfig {
                                         "/api/emp/fix-info",
                                         "/api/emp/approval",
                                         "/api/board/**",
+                                        "/api/notice/first-list",
                                         "/api/comment/board/**",
                                         "/api/emp/approval-success"
 

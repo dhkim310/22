@@ -64,6 +64,21 @@ public class NoticeService {
     }
 
 
+    @Transactional(readOnly = true)
+    public List<NoticeMainListResponse> noticeMainListResponses() {
+        List<Notice> list = noticeRepository.findTop4ByOrderByNoticeIdDesc();
+
+        return list.stream()
+                .map(notice -> NoticeMainListResponse.builder()
+                        .id(notice.getNoticeId())
+                        .subject(notice.getNoticeSubject())
+                        .build()
+                )
+                .toList();
+
+    }
+
+
     @Transactional
     public Long noticeInsert(NoticeRequest request, List<MultipartFile> files) throws IOException {
         // 공지사항 entity 생성
