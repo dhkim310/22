@@ -49,7 +49,6 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/api/notice/**",
                                         "/api/notice/management/**",
-                                        "/api/memo/**",
                                         "/api/salary/**"
                                 ).hasRole("ADMIN")
                                 .requestMatchers(
@@ -58,10 +57,8 @@ public class SecurityConfig {
                                         "/api/schedule",
                                         "/api/emp/fix-info",
                                         "/api/emp/approval",
-                                        "/api/board/**",
                                         "/api/comment/board/**",
-                                        "/api/emp/approval-success",
-                                        "/api/vacation/insert"
+                                        "/api/emp/approval-success"
                                 ).hasRole("USER")
                                 .requestMatchers(
                                         "/api/emp/sign-in",
@@ -69,7 +66,9 @@ public class SecurityConfig {
                                         "/api/notice/list",
                                         "/api/notice/detail",
                                         "/api/memo/**",
-                                        "/api/vacation/**"
+                                        "/api/board/**",
+                                        "/api/vacation/list",
+                                        "/api/vacation/insert"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )

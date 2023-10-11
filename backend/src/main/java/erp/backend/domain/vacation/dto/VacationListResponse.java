@@ -6,12 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VacationInsert {
+public class VacationListResponse {
+    private Long vacationId;
     private Long empId;
     private String name;
     private int totalVacation;
@@ -19,4 +21,5 @@ public class VacationInsert {
     private int totalDayOff;
     private int usedDayOff;
     private LocalDate dayOffDate;
+
 }
