@@ -68,6 +68,7 @@ public class SecurityConfig {
                                         "/api/notice/list",
                                         "/api/notice/detail/{id}",
                                         "/api/memo/**"
+
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )
