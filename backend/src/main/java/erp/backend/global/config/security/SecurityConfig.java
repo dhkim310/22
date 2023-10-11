@@ -55,15 +55,14 @@ public class SecurityConfig {
                                         "/api/schedule",
                                         "/api/emp/fix-info",
                                         "/api/emp/approval",
-                                        "/api/board/**",
                                         "/api/comment/board/**",
                                         "/api/emp/approval-success"
-
                                 ).hasRole("USER")
                                 .requestMatchers(
                                         "/main",
                                         "/api/emp/sign-in",
                                         "/api/emp/sign-up",
+                                        "/api/board/**",
                                         "/api/notice/list",
                                         "/api/notice/detail/{id}",
                                         "/api/memo/**"
