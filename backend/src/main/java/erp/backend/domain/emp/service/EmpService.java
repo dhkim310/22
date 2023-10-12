@@ -86,7 +86,6 @@ public class EmpService {
                 .empEmail(emp.getEmpEmail())
                 .roles(roles)
                 .build();
-
     }
 
     @Transactional(readOnly = true)
