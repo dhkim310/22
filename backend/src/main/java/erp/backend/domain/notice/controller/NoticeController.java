@@ -23,7 +23,7 @@ public class NoticeController {
     @GetMapping
     public ResponseEntity<NoticeListResult> noticeList(@PageableDefault(size = 3, sort = "noticeId", direction = Sort.Direction.DESC) Pageable pageable,
                                                        Model model) {
-        NoticeListResult listResult = noticeService.getBoardListResult(pageable);
+        NoticeListResult listResult = noticeService.boardListResult(pageable);
         model.addAttribute("listResult", listResult);
         return ResponseEntity.ok(listResult);
     }
