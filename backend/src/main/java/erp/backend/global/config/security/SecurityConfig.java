@@ -57,7 +57,6 @@ public class SecurityConfig {
                                         "/api/schedule",
                                         "/api/emp/fix-info",
                                         "/api/emp/approval",
-                                        "/api/comment/board/**",
                                         "/api/emp/approval-success"
                                 ).hasRole("USER")
                                 .requestMatchers(
@@ -68,7 +67,11 @@ public class SecurityConfig {
                                         "/api/memo/**",
                                         "/api/board/**",
                                         "/api/vacation/list",
-                                        "/api/vacation/insert"
+                                        "/api/vacation/insert",
+                                        "/api/vacation/update/**",
+                                        "/api/comment/board/**",
+                                        "/api/comment/board/{boardId}/**",
+                                        "/api/comment/board/{boardId}/commentDelete/**"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )

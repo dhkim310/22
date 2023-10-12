@@ -80,8 +80,8 @@ public class Emp implements UserDetails {
 
 //    @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
 //    private Set<Board> boardList = new HashSet<>();
-    @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<Board> boardList = new HashSet<>();
+//    @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+//    private Set<Board> boardList = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

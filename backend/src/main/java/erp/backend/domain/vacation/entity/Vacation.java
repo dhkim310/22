@@ -1,6 +1,8 @@
 package erp.backend.domain.vacation.entity;
 
+import erp.backend.domain.board.dto.BoardRequest;
 import erp.backend.domain.emp.entity.Emp;
+import erp.backend.domain.vacation.dto.VacationUpdate;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -37,7 +40,23 @@ public class Vacation {
     @Column(name = "VACATION_USEDDAYOFF")
     private int vacationUsedDayOff;
 
-    @Column(name = "VACATION_DAYOFFDATE")
-    private LocalDate vacationDayOffDate;
+    @Column(name = "VACATION_STARTDATE")
+    private LocalDate vacationStartDate;
+
+    @Column(name = "VACATION_ENDDATE")
+    private LocalDate vacationEndDate;
+
+    @Column(name = "VACATION_WHY")
+    private String vacationWhy;
+
+    public void update(VacationUpdate request) {
+        this.vacationTotalVacation = request.getTotalVacation();
+        this.vacationUsedVacation = request.getUsedVacation();
+        this.vacationTotalDayOff = request.getTotalDayOff();
+        this.vacationUsedDayOff = request.getUsedDayOff();
+        this.vacationStartDate = request.getStartDate();
+        this.vacationEndDate = request.getEndDate();
+        this.vacationWhy = request.getWhy();
+    }
 
 }

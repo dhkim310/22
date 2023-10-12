@@ -1,9 +1,6 @@
 package erp.backend.domain.vacation.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -11,9 +8,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VacationInsert {
-    private Long empId;
-    private String name;
+public class VacationUpdate {
     private int totalVacation;
     private int usedVacation;
     private int totalDayOff;
@@ -22,3 +17,4 @@ public class VacationInsert {
     private LocalDate endDate;
     private String why;
 }
+

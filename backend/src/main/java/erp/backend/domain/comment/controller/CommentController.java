@@ -1,12 +1,15 @@
 package erp.backend.domain.comment.controller;
 
 import erp.backend.domain.comment.dto.CommentRequest;
+import erp.backend.domain.comment.entity.Comment;
 import erp.backend.domain.comment.service.CommentService;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.global.config.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/comment")
@@ -24,5 +27,10 @@ public class CommentController {
     public ResponseEntity<Long> commentDelete(@PathVariable Long boardId, @PathVariable Long commentId) {
         commentService.commentDelete(boardId, commentId);
         return ResponseEntity.ok(commentId);
+    }
+
+    @GetMapping("/board/{boardId}")
+    public ResponseEntity<List<Comment>> commentSelect(@PathVariable Long boardId){
+        return ResponseEntity.ok(commentService.commentSelect(boardId));
     }
 }
