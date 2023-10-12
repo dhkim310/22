@@ -144,7 +144,7 @@ public class EmpService {
     }
 
     @Transactional(readOnly = true)
-    public List<EmpListResponse> getEmpSearchList(String empName){
+    public List<EmpListResponse> getEmpSearchList(String empName) {
         Emp emp = SecurityHelper.getAccount();
         List<Emp> empList;
         if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20) {
@@ -162,6 +162,7 @@ public class EmpService {
                         .build()
                 )
                 .toList();
+    }
 
     @Transactional(readOnly = true)
     public EmpMainResponse empMainResponse() {
