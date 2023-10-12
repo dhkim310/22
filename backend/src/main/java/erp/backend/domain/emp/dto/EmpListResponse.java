@@ -11,5 +11,6 @@ public class EmpListResponse {
     private Long empId;
     private String empName;
     private String empPosition;
+    private Long empAmount;
     private Dept dept;
 }

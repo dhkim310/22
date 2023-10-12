@@ -22,6 +22,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -119,14 +120,14 @@ public class EmpService {
         return emp.getEmpId();
     }
 
-    @Transactional
-    public List<EmpListResponse> empList() {
+    @Transactional(readOnly = true)
+    public List<EmpListResponse> getEmpList() {
         Emp emp = SecurityHelper.getAccount();
         List<Emp> empList;
-        if (emp.getDept().getDeptId() == 20) {
+        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20) {
             empList = empRepository.findAll();
         } else {
-            return null;
+            return Collections.emptyList();
         }
         return empList.stream()
                 .map(emp1 -> EmpListResponse.builder()
@@ -138,37 +139,25 @@ public class EmpService {
                 )
                 .toList();
     }
+
     @Transactional(readOnly = true)
-    public EmpListSalaryResponse empSalary(Long id) {
+    public List<EmpListResponse> getEmpSearchList(String empName){
         Emp emp = SecurityHelper.getAccount();
-
-        List<Salary> entity = empRepository.findSalaryByEmpId(emp.getEmpId());
-
-        return EmpListSalaryResponse.builder()
-                .empId(id)
-                .empName(emp.getEmpName())
-                .salary(entity)
-                .build();
+        List<Emp> empList;
+        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20) {
+            empList = empRepository.findByEmpNameContaining(empName);
+        } else {
+            return Collections.emptyList();
+        }
+        return empList.stream()
+                .map(emp1 -> EmpListResponse.builder()
+                        .empId(emp1.getEmpId())
+                        .empName(emp1.getEmpName())
+                        .empPosition(emp1.getEmpPosition())
+                        .empAmount(emp1.getEmpAmount())
+                        .dept(emp1.getDept())
+                        .build()
+                )
+                .toList();
     }
-
-
-
-//    @Transactional
-//    public EmpListSalaryResponse empSalary(@PathVariable Long id){
-//        Emp emp = SecurityHelper.getAccount();
-//        List<Salary> entity = empRepository.findSalaryByEmpId(emp.getEmpId());
-//
-//        return EmpListSalaryResponse.builder()
-//                .empId(id)
-//                .empName(emp.getEmpName())
-//                .salary(entity.stream()
-//                        .map(salary -> SalaryResponse.builder()
-//                                .salaryPayDate(salary.getSalaryPayDate())
-//                                .salaryPayMoney(salary.getSalaryPayMoney())
-//                                .salaryTax(salary.getSalaryTax())
-//                                .salaryBonus(salary.getSalaryBonus())
-//                                .build())
-//                        .toList())
-//                .build();
-//    }
 }

@@ -14,10 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter
@@ -79,12 +76,10 @@ public class Emp implements UserDetails {
     @Column(name = "EMP_DETAILADDRESS")
     private String empDetailAddress;
 
-    @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<Board> boardList = new HashSet<>();
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(this.roles.split(","))
+        String role = this.roles = roles + "_" + dept.getDeptName();
+        return Arrays.stream(role.split(","))
                 .map(SimpleGrantedAuthority::new)
                 .toList();
     }

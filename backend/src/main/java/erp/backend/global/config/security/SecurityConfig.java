@@ -47,13 +47,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(
-                                        "/api/notice/**",
                                         "/api/notice/management/**",
-                                        "/api/memo/**",
                                         "/api/salary/**",
                                         "/api/emp/list",
-                                        "api/emp/list/101"
-                                ).hasRole("ADMIN")
+                                        "/api/emp/search/**",
+                                        "/api/emp/list/**"
+                                ).hasAnyRole("ADMIN_총무부", "ADMIN_재무부", "ADMIN_콘텐츠관리부", "ADMIN_회원관리부")
                                 .requestMatchers(
                                         "/main",
                                         "/api/log/commute",

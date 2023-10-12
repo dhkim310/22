@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface EmpRepository extends JpaRepository<Emp, Long> {
     Optional<Emp> findByEmpEmail(String empEmail);
     Emp findByEmpName(String empName);
-
-    List<Salary> findSalaryByEmpId(Long empId);
+    List<Emp> findByEmpNameContaining(String empName);
+//    List<Emp> findByEmpNameContainingOrEmpIdContainingOrDeptDeptNameContainingOrDeptDeptIdContaining(
+//            String empName, Long empId, String deptName, Long deptId);
 }
