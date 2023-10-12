@@ -3,6 +3,7 @@ import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
 import { commuteApi, commuteUpdateApi, commuteSelectApi } from '../api/Commute';
 import { selectNoticeTop4Api } from "../api/Notice";
+import { selectEmp } from "../api/info";
 import { selectMemoApi } from '../api/Memo';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +17,7 @@ function Main() {
     const [notice, setNotice] = useState([]);
     const [memo, setMemo] = useState({});
     const [logInfo, setLogInfo] = useState({});
+    const [main, setMain] = useState({})
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -75,6 +77,15 @@ function Main() {
             }
         };
 
+        async function fetchData3() {
+            try {
+                const data3 = await selectEmp();
+                setMain(data3);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
         const getWidth = () => {
             return window.innerWidth;
         };
@@ -95,6 +106,7 @@ function Main() {
     fetchData();
     fetchData1();
     fetchData2();
+    fetchData3();
     }, []);
 
     return (
@@ -153,7 +165,7 @@ function Main() {
                                 <div style={{height: '30px'}} />
                                 <div style={{height: '300px', background: 'url("img/f05ee6c832afa3bac801c2c1825426ba.jpg") center / contain no-repeat'}} />
                                 <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{height: '70px'}}>
-                                    <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center" style={{width: '50%', height: '100%'}}><span style={{fontSize: '26px', fontWeight: 'bold'}}>한소희 대표</span></div>
+                                    <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center" style={{width: '50%', height: '100%'}}><span style={{fontSize: '26px', fontWeight: 'bold'}}>{main.empName} {main.empPosition}</span></div>
                                     <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{width: '50%', height: '100%'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" onClick={ navigateToFixInfo } style={{width: '120px', height: '30px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '6px', borderColor: 'black'}}>정보수정</button></div>
                                 </div>
                                 </div>

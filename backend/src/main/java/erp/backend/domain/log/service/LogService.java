@@ -41,7 +41,7 @@ public class LogService {
 
         return entity.getLogId();
     }
-    @Transactional
+    @Transactional(readOnly = true)
     public LogResponse logResponse() {
         Emp emp = SecurityHelper.getAccount();
         Optional<Log> entity = Optional.ofNullable(logRepository.findTopByEmpEmpIdOrderByLogIdDesc(emp.getEmpId()));

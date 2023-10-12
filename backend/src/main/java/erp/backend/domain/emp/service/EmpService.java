@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.function.EntityResponse;
+
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -120,6 +122,7 @@ public class EmpService {
         return emp.getEmpId();
     }
 
+
     @Transactional(readOnly = true)
     public List<EmpListResponse> getEmpList() {
         Emp emp = SecurityHelper.getAccount();
@@ -159,5 +162,13 @@ public class EmpService {
                         .build()
                 )
                 .toList();
+
+    @Transactional(readOnly = true)
+    public EmpMainResponse empMainResponse() {
+        Emp emp = SecurityHelper.getAccount();
+        return EmpMainResponse.builder()
+                .empName(emp.getEmpName())
+                .empPosition(emp.getEmpPosition())
+                .build();
     }
 }

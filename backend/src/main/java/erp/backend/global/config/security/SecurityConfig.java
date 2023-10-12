@@ -61,7 +61,8 @@ public class SecurityConfig {
                                         "/api/emp/approval",
                                         "/api/board/**",
                                         "/api/comment/board/**",
-                                        "/api/emp/approval-success"
+                                        "/api/emp/approval-success",
+                                        "/api/emp/main"
                                 ).hasRole("USER")
                                 .requestMatchers(
                                         "/api/emp/sign-in",

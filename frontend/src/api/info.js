@@ -7,7 +7,7 @@ export const selectInfo = async (params) => {
     } catch (error) {
       throw error;
     }
-  };
+};
 
 export const passwordUpdate = async (params) => {
   return new Promise((resolve, reject) => {
@@ -20,4 +20,13 @@ export const passwordUpdate = async (params) => {
         return reject(err);
       });
   });
+};
+
+export const selectEmp = async (params) => {
+    try {
+      const response = await axios.get('/api/emp/main');
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
 };
