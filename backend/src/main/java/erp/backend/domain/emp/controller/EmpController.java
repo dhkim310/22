@@ -45,4 +45,10 @@ public class EmpController {
     public ResponseEntity<List<EmpListResponse>> list(){
         return ResponseEntity.ok(empService.empList());
     }
+
+    @GetMapping("/list/{id}")
+    public ResponseEntity<EmpListSalaryResponse> getEmployeeSalary(@PathVariable Long id) {
+        EmpListSalaryResponse response = empService.empSalary(id);
+        return ResponseEntity.ok(response);
+    }
 }

@@ -3,6 +3,7 @@ package erp.backend.domain.emp.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.dept.entity.Dept;
+import erp.backend.domain.salary.entity.Salary;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -78,8 +79,6 @@ public class Emp implements UserDetails {
     @Column(name = "EMP_DETAILADDRESS")
     private String empDetailAddress;
 
-//    @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-//    private Set<Board> boardList = new HashSet<>();
     @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Board> boardList = new HashSet<>();
 

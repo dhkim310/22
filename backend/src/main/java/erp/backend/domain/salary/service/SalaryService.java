@@ -20,12 +20,12 @@ public class SalaryService {
     private final SalaryRepository salaryRepository;
     private final SalaryVO salaryVO;
 
-    private final EmpRepository empRepository;
-
-
     @Transactional
-    public Long salaryInsert(SalaryInsert request){
+    public Long salaryInsert(SalaryInsert request) {
         Emp emp = SecurityHelper.getAccount();
+
+        salaryVO.setBonus(request.getBonus());
+
         Salary entity = Salary.builder()
                 .emp(emp)
                 .salaryPayDate(LocalDateTime.now().withDayOfMonth(15).withHour(9).withMinute(0).withSecond(0))
@@ -33,10 +33,8 @@ public class SalaryService {
                 .salaryBank(request.getBank())
                 .salaryAccountNumber(request.getAccountNumber())
                 .salaryTax(salaryVO.taxmoney(emp.getEmpPosition()))
-                .salaryBonus(request.getBonus())
+                .salaryBonus(salaryVO.getBonus())
                 .build();
         return salaryRepository.save(entity).getSalaryId();
     }
-
-
 }

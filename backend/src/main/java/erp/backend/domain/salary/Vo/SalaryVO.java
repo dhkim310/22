@@ -1,11 +1,15 @@
 package erp.backend.domain.salary.Vo;
 
 import erp.backend.domain.salary.dto.SalaryInsert;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 @Component
+@Getter
+@Setter
 public class SalaryVO {
     SalaryInsert salaryInsert = new SalaryInsert();
     private final double amount = 30000000;
@@ -21,8 +25,16 @@ public class SalaryVO {
     private final double employmentInsurance = 0.008;
 
     private final double year = 12;
+    private double bonus;
 
-    private final double tax = ((amount / year) * nationalInsurance) + ((amount/year) * healthInsurance) +
+    public double getBonus(){
+        return bonus;
+    }
+    public void setBonus(double bonus){
+        this.bonus = bonus;
+    }
+
+    private final double tax = (((amount / year)) * nationalInsurance) + ((amount/year) * healthInsurance) +
             ((amount/year)) * nursingInsurance + ((amount/year)) * employmentInsurance;
 
     // 실수령액
@@ -31,19 +43,19 @@ public class SalaryVO {
         Double tax1 = taxmoney(position);
         switch (position) {
             case "사원":
-                pay = (ASSISTANT/year) + salaryInsert.getBonus() - tax1;
+                pay = (ASSISTANT/year) + bonus - tax1;
                 break;
             case "대리":
-                pay = Math.floor(SENIOR_ASSISTANT/year) + salaryInsert.getBonus() - tax1;
+                pay = Math.floor(SENIOR_ASSISTANT/year) + bonus - tax1;
                 break;
             case "과장":
-                pay = (MANAGER/year) + salaryInsert.getBonus() - tax1;
+                pay = (MANAGER/year) + bonus - tax1;
                 break;
             case "부장":
-                pay = (SENIOR_MANAGER/year) + salaryInsert.getBonus() - tax1;
+                pay = (SENIOR_MANAGER/year) + bonus - tax1;
                 break;
             case "사장":
-                pay = (PRESIDENT/year) + salaryInsert.getBonus() - tax1;
+                pay = (PRESIDENT/year) + bonus - tax1;
                 break;
             default:
                 break;

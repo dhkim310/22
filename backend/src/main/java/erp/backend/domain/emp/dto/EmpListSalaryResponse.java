@@ -1,15 +1,17 @@
 package erp.backend.domain.emp.dto;
 
-import erp.backend.domain.dept.entity.Dept;
+import erp.backend.domain.salary.entity.Salary;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmpListResponse {
+public class EmpListSalaryResponse {
     private Long empId;
     private String empName;
-    private String empPosition;
-    private Dept dept;
+    private List<Salary> salary;
 }
