@@ -58,7 +58,8 @@ public class SecurityConfig {
                                         "/api/board/**",
                                         "/api/notice/first-list",
                                         "/api/comment/board/**",
-                                        "/api/emp/approval-success"
+                                        "/api/emp/approval-success",
+                                        "/api/emp/main"
 
                                 ).hasRole("USER")
                                 .requestMatchers(

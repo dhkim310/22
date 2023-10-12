@@ -5,15 +5,15 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-    @Getter
-    public class CommentResponse {
+@Getter
+public class CommentResponse {
 
-        private Long commentId;
-        private String comment;
-        private Long boardId;
-        private String writer;
-        private LocalDateTime createdDate;
-        private LocalDateTime modifiedDate;
+    private Long commentId;
+    private String comment;
+    private Long boardId;
+    private String writer;
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
 
     //entity에서 dto로 응답
     public CommentResponse(Comment comment) {
