@@ -12,6 +12,8 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -121,25 +123,20 @@ public class EmpService {
         return emp.getEmpId();
     }
 
+    @Transactional(readOnly = true)
+    public Page<Emp> findAll(Pageable pageable){
+        System.err.println(pageable);
+        return empRepository.findAllByOrderByEmpIdAsc(pageable);
+    }
 
     @Transactional(readOnly = true)
-    public List<EmpListResponse> getEmpList() {
-        Emp emp = SecurityHelper.getAccount();
-        List<Emp> empList;
-        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20) {
-            empList = empRepository.findAll();
-        } else {
-            return Collections.emptyList();
-        }
-        return empList.stream()
-                .map(emp1 -> EmpListResponse.builder()
-                        .empId(emp1.getEmpId())
-                        .empName(emp1.getEmpName())
-                        .empPosition(emp1.getEmpPosition())
-                        .dept(emp1.getDept())
-                        .build()
-                )
-                .toList();
+    public EmpListResult getEmpListResult(Pageable pageable){
+        Page<Emp> list = findAll(pageable);
+        int page = pageable.getPageNumber();
+        long totalCount = empRepository.count();
+        int size = pageable.getPageSize();
+        System.err.println(page + totalCount + size);
+        return new EmpListResult(size, page, totalCount, list);
     }
 
     @Transactional(readOnly = true)
@@ -162,6 +159,27 @@ public class EmpService {
                 )
                 .toList();
     }
+
+    //    @Transactional(readOnly = true)
+//    public List<EmpListResponse> getEmpList() {
+//        Emp emp = SecurityHelper.getAccount();
+//        List<Emp> empList;
+//        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20) {
+//            empList = empRepository.findAll();
+//        } else {
+//            return Collections.emptyList();
+//        }
+//        return empList.stream()
+//                .map(emp1 -> EmpListResponse.builder()
+//                        .empId(emp1.getEmpId())
+//                        .empName(emp1.getEmpName())
+//                        .empPosition(emp1.getEmpPosition())
+//                        .empAmount(emp1.getEmpAmount())
+//                        .dept(emp1.getDept())
+//                        .build()
+//                )
+//                .toList();
+//    }
 
     @Transactional(readOnly = true)
     public EmpMainResponse empMainResponse() {

@@ -8,9 +8,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmpListResponse {
-    private Long empId;
+    private long empId;
     private String empName;
     private String empPosition;
-    private Long empAmount;
+    private long empAmount;
     private Dept dept;
+
+
 }

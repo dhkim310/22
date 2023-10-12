@@ -19,16 +19,9 @@ public class SalaryController {
     private final SalaryService salaryService;
     private final EmpService empService;
 
-    @GetMapping("/list")
-    public ResponseEntity<List<EmpListResponse>> list(){
-        return ResponseEntity.ok(empService.getEmpList());
-    }
-    @GetMapping("/search/{empName}")
-    public ResponseEntity<List<EmpListResponse>> searchList(@PathVariable String empName){
-        return ResponseEntity.ok(empService.getEmpSearchList(empName));
-    }
-    @GetMapping("/list/{empId}")
-    public ResponseEntity<List<SalaryResponse>> detailList(@PathVariable Long empId){
+
+    @GetMapping("/detail/{empId}")
+    public ResponseEntity<SalaryResponse> detailList(@PathVariable Long empId){
         return ResponseEntity.ok(salaryService.getEmpSalary(empId));
     }
     @PostMapping("/insert")

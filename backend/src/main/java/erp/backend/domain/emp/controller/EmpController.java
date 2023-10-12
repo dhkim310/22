@@ -9,6 +9,9 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +46,22 @@ public class EmpController {
     public ResponseEntity<Long> fixInfoPasswordUpdate(@RequestBody EmpPasswordUpdateRequest request) throws MessagingException, UnsupportedEncodingException {
         return ResponseEntity.ok(empService.passwordUpdate(request));
     }
+//    @GetMapping("/list")
+//    public ResponseEntity<List<EmpListResponse>> list(){
+//        return ResponseEntity.ok(empService.getEmpList());
+//    }
+    @GetMapping("list")
+    public ResponseEntity<EmpListResult> empList(@PageableDefault(size = 3, sort = "empId", direction = Sort.Direction.ASC) Pageable pageable,
+    Model model){
+        EmpListResult listResult = empService.getEmpListResult(pageable);
+        model.addAttribute("listResult", listResult);
+        return ResponseEntity.ok(listResult);
+    }
 
+    @GetMapping("/list/{empName}")
+    public ResponseEntity<List<EmpListResponse>> searchList(@PathVariable String empName){
+        return ResponseEntity.ok(empService.getEmpSearchList(empName));
+    }
     @GetMapping("/main")
     public  ResponseEntity<EmpMainResponse> empMain() {
         return ResponseEntity.ok(empService.empMainResponse());

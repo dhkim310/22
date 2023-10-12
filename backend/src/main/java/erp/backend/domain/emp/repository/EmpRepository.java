@@ -3,6 +3,8 @@ package erp.backend.domain.emp.repository;
 import erp.backend.domain.emp.dto.EmpListResponse;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.salary.entity.Salary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +17,5 @@ public interface EmpRepository extends JpaRepository<Emp, Long> {
     Emp findByEmpName(String empName);
     Emp findByEmpId(Long empId);
     List<Emp> findByEmpNameContaining(String empName);
-//    List<Emp> findByEmpNameContainingOrEmpIdContainingOrDeptDeptNameContainingOrDeptDeptIdContaining(
-//            String empName, Long empId, String deptName, Long deptId);
+    Page<Emp> findAllByOrderByEmpIdAsc(Pageable pageable);
 }

@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity //jpa 사용할때!
 @Getter
@@ -19,14 +19,14 @@ public class Salary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SALARY_ID")
-    private long salaryId;
+    private Long salaryId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SALARY_EMP_ID")
     private Emp emp;
 
     @Column(name = "SALARY_PAYDATE")
-    private LocalDateTime salaryPayDate;
+    private LocalDate salaryPayDate;
 
     @Column(name = "SALARY_BANK")
     private String salaryBank;
@@ -35,11 +35,12 @@ public class Salary {
     private String salaryAccountNumber;
 
     @Column(name = "SALARY_PAYMONEY")
-    private double salaryPayMoney;
+    private Long salaryPayMoney;
 
     @Column(name = "SALARY_TAX")
-    private double salaryTax;
+    private Long salaryTax;
 
     @Column(name = "SALARY_BONUS")
-    private double salaryBonus;
+    private Long salaryBonus;
+
 }

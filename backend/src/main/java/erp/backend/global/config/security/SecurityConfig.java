@@ -49,11 +49,8 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/api/notice/**",
                                         "/api/notice/management/**",
-                                        "/api/salary/**",
-                                        "/api/emp/list",
-                                        "/api/emp/search/**",
-                                        "/api/emp/list/**"
-                                ).hasAnyRole("ADMIN_총무부", "ADMIN_재무부", "ADMIN_콘텐츠관리부", "ADMIN_회원관리부")
+                                        "/api/salary/**"
+                                ).hasAnyRole("ADMIN_인사부", "ADMIN_재무부", "ADMIN_콘텐츠관리부", "ADMIN_회원관리부")
                                 .requestMatchers(
                                         "/main",
                                         "/api/log/commute",
@@ -61,20 +58,21 @@ public class SecurityConfig {
                                         "/api/emp/fix-info",
                                         "/api/emp/approval",
                                         "/api/emp/approval-success",
-                                        "/api/board/**",
                                         "/api/comment/board/**",
                                         "/api/emp/main"
-                                ).hasRole("USER")
+                                ).hasAnyRole("USER_인사부", "USER_재무부", "USER_콘텐츠관리부", "USER_회원관리부")
                                 .requestMatchers(
                                         "/api/emp/sign-in",
                                         "/api/emp/sign-up",
                                         "/api/notice/list",
                                         "/api/notice/detail",
                                         "/api/memo/**",
-                                        "/api/board/**",
+                                        "/api/emp/list",
+                                        "/api/emp/list/**",
                                         "/api/vacation/list",
                                         "/api/vacation/insert",
                                         "/api/vacation/update/**",
+                                        "/api/board/**",
                                         "/api/comment/board/**",
                                         "/api/comment/board/{boardId}/**",
                                         "/api/comment/board/{boardId}/commentDelete/**"
