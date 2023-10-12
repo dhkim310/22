@@ -49,7 +49,10 @@ function Write() {
                           <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{height: '100%', width: '30%', background: 'transparent'}}><button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{color: 'black', background: 'white', borderColor: 'black', marginRight: '0px', marginLeft: '6px'}}>업로드</button></div>
                         </div>
                       </div>
-                      <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{width: '74%', height: '50%'}}><Editor /></div>
+                      <div className="d-xxl-flex align-items-xxl-center" style={{ height: '2%', width: '70%', background: 'rgba(128, 128, 128, 0.34)', marginTop: '-20px' }}>
+                        <input type="text" style={{ width: "100%" ,paddingRight: '0px', paddingLeft: '10px'}} placeholder="제목을 입력하세요." />
+                      </div>
+                      <div className="d-xxl-flex justify-content-xxl-start align-items-xxl" style={{width: '74%', height: '50%'}}><Editor /></div>
                     </div>
                   </div>
                 </div>

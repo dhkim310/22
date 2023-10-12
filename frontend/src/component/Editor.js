@@ -35,7 +35,7 @@ class Editor extends Component {
     return (
       <div>
         <ReactQuill
-          style={{ height: "600px", width: "1115px", marginBottom: "250px"}}
+          style={{ height: "600px", width: "63%", marginTop:"10px", position: "absolute"}}
           value={this.state.text}
           onChange={this.handleChange}
           modules={modules}
