@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.function.EntityResponse;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -112,5 +113,13 @@ public class EmpService {
             throw new RuntimeException(e);
         }
         return emp.getEmpId();
+    }
+    @Transactional(readOnly = true)
+    public EmpMainResponse empMainResponse() {
+        Emp emp = SecurityHelper.getAccount();
+        return EmpMainResponse.builder()
+                .empName(emp.getEmpName())
+                .empPosition(emp.getEmpPosition())
+                .build();
     }
 }
