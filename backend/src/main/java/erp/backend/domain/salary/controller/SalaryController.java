@@ -21,12 +21,16 @@ public class SalaryController {
 
 
     @GetMapping("/detail/{empId}")
-    public ResponseEntity<SalaryResponse> detailList(@PathVariable Long empId){
+    public ResponseEntity<SalaryResponse> detailList(@PathVariable("empId") Long empId){
         return ResponseEntity.ok(salaryService.getEmpSalary(empId));
     }
     @PostMapping("/insert")
     public ResponseEntity<Long> salaryInsert(@RequestBody SalaryInsert request){
         return ResponseEntity.ok(salaryService.salaryInsert(request));
     }
-
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> salaryDelete(@PathVariable("id") Long id){
+        salaryService.salaryDelete(id);
+        return ResponseEntity.ok().build();
+    }
 }

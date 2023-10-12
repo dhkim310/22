@@ -44,27 +44,6 @@ public class SalaryService {
         }
     }
 
-//    @Transactional(readOnly = true)
-//    public List<SalaryResponse> getEmpSalary(Long empId) {
-//        Emp emp = SecurityHelper.getAccount();
-//        List<Salary> entity;
-//        if (emp.getDept().getDeptId() == 20){
-//            entity = salaryRepository.findSalaryByEmpEmpId(empId);
-//        }else {
-//            return Collections.emptyList();
-//        }
-//        return entity.stream()
-//                .map(entity1 -> SalaryResponse.builder()
-//                        .salaryPayDate(entity1.getSalaryPayDate())
-//                        .salaryBank(entity1.getSalaryBank())
-//                        .salaryAccountNumber(entity1.getSalaryAccountNumber())
-//                        .salaryPayMoney(entity1.getSalaryPayMoney())
-//                        .salaryTax(entity1.getSalaryTax())
-//                        .salaryBonus(entity1.getSalaryBonus())
-//                        .build()
-//                )
-//                .toList();
-//    }
     @Transactional(readOnly = true)
     public SalaryResponse getEmpSalary(Long empId) {
         Emp emp = SecurityHelper.getAccount();
@@ -83,6 +62,13 @@ public class SalaryService {
             }
         }
         return null;
+    }
+    @Transactional
+    public void salaryDelete(Long id){
+        Emp emp = SecurityHelper.getAccount();
+        if (emp.getDept().getDeptId() == 20) {
+            salaryRepository.deleteById(id);
+        }
     }
 
 }

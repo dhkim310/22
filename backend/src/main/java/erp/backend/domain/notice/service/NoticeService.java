@@ -63,7 +63,6 @@ public class NoticeService {
         return new NoticeListResult(pageable.getPageNumber(), noticeListResponses.size(), pageable.getPageSize(), page);
     }
 
-
     @Transactional(readOnly = true)
     public List<NoticeMainListResponse> noticeMainListResponses() {
         List<Notice> list = noticeRepository.findTop4ByOrderByNoticeIdDesc();

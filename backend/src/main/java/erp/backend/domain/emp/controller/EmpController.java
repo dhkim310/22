@@ -46,21 +46,21 @@ public class EmpController {
     public ResponseEntity<Long> fixInfoPasswordUpdate(@RequestBody EmpPasswordUpdateRequest request) throws MessagingException, UnsupportedEncodingException {
         return ResponseEntity.ok(empService.passwordUpdate(request));
     }
-//    @GetMapping("/list")
-//    public ResponseEntity<List<EmpListResponse>> list(){
-//        return ResponseEntity.ok(empService.getEmpList());
-//    }
-    @GetMapping("list")
-    public ResponseEntity<EmpListResult> empList(@PageableDefault(size = 3) Pageable pageable,
-    Model model){
+
+    @GetMapping("/list")
+    public ResponseEntity<EmpListResult> empList(@PageableDefault(size = 6, sort = "empId", direction = Sort.Direction.ASC) Pageable pageable,
+                                                 Model model) {
         EmpListResult listResult = empService.getEmpListResult(pageable);
         model.addAttribute("listResult", listResult);
         return ResponseEntity.ok(listResult);
     }
 
     @GetMapping("/list/{empName}")
-    public ResponseEntity<List<EmpListResponse>> searchList(@PathVariable String empName){
-        return ResponseEntity.ok(empService.getEmpSearchList(empName));
+    public ResponseEntity<EmpListResult> searchList(@PageableDefault(size = 6, sort = "empId", direction = Sort.Direction.ASC)
+                                                                Pageable pageable, @PathVariable("empName") String empName, Model model){
+        EmpListResult listResult = empService.getEmpSearchList(pageable, empName);
+        model.addAttribute("listResult", listResult);
+        return ResponseEntity.ok(listResult);
     }
     @GetMapping("/main")
     public  ResponseEntity<EmpMainResponse> empMain() {
