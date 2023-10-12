@@ -27,6 +27,7 @@ export const commuteUpdateApi = async (params) => {
 export const commuteSelectApi = async (params) => {
     try {
         const response = await axios.get('/api/log/commute');
+
         if (response.data.logCheckOut.indexOf('1999') !== -1) {
             response.data.logCheckOut = 'T ';
             }
