@@ -159,8 +159,7 @@ public class EmpService {
                 )
                 .toList();
     }
-
-    //    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
 //    public List<EmpListResponse> getEmpList() {
 //        Emp emp = SecurityHelper.getAccount();
 //        List<Emp> empList;
