@@ -46,27 +46,27 @@ public class SecurityConfig {
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .authorizeHttpRequests(authorize ->
                         authorize
+//                                .requestMatchers(
+//                                        "/api/**"
+//                                ).hasAnyRole("ADMIN_총무부", "ADMIN_재무부", "ADMIN_콘텐츠관리부", "ADMIN_회원관리부")
+//                                .requestMatchers(
+//                                        "/main"
+//                                ).hasRole("USER")
                                 .requestMatchers(
-                                        "/api/notice/management/**",
-                                        "/api/salary/**"
-                                ).hasAnyRole("ADMIN_총무부", "ADMIN_재무부", "ADMIN_콘텐츠관리부", "ADMIN_회원관리부")
-                                .requestMatchers(
-                                        "/api/log/commute",
-                                        "/api/schedule",
+                                        "/api/sign-up",
+                                        "/api/sign-in",
                                         "/api/emp/fix-info",
-                                        "/api/emp/approval",
-                                        "/api/board/**",
-                                        "/api/comment/board/**",
-                                        "/api/emp/approval-success"
-                                ).hasRole("USER")
-                                .requestMatchers(
-                                        "/main",
-                                        "/api/emp/sign-in",
-                                        "/api/emp/sign-up",
-                                        "/api/notice/list",
-                                        "/api/notice/detail/{id}",
-                                        "/api/memo/**",
-                                        "/api/notice/first-list"
+                                        "/api/main",
+                                        "/api/notice",
+                                        "/api/notice/{id}",
+                                        "/api/notice/first-list",
+                                        "/api/board",
+                                        "/api/board/{id}",
+                                        "/api/comment/{boardId}",
+                                        "/api/comment/{boardId}/{commentId}",
+                                        "/api/approval",
+                                        "/api/approval/success/{id}",
+                                        "/api/approval/reject/{id}"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )

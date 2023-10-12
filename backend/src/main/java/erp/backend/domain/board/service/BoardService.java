@@ -72,10 +72,9 @@ public class BoardService {
         return entity.getBoardId();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public BoardDetailResponse boardDetail(Long id) {
         Board entity = getBoard(id);
-        updateView(id);
         List<BoardFile> boardFiles = entity.getBoardFileList();
 
         return BoardDetailResponse.builder()
