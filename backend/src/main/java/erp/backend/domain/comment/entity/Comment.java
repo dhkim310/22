@@ -1,6 +1,7 @@
 package erp.backend.domain.comment.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.emp.entity.Emp;
 import jakarta.persistence.*;
@@ -22,12 +23,13 @@ public class Comment {
     @Column(name = "COMMENT_ID")
     private long commentId;
     //외래키
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "COMMENT_BOARD_ID", referencedColumnName = "BOARD_ID")
     private Board board;
     //외래키
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMMENT_EMP_ID", referencedColumnName = "EMP_ID")
+    @JsonIgnore
     private Emp emp;
 
     @Column(name = "COMMENT_COMMENT")
