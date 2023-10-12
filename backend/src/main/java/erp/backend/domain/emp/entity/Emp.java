@@ -85,7 +85,8 @@ public class Emp implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(this.roles.split(","))
+        String role = this.roles = roles + "_" + dept.getDeptName();
+        return Arrays.stream(role.split(","))
                 .map(SimpleGrantedAuthority::new)
                 .toList();
     }

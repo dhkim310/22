@@ -21,12 +21,13 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @GetMapping("/list")
-    public ResponseEntity<NoticeListResult> noticeList(@PageableDefault(size = 3, sort = "noticeId", direction = Sort.Direction.DESC) Pageable pageable,
+    public ResponseEntity<NoticeListResult> noticeList(@PageableDefault(size = 7, sort = "noticeId", direction = Sort.Direction.DESC) Pageable pageable,
                                                        Model model) {
-        NoticeListResult listResult = noticeService.getBoardListResult(pageable);
+        NoticeListResult listResult = noticeService.boardListResult(pageable);
         model.addAttribute("listResult", listResult);
         return ResponseEntity.ok(listResult);
     }
+
     @GetMapping("/first-list")
     public ResponseEntity<List<NoticeMainListResponse>> noticeMainList() {
         return ResponseEntity.ok(noticeService.noticeMainListResponses());

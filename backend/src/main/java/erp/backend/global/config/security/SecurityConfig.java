@@ -49,17 +49,15 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/api/notice/management/**",
                                         "/api/salary/**"
-                                ).hasRole("ADMIN")
+                                ).hasAnyRole("ADMIN_총무부", "ADMIN_재무부", "ADMIN_콘텐츠관리부", "ADMIN_회원관리부")
                                 .requestMatchers(
                                         "/api/log/commute",
                                         "/api/schedule",
                                         "/api/emp/fix-info",
                                         "/api/emp/approval",
                                         "/api/board/**",
-                                        "/api/notice/first-list",
                                         "/api/comment/board/**",
                                         "/api/emp/approval-success"
-
                                 ).hasRole("USER")
                                 .requestMatchers(
                                         "/main",
@@ -67,8 +65,8 @@ public class SecurityConfig {
                                         "/api/emp/sign-up",
                                         "/api/notice/list",
                                         "/api/notice/detail/{id}",
-                                        "/api/memo/**"
-
+                                        "/api/memo/**",
+                                        "/api/notice/first-list"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )
