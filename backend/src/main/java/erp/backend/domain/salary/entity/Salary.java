@@ -25,9 +25,6 @@ public class Salary {
     @JoinColumn(name = "SALARY_EMP_ID")
     private Emp emp;
 
-    @Column(name = "SALARY_AMOUNT")
-    private int salaryAmount;
-
     @Column(name = "SALARY_PAYDATE")
     private LocalDateTime salaryPayDate;
 
@@ -41,8 +38,8 @@ public class Salary {
     private double salaryPayMoney;
 
     @Column(name = "SALARY_TAX")
-    private int salaryTax;
+    private double salaryTax;
 
     @Column(name = "SALARY_BONUS")
-    private int salaryBonus;
+    private double salaryBonus;
 }

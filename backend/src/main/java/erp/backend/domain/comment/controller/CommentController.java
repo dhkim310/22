@@ -2,6 +2,7 @@ package erp.backend.domain.comment.controller;
 
 import erp.backend.domain.comment.dto.CommentRequest;
 import erp.backend.domain.comment.dto.CommentResponse;
+
 import erp.backend.domain.comment.entity.Comment;
 import erp.backend.domain.comment.service.CommentService;
 import erp.backend.domain.emp.entity.Emp;
@@ -32,5 +33,10 @@ public class CommentController {
     @GetMapping("/{boardId}")
     public ResponseEntity<List<CommentResponse>> commentList(@PathVariable("boardId") Long boardId) {
         return ResponseEntity.ok(commentService.commentList(boardId));
+    }
+
+    @GetMapping("/board/{boardId}")
+    public ResponseEntity<List<Comment>> commentSelect(@PathVariable Long boardId){
+        return ResponseEntity.ok(commentService.commentSelect(boardId));
     }
 }

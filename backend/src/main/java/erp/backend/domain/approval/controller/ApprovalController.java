@@ -12,12 +12,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/approval")
 public class ApprovalController {
 
     private final ApprovalService approvalService;
+
 
     @GetMapping
     public ResponseEntity<List<ApprovalListResponse>> searchList() {
@@ -31,6 +34,7 @@ public class ApprovalController {
     @GetMapping("/{id}")
     public ResponseEntity<ApprovalDetailResponse> approvalDetail(@PathVariable("id") Long id) {
         return ResponseEntity.ok(approvalService.approvalDetail(id));
+
     }
     @PutMapping("/success/{id}")
     public ResponseEntity<Long> successApproval(@PathVariable("id") Long id, @RequestBody ApprovalUpdate request) {

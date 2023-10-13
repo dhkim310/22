@@ -60,4 +60,10 @@ public class CommentService {
         return commentResponses;
     }
 
+    @Transactional(readOnly = true)
+    public List<Comment> commentSelect(Long boardId){
+        List<Comment> list = commentRepository.findByBoardBoardId(boardId);
+
+        return list;
+    }
 }

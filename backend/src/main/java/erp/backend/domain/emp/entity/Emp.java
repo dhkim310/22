@@ -3,6 +3,7 @@ package erp.backend.domain.emp.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.dept.entity.Dept;
+import erp.backend.domain.salary.entity.Salary;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,10 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter
@@ -80,9 +78,7 @@ public class Emp implements UserDetails {
 
 //    @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
 //    private Set<Board> boardList = new HashSet<>();
-    @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<Board> boardList = new HashSet<>();
-
+  
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String role = this.roles = roles + "_" + dept.getDeptName();
