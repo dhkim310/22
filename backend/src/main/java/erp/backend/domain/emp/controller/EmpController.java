@@ -48,7 +48,7 @@ public class EmpController {
         return ResponseEntity.ok(empService.passwordUpdate(request));
     }
 
-    @GetMapping("/list")
+    @GetMapping("/emp/list")
     public ResponseEntity<EmpListResult> empList(@PageableDefault(size = 6, sort = "empId", direction = Sort.Direction.ASC) Pageable pageable,
                                                  Model model) {
         EmpListResult listResult = empService.getEmpListResult(pageable);
@@ -56,7 +56,7 @@ public class EmpController {
         return ResponseEntity.ok(listResult);
     }
 
-    @GetMapping("/list/{empName}")
+    @GetMapping("/emp/list/{empName}")
     public ResponseEntity<EmpListResult> searchList(@PageableDefault(size = 6, sort = "empId", direction = Sort.Direction.ASC)
                                                                 Pageable pageable, @PathVariable("empName") String empName, Model model){
         EmpListResult listResult = empService.getEmpSearchList(pageable, empName);

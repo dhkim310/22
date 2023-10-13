@@ -49,38 +49,6 @@ public class ApprovalService {
                 )
                 .toList();
     }
-
-    @Transactional(readOnly = true)
-    public ApprovalDetailResponse approvalDetail(Long id) {
-        Approval entity = getApproval(id);
-        List<ApprovalFile> approvalFiles = entity.getApprovalFileList();
-
-        return ApprovalDetailResponse.builder()
-                .approvalId(entity.getApprovalId())
-                .approvalDrafter(entity.getEmp().getEmpName())
-                .approvalSubject(entity.getApprovalSubject())
-                .approvalContent(entity.getApprovalContent())
-                .approvalFileList(approvalFiles)
-                .build();
-    }
-
-    @Transactional(readOnly = true)
-    public List<ApprovalListResponse> searchList() {
-        List<Approval> list = approvalRepository.findAll();
-
-        return list.stream()
-                .map(approval -> ApprovalListResponse.builder()
-                        .approvalId(approval.getApprovalId())
-                        .approvalSubject(approval.getApprovalSubject())
-                        .approvalCheckMan(approval.getApprovalCheckMan())
-                        .approvalCheck(approval.getApprovalCheck())
-                        .approvalUpLoadDate(approval.getApprovalUpLoadDate())
-                        .approvalSuccessDate(approval.getApprovalSuccessDate())
-                        .approvalBackDate(approval.getApprovalBackDate())
-                        .build()
-                )
-                .toList();
-    }
     @Transactional(readOnly = true)
     public ApprovalDetailResponse approvalDetail(Long id) {
         Approval entity = getApproval(id);

@@ -14,13 +14,13 @@ public class SalaryController {
 
     private final SalaryService salaryService;
 
-    @GetMapping("/detail/{id}")
-    public ResponseEntity<SalaryResponse> detailList(@PathVariable("id") Long id){
-        return ResponseEntity.ok(salaryService.getEmpSalary(id));
-    }
     @PostMapping("/insert")
     public ResponseEntity<Long> salaryInsert(@RequestBody SalaryInsert request){
         return ResponseEntity.ok(salaryService.salaryInsert(request));
+    }
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<SalaryResponse> detailList(@PathVariable("id") Long id){
+        return ResponseEntity.ok(salaryService.getEmpSalary(id));
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> salaryDelete(@PathVariable("id") Long id){
