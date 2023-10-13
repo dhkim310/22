@@ -47,37 +47,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(
-                                        "/api/notice/**",
-                                        "/api/notice/management/**",
-                                        "/api/salary/**",
-                                        "/api/emp/list",
-                                        "/api/emp/search/**",
-                                        "/api/emp/list/**"
+                                        "/0"
                                 ).hasAnyRole("ADMIN_총무부", "ADMIN_재무부", "ADMIN_콘텐츠관리부", "ADMIN_회원관리부")
-                                .requestMatchers(
-                                        "/main",
-                                        "/api/log/commute",
-                                        "/api/schedule",
-                                        "/api/emp/fix-info",
-                                        "/api/emp/approval",
-                                        "/api/emp/approval-success",
-                                        "/api/board/**",
-                                        "/api/comment/board/**",
-                                        "/api/emp/main"
+                                .requestMatchers("/1"
                                 ).hasRole("USER")
                                 .requestMatchers(
-                                        "/api/emp/sign-in",
-                                        "/api/emp/sign-up",
-                                        "/api/notice/list",
-                                        "/api/notice/detail",
-                                        "/api/memo/**",
-                                        "/api/board/**",
-                                        "/api/vacation/list",
-                                        "/api/vacation/insert",
-                                        "/api/vacation/update/**",
-                                        "/api/comment/board/**",
-                                        "/api/comment/board/{boardId}/**",
-                                        "/api/comment/board/{boardId}/commentDelete/**"
+                                        "/**"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )
