@@ -9,9 +9,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+
 @RequiredArgsConstructor
 @Service
-public class MailService implements MailServiceImpl{
+public class MailService implements MailServiceImpl {
 
     private final JavaMailSender emailSender;
 
@@ -31,6 +32,7 @@ public class MailService implements MailServiceImpl{
 
         return message;
     }
+
     @Override
     public void sendSimpleMessage(String to) throws Exception {
 

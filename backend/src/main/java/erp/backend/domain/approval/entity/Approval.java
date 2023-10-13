@@ -2,7 +2,6 @@ package erp.backend.domain.approval.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import erp.backend.domain.approval.dto.ApprovalUpdate;
-import erp.backend.domain.board.entity.BoardFile;
 import erp.backend.domain.emp.entity.Emp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -68,6 +67,7 @@ public class Approval {
         this.approvalCheck = request.getApprovalCheck();
         this.approvalSuccessDate = LocalDate.now();
     }
+
     public void reject(Emp emp, ApprovalUpdate request) {
         this.approvalCheck = request.getApprovalCheck();
         this.approvalBackDate = LocalDate.now();

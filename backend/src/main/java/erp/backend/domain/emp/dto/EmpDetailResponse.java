@@ -1,6 +1,5 @@
 package erp.backend.domain.emp.dto;
 
-import erp.backend.domain.dept.entity.Dept;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

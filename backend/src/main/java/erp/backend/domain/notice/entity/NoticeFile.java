@@ -35,4 +35,5 @@ public class NoticeFile {
         this.notice = notice;
         this.uploadFile = uploadFile;
     }
+    
 }

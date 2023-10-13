@@ -10,7 +10,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -43,10 +42,5 @@ public class Comment {
     @CreationTimestamp
     @Column(name = "COMMENT_CREATED_DATE")
     private LocalDateTime commentCreatedDate;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
-    @LastModifiedDate
-    @Column(name = "COMMENT_MODIFIED_DATE")
-    private LocalDateTime commentModifiedDate;
 
 }

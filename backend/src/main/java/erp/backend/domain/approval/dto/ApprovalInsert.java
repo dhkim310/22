@@ -1,8 +1,7 @@
 package erp.backend.domain.approval.dto;
 
-import lombok.*;
-
-import java.time.LocalDate;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter

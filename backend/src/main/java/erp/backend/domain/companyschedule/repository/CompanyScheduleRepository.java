@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface CompanyScheduleRepository extends JpaRepository<CompanySchedule,Long> {
+public interface CompanyScheduleRepository extends JpaRepository<CompanySchedule, Long> {
     @Query("SELECT n FROM CompanySchedule n")
     List<CompanySchedule> findAll();
 }

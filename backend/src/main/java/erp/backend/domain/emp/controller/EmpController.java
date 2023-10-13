@@ -1,10 +1,7 @@
 package erp.backend.domain.emp.controller;
 
 import erp.backend.domain.emp.dto.*;
-import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.service.EmpService;
-import erp.backend.domain.salary.dto.SalaryResponse;
-import erp.backend.domain.salary.service.SalaryService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -17,14 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class EmpController {
     private final EmpService empService;
-    private final SalaryService salaryService;
 
     @PostMapping("/sign-in")
     public ResponseEntity<SignInResponse> signIn(@RequestBody @Valid SignInRequest request, HttpServletResponse httpResponse) {
@@ -48,7 +43,7 @@ public class EmpController {
         return ResponseEntity.ok(empService.passwordUpdate(request));
     }
 
-    @GetMapping("/emp/list")
+    @GetMapping("/emp")
     public ResponseEntity<EmpListResult> empList(@PageableDefault(size = 6, sort = "empId", direction = Sort.Direction.ASC) Pageable pageable,
                                                  Model model) {
         EmpListResult listResult = empService.getEmpListResult(pageable);
@@ -56,13 +51,14 @@ public class EmpController {
         return ResponseEntity.ok(listResult);
     }
 
-    @GetMapping("/emp/list/{empName}")
+    @GetMapping("/{empName}")
     public ResponseEntity<EmpListResult> searchList(@PageableDefault(size = 6, sort = "empId", direction = Sort.Direction.ASC)
-                                                                Pageable pageable, @PathVariable("empName") String empName, Model model){
+                                                    Pageable pageable, @PathVariable("empName") String empName, Model model) {
         EmpListResult listResult = empService.getEmpSearchList(pageable, empName);
         model.addAttribute("listResult", listResult);
         return ResponseEntity.ok(listResult);
     }
+
     @GetMapping("/main")
     public ResponseEntity<EmpMainResponse> empMain() {
         return ResponseEntity.ok(empService.empMainResponse());

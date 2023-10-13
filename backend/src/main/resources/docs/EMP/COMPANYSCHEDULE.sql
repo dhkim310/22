@@ -1,5 +1,5 @@
 -- 사원일정
-DROP TABLE IF EXISTS `final`.company_schedule;
+DROP TABLE IF EXISTS `final`.companyschedule;
 CREATE TABLE `final`.companyschedule
 (
     `COMPANYSCHEDULE_ID`        BIGINT       NOT NULL AUTO_INCREMENT COMMENT '사내일정코드',

@@ -1,8 +1,7 @@
 package erp.backend.domain.salary.service;
 
 import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.emp.repository.EmpRepository;
-import erp.backend.domain.salary.Vo.SalaryVO;
+import erp.backend.domain.salary.vo.SalaryVO;
 import erp.backend.domain.salary.dto.SalaryInsert;
 import erp.backend.domain.salary.dto.SalaryResponse;
 import erp.backend.domain.salary.entity.Salary;
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -24,11 +21,11 @@ public class SalaryService {
     private final SalaryVO salaryVO;
 
     @Transactional
-    public long salaryInsert(SalaryInsert request) {
+    public Long salaryInsert(SalaryInsert request) {
         Emp emp = SecurityHelper.getAccount();
         salaryVO.setBonus(request.getBonus());
 
-        if (emp.getDept().getDeptId() == 20){
+        if (emp.getDept().getDeptId() == 20) {
             Salary entity = Salary.builder()
                     .emp(emp)
                     .salaryPayDate(LocalDate.now().withDayOfMonth(15))
@@ -39,8 +36,8 @@ public class SalaryService {
                     .salaryBonus(salaryVO.getBonus())
                     .build();
             return salaryRepository.save(entity).getSalaryId();
-        }else {
-            return 0;
+        } else {
+            return null;
         }
     }
 
@@ -63,8 +60,9 @@ public class SalaryService {
         }
         return null;
     }
+
     @Transactional
-    public void salaryDelete(Long id){
+    public void salaryDelete(Long id) {
         Emp emp = SecurityHelper.getAccount();
         if (emp.getDept().getDeptId() == 20) {
             salaryRepository.deleteById(id);

@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Setter
 public class SignUpRequest {
     // 사원 추가: 초기 비밀번호는 1234로 입력 후 사원 마이페이지 변경.
-
     @NotBlank(message = "사원의 이름을 입력해 주세요.")
     private String empName;
 

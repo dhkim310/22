@@ -1,7 +1,6 @@
 package erp.backend.domain.board.dto;
 
 import erp.backend.domain.board.entity.Board;
-import erp.backend.domain.notice.entity.Notice;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

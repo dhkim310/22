@@ -80,6 +80,7 @@ public class JwtSecurityFilter extends OncePerRequestFilter {
         }
 
     }
+
     private AuthTokenHolder getAuthTokenHolder(String token) throws UnsupportedEncodingException {
         var keyDecoded = URLDecoder.decode(token, "UTF-8");
         var schemeAndToken = keyDecoded.split(" ");

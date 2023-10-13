@@ -1,6 +1,5 @@
 package erp.backend.domain.board.dto;
 
-import erp.backend.domain.board.entity.Board;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
