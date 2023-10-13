@@ -34,11 +34,11 @@ function NoticeList() {
 
     return (
     <div>
-            <div className="d-xxl-flex justify-content-xxl-center" style={{width: '100%', height: '1800px', background: 'transparent'}}>
+            <div className="d-xxl-flex justify-content-xxl-center" style={{width: '100%', height: '100%', background: 'transparent'}}>
               <div className="d-xxl-flex justify-content-xxl-center" style={{width: '10%', height: '100%', background: 'white'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" onClick={ navigateToWrite } style={{width: '150px', height: '50px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '6px', borderColor: 'black', marginTop: '24px'}}>글쓰기</button></div>
               <div style={{background: 'white', width: '90%', height: '100%'}}>
                 <div style={{width: '100%', height: '7%', borderBottom: '2px ridge rgba(128,128,128,0.26)'}}>
-                  <div className="d-xxl-flex align-items-xxl-end" style={{width: '100%', height: '50%'}}><span style={{fontSize: '30px', fontWeight: 'bold', paddingTop: '0px', marginLeft: '41px'}}>게시판 홈</span></div>
+                  <div className="d-xxl-flex align-items-xxl-end" style={{width: '100%', height: '50%'}}><span style={{fontSize: '30px', fontWeight: 'bold', paddingTop: '20px',paddingBottom: '20px', marginLeft: '41px'}}>게시판 홈</span></div>
                   <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end" style={{width: '100%', height: '50%'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" style={{width: '150px', height: '30px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '0px', border: '0px none black'}}>공지사항</button><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" style={{width: '150px', height: '30px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '0px', borderStyle: 'none', borderColor: 'black', borderBottomStyle: 'none'}}>사내게시판</button></div>
                 </div>
                 <div style={{width: '100%', height: '93%'}}>

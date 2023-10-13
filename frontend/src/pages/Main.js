@@ -202,8 +202,8 @@ function Main() {
                                     <div className="d-xxl-flex justify-content-center justify-content-xxl-center align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '34px', maxHeight: '1000px', width: '100%'}}>
 
                                     <ul>
-                                    {notice.map(e => (
-                                    <li key={e.id} style={{ listStyleType: 'none' }}>
+                                    {notice.map((e,i) => (
+                                    <li key={i} style={{ listStyleType: 'none' }}>
                                     <a className="d-xxl-flex justify-content-xxl-center list-group-item list-group-item-action flex-column align-items-start" style={{height: '70px', marginBottom: '2px', width: '561px'}}>
                                         <div className="d-flex w-100 justify-content-between" style={{width: '100%'}}>
                                         <h5 className="mb-1" style={{width: '100%'}}>{e.subject}</h5>
