@@ -64,33 +64,6 @@ public class ApprovalService {
                 .build();
     }
 
-    @Transactional(readOnly = true)
-    public List<ApprovalListResponse> searchList() {
-        List<Approval> list = approvalRepository.findAll();
-
-        return list.stream()
-                .map(approval -> ApprovalListResponse.builder()
-                        .approvalId(approval.getApprovalId())
-                        .approvalSubject(approval.getApprovalSubject())
-                        .approvalCheckMan(approval.getApprovalCheckMan())
-                        .approvalCheck(approval.getApprovalCheck())
-                        .approvalUpLoadDate(approval.getApprovalUpLoadDate())
-                        .approvalSuccessDate(approval.getApprovalSuccessDate())
-                        .approvalBackDate(approval.getApprovalBackDate())
-                        .build()
-                )
-                .toList();
-    }
-    @Transactional(readOnly = true)
-    public ApprovalDetailResponse approvalDetail(Long id) {
-        Approval entity = getApproval(id);
-
-        return ApprovalDetailResponse.builder()
-                .approvalId(entity.getApprovalId())
-                .approvalSubject(entity.getApprovalSubject())
-                .approvalContent(entity.getApprovalContent())
-                .build();
-    }
     @Transactional
     public Long approvalInsert(ApprovalInsert request, List<MultipartFile> files) {
         Emp emp = SecurityHelper.getAccount();

@@ -23,14 +23,14 @@ public class MemoService {
     public Long memoInsert(MemoInsert request) {
         Emp emp = SecurityHelper.getAccount();
         Memo entity = Memo.builder()
-            .emp(emp)
-            .memoContent(request.getContent())
-            .build();
+                .emp(emp)
+                .memoContent(request.getContent())
+                .build();
         return memoRepository.save(entity).getMemoId();
     }
 
     @Transactional
-    public Long memoUpdate(MemoUpdate request){
+    public Long memoUpdate(MemoUpdate request) {
         Emp emp = SecurityHelper.getAccount();
         Memo memo = memoRepository.findTopByEmpEmpIdOrderByMemoIdDesc(emp.getEmpId());
         memo.update(emp, request);
@@ -42,7 +42,7 @@ public class MemoService {
         Emp emp = SecurityHelper.getAccount();
         Optional<Memo> entity = Optional.ofNullable(memoRepository.findTopByEmpEmpIdOrderByMemoIdDesc(emp.getEmpId()));
         return MemoResponse.builder()
-                .memoContent(entity.map(e -> e.getMemoContent()).orElse(""))
+                .memoContent(entity.map(Memo::getMemoContent).orElse(""))
                 .build();
     }
 }
