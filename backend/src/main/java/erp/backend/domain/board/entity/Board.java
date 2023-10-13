@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity //jpa 사용할때!
 @AllArgsConstructor // 파라미터있는생성자
 @NoArgsConstructor // 기본생성자

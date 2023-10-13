@@ -10,8 +10,6 @@ import SweetAlert from "./component/SweetAlert"
 import Write from "./pages/Write"
 import NoticeList from "./pages/NoticeList"
 
-
-
 function App() {
   return (
     <Router>
@@ -28,6 +26,7 @@ function App() {
             <Route path="/sweetalert" element={ <SweetAlert />}/>
             <Route path="/write" element={ <Write />}/>
             <Route path="/notice" element={ <NoticeList />}/>
+
             </Route>
         </Routes>
     </Router>
