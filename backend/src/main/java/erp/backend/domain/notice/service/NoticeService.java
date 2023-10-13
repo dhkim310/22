@@ -1,6 +1,5 @@
 package erp.backend.domain.notice.service;
 
-import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.notice.dto.*;
 import erp.backend.domain.notice.entity.Notice;
@@ -23,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static erp.backend.global.util.ArrayUtils.isNullOrEmpty;
@@ -38,14 +36,8 @@ public class NoticeService {
 
     private final UploadFileService uploadFileService;
 
-    @Transactional
-    public Page<Notice> findAll(Pageable pageable) {
-        System.out.println("@findAll() pageable: " + pageable);
-        return noticeRepository.findByOrderByNoticeIdDesc(pageable);
-    }
-
     @Transactional(readOnly = true)
-    public NoticeListResult getBoardListResult(Pageable pageable) {
+    public NoticeListResult boardListResult(Pageable pageable) {
         List<NoticeListResponse> noticeListResponses = new ArrayList<>();
         List<Notice> list = noticeRepository.findAll();
 
@@ -185,14 +177,9 @@ public class NoticeService {
 
     // 게시글 작성자와 사용자가 일치하는지 확인
     private Notice getNotice(Long id, Emp emp) {
-
-        Notice notice = noticeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("잘못된 접근"));
-        if (notice.getEmp().getEmpId().equals(emp.getEmpId())) {
-            return notice;
-        } else {
-            throw new IllegalArgumentException("현재 로그인 된 사용자와 게시글 작성자가 일치하지 않습니다.");
-        }
+        return noticeRepository.findById(id)
+                .filter(notice -> notice.getEmp().getEmpId().equals(emp.getEmpId()))
+                .orElseThrow(() -> new IllegalArgumentException("현재 로그인 된 사용자와 게시글 작성자가 일치하지 않습니다."));
     }
-
 }
+

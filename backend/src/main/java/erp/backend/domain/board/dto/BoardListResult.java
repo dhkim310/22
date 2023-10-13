@@ -8,13 +8,13 @@ import org.springframework.data.domain.Page;
 @NoArgsConstructor
 @Getter
 public class BoardListResult {
-    private Page<Board> list;
+    private Page<BoardListResponse> list;
     private int page;
     private int size;
     private long totalCount;
     private long totalPageCount;
 
-    public BoardListResult(int page, long totalCount, int size, Page<Board> list) {
+    public BoardListResult(int page, long totalCount, int size, Page<BoardListResponse> list) {
         this.page = page;
         this.totalCount = totalCount;
         this.size = size;
