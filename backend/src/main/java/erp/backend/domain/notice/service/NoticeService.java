@@ -38,7 +38,7 @@ public class NoticeService {
     private final UploadFileService uploadFileService;
 
     @Transactional(readOnly = true)
-    public NoticeListResult boardListResult(Pageable pageable) {
+    public NoticeListResult noticeListResult(Pageable pageable) {
         List<NoticeListResponse> noticeListResponses = new ArrayList<>();
         List<Notice> list = noticeRepository.findAll(Sort.by(Sort.Order.desc("noticeId")));
 
