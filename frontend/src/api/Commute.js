@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const commuteApi = async (params) => {
     return new Promise((resolve,reject)=> {
-        axios.post('/api/log/commute', params)
+        axios.post('/api/log', params)
         .then((res)=>{
             return resolve(res);
         })
@@ -14,7 +14,7 @@ export const commuteApi = async (params) => {
 
 export const commuteUpdateApi = async (params) => {
     return new Promise((resolve,reject)=> {
-        axios.put('/api/log/commute', params)
+        axios.put('/api/log', params)
         .then((res)=>{
             return resolve(res);
         })
@@ -26,7 +26,7 @@ export const commuteUpdateApi = async (params) => {
 
 export const commuteSelectApi = async (params) => {
     try {
-        const response = await axios.get('/api/log/commute');
+        const response = await axios.get('/api/log');
 
         if (response.data.logCheckOut.indexOf('1999') !== -1) {
             response.data.logCheckOut = 'T ';

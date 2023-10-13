@@ -11,15 +11,16 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/schedule")
 public class CompanyScheduleController {
     private final CompanyScheduleService companyScheduleService;
 
-    @PostMapping("/schedule")
+    @PostMapping
     public ResponseEntity<Long> insertEventApi(@RequestBody ScheduleInsert request) {
         return ResponseEntity.ok(companyScheduleService.scheduleInsert(request));
     }
-    @GetMapping("/schedule")
+
+    @GetMapping
     public ResponseEntity<List<ScheduleListResponse>> searchList() {
         return ResponseEntity.ok(companyScheduleService.searchList());
     }

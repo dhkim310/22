@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.emp.entity.Emp;
 import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
 
 @Entity //jpa 사용할때!
 @AllArgsConstructor // 파라미터있는생성자
@@ -22,10 +24,12 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "COMMENT_ID")
     private long commentId;
+
     //외래키
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "COMMENT_BOARD_ID", referencedColumnName = "BOARD_ID")
     private Board board;
+
     //외래키
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COMMENT_EMP_ID", referencedColumnName = "EMP_ID")

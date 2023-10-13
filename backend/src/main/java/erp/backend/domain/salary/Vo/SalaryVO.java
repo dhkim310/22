@@ -12,85 +12,85 @@ import java.time.LocalDateTime;
 @Setter
 public class SalaryVO {
     SalaryInsert salaryInsert = new SalaryInsert();
-    private final double amount = 30000000;
-    private final double ASSISTANT = amount;
-    private final double SENIOR_ASSISTANT = amount * 1.1;
-    private final double MANAGER = amount * 1.45;
-    private final double SENIOR_MANAGER = amount * 2.25;
-    private final double PRESIDENT = amount * 3.5;
+    private final long amount = 30000000;
+    private final long ASSISTANT = amount;
+    private final long SENIOR_ASSISTANT = (long) (amount * 1.1);
+    private final long MANAGER = (long) (amount * 1.45);
+    private final long SENIOR_MANAGER = (long) (amount * 2.25);
+    private final long PRESIDENT = (long) (amount * 3.5);
 
     private final double nationalInsurance = 0.045;
     private final double healthInsurance = 0.03335;
-    private final double nursingInsurance = healthInsurance * 0.1025;
+    private final double nursingInsurance = (long) (healthInsurance * 0.1025);
     private final double employmentInsurance = 0.008;
 
-    private final double year = 12;
-    private double bonus;
+    private final long year = 12;
+    private long bonus;
 
-    public double getBonus(){
+    public long getBonus() {
         return bonus;
     }
-    public void setBonus(double bonus){
+
+    public void setBonus(long bonus) {
         this.bonus = bonus;
     }
 
-    private final double tax = (((amount / year)) * nationalInsurance) + ((amount/year) * healthInsurance) +
-            ((amount/year)) * nursingInsurance + ((amount/year)) * employmentInsurance;
+    private final double tax = (long) (((amount / year)) * nationalInsurance) + (long) ((amount/year) * healthInsurance) +
+            (long) ((amount/year)) * nursingInsurance + (long) ((amount/year)) * employmentInsurance;
 
-    // 실수령액
-    public Double paymoney(String position) {
-        Double pay = null;
-        Double tax1 = taxmoney(position);
+    public Long paymoney(String position) {
+        Long pay = null;
+        Long tax1 = taxmoney(position);
         switch (position) {
             case "사원":
-                pay = (ASSISTANT/year) + bonus - tax1;
+                pay = (ASSISTANT / year) + bonus - tax1;
                 break;
             case "대리":
-                pay = Math.floor(SENIOR_ASSISTANT/year) + bonus - tax1;
+                pay = (long) Math.floor(SENIOR_ASSISTANT / year) + bonus - tax1;
                 break;
             case "과장":
-                pay = (MANAGER/year) + bonus - tax1;
+                pay = (MANAGER / year) + bonus - tax1;
                 break;
             case "부장":
-                pay = (SENIOR_MANAGER/year) + bonus - tax1;
+                pay = (SENIOR_MANAGER / year) + bonus - tax1;
                 break;
             case "사장":
-                pay = (PRESIDENT/year) + bonus - tax1;
+                pay = (PRESIDENT / year) + bonus - tax1;
                 break;
             default:
                 break;
         }
-        if (pay == null){
+        if (pay == null) {
             return pay;
         }
         return pay;
     }
 
-    // 제세공과금
-    public Double taxmoney(String position) {
-        Double tax1 = null;
+    public Long taxmoney(String position) {
+        Long tax1 = null;
         switch (position) {
             case "사원":
-                tax1 = Math.floor(tax);
+                tax1 = (long) Math.floor(tax);
                 break;
             case "대리":
-                tax1 = Math.floor(tax * 1.1);
+                tax1 = (long) Math.floor(tax * 1.1);
                 break;
             case "과장":
-                tax1 = Math.floor(tax * 1.45);
+                tax1 = (long) Math.floor(tax * 1.45);
                 break;
             case "부장":
-                tax1 = Math.floor(tax * 2.25);
+                tax1 = (long) Math.floor(tax * 2.25);
                 break;
             case "사장":
-                tax1 = Math.floor(tax * 3.5);
+                tax1 = (long) Math.floor(tax * 3.5);
                 break;
             default:
                 break;
         }
-        if (tax1 == null){
+        if (tax1 == null) {
             return tax1;
         }
         return tax1;
     }
 }
+

@@ -12,8 +12,6 @@ import NoticeList from "./pages/NoticeList"
 import MemoComponent from "./component/MemoComponent"
 import Hrm from "./pages/Hrm"
 
-
-
 function App() {
   return (
     <Router>
@@ -32,6 +30,7 @@ function App() {
             <Route path="/notice" element={ <NoticeList />}/>
             <Route path="/hrm" element={ <Hrm />}/>
             <Route path="/memo" element={ <MemoComponent />}/>
+
             </Route>
         </Routes>
     </Router>
