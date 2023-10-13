@@ -20,11 +20,14 @@ public class FileUtils {
         if (file.exists() || file.isDirectory()) {
             File[] files = file.listFiles();
 
-            Arrays.stream(Objects.requireNonNull(files))
-                    .forEach(childFile -> {
-                        String resultMessage = childFile.delete() ? " 삭제성공" : " 삭제실패";
-                        log.info(childFile.getName() + resultMessage);
-                    });
+            if (files != null) {
+                Arrays.stream(Objects.requireNonNull(files))
+                        .forEach(childFile -> {
+                            String resultMessage = childFile.delete() ? " 삭제성공" : " 삭제실패";
+                            log.info(childFile.getName() + resultMessage);
+                        });
+            }
+
             String resultMessage = file.delete() ? "파일삭제 성공" : "파일삭제 실패";
             log.info(resultMessage);
         } else {

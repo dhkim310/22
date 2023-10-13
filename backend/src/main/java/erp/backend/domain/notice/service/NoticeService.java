@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,9 +38,9 @@ public class NoticeService {
     private final UploadFileService uploadFileService;
 
     @Transactional(readOnly = true)
-    public NoticeListResult boardListResult(Pageable pageable) {
+    public NoticeListResult noticeListResult(Pageable pageable) {
         List<NoticeListResponse> noticeListResponses = new ArrayList<>();
-        List<Notice> list = noticeRepository.findAll();
+        List<Notice> list = noticeRepository.findAll(Sort.by(Sort.Order.desc("noticeId")));
 
         for (Notice notice : list) {
             NoticeListResponse response = NoticeListResponse.fromNotice(notice);
@@ -68,7 +69,6 @@ public class NoticeService {
                 .toList();
 
     }
-
 
     @Transactional
     public Long noticeInsert(NoticeRequest request, List<MultipartFile> files) throws IOException {
