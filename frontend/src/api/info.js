@@ -24,7 +24,7 @@ export const passwordUpdate = async (params) => {
 
 export const selectEmp = async (params) => {
     try {
-      const response = await axios.get('/api/emp/main');
+      const response = await axios.get('/api/main');
       return response.data;
     } catch (error) {
       throw error;
