@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 function NoticeList() {
     const [isMobile, setIsMobile] = useState(false);
@@ -30,6 +31,18 @@ function NoticeList() {
             element.classList.remove('animated', element.dataset.bssHoverAnimate);
             });
         });
+    }, []);
+
+    const [noticeList, setNoticeList] = useState([]);
+
+    useEffect(() => {
+        axios.get('/api/list') // API 엔드포인트에 맞게 수정
+            .then((response) => {
+                setNoticeList(response.data.content); // 데이터를 가져와서 상태에 저장
+            })
+            .catch((error) => {
+                console.error('API 호출 오류:', error);
+            });
     }, []);
 
     return (
@@ -80,7 +93,7 @@ function NoticeList() {
                         <div style={{width: '80%', height: '100%'}}><span>2018/08/11 12:08</span></div>
                       </div>
                     </a></div>
-                  <nav className="d-flex d-xxl-flex justify-content-center justify-content-xxl-center thread-pages" style={{textAlign: 'center', position: 'relative', paddingTop: '54px'}}>
+                    <nav className="d-flex justify-content-center fixed-bottom" style={{ textAlign: 'center', paddingTop: '15px', marginBottom: '30px' }}>
                     <ul className="pagination">
                       <li className="page-item"><a className="page-link" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
                       <li className="page-item"><a className="page-link">1</a></li>

@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/emp")
+@RequestMapping("/api")
 public class EmpController {
     private final EmpService empService;
     private final SalaryService salaryService;
@@ -35,17 +35,18 @@ public class EmpController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/fix-info")
-    public ResponseEntity<EmpDetailResponse> fixInfo(){
+    @GetMapping("/emp/fix-info")
+    public ResponseEntity<EmpDetailResponse> fixInfo() {
         return ResponseEntity.ok(empService.empDetailResponse());
     }
-    @PutMapping("/fix-info")
+
+    @PutMapping("/emp/fix-info")
     public ResponseEntity<Long> fixInfoPasswordUpdate(@RequestBody EmpPasswordUpdateRequest request) throws MessagingException, UnsupportedEncodingException {
         return ResponseEntity.ok(empService.passwordUpdate(request));
     }
 
     @GetMapping("/main")
-    public  ResponseEntity<EmpMainResponse> empMain() {
+    public ResponseEntity<EmpMainResponse> empMain() {
         return ResponseEntity.ok(empService.empMainResponse());
     }
 

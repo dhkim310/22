@@ -1,6 +1,8 @@
 package erp.backend.domain.approval.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import erp.backend.domain.approval.dto.ApprovalUpdate;
+import erp.backend.domain.board.entity.BoardFile;
 import erp.backend.domain.emp.entity.Emp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity //jpa 사용할때!
 @Getter
@@ -21,7 +25,8 @@ public class Approval {
     @Column(name = "APPROVAL_ID")
     private long approvalId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "APPROVAL_EMP_ID")
     private Emp emp;
 
@@ -48,6 +53,16 @@ public class Approval {
 
     @Column(name = "APPROVAL_SUCCESSDATE")
     private LocalDate approvalSuccessDate;
+
+    @OneToMany(
+            mappedBy = "approval",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Builder.Default
+    private List<ApprovalFile> approvalFileList = new ArrayList<>();
+
 
     public void update(Emp emp, ApprovalUpdate request) {
         this.approvalCheck = request.getApprovalCheck();

@@ -20,37 +20,38 @@ import java.util.List;
 public class NoticeController {
     private final NoticeService noticeService;
 
-    @GetMapping("/list")
+    @GetMapping
     public ResponseEntity<NoticeListResult> noticeList(@PageableDefault(size = 3, sort = "noticeId", direction = Sort.Direction.DESC) Pageable pageable,
                                                        Model model) {
-        NoticeListResult listResult = noticeService.getBoardListResult(pageable);
+        NoticeListResult listResult = noticeService.boardListResult(pageable);
         model.addAttribute("listResult", listResult);
         return ResponseEntity.ok(listResult);
     }
-    @GetMapping("/first-list")
-    public ResponseEntity<List<NoticeMainListResponse>> noticeMainList() {
-        return ResponseEntity.ok(noticeService.noticeMainListResponses());
+
+    @PostMapping
+    public ResponseEntity<Long> noticeInsert(@RequestPart(value = "requestDto") NoticeRequest request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
+        return ResponseEntity.ok(noticeService.noticeInsert(request, files));
     }
 
-    @GetMapping("/detail/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<NoticeDetailResponse> noticeDetail(@PathVariable("id") Long id) {
         noticeService.updateView(id);
         return ResponseEntity.ok(noticeService.noticeDetail(id));
     }
 
-    @PostMapping("/management")
-    public ResponseEntity<Long> noticeInsert(@RequestPart(value = "requestDto") NoticeRequest request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
-        return ResponseEntity.ok(noticeService.noticeInsert(request, files));
-    }
-
-    @DeleteMapping("/management/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> noticeDelete(@PathVariable("id") Long id) {
         noticeService.noticeDelete(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/management/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Long> noticeUpdate(@PathVariable("id") Long id, @RequestPart(value = "requestDto") NoticeUpdate request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
         return ResponseEntity.ok(noticeService.noticeUpdate(id, request, files));
+    }
+
+    @GetMapping("/first-list")
+    public ResponseEntity<List<NoticeMainListResponse>> noticeMainList() {
+        return ResponseEntity.ok(noticeService.noticeMainListResponses());
     }
 }
