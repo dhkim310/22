@@ -49,21 +49,16 @@ public class ApprovalService {
                 )
                 .toList();
     }
-
     @Transactional(readOnly = true)
     public ApprovalDetailResponse approvalDetail(Long id) {
         Approval entity = getApproval(id);
-        List<ApprovalFile> approvalFiles = entity.getApprovalFileList();
 
         return ApprovalDetailResponse.builder()
                 .approvalId(entity.getApprovalId())
-                .approvalDrafter(entity.getEmp().getEmpName())
                 .approvalSubject(entity.getApprovalSubject())
                 .approvalContent(entity.getApprovalContent())
-                .approvalFileList(approvalFiles)
                 .build();
     }
-
     @Transactional
     public Long approvalInsert(ApprovalInsert request, List<MultipartFile> files) {
         Emp emp = SecurityHelper.getAccount();

@@ -11,7 +11,6 @@ export default function Movies() {
           return (
             <Movie
               title={item.title}
-              overview={item.overview}
               poster_path={item.poster_path}
               vote_average={item.vote_average}
             />

@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const loginApi = async (params) => {
     return new Promise((resolve,reject)=> {
-        axios.post('/api/emp/sign-in', params)
+        axios.post('/api/sign-in', params)
         .then((res)=>{
             return resolve(res);
         })

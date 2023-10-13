@@ -3,7 +3,7 @@ import { useLocation, useParams } from 'react-router-dom'
 import { IMG_BASE_URL } from '../component/Movie';
 
 export default function MovieDetail() {
-  const { title, overview } = useParams();
+  const { title } = useParams();
   const { state } = useLocation();
 
   return (
@@ -11,7 +11,7 @@ export default function MovieDetail() {
       <div style={{display: 'flex'}}>
         <img style={{width: '300px', height: '450px'}} src={IMG_BASE_URL + state.poster_path} alt='영화 포스터 이미지' />
         <div>
-          <div style={{ fontSize: "32px" }}>{title}{overview}</div>
+          <div style={{ fontSize: "32px" }}>{title}</div>
         </div>
       </div>
     </div>
