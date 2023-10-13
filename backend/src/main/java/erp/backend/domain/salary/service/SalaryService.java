@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -23,13 +24,14 @@ public class SalaryService {
     private final SalaryVO salaryVO;
 
     @Transactional
-    public Long salaryInsert(SalaryInsert request) {
+    public long salaryInsert(SalaryInsert request) {
         Emp emp = SecurityHelper.getAccount();
         salaryVO.setBonus(request.getBonus());
+
         if (emp.getDept().getDeptId() == 20){
             Salary entity = Salary.builder()
                     .emp(emp)
-                    .salaryPayDate(LocalDateTime.now().withDayOfMonth(15).withHour(9).withMinute(0).withSecond(0))
+                    .salaryPayDate(LocalDate.now().withDayOfMonth(15))
                     .salaryPayMoney(salaryVO.paymoney(emp.getEmpPosition()))
                     .salaryBank(request.getBank())
                     .salaryAccountNumber(request.getAccountNumber())
@@ -38,29 +40,35 @@ public class SalaryService {
                     .build();
             return salaryRepository.save(entity).getSalaryId();
         }else {
-            return null;
+            return 0;
         }
     }
 
     @Transactional(readOnly = true)
-    public List<SalaryResponse> getEmpSalary(Long empId) {
+    public SalaryResponse getEmpSalary(Long empId) {
         Emp emp = SecurityHelper.getAccount();
-        List<Salary> entity;
-        if (emp.getDept().getDeptId() == 20){
-            entity = salaryRepository.findSalaryByEmpEmpId(empId);
-        }else {
-            return Collections.emptyList();
+        if (emp.getDept().getDeptId() == 20) {
+            List<Salary> entities = salaryRepository.findSalaryByEmpEmpId(empId);
+            if (entities != null && !entities.isEmpty()) {
+                Salary entity = entities.get(0);
+                return SalaryResponse.builder()
+                        .salaryPayDate(entity.getSalaryPayDate())
+                        .salaryBank(entity.getSalaryBank())
+                        .salaryAccountNumber(entity.getSalaryAccountNumber())
+                        .salaryPayMoney(entity.getSalaryPayMoney())
+                        .salaryTax(entity.getSalaryTax())
+                        .salaryBonus(entity.getSalaryBonus())
+                        .build();
+            }
         }
-        return entity.stream()
-                .map(entity1 -> SalaryResponse.builder()
-                        .salaryPayDate(entity1.getSalaryPayDate())
-                        .salaryBank(entity1.getSalaryBank())
-                        .salaryAccountNumber(entity1.getSalaryAccountNumber())
-                        .salaryPayMoney(entity1.getSalaryPayMoney())
-                        .salaryTax(entity1.getSalaryTax())
-                        .salaryBonus(entity1.getSalaryBonus())
-                        .build()
-                )
-                .toList();
+        return null;
     }
+    @Transactional
+    public void salaryDelete(Long id){
+        Emp emp = SecurityHelper.getAccount();
+        if (emp.getDept().getDeptId() == 20) {
+            salaryRepository.deleteById(id);
+        }
+    }
+
 }

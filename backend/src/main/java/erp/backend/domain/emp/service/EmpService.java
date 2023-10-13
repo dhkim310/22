@@ -12,6 +12,8 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -121,46 +124,69 @@ public class EmpService {
         return emp.getEmpId();
     }
 
-
     @Transactional(readOnly = true)
-    public List<EmpListResponse> getEmpList() {
-        Emp emp = SecurityHelper.getAccount();
-        List<Emp> empList;
-        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20) {
-            empList = empRepository.findAll();
-        } else {
-            return Collections.emptyList();
-        }
-        return empList.stream()
-                .map(emp1 -> EmpListResponse.builder()
-                        .empId(emp1.getEmpId())
-                        .empName(emp1.getEmpName())
-                        .empPosition(emp1.getEmpPosition())
-                        .dept(emp1.getDept())
-                        .build()
-                )
-                .toList();
+    public Page<Emp> findAll(Pageable pageable){
+        System.err.println("pageable: " + pageable);
+        return empRepository.findByOrderByEmpIdAsc(pageable);
     }
 
     @Transactional(readOnly = true)
-    public List<EmpListResponse> getEmpSearchList(String empName) {
+    public EmpListResult getEmpListResult(Pageable pageable){
         Emp emp = SecurityHelper.getAccount();
-        List<Emp> empList;
-        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20) {
-            empList = empRepository.findByEmpNameContaining(empName);
-        } else {
-            return Collections.emptyList();
+        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20){
+            Page<Emp> list = findAll(pageable);
+
+            int page = pageable.getPageNumber();
+            long totalCount = list.getTotalElements();
+            int size = pageable.getPageSize();
+            System.err.println("page: " + page + ", totalCount: " + totalCount + ", size: " + size);
+
+            List<EmpListResponse> empList = list.getContent().stream()
+                    .map(entity -> EmpListResponse.builder()
+                            .empId(entity.getEmpId())
+                            .empName(entity.getEmpName())
+                            .empPosition(entity.getEmpPosition())
+                            .empAmount(entity.getEmpAmount())
+                            .dept(entity.getDept())
+                            .build()
+                    )
+                    .collect(Collectors.toList());
+
+            return new EmpListResult(page, totalCount, size, empList);
+        }else {
+            return null;
         }
-        return empList.stream()
-                .map(emp1 -> EmpListResponse.builder()
-                        .empId(emp1.getEmpId())
-                        .empName(emp1.getEmpName())
-                        .empPosition(emp1.getEmpPosition())
-                        .empAmount(emp1.getEmpAmount())
-                        .dept(emp1.getDept())
-                        .build()
-                )
-                .toList();
+    }
+    @Transactional(readOnly = true)
+    public Page<Emp> findName(Pageable pageable, String empName){
+        return empRepository.findByEmpNameContainingOrderByEmpIdAsc(pageable, empName);
+    }
+    @Transactional(readOnly = true)
+    public EmpListResult getEmpSearchList(Pageable pageable, String empName){
+        Emp emp = SecurityHelper.getAccount();
+        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20){
+            Page<Emp> list = findName(pageable, empName);
+
+            int page = pageable.getPageNumber();
+            long totalCount = list.getTotalElements();
+            int size = pageable.getPageSize();
+            System.err.println("page: " + page + ", totalCount: " + totalCount + ", size: " + size);
+
+            List<EmpListResponse> empList = list.getContent().stream()
+                    .map(entity -> EmpListResponse.builder()
+                            .empId(entity.getEmpId())
+                            .empName(entity.getEmpName())
+                            .empPosition(entity.getEmpPosition())
+                            .empAmount(entity.getEmpAmount())
+                            .dept(entity.getDept())
+                            .build()
+                    )
+                    .collect(Collectors.toList());
+
+            return new EmpListResult(page, totalCount, size, empList);
+        }else {
+            return null;
+        }
     }
 
     @Transactional(readOnly = true)
