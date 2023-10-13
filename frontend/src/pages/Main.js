@@ -7,9 +7,20 @@ import { selectEmp } from "../api/info";
 import { selectMemoApi } from '../api/Memo';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import MemoComponent from "../component/MemoComponent";
 
 
 function Main() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
     const navigate = useNavigate();
     const navigateToFixInfo = () => {
         navigate("/fix-info");
@@ -21,7 +32,7 @@ function Main() {
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
     const { register, formState: { errors }, handleSubmit } = useForm();
-    
+
     const onValid = async ({today}) => {
         await commuteApi({today})
         .then((res) => {
@@ -111,6 +122,11 @@ function Main() {
 
     return (
         <div>
+
+            <div>
+              <MemoComponent isOpen={isModalOpen} closeModal={closeModal} memoContent={memo.memoContent} />
+            </div>
+
             <div>
                 <div className="d-grid d-lg-flex justify-content-lg-center" style={{width: 'auto', height: '100%', minHeight: '0px', background: 'white'}}>
                     <div style={{height: '100%', width: '10%', minHeight: '0px', background: 'white'}}>
@@ -203,7 +219,7 @@ function Main() {
                                 </div>
                                 <div style={{background: 'white', width: '100%', height: '300px', marginTop: '20px'}}>
                                 <div className="d-xxl-flex align-items-xxl-center" style={{height: '50px', borderBottom: '1px ridge rgba(128,128,128,0.24)'}}><span style={{fontSize: '25px', fontWeight: 'bold', paddingLeft: '23px'}}>메모</span></div>
-                                <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{width: '100%', height: '300px'}}>
+                                <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" onClick={openModal} style={{width: '100%', height: '300px'}}>
                                     <div className="d-xxl-flex justify-content-center justify-content-xxl-center align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '0px', maxHeight: '1000px', width: '100%'}}><a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '300px', marginBottom: '2px', width: '561px'}}>
                                         <div className="d-flex w-100 justify-content-between" style={{width: '100%'}}>
                                         <h5 className="mb-1" style={{width: '100%'}}>{memo.memoContent}</h5>

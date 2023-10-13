@@ -9,6 +9,8 @@ import Approval from "./pages/Approval"
 import SweetAlert from "./component/SweetAlert"
 import Write from "./pages/Write"
 import NoticeList from "./pages/NoticeList"
+import MemoComponent from "./component/MemoComponent"
+import modalTest from "./component/modalTest"
 
 
 
@@ -28,6 +30,7 @@ function App() {
             <Route path="/sweetalert" element={ <SweetAlert />}/>
             <Route path="/write" element={ <Write />}/>
             <Route path="/notice" element={ <NoticeList />}/>
+            <Route path="/memo" element={ <MemoComponent />}/>
             </Route>
         </Routes>
     </Router>
