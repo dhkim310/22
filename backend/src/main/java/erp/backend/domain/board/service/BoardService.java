@@ -1,15 +1,12 @@
 package erp.backend.domain.board.service;
 
 
-import erp.backend.domain.board.dto.BoardDetailResponse;
-import erp.backend.domain.board.dto.BoardListResult;
-import erp.backend.domain.board.dto.BoardRequest;
+import erp.backend.domain.board.dto.*;
 import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.board.entity.BoardFile;
 import erp.backend.domain.board.repository.BoardFileRepository;
 import erp.backend.domain.board.repository.BoardRepository;
 import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.board.dto.BoardUpdate;
 import erp.backend.domain.uploadfile.entity.UploadFile;
 import erp.backend.domain.uploadfile.service.UploadFileService;
 import erp.backend.global.config.security.SecurityHelper;
@@ -18,6 +15,7 @@ import erp.backend.global.util.SchemaType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +37,25 @@ public class BoardService {
 
     private final UploadFileService uploadFileService;
 
+    @Transactional(readOnly = true)
+    public BoardListResult boardListResult(Pageable pageable) {
+        List<Board> list = boardRepository.findAll();
+        List<BoardListResponse> boardListResponses = new ArrayList<>();
+
+        for (Board board : list) {
+            BoardListResponse response = BoardListResponse.fromBoard(board);
+            boardListResponses.add(response);
+        }
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), boardListResponses.size());
+        List<BoardListResponse> sublist = boardListResponses.subList(start, end);
+
+        Page<BoardListResponse> page = new PageImpl<>(sublist, pageable, boardListResponses.size());
+
+        return new BoardListResult(pageable.getPageNumber(), boardListResponses.size(), pageable.getPageSize(), page);
+    }
+
     @Transactional
     public Long boardInsert(BoardRequest request, List<MultipartFile> files) throws IOException {
         // 사원 id
@@ -55,10 +72,9 @@ public class BoardService {
         return entity.getBoardId();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public BoardDetailResponse boardDetail(Long id) {
         Board entity = getBoard(id);
-        updateView(id);
         List<BoardFile> boardFiles = entity.getBoardFileList();
 
         return BoardDetailResponse.builder()
@@ -131,22 +147,6 @@ public class BoardService {
             }
         }
         return boardFileRepository.saveAll(boardFileList);
-    }
-
-    @Transactional
-    public Page<Board> findAll(Pageable pageable) {
-        System.out.println("@findAll() pageable: " + pageable);
-        return boardRepository.findByOrderByBoardIdDesc(pageable);
-    }
-
-    @Transactional(readOnly = true)
-    public BoardListResult getBoardListResult(Pageable pageable) {
-        Page<Board> list = findAll(pageable);
-        int page = pageable.getPageNumber();
-        long totalCount = boardRepository.count();
-        int size = pageable.getPageSize();
-        System.out.println("@getBoardListResult() page: " + page + ", totalCount: " + totalCount + ", size: " + size);
-        return new BoardListResult(page, totalCount, size, list);
     }
 
     // 게시글 존재 여부 확인

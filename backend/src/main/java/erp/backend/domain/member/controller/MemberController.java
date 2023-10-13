@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/member")
+@RequestMapping("/api/member")
 public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Long> createMember(@RequestBody MemberInsert request) {
         return ResponseEntity.ok(memberService.memberInsert(request));
     }

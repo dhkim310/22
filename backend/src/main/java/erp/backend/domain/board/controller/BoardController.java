@@ -1,8 +1,10 @@
 package erp.backend.domain.board.controller;
 
-import erp.backend.domain.board.dto.*;
-import erp.backend.domain.board.service.BoardService;
+import erp.backend.domain.board.dto.BoardDetailResponse;
+import erp.backend.domain.board.dto.BoardListResult;
+import erp.backend.domain.board.dto.BoardRequest;
 import erp.backend.domain.board.dto.BoardUpdate;
+import erp.backend.domain.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,32 +23,31 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
 
-    @GetMapping("/list")
+    @GetMapping
     public ResponseEntity<BoardListResult> boardList(@PageableDefault(size = 3, sort = "boardId", direction = Sort.Direction.DESC) Pageable pageable,
                                                      Model model) {
-        BoardListResult listResult = boardService.getBoardListResult(pageable);
+        BoardListResult listResult = boardService.boardListResult(pageable);
         model.addAttribute("listResult", listResult);
-        System.out.println("$$$" + listResult);
         return ResponseEntity.ok(listResult);
     }
 
-    @GetMapping("/detail/{id}")
+    @PostMapping
+    public ResponseEntity<Long> boardInsert(@RequestPart(value = "requestDto") BoardRequest request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
+        return ResponseEntity.ok(boardService.boardInsert(request, files));
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<BoardDetailResponse> boardDetail(@PathVariable("id") Long id) {
         boardService.updateView(id);
         return ResponseEntity.ok(boardService.boardDetail(id));
     }
 
-    @PostMapping("/insert")
-    public ResponseEntity<Long> boardInsert(@RequestPart(value = "requestDto") BoardRequest request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
-        return ResponseEntity.ok(boardService.boardInsert(request, files));
-    }
-
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void boardDelete(@PathVariable("id") Long id) {
         boardService.boardDelete(id);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Long> boardUpdate(@PathVariable("id") Long id, @RequestPart(value = "requestDto") BoardUpdate request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
         return ResponseEntity.ok(boardService.boardUpdate(id, request, files));
     }
