@@ -1,8 +1,9 @@
-package erp.backend.domain.log.Vo;
+package erp.backend.domain.log.vo;
 
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+
 @Component
 public class LogVo {
     private final LocalDateTime today = LocalDateTime.now().withHour(9).withMinute(0).withSecond(0);

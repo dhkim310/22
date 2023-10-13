@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ApprovalRepository extends JpaRepository <Approval, Long> {
+public interface ApprovalRepository extends JpaRepository<Approval, Long> {
     Approval findByApprovalId(Long id);
 
     @Query("SELECT n FROM Approval n")

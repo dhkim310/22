@@ -1,11 +1,8 @@
 package erp.backend.domain.approval.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.uploadfile.entity.UploadFile;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

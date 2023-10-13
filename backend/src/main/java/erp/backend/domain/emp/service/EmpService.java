@@ -3,12 +3,9 @@ package erp.backend.domain.emp.service;
 import erp.backend.domain.emp.dto.*;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
-import erp.backend.domain.salary.dto.SalaryResponse;
-import erp.backend.domain.salary.entity.Salary;
 import erp.backend.global.config.security.SecurityHelper;
 import erp.backend.global.config.security.jwt.JwtProvider;
 import erp.backend.global.mailsender.service.MailService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +15,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.function.EntityResponse;
-
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -151,9 +143,10 @@ public class EmpService {
                             .build()
                     )
                     .collect(Collectors.toList());
+
             return new EmpListResult(page, totalCount, size, empList);
         } else {
-            return null;
+            throw new IllegalArgumentException("사용권한이 없습니다.");
         }
     }
 
@@ -186,7 +179,7 @@ public class EmpService {
 
             return new EmpListResult(page, totalCount, size, empList);
         } else {
-            return null;
+            throw new IllegalArgumentException("사용권한이 없습니다");
         }
     }
 

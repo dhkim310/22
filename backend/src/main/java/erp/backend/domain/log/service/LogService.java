@@ -1,12 +1,10 @@
 package erp.backend.domain.log.service;
 
 import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.log.Vo.LogVo;
-import erp.backend.domain.log.dto.LogInsert;
 import erp.backend.domain.log.dto.LogResponse;
-import erp.backend.domain.log.dto.LogUpdate;
 import erp.backend.domain.log.entity.Log;
 import erp.backend.domain.log.repository.LogRepository;
+import erp.backend.domain.log.vo.LogVo;
 import erp.backend.global.config.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,8 +19,9 @@ import java.util.Optional;
 public class LogService {
     private final LogRepository logRepository;
     private final LogVo logVo;
+
     @Transactional
-    public Long logInsert(LogInsert request) {
+    public Long logInsert() {
         Emp emp = SecurityHelper.getAccount();
         Log entity = Log.builder()
                 .emp(emp)
@@ -33,14 +32,16 @@ public class LogService {
 
         return logRepository.save(entity).getLogId();
     }
+
     @Transactional
-    public Long logUpdate(LogUpdate request) {
-        Emp emp  = SecurityHelper.getAccount();
+    public Long logUpdate() {
+        Emp emp = SecurityHelper.getAccount();
         Log entity = logRepository.findTopByEmpEmpIdOrderByLogIdDesc(emp.getEmpId());
-        entity.update(emp,request);
+        entity.update(emp);
 
         return entity.getLogId();
     }
+
     @Transactional(readOnly = true)
     public LogResponse logResponse() {
         Emp emp = SecurityHelper.getAccount();

@@ -7,7 +7,6 @@ import erp.backend.domain.comment.dto.CommentResponse;
 import erp.backend.domain.comment.entity.Comment;
 import erp.backend.domain.comment.repository.CommentRepository;
 import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.emp.repository.EmpRepository;
 import erp.backend.global.config.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -61,7 +60,7 @@ public class CommentService {
     }
 
     @Transactional(readOnly = true)
-    public List<Comment> commentSelect(Long boardId){
+    public List<Comment> commentSelect(Long boardId) {
         List<Comment> list = commentRepository.findByBoardBoardId(boardId);
 
         return list;

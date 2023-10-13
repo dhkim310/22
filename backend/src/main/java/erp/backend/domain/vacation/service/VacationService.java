@@ -22,24 +22,25 @@ import java.util.List;
 public class VacationService {
     private final VacationRepository vacationRepository;
     private final EmpRepository empRepository;
-    @Transactional
-    public Long vacationInsert(VacationInsert request) {
-    Emp emp = empRepository.findByEmpId(request.getEmpId());
-    Vacation entity = Vacation.builder()
-            .emp(emp)
-            .vacationTotalVacation(request.getTotalVacation())
-            .vacationUsedVacation(request.getUsedVacation())
-            .vacationTotalDayOff(request.getTotalDayOff())
-            .vacationUsedDayOff(request.getUsedDayOff())
-            .vacationStartDate(request.getStartDate())
-            .vacationEndDate(request.getEndDate())
-            .vacationWhy(request.getWhy())
-            .build();
-        return vacationRepository.save(entity).getVacationId();
-}
 
     @Transactional
-    public Long vacationUpdate(Long vacationId, VacationUpdate request){
+    public Long vacationInsert(VacationInsert request) {
+        Emp emp = empRepository.findByEmpId(request.getEmpId());
+        Vacation entity = Vacation.builder()
+                .emp(emp)
+                .vacationTotalVacation(request.getTotalVacation())
+                .vacationUsedVacation(request.getUsedVacation())
+                .vacationTotalDayOff(request.getTotalDayOff())
+                .vacationUsedDayOff(request.getUsedDayOff())
+                .vacationStartDate(request.getStartDate())
+                .vacationEndDate(request.getEndDate())
+                .vacationWhy(request.getWhy())
+                .build();
+        return vacationRepository.save(entity).getVacationId();
+    }
+
+    @Transactional
+    public Long vacationUpdate(Long vacationId, VacationUpdate request) {
         Vacation entity = vacationRepository.findByVacationId(vacationId);
         entity.update(request);
         return entity.getVacationId();

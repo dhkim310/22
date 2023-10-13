@@ -2,9 +2,7 @@ package erp.backend.domain.notice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.notice.dto.NoticeListResponse;
 import erp.backend.domain.notice.dto.NoticeRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +10,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

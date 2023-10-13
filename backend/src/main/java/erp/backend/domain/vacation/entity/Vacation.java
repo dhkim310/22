@@ -1,6 +1,5 @@
 package erp.backend.domain.vacation.entity;
 
-import erp.backend.domain.board.dto.BoardRequest;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.vacation.dto.VacationUpdate;
 import jakarta.persistence.*;
@@ -10,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
