@@ -71,7 +71,11 @@ public class SecurityConfig {
                                         "/api/comment/{boardId}/{commentId}",
                                         "/api/approval",
                                         "/api/approval/success/{id}",
-                                        "/api/approval/reject/{id}"
+                                        "/api/approval/reject/{id}",
+                                        "/api/schedule",
+                                        "/api/log",
+                                        "/api/member",
+                                        "/api/memo"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )

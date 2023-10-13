@@ -15,17 +15,20 @@ public class LogController {
 
     private final LogService logService;
 
-    @PostMapping("/commute")
-    public ResponseEntity<Long> createLog(@RequestBody LogInsert request) {
-        return ResponseEntity.ok(logService.logInsert(request));
-    }
-    @PutMapping("/commute")
-    public ResponseEntity<Long> updateLog(@RequestBody LogUpdate request) {
-        return ResponseEntity.ok(logService.logUpdate(request));
-    }
-    @GetMapping("/commute")
-    public ResponseEntity<LogResponse> logResponse(){
+    @GetMapping
+    public ResponseEntity<LogResponse> logResponse() {
         LogResponse logResponse = logService.logResponse();
         return ResponseEntity.ok(logResponse);
     }
+
+    @PostMapping
+    public ResponseEntity<Long> createLog(@RequestBody LogInsert request) {
+        return ResponseEntity.ok(logService.logInsert(request));
+    }
+
+    @PutMapping
+    public ResponseEntity<Long> updateLog(@RequestBody LogUpdate request) {
+        return ResponseEntity.ok(logService.logUpdate(request));
+    }
+
 }
