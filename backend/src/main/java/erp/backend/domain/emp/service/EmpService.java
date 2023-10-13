@@ -125,15 +125,15 @@ public class EmpService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Emp> findAll(Pageable pageable){
+    public Page<Emp> findAll(Pageable pageable) {
         System.err.println("pageable: " + pageable);
         return empRepository.findByOrderByEmpIdAsc(pageable);
     }
 
     @Transactional(readOnly = true)
-    public EmpListResult getEmpListResult(Pageable pageable){
+    public EmpListResult getEmpListResult(Pageable pageable) {
         Emp emp = SecurityHelper.getAccount();
-        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20){
+        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20) {
             Page<Emp> list = findAll(pageable);
 
             int page = pageable.getPageNumber();
@@ -151,20 +151,21 @@ public class EmpService {
                             .build()
                     )
                     .collect(Collectors.toList());
-
             return new EmpListResult(page, totalCount, size, empList);
-        }else {
+        } else {
             return null;
         }
     }
+
     @Transactional(readOnly = true)
-    public Page<Emp> findName(Pageable pageable, String empName){
-        return empRepository.findByEmpNameContainingOrderByEmpIdAsc(pageable, empName);
+    public Page<Emp> findName(Pageable pageable, String empName) {
+        return empRepository.findByEmpNameContaining(pageable, empName);
     }
+
     @Transactional(readOnly = true)
-    public EmpListResult getEmpSearchList(Pageable pageable, String empName){
+    public EmpListResult getEmpSearchList(Pageable pageable, String empName) {
         Emp emp = SecurityHelper.getAccount();
-        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20){
+        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20) {
             Page<Emp> list = findName(pageable, empName);
 
             int page = pageable.getPageNumber();
@@ -184,7 +185,7 @@ public class EmpService {
                     .collect(Collectors.toList());
 
             return new EmpListResult(page, totalCount, size, empList);
-        }else {
+        } else {
             return null;
         }
     }

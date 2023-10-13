@@ -48,7 +48,7 @@ public class EmpController {
         return ResponseEntity.ok(empService.passwordUpdate(request));
     }
 
-    @GetMapping("/emp/list")
+    @GetMapping("/emp")
     public ResponseEntity<EmpListResult> empList(@PageableDefault(size = 6, sort = "empId", direction = Sort.Direction.ASC) Pageable pageable,
                                                  Model model) {
         EmpListResult listResult = empService.getEmpListResult(pageable);

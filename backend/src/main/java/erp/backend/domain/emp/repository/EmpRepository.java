@@ -16,6 +16,6 @@ public interface EmpRepository extends JpaRepository<Emp, Long> {
     Optional<Emp> findByEmpEmail(String empEmail);
     Emp findByEmpName(String empName);
     Emp findByEmpId(Long empId);
-    Page<Emp> findByEmpNameContainingOrderByEmpIdAsc(Pageable pageable, String empName);
+    Page<Emp> findByEmpNameContaining(Pageable pageable, String empName);
     Page<Emp> findByOrderByEmpIdAsc(Pageable pageable);
 }
