@@ -1,8 +1,10 @@
 package erp.backend.domain.board.controller;
 
-import erp.backend.domain.board.dto.*;
-import erp.backend.domain.board.service.BoardService;
+import erp.backend.domain.board.dto.BoardDetailResponse;
+import erp.backend.domain.board.dto.BoardListResult;
+import erp.backend.domain.board.dto.BoardRequest;
 import erp.backend.domain.board.dto.BoardUpdate;
+import erp.backend.domain.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

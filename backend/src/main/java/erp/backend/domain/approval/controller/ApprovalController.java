@@ -12,8 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/approval")
@@ -26,8 +24,9 @@ public class ApprovalController {
     public ResponseEntity<List<ApprovalListResponse>> searchList() {
         return ResponseEntity.ok(approvalService.searchList());
     }
+
     @PostMapping
-    public ResponseEntity<Long> approvalInsert(@RequestPart(value = "requestDto") ApprovalInsert request, @RequestPart(value = "files")List<MultipartFile> files) {
+    public ResponseEntity<Long> approvalInsert(@RequestPart(value = "requestDto") ApprovalInsert request, @RequestPart(value = "files") List<MultipartFile> files) {
         return ResponseEntity.ok(approvalService.approvalInsert(request, files));
     }
 
@@ -36,10 +35,12 @@ public class ApprovalController {
         return ResponseEntity.ok(approvalService.approvalDetail(id));
 
     }
+
     @PutMapping("/success/{id}")
     public ResponseEntity<Long> successApproval(@PathVariable("id") Long id, @RequestBody ApprovalUpdate request) {
         return ResponseEntity.ok(approvalService.update(id, request));
     }
+
     @PutMapping("/reject/{id}")
     public ResponseEntity<Long> rejectApproval(@PathVariable("id") Long id, @RequestBody ApprovalUpdate request) {
         return ResponseEntity.ok(approvalService.reject(id, request));
