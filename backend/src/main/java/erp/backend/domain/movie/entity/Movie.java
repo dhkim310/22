@@ -1,13 +1,15 @@
 package erp.backend.domain.movie.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
-
-import java.sql.Date;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Date;
 
 @Entity //jpa 사용할때!
 @AllArgsConstructor // 파라미터있는생성자

@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,7 +40,7 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public BoardListResult boardListResult(Pageable pageable) {
-        List<Board> list = boardRepository.findAll();
+        List<Board> list = boardRepository.findAll(Sort.by(Sort.Order.desc("boardId")));
         List<BoardListResponse> boardListResponses = new ArrayList<>();
 
         for (Board board : list) {

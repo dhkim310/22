@@ -18,7 +18,7 @@ public class CompanyScheduleService {
     private final CompanyScheduleRepository companyScheduleRepository;
 
     @Transactional
-    public Long scheduleInsert(ScheduleInsert request){
+    public Long scheduleInsert(ScheduleInsert request) {
         Emp emp = SecurityHelper.getAccount();
         CompanySchedule entity = CompanySchedule.builder()
                 .emp(emp)
@@ -29,6 +29,7 @@ public class CompanyScheduleService {
 
         return companyScheduleRepository.save(entity).getCompanyScheduleId();
     }
+
     @Transactional(readOnly = true)
     public List<ScheduleListResponse> searchList() {
         List<CompanySchedule> list = companyScheduleRepository.findAll();

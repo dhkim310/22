@@ -27,7 +27,6 @@ import java.util.Arrays;
 public class SecurityConfig {
 
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-
     private final JwtSecurityFilter jwtSecurityFilter;
 
     @Bean
@@ -45,39 +44,40 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .authorizeHttpRequests(authorize ->
-                        authorize
+                                authorize
 //                                .requestMatchers(
 //                                        "/api/**"
 //                                ).hasAnyRole("ADMIN_총무부", "ADMIN_재무부", "ADMIN_콘텐츠관리부", "ADMIN_회원관리부")
 //                                .requestMatchers(
 //                                        "/main"
 //                                ).hasRole("USER")
-                                .requestMatchers(
-                                        "/api/sign-up",
-                                        "/api/sign-in",
-                                        "/api/emp/fix-info",
-                                        "/api/emp/list",
-                                        "/api/emp/list/{empName}",
-                                        "/api/salary/insert",
-                                        "/api/salary/detail/{id}",
-                                        "/api/salary/delete/{id}",
-                                        "/api/main",
-                                        "/api/notice",
-                                        "/api/notice/{id}",
-                                        "/api/notice/first-list",
-                                        "/api/board",
-                                        "/api/board/{id}",
-                                        "/api/comment/{boardId}",
-                                        "/api/comment/{boardId}/{commentId}",
-                                        "/api/approval",
-                                        "/api/approval/success/{id}",
-                                        "/api/approval/reject/{id}",
-                                        "/api/schedule",
-                                        "/api/log",
-                                        "/api/member",
-                                        "/api/memo"
-                                ).permitAll()
-                                .anyRequest().hasRole("USER")
+                                        .requestMatchers(
+                                                "/api/sign-up",
+                                                "/api/sign-in",
+                                                "/api/emp/fix-info",
+                                                "/api/main",
+                                                "/api/notice",
+                                                "/api/notice/{id}",
+                                                "/api/notice/first-list",
+                                                "/api/board",
+                                                "/api/board/{id}",
+                                                "/api/comment/{boardId}",
+                                                "/api/comment/{boardId}/{commentId}",
+                                                "/api/approval",
+                                                "/api/approval/{id}",
+                                                "/api/approval/success/{id}",
+                                                "/api/approval/reject/{id}",
+                                                "/api/schedule",
+                                                "/api/log",
+                                                "/api/member",
+                                                "/api/memo",
+                                                "/api/salary",
+                                                "/api/salary/{id}",
+                                                "/api/vacation",
+                                                "/api/emp",
+                                                "/api/{empName}"
+                                        ).permitAll()
+                                        .anyRequest().hasRole("USER")
                 )
                 .addFilterBefore(jwtSecurityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

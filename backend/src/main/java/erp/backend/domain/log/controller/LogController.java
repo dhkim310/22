@@ -1,8 +1,6 @@
 package erp.backend.domain.log.controller;
 
-import erp.backend.domain.log.dto.LogInsert;
 import erp.backend.domain.log.dto.LogResponse;
-import erp.backend.domain.log.dto.LogUpdate;
 import erp.backend.domain.log.service.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +20,13 @@ public class LogController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createLog(@RequestBody LogInsert request) {
-        return ResponseEntity.ok(logService.logInsert(request));
+    public ResponseEntity<Long> logInsert() {
+        return ResponseEntity.ok(logService.logInsert());
     }
 
     @PutMapping
-    public ResponseEntity<Long> updateLog(@RequestBody LogUpdate request) {
-        return ResponseEntity.ok(logService.logUpdate(request));
+    public ResponseEntity<Long> logUpdate() {
+        return ResponseEntity.ok(logService.logUpdate());
     }
 
 }

@@ -3,6 +3,8 @@ package erp.backend.global.util;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Objects;
 
 @Slf4j
 public class FileUtils {
@@ -13,33 +15,20 @@ public class FileUtils {
     }
 
     public static void deleteFile(String path) {
-
         File file = new File(path);
 
-        if (file.exists()) { //파일존재여부확인
+        if (file.exists() || file.isDirectory()) {
+            File[] files = file.listFiles();
 
-            if (file.isDirectory()) { //파일이 디렉토리인지 확인
-
-                File[] files = file.listFiles();
-
-                for (int i = 0; i < files.length; i++) {
-                    if (files[i].delete()) {
-                        log.info(files[i].getName() + " 삭제성공");
-                    } else {
-                        log.info(files[i].getName() + " 삭제실패");
-                    }
-                }
-
-            }
-            if (file.delete()) {
-                log.info("파일삭제 성공");
-            } else {
-                log.info("파일삭제 실패");
-            }
-
+            Arrays.stream(Objects.requireNonNull(files))
+                    .forEach(childFile -> {
+                        String resultMessage = childFile.delete() ? " 삭제성공" : " 삭제실패";
+                        log.info(childFile.getName() + resultMessage);
+                    });
+            String resultMessage = file.delete() ? "파일삭제 성공" : "파일삭제 실패";
+            log.info(resultMessage);
         } else {
             log.info("파일이 존재하지 않습니다.");
         }
-
     }
 }

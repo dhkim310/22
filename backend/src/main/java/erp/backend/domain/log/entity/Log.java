@@ -1,8 +1,7 @@
 package erp.backend.domain.log.entity;
 
 import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.log.Vo.LogVo;
-import erp.backend.domain.log.dto.LogUpdate;
+import erp.backend.domain.log.vo.LogVo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,7 +38,7 @@ public class Log {
     @Column(name = "LOG_STATUS")
     private String logStatus;
 
-    public void update(Emp emp, LogUpdate request){
+    public void update(Emp emp) {
         this.logCheckOut = LocalDateTime.now();
         this.logStatus = new LogVo().type2(LocalDateTime.now());
     }

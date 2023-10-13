@@ -50,7 +50,6 @@ public class Board {
     @Column(name = "BOARD_CREATEDDATE")
     private LocalDateTime boardCreatedDate;
 
-    @JsonIgnore
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
     @Column(name = "BOARD_MODIFIEDDATE")
     private LocalDateTime boardModifiedDate;

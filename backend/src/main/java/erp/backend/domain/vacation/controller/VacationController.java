@@ -16,17 +16,17 @@ import java.util.List;
 public class VacationController {
     private final VacationService vacationService;
 
-    @GetMapping("/list")
+    @GetMapping
     public ResponseEntity<List<VacationListResponse>> vacationList() {
         return ResponseEntity.ok(vacationService.vacationList());
     }
 
-    @PostMapping("/insert")
+    @PostMapping
     public ResponseEntity<Long> vacationInsert(@RequestBody VacationInsert request) {
         return ResponseEntity.ok(vacationService.vacationInsert(request));
     }
 
-    @PutMapping("/update/{vacationId}")
+    @PutMapping
     public ResponseEntity<Long> vacationUpdate(@PathVariable("vacationId") Long vacationId, @RequestBody VacationUpdate request) {
         return ResponseEntity.ok(vacationService.vacationUpdate(vacationId, request));
     }

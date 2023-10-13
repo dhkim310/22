@@ -3,12 +3,9 @@ package erp.backend.domain.emp.service;
 import erp.backend.domain.emp.dto.*;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
-import erp.backend.domain.salary.dto.SalaryResponse;
-import erp.backend.domain.salary.entity.Salary;
 import erp.backend.global.config.security.SecurityHelper;
 import erp.backend.global.config.security.jwt.JwtProvider;
 import erp.backend.global.mailsender.service.MailService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +15,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.function.EntityResponse;
-
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -125,15 +117,15 @@ public class EmpService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Emp> findAll(Pageable pageable){
+    public Page<Emp> findAll(Pageable pageable) {
         System.err.println("pageable: " + pageable);
         return empRepository.findByOrderByEmpIdAsc(pageable);
     }
 
     @Transactional(readOnly = true)
-    public EmpListResult getEmpListResult(Pageable pageable){
+    public EmpListResult getEmpListResult(Pageable pageable) {
         Emp emp = SecurityHelper.getAccount();
-        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20){
+        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20) {
             Page<Emp> list = findAll(pageable);
 
             int page = pageable.getPageNumber();
@@ -153,18 +145,20 @@ public class EmpService {
                     .collect(Collectors.toList());
 
             return new EmpListResult(page, totalCount, size, empList);
-        }else {
-            return null;
+        } else {
+            throw new IllegalArgumentException("사용권한이 없습니다.");
         }
     }
+
     @Transactional(readOnly = true)
-    public Page<Emp> findName(Pageable pageable, String empName){
-        return empRepository.findByEmpNameContainingOrderByEmpIdAsc(pageable, empName);
+    public Page<Emp> findName(Pageable pageable, String empName) {
+        return empRepository.findByEmpNameContaining(pageable, empName);
     }
+
     @Transactional(readOnly = true)
-    public EmpListResult getEmpSearchList(Pageable pageable, String empName){
+    public EmpListResult getEmpSearchList(Pageable pageable, String empName) {
         Emp emp = SecurityHelper.getAccount();
-        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20){
+        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20) {
             Page<Emp> list = findName(pageable, empName);
 
             int page = pageable.getPageNumber();
@@ -184,8 +178,8 @@ public class EmpService {
                     .collect(Collectors.toList());
 
             return new EmpListResult(page, totalCount, size, empList);
-        }else {
-            return null;
+        } else {
+            throw new IllegalArgumentException("사용권한이 없습니다");
         }
     }
 

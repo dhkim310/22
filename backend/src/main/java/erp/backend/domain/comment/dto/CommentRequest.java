@@ -1,11 +1,7 @@
 package erp.backend.domain.comment.dto;
 
-import erp.backend.domain.board.entity.Board;
-import erp.backend.domain.comment.entity.Comment;
-import erp.backend.domain.emp.entity.Emp;
-import lombok.*;
-
-import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
