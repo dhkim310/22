@@ -10,10 +10,6 @@ import SweetAlert from "./component/SweetAlert"
 import Write from "./pages/Write"
 import NoticeList from "./pages/NoticeList"
 
-import MovieDetail from "./pages/MovieDetail";
-import Movies from "./pages/Movies";
-
-
 function App() {
   return (
     <Router>
@@ -31,8 +27,6 @@ function App() {
             <Route path="/write" element={ <Write />}/>
             <Route path="/notice" element={ <NoticeList />}/>
 
-            <Route path="/movie" element={<Movies />} />
-            <Route path="/movie/:title" element={<MovieDetail />} />
             </Route>
         </Routes>
     </Router>
