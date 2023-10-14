@@ -8,6 +8,7 @@ import erp.backend.domain.approval.entity.Approval;
 import erp.backend.domain.approval.entity.ApprovalFile;
 import erp.backend.domain.approval.repository.ApprovalFileRepository;
 import erp.backend.domain.approval.repository.ApprovalRepository;
+import erp.backend.domain.approval.vo.ApprovalVo;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.uploadfile.entity.UploadFile;
 import erp.backend.domain.uploadfile.service.UploadFileService;
@@ -29,8 +30,8 @@ import static erp.backend.global.util.ArrayUtils.isNullOrEmpty;
 public class ApprovalService {
     private final ApprovalRepository approvalRepository;
     private final ApprovalFileRepository approvalFileRepository;
-
     private final UploadFileService uploadFileService;
+    private final ApprovalVo approvalVo;
 
     @Transactional(readOnly = true)
     public List<ApprovalListResponse> searchList() {
@@ -49,6 +50,24 @@ public class ApprovalService {
                 )
                 .toList();
     }
+    @Transactional(readOnly = true)
+    public List<ApprovalListResponse> searchByCheckList() {
+        List<Approval> list = approvalRepository.findByApprovalCheck("결재요청");
+
+        return list.stream()
+                .map(approval -> ApprovalListResponse.builder()
+                        .approvalId(approval.getApprovalId())
+                        .approvalSubject(approval.getApprovalSubject())
+                        .approvalCheckMan(approval.getApprovalCheckMan())
+                        .approvalCheck(approval.getApprovalCheck())
+                        .approvalUpLoadDate(approval.getApprovalUpLoadDate())
+                        .approvalSuccessDate(approval.getApprovalSuccessDate())
+                        .approvalBackDate(approval.getApprovalBackDate())
+                        .build()
+                )
+                .toList();
+    }
+
 
     @Transactional(readOnly = true)
     public ApprovalDetailResponse approvalDetail(Long id) {

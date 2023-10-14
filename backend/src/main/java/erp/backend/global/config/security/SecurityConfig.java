@@ -70,12 +70,14 @@ public class SecurityConfig {
                                         "/api/comment/{boardId}",
                                         "/api/comment/{boardId}/{commentId}",
                                         "/api/approval",
+                                        "/api/approval/wait",
                                         "/api/approval/success/{id}",
                                         "/api/approval/reject/{id}",
                                         "/api/schedule",
                                         "/api/log",
                                         "/api/member",
-                                        "/api/memo"
+                                        "/api/memo",
+                                        "/api/emp/hrm-list"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )

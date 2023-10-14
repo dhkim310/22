@@ -1,17 +1,16 @@
 import axios from 'axios'
 
-export const selectMemoApi = async (params) => {
+export const selectHrmListApi = async (params) => {
     try {
-      const response = await axios.get('/api/memo');
+      const response = await axios.get('api/emp/hrm-list');
       return response.data;
     } catch (error) {
       throw error;
     }
 };
-
-export const insertMemoApi = async (params) => {
+export const insertEmpApi = async (params) => {
     return new Promise((resolve,reject)=> {
-        axios.post('/api/memo', params)
+        axios.post('/api/sign-up', params)
         .then((res)=>{
             return resolve(res);
         })

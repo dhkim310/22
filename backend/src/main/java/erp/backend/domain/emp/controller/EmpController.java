@@ -55,6 +55,10 @@ public class EmpController {
         model.addAttribute("listResult", listResult);
         return ResponseEntity.ok(listResult);
     }
+    @GetMapping("/emp/hrm-list")//인사관리 리스트
+    public ResponseEntity<List<EmpHrmListResponse>> hrmList() {
+        return ResponseEntity.ok(empService.searchAllList());
+    }
 
     @GetMapping("/emp/list/{empName}")
     public ResponseEntity<EmpListResult> searchList(@PageableDefault(size = 6, sort = "empId", direction = Sort.Direction.ASC)

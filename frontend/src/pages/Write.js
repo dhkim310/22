@@ -39,7 +39,7 @@ function Write() {
                   <div className="d-xxl-flex justify-content-xxl-center" style={{width: '10%', height: '100%', background: 'white'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" style={{width: '150px', height: '50px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '6px', borderColor: 'black', marginTop: '24px'}}>작성 완료</button></div>
                   <div style={{background: 'white', width: '90%', height: '100%'}}>
                     <div style={{width: '100%', height: '7%', borderBottom: '2px ridge rgba(128,128,128,0.26)'}}>
-                      <div className="d-xxl-flex align-items-xxl-end" style={{width: '100%', height: '50%'}}><span style={{fontSize: '30px', fontWeight: 'bold', paddingTop: '0px', marginLeft: '41px'}}>공지사항</span></div>
+                      <div className="d-xxl-flex align-items-xxl-end" style={{width: '100%', height: '50%'}}><span style={{fontSize: '30px', fontWeight: 'bold', paddingTop: '18px', marginLeft: '41px'}}>공지사항</span></div>
                       <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end" style={{width: '100%', height: '50%'}} />
                     </div>
                     <div style={{height: '93%'}}>

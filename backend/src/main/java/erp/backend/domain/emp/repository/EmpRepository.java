@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface EmpRepository extends JpaRepository<Emp, Long> {
     Optional<Emp> findByEmpEmail(String empEmail);
-    Emp findByEmpName(String empName);
+    List findByEmpName(String empName);
     Emp findByEmpId(Long empId);
     Page<Emp> findByEmpNameContainingOrderByEmpIdAsc(Pageable pageable, String empName);
     Page<Emp> findByOrderByEmpIdAsc(Pageable pageable);

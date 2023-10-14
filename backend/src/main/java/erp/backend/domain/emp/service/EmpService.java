@@ -3,12 +3,10 @@ package erp.backend.domain.emp.service;
 import erp.backend.domain.emp.dto.*;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
-import erp.backend.domain.salary.dto.SalaryResponse;
-import erp.backend.domain.salary.entity.Salary;
+import erp.backend.domain.emp.vo.EmpVo;
 import erp.backend.global.config.security.SecurityHelper;
 import erp.backend.global.config.security.jwt.JwtProvider;
 import erp.backend.global.mailsender.service.MailService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +16,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.function.EntityResponse;
 
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +31,25 @@ public class EmpService {
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
     private final MailService mailService;
+    private final EmpVo empVo;
 
+
+    @Transactional(readOnly = true)//인사관리 리스트
+    public List<EmpHrmListResponse> searchAllList() {
+        List<Emp> list = empRepository.findAll();
+
+        return list.stream()
+                .map(emp -> EmpHrmListResponse.builder()
+                        .empId(emp.getEmpId())
+                        .empName(emp.getEmpName())
+                        .empPosition(emp.getEmpPosition())
+                        .empEmail(emp.getEmpEmail())
+                        .empStatus(emp.getEmpStatus())
+                        .dept(emp.getDept().getDeptName())
+                        .build()
+                )
+                .toList();
+    }
     @Transactional
     public void signUp(SignUpRequest request) {
         // 신입 사원은 초기 비밀번호가 1541로 설정
@@ -47,8 +59,8 @@ public class EmpService {
                 .dept(request.getEmpDeptId())
                 .password(passwordEncoder.encode("1541")) // 사원의 초기 비밀번호 1541
                 .empPosition(request.getEmpPosition())
-                .roles(request.getRoles())
-                .empAmount(request.getEmpAmount())
+                .roles(empVo.type1(request.getEmpPosition()))
+                .empAmount(empVo.type2(request.getEmpPosition()))
                 .empBirthday(request.getEmpBirthday())
                 .empPhoneNumber(request.getEmpPhoneNumber())
                 .empAddress(request.getEmpAddress())
@@ -188,7 +200,6 @@ public class EmpService {
             return null;
         }
     }
-
     @Transactional(readOnly = true)
     public EmpMainResponse empMainResponse() {
         Emp emp = SecurityHelper.getAccount();
