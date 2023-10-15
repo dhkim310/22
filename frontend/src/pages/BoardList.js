@@ -35,16 +35,16 @@ function BoardList() {
 
     const navigate = useNavigate();
     const navigateToWrite = () => {
-        navigate("/BoardInsert");
+        navigate("/board-insert");
     };
 
     // 클릭 이벤트 핸들러 추가
     const handleNoticeClick = () => {
-        navigate("/notice"); // "/api/notice" 대신 실제 경로로 수정
+        navigate("/notice");
     };
 
     const handleBoardClick = () => {
-        navigate("/board"); // "/api/board" 대신 실제 경로로 수정
+        navigate("/board");
     };
 
     const handleItemClick = (id) => {

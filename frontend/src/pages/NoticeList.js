@@ -35,7 +35,7 @@ function NoticeList() {
 
     const navigate = useNavigate();
     const navigateToWrite = () => {
-        navigate("/NoticeInsert");
+        navigate("/notice-insert");
     };
 
     const handleNoticeClick = () => {
