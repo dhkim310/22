@@ -11,7 +11,7 @@ import Write from "./pages/Write"
 import NoticeList from "./pages/NoticeList"
 import MemoComponent from "./component/MemoComponent"
 import Hrm from "./pages/Hrm"
-
+import Reshuffle from "./pages/Reshuffle"
 function App() {
   return (
     <Router>
@@ -29,6 +29,7 @@ function App() {
             <Route path="/write" element={ <Write />}/>
             <Route path="/notice" element={ <NoticeList />}/>
             <Route path="/hrm" element={ <Hrm />}/>
+            <Route path="/reshuffle/:id" element={ <Reshuffle />}/>
             <Route path="/memo" element={ <MemoComponent />}/>
 
             </Route>

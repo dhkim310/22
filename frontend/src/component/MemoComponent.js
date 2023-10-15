@@ -13,6 +13,7 @@ function MemoComponent({ isOpen, closeModal, memoContent }) {
         .then((res) => {
             if (res.status === 200) {
                 closeModal();
+                window.location.reload();
             }
         })
         .catch((err) => {
@@ -25,10 +26,9 @@ function MemoComponent({ isOpen, closeModal, memoContent }) {
             width: '700px',
             height: '500px',
             backgroundColor: 'white',
-            borderRadius: '34px',
             borderStyle: 'solid',
             top: '50%', // top 값을 픽셀 단위로 설정
-            left: '50%', // left 값을 픽셀 단위로 설정
+            left: '80%', // left 값을 픽셀 단위로 설정
             transform: 'translate(-50%, -50%)', // 중앙 정렬을 위한 transform 속성 추가
         },
     };

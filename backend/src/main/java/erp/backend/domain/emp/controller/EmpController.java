@@ -59,6 +59,15 @@ public class EmpController {
     public ResponseEntity<List<EmpHrmListResponse>> hrmList() {
         return ResponseEntity.ok(empService.searchAllList());
     }
+    @GetMapping("/emp/hrm/{id}")//인사관리 한명보기
+    public ResponseEntity<EmpReshuffleResponse> detailReshuffle(@PathVariable("id") Long id) {
+        EmpReshuffleResponse response = empService.reshuffleResponse(id);
+        return ResponseEntity.ok(response);
+    }
+    @PutMapping("/emp/hrm/{id}")
+    public ResponseEntity<Long> updateReshuffle(@PathVariable("id") Long id, @RequestBody EmpReshuffleRequest request) {
+        return ResponseEntity.ok(empService.updateReshuffle(id, request));
+    }
 
     @GetMapping("/emp/list/{empName}")
     public ResponseEntity<EmpListResult> searchList(@PageableDefault(size = 6, sort = "empId", direction = Sort.Direction.ASC)

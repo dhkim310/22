@@ -50,6 +50,27 @@ public class EmpService {
                 )
                 .toList();
     }
+    @Transactional(readOnly = true)//인사이동 페이지
+    public EmpReshuffleResponse reshuffleResponse(Long id) {
+        Emp emp = getEmpAccountId(id);
+
+        return EmpReshuffleResponse.builder()
+                .empId(emp.getEmpId())
+                .empName(emp.getEmpName())
+                .deptName(emp.getDept().getDeptName())
+                .empEmail(emp.getEmpEmail())
+                .empPosition(emp.getEmpPosition())
+                .empStartDate(emp.getEmpStartDate())
+                .empEndDate(emp.getEmpEndDate())
+                .empStatus(emp.getEmpStatus())
+                .build();
+    }
+    @Transactional//인사이동 업데이트
+    public Long updateReshuffle(Long id, EmpReshuffleRequest request) {
+        Emp emp = getEmpAccountId(id);
+        emp.updateReshuffle(request);
+        return emp.getEmpId();
+    }
     @Transactional
     public void signUp(SignUpRequest request) {
         // 신입 사원은 초기 비밀번호가 1541로 설정
@@ -207,5 +228,9 @@ public class EmpService {
                 .empName(emp.getEmpName())
                 .empPosition(emp.getEmpPosition())
                 .build();
+    }
+
+    private Emp getEmpAccountId(Long id) {
+        return empRepository.findByEmpId(id);
     }
 }

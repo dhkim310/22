@@ -77,7 +77,8 @@ public class SecurityConfig {
                                         "/api/log",
                                         "/api/member",
                                         "/api/memo",
-                                        "/api/emp/hrm-list"
+                                        "/api/emp/hrm-list",
+                                        "/api/emp/hrm/{id}"
                                 ).permitAll()
                                 .anyRequest().hasRole("USER")
                 )

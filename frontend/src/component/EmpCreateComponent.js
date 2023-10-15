@@ -17,6 +17,7 @@ function EmpCreateComponent({ isOpen, closeModal }) {
         .then((res) => {
             if (res.status === 200) {
                 closeModal();
+                window.location.reload();
             }
         })
         .catch((err) => {

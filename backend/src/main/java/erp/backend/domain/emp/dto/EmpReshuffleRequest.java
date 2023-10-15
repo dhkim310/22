@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class reshuffleRequest {
+public class EmpReshuffleRequest {
 
     private Dept deptId;
     private String empPosition;
