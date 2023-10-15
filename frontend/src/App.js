@@ -11,6 +11,7 @@ import Write from "./pages/Write"
 import NoticeList from "./pages/NoticeList"
 import MemoComponent from "./component/MemoComponent"
 import Hrm from "./pages/Hrm"
+import EmpList from "./pages/EmpList";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/notice" element={ <NoticeList />}/>
             <Route path="/hrm" element={ <Hrm />}/>
             <Route path="/memo" element={ <MemoComponent />}/>
+            <Route path="/emp" element={ <EmpList />}/>
 
             </Route>
         </Routes>
