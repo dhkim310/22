@@ -31,7 +31,7 @@ public class BoardController {
         return ResponseEntity.ok(listResult);
     }
 
-    @PostMapping
+    @PostMapping(consumes = {"multipart/form-data"})
     public ResponseEntity<Long> boardInsert(@RequestPart(value = "requestDto") BoardRequest request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
         return ResponseEntity.ok(boardService.boardInsert(request, files));
     }

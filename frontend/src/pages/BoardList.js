@@ -2,17 +2,17 @@ import React, {useEffect, useState} from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {fetchNoticeList} from '../api/Notice';
-import {FormatDate} from '../component/FormatDate';
+import {fetchBoardList} from '../api/Board';
+import {FormatDate} from "../component/FormatDate";
 import PaginationButtons from '../component/PaginationButton';
 
-function NoticeList() {
-    const [noticeList, setNoticeList] = useState([]);
+function BoardList() {
+    const [boardList, setBoardList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호 (1부터 시작)
     const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation(); // 현재 위치 가져오기
-    const isNoticePage = location.pathname === '/notice'; // "/notice" 경로에 있는지 확인
+    const isBoardPage = location.pathname === '/board'; // "/board" 경로에 있는지 확인
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -22,8 +22,8 @@ function NoticeList() {
         // 데이터를 가져오는 비동기 함수를 정의
         const fetchData = async () => {
             try {
-                const data = await fetchNoticeList(currentPage - 1);
-                setNoticeList(data.list.content);
+                const data = await fetchBoardList(currentPage - 1);
+                setBoardList(data.list.content);
                 setTotalPages(data.totalPageCount);
             } catch (error) {
                 console.error('데이터 가져오기 오류:', error);
@@ -35,19 +35,20 @@ function NoticeList() {
 
     const navigate = useNavigate();
     const navigateToWrite = () => {
-        navigate("/notice-insert");
+        navigate("/board-insert");
     };
 
+    // 클릭 이벤트 핸들러 추가
     const handleNoticeClick = () => {
-        navigate("/notice"); // "/api/notice" 대신 실제 경로로 수정
+        navigate("/notice");
     };
 
     const handleBoardClick = () => {
-        navigate("/board"); // "/api/board" 대신 실제 경로로 수정
+        navigate("/board");
     };
 
     const handleItemClick = (id) => {
-        navigate(`/notice/${id}`)
+        navigate(`/board/${id}`)
     }
 
     useEffect(() => {
@@ -94,14 +95,14 @@ function NoticeList() {
                                 <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                                      style={{width: '30%', height: '100%'}}>
                                     <button
-                                        className={`btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center ${isNoticePage ? 'active' : ''}`}
+                                        className={`btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center ${isBoardPage ? 'active' : ''}`}
                                         data-bss-hover-animate="pulse"
                                         type="button"
                                         onClick={handleNoticeClick}
                                         style={{
                                             width: '150px',
                                             height: '30px',
-                                            color: isNoticePage ? 'darkgray' : 'black',
+                                            color: isBoardPage ? 'black' : 'darkgray',
                                             background: 'rgba(255, 255, 255, 1)',
                                             borderRadius: '0px',
                                             border: '0px none black',
@@ -110,14 +111,14 @@ function NoticeList() {
                                         공지사항
                                     </button>
                                     <button
-                                        className={`btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center ${isNoticePage ? 'active' : ''}`}
+                                        className={`btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center ${isBoardPage ? 'active' : ''}`}
                                         data-bss-hover-animate="pulse"
                                         type="button"
                                         onClick={handleBoardClick}
                                         style={{
                                             width: '150px',
                                             height: '30px',
-                                            color: isNoticePage ? 'black' : 'darkgray',
+                                            color: isBoardPage ? 'darkgray' : 'black',
                                             background: 'rgba(255, 255, 255, 1)',
                                             borderRadius: '0px',
                                             borderStyle: 'none',
@@ -181,7 +182,7 @@ function NoticeList() {
                                 </div>
 
                                 <div>
-                                    {noticeList.map((item) => (
+                                    {boardList.map((item) => (
                                         <button
                                             className="list-group-item list-group-item-action d-flex flex-row align-items-start"
                                             onClick={() => handleItemClick(item.id)} // 클릭 시 상세보기 페이지로 이동
@@ -229,7 +230,7 @@ function NoticeList() {
                                                 width: '35%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
-                                            }}>{FormatDate(item.noticeCreatedDate)}</div>
+                                            }}>{FormatDate(item.boardCreatedDate)}</div>
                                         </button>
                                     ))}
                                 </div>
@@ -255,4 +256,4 @@ function NoticeList() {
     );
 }
 
-export default NoticeList;
+export default BoardList;
