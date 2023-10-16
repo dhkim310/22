@@ -1,4 +1,4 @@
-package erp.backend.domain.log.vo;
+package erp.backend.domain.log.Vo;
 
 import org.springframework.stereotype.Component;
 

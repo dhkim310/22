@@ -1,4 +1,4 @@
-package erp.backend.domain.salary.vo;
+package erp.backend.domain.salary.Vo;
 
 import erp.backend.domain.salary.dto.SalaryInsert;
 import lombok.Getter;
@@ -88,4 +88,3 @@ public class SalaryVO {
         return tax1;
     }
 }
-

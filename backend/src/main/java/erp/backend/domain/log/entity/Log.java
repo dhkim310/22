@@ -1,7 +1,7 @@
 package erp.backend.domain.log.entity;
 
 import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.log.vo.LogVo;
+import erp.backend.domain.log.Vo.LogVo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
