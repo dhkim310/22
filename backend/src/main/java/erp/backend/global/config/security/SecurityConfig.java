@@ -75,7 +75,9 @@ public class SecurityConfig {
                                                 "/api/salary/{id}",
                                                 "/api/vacation",
                                                 "/api/emp",
-                                                "/api/{empName}"
+                                                "/api/{empName}",
+
+                                                "/api/movie/**"
                                         ).permitAll()
                                         .anyRequest().hasRole("USER")
                 )

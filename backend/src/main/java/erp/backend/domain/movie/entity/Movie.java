@@ -5,16 +5,17 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity //jpa 사용할때!
 @AllArgsConstructor // 파라미터있는생성자
 @NoArgsConstructor // 기본생성자
-@Data // setter, getter 자동생성
+@Getter
+@Builder
 public class Movie {
     @Id
     @Column(name = "MOVIE_ID")
@@ -27,14 +28,14 @@ public class Movie {
     private String movieEngName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @CreationTimestamp
+//    @CreationTimestamp
     @Column(name = "MOVIE_MADEDATE")
-    private Date movieMadeDate;
+    private LocalDate movieMadeDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @CreationTimestamp
+//    @CreationTimestamp
     @Column(name = "MOVIE_OPENDATE")
-    private Date movieOpenDate;
+    private LocalDate movieOpenDate;
 
     @Column(name = "MOVIE_STATUS")
     private String movieStatus;
