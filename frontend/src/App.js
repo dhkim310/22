@@ -13,8 +13,7 @@ import BoardInsert from "./pages/BoardInsert";
 import BoardList from "./pages/BoardList";
 import MemoComponent from "./component/MemoComponent"
 import Hrm from "./pages/Hrm"
-
-
+import Reshuffle from "./pages/Reshuffle"
 function App() {
     return (
         <Router>
@@ -35,6 +34,7 @@ function App() {
                     <Route path="/notice" element={<NoticeList/>}/>
                     <Route path="/hrm" element={<Hrm/>}/>
                     <Route path="/memo" element={<MemoComponent/>}/>
+                    <Route path="/reshuffle/:id" element={ <Reshuffle />}/>
 
                 </Route>
             </Routes>

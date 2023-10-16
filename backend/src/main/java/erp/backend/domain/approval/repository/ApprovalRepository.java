@@ -11,4 +11,6 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
 
     @Query("SELECT n FROM Approval n")
     List<Approval> findAll();
+
+    List<Approval> findByApprovalCheck(String check);
 }
