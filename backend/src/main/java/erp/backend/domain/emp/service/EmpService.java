@@ -180,7 +180,7 @@ public class EmpService {
                             .empName(entity.getEmpName())
                             .empPosition(entity.getEmpPosition())
                             .empAmount(entity.getEmpAmount())
-                            .dept(entity.getDept())
+                            .deptName(entity.getDept().getDeptName())
                             .build())
                     .collect(Collectors.toList());
 
@@ -212,7 +212,7 @@ public class EmpService {
                             .empName(entity.getEmpName())
                             .empPosition(entity.getEmpPosition())
                             .empAmount(entity.getEmpAmount())
-                            .dept(entity.getDept())
+                            .deptName(entity.getDept().getDeptName())
                             .build())
                     .collect(Collectors.toList());
 
