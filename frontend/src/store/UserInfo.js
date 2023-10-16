@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 export const userInfoSlice = createSlice({
     name: 'userInfo',
@@ -8,13 +8,13 @@ export const userInfoSlice = createSlice({
         empName: null,
         roles: []
     },
-    reducers:{
+    reducers: {
         SET_USER_INFO: (state, action) => {
-          state.empEmail = action.payload.email;
-          state.empId = action.payload.id;
-          state.empName = action.payload.name;
-          state.roles = action.payload.roles;
-          console.log(action.payload);
+            state.empEmail = action.payload.email;
+            state.empId = action.payload.id;
+            state.empName = action.payload.name;
+            state.roles = action.payload.roles;
+            console.log(action.payload);
         },
         DELETE_USER_INFO: (state) => {
             state.empEmail = null;
@@ -25,6 +25,6 @@ export const userInfoSlice = createSlice({
     }
 })
 
-export const { SET_USER_INFO, DELETE_USER_INFO } = userInfoSlice.actions;
+export const {SET_USER_INFO, DELETE_USER_INFO} = userInfoSlice.actions;
 
 export default userInfoSlice.reducer;

@@ -19,11 +19,20 @@ export const fetchNoticeList = async (page) => {
     }
 };
 
-export const createNotice = async (formData) => {
+export const noticeInsert = async (formData) => {
     try {
         const response = await axios.post('/api/notice', formData, {
             headers: {'Content-Type': 'multipart/form-data'},
         });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const fetchNoticeDetail = async (id) => {
+    try {
+        const response = await axios.get(`/api/notice/${id}`);
         return response.data;
     } catch (error) {
         throw error;

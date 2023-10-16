@@ -10,11 +10,20 @@ export const fetchBoardList = async (page) => {
     }
 };
 
-export const createBoard = async (formData) => {
+export const boardInsert = async (formData) => {
     try {
         const response = await axios.post('/api/board', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
+            headers: {'Content-Type': 'multipart/form-data'},
         });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const fetchBoardDetail = async (id) => {
+    try {
+        const response = await axios.get(`/api/board/${id}`);
         return response.data;
     } catch (error) {
         throw error;

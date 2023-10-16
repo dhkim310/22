@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ApprovalInsert {
-
     private String approvalSubject;
     private String approvalContent;
     private String approvalCheckMan;

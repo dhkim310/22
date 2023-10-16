@@ -63,18 +63,18 @@ function NoticeList() {
             <div style={{width: '100%', height: '100%'}}>
                 <div className="d-xxl-flex justify-content-xxl-center"
                      style={{width: '100%', height: '100%', background: 'transparent'}}>
-                    <div className="d-xxl-flex justify-content-xxl-center"
-                         style={{width: '10%', height: '100%', background: 'white'}}>
+                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                         style={{ marginTop: "3%", marginLeft: "2%", width: '10%', height: '100%', background: 'white'}}>
                         <button
                             className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center"
                             data-bss-hover-animate="pulse" type="button" onClick={navigateToWrite} style={{
-                            width: '150px',
-                            height: '50px',
-                            color: 'black',
-                            background: 'rgba(13,110,253,0)',
-                            borderRadius: '6px',
-                            borderColor: 'black',
-                            marginTop: '24px'
+                            background: "rgba(13,110,253,0)",
+                            border: "2px ridge black",
+                            width: "auto",
+                            height: "auto",
+                            color: "black",
+                            paddingRight: 35,
+                            paddingLeft: 35
                         }}>글쓰기
                         </button>
                     </div>
@@ -125,7 +125,7 @@ function NoticeList() {
                                             borderBottomStyle: 'none',
                                         }}
                                     >
-                                        사내게시판
+                                        게시판
                                     </button>
                                 </div>
                                 <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"

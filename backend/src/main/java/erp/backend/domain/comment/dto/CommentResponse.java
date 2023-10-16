@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 @Getter
 public class CommentResponse {
-
     private final Long commentId;
     private final String comment;
     private final Long boardId;
