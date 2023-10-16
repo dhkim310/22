@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Login from './pages/Login';
 import Main from "./pages/Main";
 import Header from "./component/Header";
@@ -7,37 +7,40 @@ import ReactBigCalendar from "./pages/ReactBigCalendar";
 import FixInfo from "./pages/FixInfo";
 import Approval from "./pages/Approval"
 import SweetAlert from "./component/SweetAlert"
-import Write from "./pages/Write"
+import NoticeInsert from "./pages/NoticeInsert"
 import NoticeList from "./pages/NoticeList"
+import BoardInsert from "./pages/BoardInsert";
+import BoardList from "./pages/BoardList";
 import MemoComponent from "./component/MemoComponent"
 import Hrm from "./pages/Hrm"
-import EmpList from "./pages/EmpList";
-
+import Reshuffle from "./pages/Reshuffle"
 function App() {
-  return (
-    <Router>
-        <Header />
-        <Routes>
-            <Route path="/" element={ <Login /> }/>
-            <Route path="/login" element={ <Login /> }/>
+    return (
+        <Router>
+            <Header/>
+            <Routes>
+                <Route path="/" element={<Login/>}/>
+                <Route path="/login" element={<Login/>}/>
 
-            <Route element={<PrivateRoute />}>
-            <Route path="/main" element={ <Main /> }/>
-            <Route path="/approval" element={ <Approval /> }/>
-            <Route path="/fix-info" element={ <FixInfo /> }/>
-            <Route path="/schedule" element={ <ReactBigCalendar />}/>
-            <Route path="/sweetalert" element={ <SweetAlert />}/>
-            <Route path="/write" element={ <Write />}/>
-            <Route path="/notice" element={ <NoticeList />}/>
-            <Route path="/hrm" element={ <Hrm />}/>
-            <Route path="/memo" element={ <MemoComponent />}/>
-            <Route path="/emp" element={ <EmpList />}/>
+                <Route element={<PrivateRoute/>}>
+                    <Route path="/main" element={<Main/>}/>
+                    <Route path="/approval" element={<Approval/>}/>
+                    <Route path="/fix-info" element={<FixInfo/>}/>
+                    <Route path="/schedule" element={<ReactBigCalendar/>}/>
+                    <Route path="/sweetalert" element={<SweetAlert/>}/>
+                    <Route path="/notice-insert" element={<NoticeInsert/>}/>
+                    <Route path="/board-insert" element={<BoardInsert/>}/>
+                    <Route path="/board" element={<BoardList/>}/>
+                    <Route path="/notice" element={<NoticeList/>}/>
+                    <Route path="/hrm" element={<Hrm/>}/>
+                    <Route path="/memo" element={<MemoComponent/>}/>
+                    <Route path="/reshuffle/:id" element={ <Reshuffle />}/>
 
-            </Route>
-        </Routes>
-    </Router>
+                </Route>
+            </Routes>
+        </Router>
 
-  );
+    );
 }
 
 export default App;

@@ -21,14 +21,14 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @GetMapping
-    public ResponseEntity<NoticeListResult> noticeList(@PageableDefault(size = 3, sort = "noticeId", direction = Sort.Direction.DESC) Pageable pageable,
+    public ResponseEntity<NoticeListResult> noticeList(@PageableDefault(size = 7, sort = "noticeId", direction = Sort.Direction.DESC) Pageable pageable,
                                                        Model model) {
-        NoticeListResult listResult = noticeService.boardListResult(pageable);
+        NoticeListResult listResult = noticeService.noticeListResult(pageable);
         model.addAttribute("listResult", listResult);
         return ResponseEntity.ok(listResult);
     }
 
-    @PostMapping
+    @PostMapping(consumes = {"multipart/form-data"})
     public ResponseEntity<Long> noticeInsert(@RequestPart(value = "requestDto") NoticeRequest request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
         return ResponseEntity.ok(noticeService.noticeInsert(request, files));
     }
@@ -46,7 +46,7 @@ public class NoticeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> noticeUpdate(@PathVariable("id") Long id, @RequestPart(value = "requestDto") NoticeUpdate request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
+    public ResponseEntity<Long> noticeUpdate(@PathVariable("id") Long id, @RequestPart(value = "requestDto") NoticeUpdate request, @RequestPart(value = "files", required = false) List<MultipartFile> files) {
         return ResponseEntity.ok(noticeService.noticeUpdate(id, request, files));
     }
 

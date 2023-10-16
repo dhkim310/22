@@ -28,32 +28,79 @@ function Approval() {
 
     return (
         <div>
-            <div>
-              <div style={{width: '100%', height: '100%'}}>
-                <div className="d-xxl-flex justify-content-xxl-center" style={{width: '100%', height: '1800px', background: 'transparent'}}>
-                  <div className="justify-content-xxl-center align-items-xxl-start" style={{width: '10%', height: '100%', background: 'white'}}>
-                    <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-start" style={{width: '100%', height: '5%', background: 'transparent'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" style={{width: '150px', height: '50px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '6px', borderColor: 'black', marginTop: '24px'}}>새 결재 진행</button></div>
-                    <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-end" style={{width: '100%', height: '4%', background: 'transparent'}}><span style={{fontSize: '22px', fontWeight: 'bold', paddingTop: '9px'}}>결재상태</span></div>
-                    <div style={{width: '100%', height: '5%', background: 'transparent'}}>
-                      <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-end" style={{width: '100%', height: '50%', background: 'transparent', borderWidth: '0px', borderStyle: 'none', borderBottom: '0px none rgba(128,128,128,0.2)', borderLeftStyle: 'none'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" style={{width: '150px', height: '30px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '0px', border: '0px none black'}}>결재 대기 문서</button></div>
-                      <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-start" style={{width: '100%', height: '50%', background: 'transparent'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" style={{width: '150px', height: '30px', color: 'black', background: 'rgba(13,110,253,0)', borderRadius: '0px', border: '0px none black'}}>사내게시판</button></div>
-                    </div>
-                  </div>
-                  <div style={{background: 'white', width: '90%', height: '100%'}}>
-                    <div style={{width: '100%', height: '7%', borderBottom: '2px ridge rgba(128,128,128,0.26)', borderLeft: '1px ridge rgba(128,128,128,0.21)'}}>
-                      <div className="d-xxl-flex align-items-xxl-end" style={{width: '100%', height: '50%'}}>
-                        <div className="d-xxl-flex justify-content-xxl-start" style={{width: '50%', height: '50%'}}><span style={{fontSize: '30px', fontWeight: 'bold', paddingTop: '0px', marginLeft: '41px'}}>결재 문서</span></div>
-                      </div>
-                      <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end" style={{width: '100%', height: '50%'}}>
-                        <div className="d-xxl-flex justify-content-xxl-start" style={{width: '50%', height: '50%'}}><span className="d-xxl-flex justify-content-xxl-center" style={{width: '150px', height: '30px'}}>엄용민 인턴</span><span className="d-xxl-flex justify-content-xxl-start" style={{width: '150px', height: '30px'}}>12:05:12</span><span className="d-xxl-flex justify-content-xxl-start" style={{width: '100px', height: '30px'}}>2023/09/25</span></div>
-                        <div className="d-xxl-flex justify-content-xxl-end" style={{width: '50%', height: '100%'}}><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" style={{width: '75px', height: '25px', color: 'black', background: 'url("assets/img/icons8-파일-편집-100.png") center / contain no-repeat, rgba(13,110,253,0)', borderRadius: '6px', marginTop: '24px', borderStyle: 'none', borderColor: 'black'}} /><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" style={{width: '75px', height: '25px', color: 'black', background: 'url("assets/img/icons8-부-100.png") center / contain no-repeat, rgba(13,110,253,0)', borderRadius: '6px', marginTop: '24px', borderStyle: 'none', borderColor: 'black'}} /><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" style={{width: '75px', height: '25px', color: 'black', background: 'url("assets/img/KakaoTalk_20230925_125929673.png") center / contain no-repeat, rgba(13,110,253,0)', borderRadius: '6px', marginTop: '24px', borderStyle: 'none', borderColor: 'black'}} /><button className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center" data-bss-hover-animate="pulse" type="button" style={{width: '75px', height: '25px', color: 'black', background: 'url("assets/img/icons8-인쇄-100.png") center / contain no-repeat, rgba(13,110,253,0)', borderRadius: '6px', marginTop: '24px', borderStyle: 'none', borderColor: 'black'}} /></div>
-                      </div>
-                    </div>
-                    <div style={{width: '100%', height: '93%', borderLeft: '1px ridge rgba(128,128,128,0.2)'}} />
-                  </div>
-                </div>
-              </div>
+<div>
+  <div className="d-xxl-flex justify-content-xxl-start" style={{width: '100%', background: 'rgba(0,0,0,0)', height: '800px' }}>
+    <div style={{height: '100%', width: '2%'}} />
+    <div style={{height: '100%', width: '10%', background: 'rgba(13,110,253,0)', borderRight: '2px ridge rgba(128,128,128,0.32)'}}>
+      <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{background: 'rgba(102,16,242,0)', width: '100%', height: '7%'}}><button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{background: 'rgba(13,110,253,0)', border: '1px ridge black', width: 'auto', height: 'auto', color: 'black'}}>새 결재 진행</button></div>
+      <div className="d-xxl-flex" style={{width: '100%', height: 'auto', background: 'rgba(220,53,69,0)'}}><span className="d-xxl-flex" style={{width: 'auto', height: 'auto', fontWeight: 'bold', fontSize: '20px'}}>결재하기</span></div>
+      <div style={{width: '100%', background: 'rgba(214,51,132,0)', height: '7%'}}><button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start" data-bss-hover-animate="pulse" type="button" style={{background: 'rgba(13,110,253,0)', borderStyle: 'none', color: 'black', width: 'auto', height: 'auto', paddingRight: '12px', paddingLeft: '0px'}}>결제 대기 문서</button><button className="btn btn-primary d-xxl-flex" data-bss-hover-animate="pulse" type="button" style={{background: 'rgba(13,110,253,0)', borderStyle: 'none', color: 'black', width: 'auto', height: 'auto', paddingLeft: '0px'}}>결제 완료 문서</button></div>
+    </div>
+    <div style={{width: '88%', height: '100%'}}>
+      <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{background: 'rgba(13,110,253,0)', width: '100%', height: '8%'}}>
+        <div style={{height: '100%', width: '4%', background: 'rgba(220,53,69,0)'}} /><span style={{width: 'auto', height: 'auto', fontWeight: 'bold', fontSize: '34px'}}>결재 대기 문서</span>
+      </div>
+      <div style={{background: 'rgba(220,53,69,0)', height: '82%', width: '100%'}}>
+        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{width: '100%', height: '5%', background: 'rgba(220,53,69,0)', borderTop: '2px ridge rgba(128,128,128,0.32)', borderBottom: '2px ridge rgba(128,128,128,0.32)'}}>
+          <div style={{height: '100%', width: '4%', background: 'rgba(220,53,69,0)'}} />
+          <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>기안일</span></div>
+          <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '41%', background: 'rgba(220,53,69,0)'}}><span>제목</span></div>
+          <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>기안자</span></div>
+          <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>결재권자</span></div>
+          <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>결재상태</span></div>
+          <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>반려날짜</span></div>
+        </div>
+        <div className="d-xxl-flex justify-content-center justify-content-xxl-start align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '0px', maxHeight: '1000px', width: '100%', height: '100%'}}><a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '100%', marginBottom: '2px', width: '100%', padding: '0px', maxHeight: '5%', borderStyle: 'none'}}>
+            <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{width: '100%', background: 'rgba(220,53,69,0)', height: '100%'}}>
+              <div style={{height: '100%', width: '4%', background: 'rgba(220,53,69,0)'}} />
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>202020</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '41%', background: 'rgba(220,53,69,0)'}}><span>유재형 인턴 휴가 신청하겠습니다</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>유재형</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>엄용민</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>거부</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>XXXXXXXXX</span></div>
             </div>
+          </a><a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '100%', marginBottom: '2px', width: '100%', padding: '0px', maxHeight: '5%', borderStyle: 'none'}}>
+            <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{width: '100%', background: 'rgba(220,53,69,0)', height: '100%'}}>
+              <div style={{height: '100%', width: '4%', background: 'rgba(220,53,69,0)'}} />
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>202020</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '41%', background: 'rgba(220,53,69,0)'}}><span>유재형 인턴 휴가 신청하겠습니다</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>유재형</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>엄용민</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>거부</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>XXXXXXXXX</span></div>
+            </div>
+          </a><a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '100%', marginBottom: '2px', width: '100%', padding: '0px', maxHeight: '5%', borderStyle: 'none'}}>
+            <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{width: '100%', background: 'rgba(220,53,69,0)', height: '100%'}}>
+              <div style={{height: '100%', width: '4%', background: 'rgba(220,53,69,0)'}} />
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>202020</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '41%', background: 'rgba(220,53,69,0)'}}><span>유재형 인턴 휴가 신청하겠습니다</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>유재형</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>엄용민</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>거부</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>XXXXXXXXX</span></div>
+            </div>
+          </a></div>
+      </div>
+      <div className="d-xxl-flex justify-content-xxl-start" style={{background: 'rgba(111,66,193,0)', height: '10%', width: '100%'}}>
+        <div style={{width: '35%', height: '100%'}} />
+        <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{height: '100%', width: '342px'}}>
+          <nav>
+            <ul className="pagination">
+              <li className="page-item"><a className="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+              <li className="page-item"><a className="page-link" href="#">1</a></li>
+              <li className="page-item"><a className="page-link" href="#">2</a></li>
+              <li className="page-item"><a className="page-link" href="#">3</a></li>
+              <li className="page-item"><a className="page-link" href="#">4</a></li>
+              <li className="page-item"><a className="page-link" href="#">5</a></li>
+              <li className="page-item"><a className="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
         </div>
     )

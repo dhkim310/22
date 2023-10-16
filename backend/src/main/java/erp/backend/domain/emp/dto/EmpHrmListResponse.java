@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmpListResponse {
+public class EmpHrmListResponse {
     private long empId;
     private String empName;
     private String empPosition;
-    private long empAmount;
+    private String dept;
     private String empEmail;
-    private Dept dept;
+    private String empStatus;
 }

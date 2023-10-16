@@ -1,7 +1,7 @@
 package erp.backend.domain.salary.service;
 
 import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.salary.vo.SalaryVO;
+import erp.backend.domain.salary.Vo.SalaryVO;
 import erp.backend.domain.salary.dto.SalaryInsert;
 import erp.backend.domain.salary.dto.SalaryResponse;
 import erp.backend.domain.salary.entity.Salary;
