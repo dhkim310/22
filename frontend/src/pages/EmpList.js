@@ -62,7 +62,7 @@ function EmpList() {
                     <span style={{ fontWeight: 'bold', fontSize: '30px', paddingLeft: '110px', width: '85%' }}>급여관리</span>
                     <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{ width: '15%', height: '100%' }}>
                         <input type="search" />
-                        <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{
+                        <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" placeholder="이름을 입력하세요" style={{
                             background: 'url("assets/img/icons8-수색-144.png") center / contain no-repeat',
                             height: '30px',
                             width: '30px',
@@ -100,7 +100,7 @@ function EmpList() {
                                     }}>
                                         <div className="d-xxl-flex justify-content-xxl-start" style={{ height: '45px', width: '115px' }}></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{ height: '45px', width: '230px' }}><span>{item.empId}</span></div>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{ height: '45px', width: '230px' }}><span>{item.empName}</span></div>
+                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" onClick={() => navigateToDetail(item.id)} style={{ height: '45px', width: '230px' }}><span>{item.empName}</span></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{ height: '45px', width: '230px' }}><span>{item.empPosition}</span></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{ height: '45px', width: '230px' }}><span>{item.deptName}</span></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{ height: '45px', width: '300px' }}><span>{item.empAmount}</span></div>

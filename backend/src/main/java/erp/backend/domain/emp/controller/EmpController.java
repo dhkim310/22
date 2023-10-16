@@ -45,7 +45,7 @@ public class EmpController {
     }
 
     @GetMapping("/emp")
-    public ResponseEntity<EmpListResult> empList(@PageableDefault(size = 6, sort = "empId", direction = Sort.Direction.ASC) Pageable pageable,
+    public ResponseEntity<EmpListResult> empList(@PageableDefault(size = 10, sort = "empId", direction = Sort.Direction.ASC) Pageable pageable,
                                                  Model model) {
         EmpListResult listResult = empService.getEmpListResult(pageable);
         model.addAttribute("listResult", listResult);
