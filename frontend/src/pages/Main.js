@@ -487,20 +487,14 @@ function Main() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-3 col-xxl-1" style={{maxWidth: '25%', height: '100%'}}><a
-                                        data-bss-hover-animate="pulse"
-                                        className="list-group-item list-group-item-action flex-column align-items-start"
-                                        href="#" style={{
-                                        height: '200px',
-                                        marginBottom: '2px',
-                                        width: 'auto',
-                                        borderStyle: 'none',
-                                        background: 'white'
-                                    }}>
-                                        <div
-                                            className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between"
-                                            style={{background: 'black'}}>
-                                            <h5 className="mb-1" style={{color: 'white'}}>9/18</h5>
+                                </div>
+                                </div>
+                                <div style={{background: 'white', width: '100%', height: '300px', marginTop: '20px'}}>
+                                <div className="d-xxl-flex align-items-xxl-center" style={{height: '50px', borderBottom: '1px ridge rgba(128,128,128,0.24)'}}><span style={{fontSize: '25px', fontWeight: 'bold', paddingLeft: '23px'}}>메모</span></div>
+                                <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" onClick={openModal} style={{width: '100%', height: '300px'}}>
+                                    <div className="d-xxl-flex justify-content-center justify-content-xxl-center align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '0px', maxHeight: '1000px', width: '100%'}}><a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start" style={{height: '300px', marginBottom: '2px', width: '561px'}}>
+                                        <div className="d-flex w-100 justify-content-between" style={{width: '100%'}}>
+                                        <h5 className="mb-1" style={{width: '100%'}}>{memo.memoContent}</h5>
                                         </div>
                                         <p className="mb-1" style={{
                                             background: 'white',
@@ -594,12 +588,41 @@ function Main() {
                                     </a></div>
                                 </div>
                             </div>
+                            </div>
+                            <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a data-bss-hover-animate="pulse" className="list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '200px', marginBottom: '2px', width: 'auto', borderStyle: 'none', background: 'white'}}>
+                                <div className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between" style={{background: 'black'}}>
+                                <h5 className="mb-1" style={{color: 'white'}}>9/18</h5>
+                                </div>
+                                <p className="mb-1" style={{background: 'white', textAlign: 'center', borderBottom: '1px ridge rgba(128,128,128,0.18)'}}>Mon</p>
+                            </a></div>
+                            <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a data-bss-hover-animate="pulse" className="list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '200px', marginBottom: '2px', width: 'auto', background: 'white'}}>
+                                <div className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between" style={{background: 'black'}}>
+                                <h5 className="mb-1" style={{color: 'white'}}>9/19</h5>
+                                </div>
+                                <p className="mb-1" style={{background: 'white', textAlign: 'center', borderBottom: '1px ridge rgba(128,128,128,0.18)'}}>Tue</p>
+                            </a></div>
+                            <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a data-bss-hover-animate="pulse" className="list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '200px', marginBottom: '2px', width: 'auto', background: 'white'}}>
+                                <div className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between" style={{background: 'black'}}>
+                                <h5 className="mb-1" style={{color: 'white'}}>9/20</h5>
+                                </div>
+                                <p className="mb-1" style={{background: 'white', textAlign: 'center', borderBottom: '1px ridge rgba(128,128,128,0.18)'}}>Wed</p>
+                            </a></div>
+                            <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a data-bss-hover-animate="pulse" className="list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '200px', marginBottom: '2px', width: 'auto', background: 'white'}}>
+                                <div className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between" style={{background: 'black'}}>
+                                <h5 className="mb-1" style={{color: 'white'}}>9/21</h5>
+                                </div>
+                                <p className="mb-1" style={{textAlign: 'center', borderBottom: '1px ridge rgba(128,128,128,0.18)'}}>Thu</p>
+                            </a></div>
+                            <div className="col-md-3 col-xxl-1" style={{maxWidth: '25%', height: '100%'}}><a data-bss-hover-animate="pulse" className="list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '200px', marginBottom: '2px', width: 'auto', background: 'white', borderRadius: '-20px'}}>
+                                <div className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between" style={{background: 'black', borderRadius: '0px', borderTopLeftRadius: '0px', borderTopRightRadius: '0px'}}>
+                                <h5 className="mb-1" style={{color: 'white'}}>9/22</h5>
+                                </div>
+                                <p className="mb-1" style={{textAlign: 'center', borderBottom: '1px ridge rgba(128,128,128,0.18)'}}>Fri</p>
+                            </a></div>
+                        </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
     )
 };
 

@@ -3,6 +3,7 @@ package erp.backend.domain.emp.service;
 import erp.backend.domain.emp.dto.*;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
+import erp.backend.domain.emp.vo.EmpVo;
 import erp.backend.global.config.security.SecurityHelper;
 import erp.backend.global.config.security.jwt.JwtProvider;
 import erp.backend.global.mailsender.service.MailService;
@@ -29,6 +30,46 @@ public class EmpService {
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
     private final MailService mailService;
+    private final EmpVo empVo;
+
+    @Transactional(readOnly = true) // 인사관리 리스트
+    public List<EmpHrmListResponse> searchAllList() {
+        List<Emp> list = empRepository.findAll();
+
+        return list.stream()
+                .map(emp -> EmpHrmListResponse.builder()
+                        .empId(emp.getEmpId())
+                        .empName(emp.getEmpName())
+                        .empPosition(emp.getEmpPosition())
+                        .empEmail(emp.getEmpEmail())
+                        .empStatus(emp.getEmpStatus())
+                        .dept(emp.getDept().getDeptName())
+                        .build())
+                .toList();
+    }
+
+    @Transactional(readOnly = true) // 인사이동 페이지
+    public EmpReshuffleResponse reshuffleResponse(Long id) {
+        Emp emp = getEmpAccountId(id);
+
+        return EmpReshuffleResponse.builder()
+                .empId(emp.getEmpId())
+                .empName(emp.getEmpName())
+                .deptName(emp.getDept().getDeptName())
+                .empEmail(emp.getEmpEmail())
+                .empPosition(emp.getEmpPosition())
+                .empStartDate(emp.getEmpStartDate())
+                .empEndDate(emp.getEmpEndDate())
+                .empStatus(emp.getEmpStatus())
+                .build();
+    }
+
+    @Transactional // 인사이동 업데이트
+    public Long updateReshuffle(Long id, EmpReshuffleRequest request) {
+        Emp emp = getEmpAccountId(id);
+        emp.updateReshuffle(request);
+        return emp.getEmpId();
+    }
 
     @Transactional
     public void signUp(SignUpRequest request) {
@@ -39,8 +80,8 @@ public class EmpService {
                 .dept(request.getEmpDeptId())
                 .password(passwordEncoder.encode("1541")) // 사원의 초기 비밀번호 1541
                 .empPosition(request.getEmpPosition())
-                .roles(request.getRoles())
-                .empAmount(request.getEmpAmount())
+                .roles(empVo.type1(request.getEmpPosition()))
+                .empAmount(empVo.type2(request.getEmpPosition()))
                 .empBirthday(request.getEmpBirthday())
                 .empPhoneNumber(request.getEmpPhoneNumber())
                 .empAddress(request.getEmpAddress())
@@ -69,8 +110,8 @@ public class EmpService {
                 .replaceAll("\\+", "%20")
                 + token;
         Cookie cookie = new Cookie("Authorization", encode);
-//        cookie.setHttpOnly(true);
-//        cookie.setSecure(true);
+        // cookie.setHttpOnly(true);
+        // cookie.setSecure(true);
         cookie.setPath("/");
 
         httpResponse.addCookie(cookie);
@@ -140,8 +181,7 @@ public class EmpService {
                             .empPosition(entity.getEmpPosition())
                             .empAmount(entity.getEmpAmount())
                             .dept(entity.getDept())
-                            .build()
-                    )
+                            .build())
                     .collect(Collectors.toList());
 
             return new EmpListResult(page, totalCount, size, empList);
@@ -173,8 +213,7 @@ public class EmpService {
                             .empPosition(entity.getEmpPosition())
                             .empAmount(entity.getEmpAmount())
                             .dept(entity.getDept())
-                            .build()
-                    )
+                            .build())
                     .collect(Collectors.toList());
 
             return new EmpListResult(page, totalCount, size, empList);
@@ -190,5 +229,9 @@ public class EmpService {
                 .empName(emp.getEmpName())
                 .empPosition(emp.getEmpPosition())
                 .build();
+    }
+
+    private Emp getEmpAccountId(Long id) {
+        return empRepository.findByEmpId(id);
     }
 }

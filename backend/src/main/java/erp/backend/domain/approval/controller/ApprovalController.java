@@ -26,7 +26,7 @@ public class ApprovalController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> approvalInsert(@RequestPart(value = "requestDto") ApprovalInsert request, @RequestPart(value = "files") List<MultipartFile> files) {
+    public ResponseEntity<Long> approvalInsert(@RequestPart(value = "requestDto") ApprovalInsert request, @RequestPart(value = "files", required = false) List<MultipartFile> files) {
         return ResponseEntity.ok(approvalService.approvalInsert(request, files));
     }
 

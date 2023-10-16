@@ -2,6 +2,8 @@ package erp.backend.domain.emp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import erp.backend.domain.dept.entity.Dept;
+import erp.backend.domain.emp.dto.EmpReshuffleRequest;
+import erp.backend.domain.salary.entity.Salary;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -113,6 +115,13 @@ public class Emp implements UserDetails {
 
     public void updatePassword(String newPassword) {
         this.password = newPassword;
+    }
+
+    public void updateReshuffle(EmpReshuffleRequest request) {
+        this.dept = request.getDeptId();
+        this.empPosition = request.getEmpPosition();
+        this.empEndDate = request.getEmpEndDate();
+        this.empStatus = request.getEmpStatus();
     }
 
 }
