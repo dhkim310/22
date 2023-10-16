@@ -167,7 +167,7 @@ public class EmpService {
     @Transactional(readOnly = true)
     public EmpListResult getEmpListResult(Pageable pageable) {
         Emp emp = SecurityHelper.getAccount();
-        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20) {
+        if (emp.getDept().getDeptId() == 20) {
             Page<Emp> list = findAll(pageable);
 
             int page = pageable.getPageNumber();
@@ -199,7 +199,7 @@ public class EmpService {
     @Transactional(readOnly = true)
     public EmpListResult getEmpSearchList(Pageable pageable, String empName) {
         Emp emp = SecurityHelper.getAccount();
-        if (emp.getDept().getDeptId() == 10 || emp.getDept().getDeptId() == 20) {
+        if (emp.getDept().getDeptId() == 20) {
             Page<Emp> list = findName(pageable, empName);
 
             int page = pageable.getPageNumber();
