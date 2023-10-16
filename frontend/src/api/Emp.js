@@ -8,6 +8,16 @@ export const selectHrmListApi = async (params) => {
       throw error;
     }
 };
+
+export const selectHrmDetailApi = async (id) => {
+    try {
+      const response = await axios.get(`/api/emp/hrm/${id}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+};
+
 export const insertEmpApi = async (params) => {
     return new Promise((resolve,reject)=> {
         axios.post('/api/sign-up', params)
@@ -16,6 +26,18 @@ export const insertEmpApi = async (params) => {
         })
         .catch((err)=>{
             return reject(err);
+        })
+    });
+}
+
+export const updateHrmApi = async (id,params) => {
+    return new Promise((resolve,reject)=>{
+        axios.put(`/api/emp/hrm/${id}`,params)
+        .then((res)=>{
+             return resolve(res);
+        })
+        .catch((err)=>{
+             return reject(err);
         })
     });
 }

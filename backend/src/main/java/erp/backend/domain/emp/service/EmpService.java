@@ -54,6 +54,7 @@ public class EmpService {
 
         return EmpReshuffleResponse.builder()
                 .empId(emp.getEmpId())
+                .deptId(emp.getDept().getDeptId())
                 .empName(emp.getEmpName())
                 .deptName(emp.getDept().getDeptName())
                 .empEmail(emp.getEmpEmail())
@@ -88,7 +89,7 @@ public class EmpService {
                 .empDetailAddress(request.getEmpDetailAddress())
                 .empGender(request.getEmpGender())
                 .empStartDate(request.getEmpStartDate())
-                .empStatus("재직중")
+                .empStatus("재직")
                 .build();
         empRepository.save(emp);
     }
