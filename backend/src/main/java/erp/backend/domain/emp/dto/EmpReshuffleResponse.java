@@ -1,5 +1,6 @@
 package erp.backend.domain.emp.dto;
 
+import erp.backend.domain.dept.entity.Dept;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 public class EmpReshuffleResponse {
 
     private Long empId;
+    private Long deptId;
     private String deptName;
     private String empName;
     private String empEmail;

@@ -13,19 +13,18 @@ import java.net.URL;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/movie")
-public class MovieController {
+public class MovieController{
+
+   // @Value("${movie.key}")
+    String key;
     private final MovieService movieService;
     private final MovieRepository movieRepository;
-
-    // @Value("${movie.key}")
-    String key;
 
     @GetMapping("/{movie_id}")
     public Movie getMovieById(@PathVariable Long movie_id) {
         Movie movie = movieRepository.findById(movie_id).orElse(null);
         return movie;
     }
-
     @ResponseBody
     @GetMapping("/getInfo")
     public String getInfo() {
