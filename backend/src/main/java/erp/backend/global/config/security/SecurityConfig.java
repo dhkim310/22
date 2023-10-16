@@ -77,7 +77,10 @@ public class SecurityConfig {
                                 "/api/member",
                                 "/api/memo",
                                 "/api/emp/hrm-list",
-                                "/api/emp/hrm/{id}")
+                                "/api/emp/hrm/{id}",
+                                "/api/movie/getInfo",
+                                "/api/movie/{id}"
+                        )
                         .permitAll()
                         .anyRequest().hasRole("USER"))
                 .addFilterBefore(jwtSecurityFilter, UsernamePasswordAuthenticationFilter.class)

@@ -22,7 +22,7 @@ public class Movie {
     private String movieId;
 
     @Column(name = "MOVIE_KRNAME")
-    private String movieKrname;
+    private String movieKrName;
 
     @Column(name = "MOVIE_ENGNAME")
     private String movieEngName;

@@ -21,9 +21,9 @@ public class MovieController{
     private final MovieService movieService;
     private final MovieRepository movieRepository;
 
-    @GetMapping("/{movie_id}")
-    public Movie getMovieById(@PathVariable Long movie_id) {
-        Movie movie = movieRepository.findById(movie_id).orElse(null);
+    @GetMapping("/{id}")
+    public Movie getMovieById(@PathVariable String id) {
+        Movie movie = movieRepository.findById(id).orElse(null);
         return movie;
     }
     @ResponseBody
@@ -33,11 +33,12 @@ public class MovieController{
         try {
             for (int i = 1; i <= 1; i++) {
                 String apiURL = "https://api.themoviedb.org/3/discover/movie?api_key=" + key
-                        + "&release_date.gte=2013-01-01&watch_region=KR&language=ko&page=" + i;
+                        + "&release_date.gte=2000-01-01&watch_region=KR&language=ko&page=" + i;
                 URL url = new URL(apiURL);
                 BufferedReader bf;
                 bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
                 String result = bf.readLine();
+                System.out.println("@@@@@@@@@@@@@@@@@@@@@@"+result);
                 movieService.getInfo(result);
             }
         } catch (Exception e) {

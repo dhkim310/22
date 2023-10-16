@@ -39,12 +39,15 @@ public class MovieService {
                     Movie.builder()
                             .movieId(contents.get("id").toString())
 //                            .description(contents.get("overview").toString())
-                            .movieKrname(contents.get("title").toString())
+                            .movieKrName(contents.get("title").toString())
+                            .movieEngName(contents.get("original_title").toString())
 //                            .imgUrl(ImgUrl + contents.get("poster_path").toString().replaceAll(match, ""))
                             .movieMadeDate(dateTime)
                             .movieOpenDate(dateTime)
                             .build()
             );
+            System.out.println("$$$$$$$$$"+contents.get("id").toString());
+            System.out.println("$$$$$$$$$"+contents.get("title").toString());
         }
         return "ok";
     }
