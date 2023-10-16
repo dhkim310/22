@@ -4,7 +4,7 @@ import '../assets/css/animate.min.css'
 import PaginationButtons from "../component/PaginationButton";
 import {selectEmpList} from "../api/Emp";
 import {useNavigate} from "react-router-dom";
-
+import SalaryInsertComponent from "../component/SalaryInsertComponent";
 
 function EmpList() {
     const [empList, setEmpList] = useState([]);
@@ -27,9 +27,9 @@ function EmpList() {
 
     const navigate = useNavigate();
 
-    const navigateToSearch = (empName) => {
-        navigate(`/api/${empName}`)
-    }
+    // const navigateToSearch = (empName) => {
+    //     navigate(`/emp/${empName}`)
+    // }
     const navigateToDetail = (id) => {
         navigate(`/api/salary/${id}`)
     }
@@ -57,6 +57,9 @@ function EmpList() {
 
     return (
         <div>
+            <div>
+                <SalaryInsertComponent isOpen={isModalOpen} closeModal={closeModal}/>
+            </div>
             <div style={{ background: 'rgba(111, 66, 193, 0)', height: '100%', width: 'Auto' }}>
                 <div className="d-xxl-flex align-items-xxl-center" style={{ height: '70px', padding: '0', width: 'auto' }}>
                     <span style={{ fontWeight: 'bold', fontSize: '30px', paddingLeft: '110px', width: '85%' }}>급여관리</span>
@@ -99,8 +102,8 @@ function EmpList() {
                                         width: '100%'
                                     }}>
                                         <div className="d-xxl-flex justify-content-xxl-start" style={{ height: '45px', width: '115px' }}></div>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{ height: '45px', width: '230px' }}><span>{item.empId}</span></div>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" onClick={() => navigateToDetail(item.id)} style={{ height: '45px', width: '230px' }}><span>{item.empName}</span></div>
+                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" onClick={() => navigateToDetail(item.empId)}style={{ height: '45px', width: '230px' }}><span>{item.empId}</span></div>
+                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{ height: '45px', width: '230px' }}><span>{item.empName}</span></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{ height: '45px', width: '230px' }}><span>{item.empPosition}</span></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{ height: '45px', width: '230px' }}><span>{item.deptName}</span></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{ height: '45px', width: '300px' }}><span>{item.empAmount}</span></div>
@@ -110,7 +113,7 @@ function EmpList() {
                                         <div style={{ width: '5%' }}></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{ width: '47.5%' }}>
                                             <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
-                                                    style={{ background: 'black', borderStyle: 'none' }}>급여등록
+                                                    onClick={openModal} style={{ background: 'black', borderStyle: 'none' }}>급여등록
                                             </button>
                                         </div>
                                     </div>

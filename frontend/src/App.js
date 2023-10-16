@@ -16,6 +16,7 @@ import Hrm from "./pages/Hrm"
 import Reshuffle from "./pages/Reshuffle"
 import empList from "./pages/EmpList";
 import EmpList from "./pages/EmpList";
+import EmpSalary from "./pages/EmpSalary";
 function App() {
     return (
         <Router>
@@ -38,6 +39,7 @@ function App() {
                     <Route path="/memo" element={<MemoComponent/>}/>
                     <Route path="/reshuffle/:id" element={ <Reshuffle />}/>
                     <Route path="/emp" element={ <EmpList/>}/>
+                    <Route path="/salary/:id" element={<EmpSalary/>}/>
 
                 </Route>
             </Routes>
