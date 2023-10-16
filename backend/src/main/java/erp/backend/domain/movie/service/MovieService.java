@@ -10,7 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Date;
+
 @RequiredArgsConstructor
 @Service
 @Slf4j
@@ -35,15 +41,17 @@ public class MovieService {
             String ImgUrl = "https://image.tmdb.org/t/p/w200";
             String match = "[\"]";
 
+            LocalDate releaseDate = LocalDate.parse(contents.get("release_date").toString().replaceAll(match, ""));
+            System.out.println(releaseDate);
+
             movieRepository.save(
                     Movie.builder()
                             .movieId(contents.get("id").toString())
-//                            .description(contents.get("overview").toString())
+                            .movieOverView(contents.get("overview").toString())
                             .movieKrName(contents.get("title").toString())
-                            .movieEngName(contents.get("original_title").toString())
-//                            .imgUrl(ImgUrl + contents.get("poster_path").toString().replaceAll(match, ""))
-                            .movieMadeDate(dateTime)
-                            .movieOpenDate(dateTime)
+                            .movieOgName(contents.get("original_title").toString())
+                            .moviePosterPath(ImgUrl + contents.get("poster_path").toString().replaceAll(match, ""))
+                            .movieReleaseDate(releaseDate)
                             .build()
             );
             System.out.println("$$$$$$$$$"+contents.get("id").toString());

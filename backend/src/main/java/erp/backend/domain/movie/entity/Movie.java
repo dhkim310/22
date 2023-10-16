@@ -24,31 +24,21 @@ public class Movie {
     @Column(name = "MOVIE_KRNAME")
     private String movieKrName;
 
-    @Column(name = "MOVIE_ENGNAME")
-    private String movieEngName;
+    @Column(name = "MOVIE_OGNAME")
+    private String movieOgName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 //    @CreationTimestamp
-    @Column(name = "MOVIE_MADEDATE")
-    private LocalDate movieMadeDate;
+    @Column(name = "MOVIE_RELEASEDATE")
+    private LocalDate movieReleaseDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-//    @CreationTimestamp
-    @Column(name = "MOVIE_OPENDATE")
-    private LocalDate movieOpenDate;
+    @Column(name = "MOVIE_RATING")
+    private String movieRating;
 
-    @Column(name = "MOVIE_STATUS")
-    private String movieStatus;
+    @Column(name = "MOVIE_OVERVIEW")
+    private String movieOverView;
 
-    @Column(name = "MOVIE_COUNTRY")
-    private String movieCountry;
+    @Column(name = "MOVIE_POSTERPATH")
+    private String moviePosterPath;
 
-    @Column(name = "MOVIE_GENRE")
-    private String movieGenre;
-
-    @Column(name = "MOVIE_PRODUCER")
-    private String movieProducer;
-
-    @Column(name = "MOVIE_PRODUCERID")
-    private String movieProducerId;
 }

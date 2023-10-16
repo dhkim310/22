@@ -23,7 +23,7 @@ public class MovieController{
 
     @GetMapping("/{id}")
     public Movie getMovieById(@PathVariable String id) {
-        Movie movie = movieRepository.findById(id).orElse(null);
+        Movie movie = movieRepository.findById(id).orElse(null); //매핑, 레포지토리 -> 서비스로 수정예정
         return movie;
     }
     @ResponseBody
