@@ -19,3 +19,11 @@ export const insertEmpApi = async (params) => {
         })
     });
 }
+export const selectEmpList = async (page) => {
+    try {
+        const response = await axios.get(`/api/emp?page=${page}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
