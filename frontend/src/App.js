@@ -14,6 +14,8 @@ import BoardList from "./pages/BoardList";
 import MemoComponent from "./component/MemoComponent"
 import Hrm from "./pages/Hrm"
 import Reshuffle from "./pages/Reshuffle"
+import empList from "./pages/EmpList";
+import EmpList from "./pages/EmpList";
 function App() {
     return (
         <Router>
@@ -35,6 +37,7 @@ function App() {
                     <Route path="/hrm" element={<Hrm/>}/>
                     <Route path="/memo" element={<MemoComponent/>}/>
                     <Route path="/reshuffle/:id" element={ <Reshuffle />}/>
+                    <Route path="/emp" element={ <EmpList/>}/>
 
                 </Route>
             </Routes>
