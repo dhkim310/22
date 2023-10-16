@@ -28,9 +28,8 @@ function FixInfo() {
     useEffect(() => {
         async function fetchData() {
             try {
-                // 공지사항 세부 정보를 가져오는 API 호출
                 const data = await selectInfo();
-                setEmpInfo(data); // 데이터를 notice 상태 변수에 설정
+                setEmpInfo(data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

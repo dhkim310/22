@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Setter
 public class EmpReshuffleRequest {
 
-    private Dept deptId;
+    private Dept empDeptId;
     private String empPosition;
     private LocalDate empEndDate;
     private String empStatus;

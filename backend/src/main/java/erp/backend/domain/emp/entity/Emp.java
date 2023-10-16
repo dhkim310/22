@@ -118,7 +118,7 @@ public class Emp implements UserDetails {
     }
 
     public void updateReshuffle(EmpReshuffleRequest request) {
-        this.dept = request.getDeptId();
+        this.dept = request.getEmpDeptId();
         this.empPosition = request.getEmpPosition();
         this.empEndDate = request.getEmpEndDate();
         this.empStatus = request.getEmpStatus();

@@ -4,7 +4,6 @@ import erp.backend.domain.movie.entity.Movie;
 import erp.backend.domain.movie.repository.MovieRepository;
 import erp.backend.domain.movie.service.MovieService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
@@ -16,7 +15,7 @@ import java.net.URL;
 @RequestMapping("/api/movie")
 public class MovieController{
 
-//    @Value("${movie.key}")
+   // @Value("${movie.key}")
     String key;
     private final MovieService movieService;
     private final MovieRepository movieRepository;
