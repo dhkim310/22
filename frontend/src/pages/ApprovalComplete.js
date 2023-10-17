@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
-import { useLocation, useNavigate } from 'react-router-dom';
-import { SelectApprovalWaitListApi } from '../api/Approval';
+import {useLocation, useNavigate} from 'react-router-dom';
+import { SelectApprovalSuccessListApi } from '../api/Approval';
 import PaginationButtons from '../component/PaginationButton';
 
 function Approval() {
@@ -12,8 +12,8 @@ function Approval() {
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호 (1부터 시작)
     const [totalPages, setTotalPages] = useState(); // 전체 페이지 수
     const navigate = useNavigate();
-    const navigateToCompleteList = () => {
-        navigate("/approval-complete");
+    const navigateToApproval = () => {
+        navigate("/approval");
     };
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -21,7 +21,7 @@ function Approval() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await SelectApprovalWaitListApi(currentPage - 1);
+                const data = await SelectApprovalSuccessListApi(currentPage - 1);
                 setApprovalList(data.list.content);
                 setTotalPages(data.totalPageCount);
             } catch (error) {
@@ -56,11 +56,11 @@ function Approval() {
     <div style={{height: '100%', width: '10%', background: 'rgba(13,110,253,0)', borderRight: '2px ridge rgba(128,128,128,0.32)'}}>
       <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{background: 'rgba(102,16,242,0)', width: '100%', height: '7%'}}><button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{background: 'rgba(13,110,253,0)', border: '1px ridge black', width: 'auto', height: 'auto', color: 'black'}}>새 결재 진행</button></div>
       <div className="d-xxl-flex" style={{width: '100%', height: 'auto', background: 'rgba(220,53,69,0)'}}><span className="d-xxl-flex" style={{width: 'auto', height: 'auto', fontWeight: 'bold', fontSize: '20px'}}>결재하기</span></div>
-      <div style={{width: '100%', background: 'rgba(214,51,132,0)', height: '7%'}}><button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start" data-bss-hover-animate="pulse" type="button" style={{background: 'rgba(13,110,253,0)', borderStyle: 'none', color: 'black', width: 'auto', height: 'auto', paddingRight: '12px', paddingLeft: '0px'}}>결재 대기 문서</button><button className="btn btn-primary d-xxl-flex" data-bss-hover-animate="pulse" type="button" onClick={ navigateToCompleteList } style={{background: 'rgba(13,110,253,0)', borderStyle: 'none', color: 'black', width: 'auto', height: 'auto', paddingLeft: '0px'}}>결재 완료 문서</button></div>
+      <div style={{width: '100%', background: 'rgba(214,51,132,0)', height: '7%'}}><button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start" data-bss-hover-animate="pulse" type="button" onClick={ navigateToApproval } style={{background: 'rgba(13,110,253,0)', borderStyle: 'none', color: 'black', width: 'auto', height: 'auto', paddingRight: '12px', paddingLeft: '0px'}}>결재 대기 문서</button><button className="btn btn-primary d-xxl-flex" data-bss-hover-animate="pulse" type="button" style={{background: 'rgba(13,110,253,0)', borderStyle: 'none', color: 'black', width: 'auto', height: 'auto', paddingLeft: '0px'}}>결재 완료 문서</button></div>
     </div>
     <div style={{width: '88%', height: '100%'}}>
       <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{background: 'rgba(13,110,253,0)', width: '100%', height: '8%'}}>
-        <div style={{height: '100%', width: '4%', background: 'rgba(220,53,69,0)'}} /><span style={{width: 'auto', height: 'auto', fontWeight: 'bold', fontSize: '34px'}}>결재 대기 문서</span>
+        <div style={{height: '100%', width: '4%', background: 'rgba(220,53,69,0)'}} /><span style={{width: 'auto', height: 'auto', fontWeight: 'bold', fontSize: '34px'}}>결재 완료 문서</span>
       </div>
       <div style={{background: 'rgba(220,53,69,0)', height: '82%', width: '100%'}}>
         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{width: '100%', height: '5%', background: 'rgba(220,53,69,0)', borderTop: '2px ridge rgba(128,128,128,0.32)', borderBottom: '2px ridge rgba(128,128,128,0.32)'}}>
@@ -70,7 +70,7 @@ function Approval() {
           <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>기안자</span></div>
           <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>결재권자</span></div>
           <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>결재상태</span></div>
-          <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>반려날짜</span></div>
+          <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>승인날짜</span></div>
         </div>
         <div>
             {approvalList.map((item) => (
@@ -82,7 +82,7 @@ function Approval() {
               <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>{item.approvalDrafter}</span></div>
               <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>{item.approvalCheckMan}</span></div>
               <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>{item.approvalCheck}</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>{item.approvalBackDate}</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>{item.approvalSuccessDate}</span></div>
             </div>
           </a>
         </div>
