@@ -24,7 +24,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping
-    public ResponseEntity<BoardListResult> boardList(@PageableDefault(size = 3, sort = "boardId", direction = Sort.Direction.DESC) Pageable pageable,
+    public ResponseEntity<BoardListResult> boardList(@PageableDefault(size = 7, sort = "boardId", direction = Sort.Direction.DESC) Pageable pageable,
                                                      Model model) {
         BoardListResult listResult = boardService.boardListResult(pageable);
         model.addAttribute("listResult", listResult);

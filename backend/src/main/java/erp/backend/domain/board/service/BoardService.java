@@ -5,6 +5,9 @@ import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.board.entity.BoardFile;
 import erp.backend.domain.board.repository.BoardFileRepository;
 import erp.backend.domain.board.repository.BoardRepository;
+import erp.backend.domain.comment.dto.CommentResponse;
+import erp.backend.domain.comment.entity.Comment;
+import erp.backend.domain.comment.repository.CommentRepository;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.uploadfile.entity.UploadFile;
 import erp.backend.domain.uploadfile.service.UploadFileService;
@@ -34,6 +37,7 @@ import static erp.backend.global.util.FileUtils.generatorFilePath;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final BoardFileRepository boardFileRepository;
+    private final CommentRepository commentRepository;
 
     private final UploadFileService uploadFileService;
 
@@ -77,6 +81,13 @@ public class BoardService {
         Board entity = getBoard(id);
         List<BoardFile> boardFiles = entity.getBoardFileList();
 
+        List<Comment> comments = commentRepository.findByBoardBoardIdOrderByCommentIdDesc(id);
+        List<CommentResponse> commentResponses = new ArrayList<>();
+
+        for (Comment comment : comments) {
+            commentResponses.add(new CommentResponse(comment));
+        }
+
         return BoardDetailResponse.builder()
                 .boardId(entity.getBoardId())
                 .writer(entity.getEmp().getEmpName())
@@ -86,6 +97,7 @@ public class BoardService {
                 .boardCreatedDate(entity.getBoardCreatedDate())
                 .boardModifiedDate(entity.getBoardModifiedDate())
                 .boardFileList(boardFiles)
+                .boardCommentList(commentResponses)
                 .build();
     }
 

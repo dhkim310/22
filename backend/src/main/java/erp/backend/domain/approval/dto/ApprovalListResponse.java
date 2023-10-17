@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApprovalListResponse {
-
     private long approvalId;
     private String approvalDrafter;
     private String approvalSubject;

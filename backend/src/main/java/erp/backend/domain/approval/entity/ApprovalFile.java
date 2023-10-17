@@ -35,4 +35,5 @@ public class ApprovalFile {
         this.approval = approval;
         this.uploadFile = uploadFile;
     }
+
 }
