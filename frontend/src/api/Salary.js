@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const selectSalaryList = async (id) => {
     try {
-        const response = await axios.get(`/api/salary/${id}`);
+        const response = await axios.get(`/api/salary/list/${id}`);
         return response.data;
     } catch (error) {
         throw error;

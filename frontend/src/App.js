@@ -9,16 +9,15 @@ import Approval from "./pages/Approval";
 import ApprovalComplete from "./pages/ApprovalComplete"
 import ApprovalDetail from "./pages/ApprovalDetail"
 import SweetAlert from "./component/SweetAlert"
-import NoticeList from "./pages/NoticeList"
 import NoticeInsert from "./pages/NoticeInsert"
-import NoticeDetail from "./pages/NoticeDetailView";
+import NoticeList from "./pages/NoticeList"
 import BoardInsert from "./pages/BoardInsert";
-import BoardDetail from "./pages/BoardDetailView";
 import BoardList from "./pages/BoardList";
 import MemoComponent from "./component/MemoComponent"
 import Hrm from "./pages/Hrm"
 import Reshuffle from "./pages/Reshuffle"
-import EmpList from "./pages/EmpList";
+import empList from "./pages/EmpSalaryList";
+import EmpSalaryList from "./pages/EmpSalaryList";
 import EmpSalary from "./pages/EmpSalary";
 import MovieList from "./pages/MovieList";
 
@@ -38,19 +37,16 @@ function App() {
                     <Route path="/fix-info" element={<FixInfo/>}/>
                     <Route path="/schedule" element={<ReactBigCalendar/>}/>
                     <Route path="/sweetalert" element={<SweetAlert/>}/>
-                    <Route path="/notice" element={<NoticeList/>}/>
-                    <Route path="/notice/:id" element={<NoticeDetail/>}/>
                     <Route path="/notice-insert" element={<NoticeInsert/>}/>
-                    <Route path="/board" element={<BoardList/>}/>
-                    <Route path="/board/:id" element={<BoardDetail/>}/>
                     <Route path="/board-insert" element={<BoardInsert/>}/>
+                    <Route path="/board" element={<BoardList/>}/>
+                    <Route path="/notice" element={<NoticeList/>}/>
                     <Route path="/hrm" element={<Hrm/>}/>
                     <Route path="/memo" element={<MemoComponent/>}/>
                     <Route path="/reshuffle/:id" element={ <Reshuffle />}/>
-                    <Route path="/emp" element={ <EmpList/>}/>
-                    <Route path="/salary/:id" element={<EmpSalary/>}/>
+                    <Route path="/salary" element={ <EmpSalaryList/>}/>
+                    <Route path="/salary/list/:id" element={<EmpSalary/>}/>
                     <Route path="/movie" element={<MovieList/>}/>
-
                 </Route>
             </Routes>
         </Router>

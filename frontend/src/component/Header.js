@@ -26,7 +26,7 @@ function Header() {
                 navigate("/approval");
     };
     const navigateToEmpList = () => {
-                navigate("/emp")
+                navigate("/salary")
     };
     const navigateToMovieList = () => {
                     navigate("/movie")
