@@ -18,6 +18,7 @@ import Hrm from "./pages/Hrm"
 import Reshuffle from "./pages/Reshuffle"
 import EmpList from "./pages/EmpList";
 import EmpSalary from "./pages/EmpSalary";
+import MovieList from "./pages/MovieList";
 
 function App() {
     return (
