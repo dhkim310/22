@@ -42,6 +42,7 @@ function App() {
                     <Route path="/memo" element={<MemoComponent/>}/>
                     <Route path="/reshuffle/:id" element={<Reshuffle/>}/>
                     <Route path="/emp" element={<EmpList/>}/>
+                    <Route path="/movie" element={<MovieList/>}/>
 
                 </Route>
             </Routes>
