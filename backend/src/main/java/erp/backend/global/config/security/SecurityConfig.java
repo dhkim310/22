@@ -79,7 +79,9 @@ public class SecurityConfig {
                                 "/api/emp/hrm-list",
                                 "/api/emp/hrm/{id}",
                                 "/api/movie/getInfo",
-                                "/api/movie/{id}"
+                                "/api/movie/{id}",
+                                "/api/serviceMovie/{movieId}",
+                                "/api/serviceMovie/{id}"
                         )
                         .permitAll()
                         .anyRequest().hasRole("USER"))

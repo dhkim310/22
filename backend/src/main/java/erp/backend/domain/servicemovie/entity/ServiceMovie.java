@@ -2,6 +2,8 @@ package erp.backend.domain.servicemovie.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import erp.backend.domain.movie.entity.Movie;
+import erp.backend.domain.servicemovie.dto.ServiceMovieUpdate;
+import erp.backend.domain.vacation.dto.VacationUpdate;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,6 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor // 기본생성자
 @Getter
 @Builder
+@Table(name = "servicemovie")
 public class ServiceMovie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +29,7 @@ public class ServiceMovie {
     private Movie serviceMovieMovieId;
 
     @Column(name = "SERVICEMOVIE_AMOUNT")
-    private int serviceMovieAmount;
+    private long serviceMovieAmount;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
 //  @CreationTimestamp
@@ -39,15 +42,23 @@ public class ServiceMovie {
     @Column(name = "SERVICEMOVIE_ACCOUNTNUMBER")
     private String serviceMovieAccountNumber;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @Column(name = "SERVICEMOVIE_STARTDATE")
     private LocalDate serviceMovieStartDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @Column(name = "SERVICEMOVIE_ENDDATE")
     private LocalDate serviceMovieEndDate;
 
     @Column(name = "SERVICEMOVIE_PRODUCER")
     private String serviceMovieProducer;
-
-    @Column(name = "SERVICEMOVIE_PRODUCERID")
-    private String serviceMovieProducerId;
+    public void update(ServiceMovieUpdate request) {
+        this.serviceMovieAmount = request.getAmount();
+        this.serviceMoviePaymentDate = request.getPaymentDate();
+        this.serviceMoviePaymentBank = request.getPaymentBank();
+        this.serviceMovieAccountNumber = request.getAccountNumber();
+        this.serviceMovieStartDate = request.getStartDate();
+        this.serviceMovieEndDate = request.getEndDate();
+        this.serviceMovieProducer = request.getProducer();
+    }
 }

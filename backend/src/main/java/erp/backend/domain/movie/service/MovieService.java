@@ -47,11 +47,12 @@ public class MovieService {
             movieRepository.save(
                     Movie.builder()
                             .movieId(contents.get("id").toString())
-                            .movieOverView(contents.get("overview").toString())
                             .movieKrName(contents.get("title").toString())
                             .movieOgName(contents.get("original_title").toString())
                             .moviePosterPath(ImgUrl + contents.get("poster_path").toString().replaceAll(match, ""))
                             .movieReleaseDate(releaseDate)
+                            .movieRating(contents.get("vote_average").toString())
+                            .movieOverView(contents.get("overview").toString())
                             .build()
             );
             System.out.println("$$$$$$$$$"+contents.get("id").toString());
@@ -59,5 +60,4 @@ public class MovieService {
         }
         return "ok";
     }
-
 }
