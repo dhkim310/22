@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from "react";
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
-import {selectEmpList} from "../api/Emp";
+import {selectEmpList, selectHrmListApi} from "../api/Emp";
 import {useNavigate} from "react-router-dom";
 import SalaryInsertComponent from "../component/SalaryInsertComponent";
-import EmpCreateComponent from "../component/EmpCreateComponent";
 
 function EmpSalaryList() {
     const [empList, setEmpList] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [searchName, setSearchName] = useState('');
+    const [selectedPosition, setSelectedPosition] = useState('all'); // Default value for job position filter
+    const [selectedDepartment, setSelectedDepartment] = useState('all'); // Default value for department filter
     const [isMobile, setIsMobile] = useState(false);
+    const [hoverAnimationList, setHoverAnimationList] = useState([]);
 
 
     const openModal = () => {
@@ -19,41 +22,66 @@ function EmpSalaryList() {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+    const handleSearchChange = (event) => {
+        setSearchName(event.target.value);
+    };
+
+    const handlePositionChange = (event) => {
+        setSelectedPosition(event.target.value);
+    };
+
+    const handleDepartmentChange = (event) => {
+        setSelectedDepartment(event.target.value);
+    };
 
     const navigate = useNavigate();
 
-    // const navigateToSearch = (empName) => {
-    //     navigate(`/emp/${empName}`)
-    // }
     const navigateToDetail = (id) => {
         navigate(`/salary/list/${id}`)
     }
 
 
     useEffect(() => {
-        const fetchData = async () => {
+        async function fetchData() {
             try {
                 const data = await selectEmpList();
                 setEmpList(data);
             } catch (error) {
-                console.log('error', error);
+                console.error('Error fetching data:', error);
             }
         }
-        fetchData();
-    }, []);
 
-    useEffect(() => {
         const getWidth = () => {
             return window.innerWidth;
         };
 
         setIsMobile(getWidth() < 768);
+
+        const elements = document.querySelectorAll('[data-bss-hover-animate]');
+        setHoverAnimationList(elements);
+
+        elements.forEach((element) => {
+            element.addEventListener('mouseenter', () => {
+                element.classList.add('animated', element.dataset.bssHoverAnimate);
+            });
+            element.addEventListener('mouseleave', () => {
+                element.classList.remove('animated', element.dataset.bssHoverAnimate);
+            });
+        });
+
+        fetchData();
     }, []);
+
+    const filteredEmp = empList.filter((employee) =>
+        employee.empName.toLowerCase().includes(searchName.toLowerCase()) &&
+        (selectedPosition === 'all' || employee.empPosition === selectedPosition) &&
+        (selectedDepartment === 'all' || employee.dept === selectedDepartment)
+    );
 
     return (
         <div>
             <div>
-                <EmpCreateComponent isOpen={isModalOpen} closeModal={closeModal}/>
+                <SalaryInsertComponent isOpen={isModalOpen} closeModal={closeModal}/>
             </div>
 
             <div style={{background: 'rgba(111,66,193,0)', height: '100%', width: 'Auto'}}>
@@ -84,20 +112,6 @@ function EmpSalaryList() {
                                 width: '15%',
                                 borderColor: 'rgba(255,255,255,0)'
                             }}/>
-                        </div>
-                        <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
-                             style={{width: '100%', height: '50%', background: 'rgba(111,66,193,0)'}}>
-                            <button className="btn btn-primary d-xxl-flex align-items-xxl-center"
-                                    data-bss-hover-animate="pulse" type="button" onClick={openModal} style={{
-                                fontSize: '13px',
-                                fontWeight: 'bold',
-                                background: 'black',
-                                borderStyle: 'none',
-                                height: '80%',
-                                width: 'auto'
-                            }}>+ 직원생성
-                            </button>
-                            <div style={{width: '2%', height: '100%'}}/>
                         </div>
                     </div>
                 </div>
@@ -138,14 +152,14 @@ function EmpSalaryList() {
                             </div>
 
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                 style={{height: '100%', width: '24%'}}><span>이메일</span></div>
+                                 style={{height: '100%', width: '24%'}}><span>연봉</span></div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                 style={{height: '100%', width: '15%'}}><span>재직상태</span></div>
+                                 style={{height: '100%', width: '15%'}}><span>사번</span></div>
                         </div>
                         <div style={{width: '100%', height: '20px'}}/>
 
                         <ul>
-                            {filteredHrm.map((e, i) => (
+                            {filteredEmp.map((e, i) => (
                                 <li key={i} style={{listStyleType: 'none'}}>
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                                          style={{
@@ -164,25 +178,48 @@ function EmpSalaryList() {
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                                              style={{height: '100%', width: '20%'}}><span>{e.empPosition}</span></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                             style={{height: '100%', width: '25%'}}><span>{e.empEmail}</span></div>
+                                             style={{height: '100%', width: '25%'}}><span>{e.empAmount}</span></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                             style={{height: '100%', width: '5%'}}><span>{e.empStatus}</span></div>
+                                             style={{height: '100%', width: '5%'}}><span>{e.empId}</span></div>
                                         <button
                                             className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
                                             data-bss-hover-animate="pulse" type="button"
-                                            onClick={() => navigateToReshuffle(e.empId)} style={{
-                                            fontSize: '13px',
-                                            fontWeight: 'bold',
-                                            background: 'var(--bs-btn-disabled-color)',
-                                            width: 'auto',
-                                            height: '80%',
-                                            margin: '0px',
-                                            padding: '0px',
-                                            paddingRight: '9px',
-                                            paddingLeft: '9px',
-                                            color: 'black',
-                                            border: '1px solid black'
-                                        }}>인사 변경
+                                            onClick={() => navigateToDetail(e.empId)}
+                                            style={{
+                                                fontSize: '13px',
+                                                fontWeight: 'bold',
+                                                background: 'var(--bs-btn-disabled-color)',
+                                                width: 'auto',
+                                                height: '80%',
+                                                margin: '0px',
+                                                padding: '0px',
+                                                paddingRight: '9px',
+                                                paddingLeft: '9px',
+                                                color: 'black',
+                                                border: '1px solid black',
+                                                marginRight: '30px'
+                                            }}>
+                                            급여 내역
+                                        </button>
+
+                                        <button
+                                            className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                            data-bss-hover-animate="pulse" type="button"
+                                            onClick={openModal}
+                                            style={{
+                                                fontSize: '13px',
+                                                fontWeight: 'bold',
+                                                background: 'var(--bs-btn-disabled-color)',
+                                                width: 'auto',
+                                                height: '80%',
+                                                margin: '0px',
+                                                padding: '0px',
+                                                paddingRight: '9px',
+                                                paddingLeft: '9px',
+                                                color: 'black',
+                                                border: '1px solid black'
+                                            }}>
+                                            급여 등록
                                         </button>
                                     </div>
                                 </li>

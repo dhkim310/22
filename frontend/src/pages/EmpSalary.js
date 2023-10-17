@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
 import {useParams} from "react-router-dom";
-import {selectSalaryList} from "../api/Salary";
+import {salaryDelete, selectSalaryList} from "../api/Salary";
 import {useNavigate} from "react-router-dom";
 
 function EmpSalary() {
@@ -27,6 +27,14 @@ function EmpSalary() {
         setIsMobile(getWidth() < 768);
         fetchData();
     }, [])
+
+    const onDelete = async (id) => {
+        try {
+            await salaryDelete(id);
+        } catch (error) {
+            console.error('Error deleting salary:', error);
+        }
+    };
 
     return (
         <div>
@@ -88,6 +96,22 @@ function EmpSalary() {
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                                          style={{height: '45px', width: '175px'}}><span>{item.salaryPayDate}</span>
                                     </div>
+                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                         style={{height: '45px', width: '50px'}}>
+                                    </div>
+                                    <button
+                                        className="btn btn-danger"
+                                        data-bss-hover-animate="pulse"
+                                        type="button"
+                                        onClick={() => onDelete(id)}
+                                        style={{
+                                            background: 'black',
+                                            borderStyle: 'none',
+                                            width: '70px',
+                                        }}
+                                    >
+                                        삭제
+                                    </button>
                                 </div>
                                 <div style={{width: '100%', height: '50px'}}></div>
                             </div>
@@ -100,24 +124,11 @@ function EmpSalary() {
                             borderTop: '2px ridge rgba(128, 128, 128, 0.32)',
                             borderBottom: '2px ridge rgba(128, 128, 128, 0.32)'
                         }}></div>
-                        <div style={{
-                            width: '100%',
-                            height: '20px',
-                            borderLeft: '2px ridge rgba(128, 128, 128, 0.32)'
-                        }}></div>
-                        <div className="d-xxl-flex justify-content-xxl-center"
-                             style={{width: '100%', height: '45px', borderLeft: '2px ridge rgba(128, 128, 128, 0.32)'}}>
-                            <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                                 style={{width: '50%'}}>
-                                <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
-                                        style={{background: 'black', borderStyle: 'none', width: '70px'}}>삭제
-                                </button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     );
-};
+}
+
 export default EmpSalary;
