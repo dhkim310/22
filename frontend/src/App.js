@@ -17,6 +17,7 @@ import MemoComponent from "./component/MemoComponent"
 import Hrm from "./pages/Hrm"
 import Reshuffle from "./pages/Reshuffle"
 import EmpList from "./pages/EmpList";
+import EmpSalary from "./pages/EmpSalary";
 
 function App() {
     return (
@@ -40,8 +41,9 @@ function App() {
                     <Route path="/board-insert" element={<BoardInsert/>}/>
                     <Route path="/hrm" element={<Hrm/>}/>
                     <Route path="/memo" element={<MemoComponent/>}/>
-                    <Route path="/reshuffle/:id" element={<Reshuffle/>}/>
-                    <Route path="/emp" element={<EmpList/>}/>
+                    <Route path="/reshuffle/:id" element={ <Reshuffle />}/>
+                    <Route path="/emp" element={ <EmpList/>}/>
+                    <Route path="/salary/:id" element={<EmpSalary/>}/>
 
                 </Route>
             </Routes>

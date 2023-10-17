@@ -159,69 +159,52 @@ public class EmpService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Emp> findAll(Pageable pageable) {
-        System.err.println("pageable: " + pageable);
-        return empRepository.findByOrderByEmpIdAsc(pageable);
-    }
-
-    @Transactional(readOnly = true)
-    public EmpListResult getEmpListResult(Pageable pageable) {
+    public List<EmpSalaryListResponse> getEmpList() {
         Emp emp = SecurityHelper.getAccount();
-        if (emp.getDept().getDeptId() == 20) {
-            Page<Emp> list = findAll(pageable);
-
-            int page = pageable.getPageNumber();
-            long totalCount = list.getTotalElements();
-            int size = pageable.getPageSize();
-            System.err.println("page: " + page + ", totalCount: " + totalCount + ", size: " + size);
-
-            List<EmpListResponse> empList = list.getContent().stream()
-                    .map(entity -> EmpListResponse.builder()
-                            .empId(entity.getEmpId())
-                            .empName(entity.getEmpName())
-                            .empPosition(entity.getEmpPosition())
-                            .empAmount(entity.getEmpAmount())
-                            .deptName(entity.getDept().getDeptName())
-                            .build())
-                    .collect(Collectors.toList());
-
-            return new EmpListResult(page, totalCount, size, empList);
-        } else {
-            throw new IllegalArgumentException("사용권한이 없습니다.");
-        }
+        List<Emp> list = empRepository.findAll();
+        getEmpListHandler(emp.getEmpId());
+        return list.stream()
+                .map(emp1 -> EmpSalaryListResponse.builder()
+                        .empId(emp1.getEmpId())
+                        .empName(emp1.getEmpName())
+                        .empPosition(emp1.getEmpPosition())
+                        .empAmount(emp1.getEmpAmount())
+                        .deptName(emp1.getDept().getDeptName())
+                        .build())
+                .toList();
     }
 
-    @Transactional(readOnly = true)
-    public Page<Emp> findName(Pageable pageable, String empName) {
-        return empRepository.findByEmpNameContaining(pageable, empName);
-    }
-
-    @Transactional(readOnly = true)
-    public EmpListResult getEmpSearchList(Pageable pageable, String empName) {
-        Emp emp = SecurityHelper.getAccount();
-        if (emp.getDept().getDeptId() == 20) {
-            Page<Emp> list = findName(pageable, empName);
-
-            int page = pageable.getPageNumber();
-            long totalCount = list.getTotalElements();
-            int size = pageable.getPageSize();
-            System.err.println("page: " + page + ", totalCount: " + totalCount + ", size: " + size);
-
-            List<EmpListResponse> empList = list.getContent().stream()
-                    .map(entity -> EmpListResponse.builder()
-                            .empId(entity.getEmpId())
-                            .empName(entity.getEmpName())
-                            .empPosition(entity.getEmpPosition())
-                            .empAmount(entity.getEmpAmount())
-                            .deptName(entity.getDept().getDeptName())
-                            .build())
-                    .collect(Collectors.toList());
-
-            return new EmpListResult(page, totalCount, size, empList);
-        } else {
-            throw new IllegalArgumentException("사용권한이 없습니다");
-        }
-    }
+//    @Transactional(readOnly = true)
+//    public Page<Emp> findName(Pageable pageable, String empName) {
+//        return empRepository.findByEmpNameContaining(pageable, empName);
+//    }
+//
+//    @Transactional(readOnly = true)
+//    public EmpSalaryListResult getEmpSearchList(Pageable pageable, String empName) {
+//        Emp emp = SecurityHelper.getAccount();
+//        if (emp.getDept().getDeptId() == 20) {
+//            Page<Emp> list = findName(pageable, empName);
+//
+//            int page = pageable.getPageNumber();
+//            long totalCount = list.getTotalElements();
+//            int size = pageable.getPageSize();
+//            System.err.println("page: " + page + ", totalCount: " + totalCount + ", size: " + size);
+//
+//            List<EmpSalaryListResponse> empList = list.getContent().stream()
+//                    .map(entity -> EmpSalaryListResponse.builder()
+//                            .empId(entity.getEmpId())
+//                            .empName(entity.getEmpName())
+//                            .empPosition(entity.getEmpPosition())
+//                            .empAmount(entity.getEmpAmount())
+//                            .deptName(entity.getDept().getDeptName())
+//                            .build())
+//                    .collect(Collectors.toList());
+//
+//            return new EmpSalaryListResult(page, totalCount, size, empList);
+//        } else {
+//            throw new IllegalArgumentException("사용권한이 없습니다");
+//        }
+//    }
 
     @Transactional(readOnly = true)
     public EmpMainResponse empMainResponse() {
@@ -235,4 +218,11 @@ public class EmpService {
     private Emp getEmpAccountId(Long id) {
         return empRepository.findByEmpId(id);
     }
+
+    private Emp getEmpListHandler(Long empId) {
+        return empRepository.findById(empId)
+                .filter(emp -> emp.getDept().getDeptName().equals("재무부"))
+                .orElseThrow(() -> new IllegalArgumentException("권한 없음."));
+    }
+
 }

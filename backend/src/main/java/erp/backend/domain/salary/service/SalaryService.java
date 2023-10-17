@@ -1,6 +1,8 @@
 package erp.backend.domain.salary.service;
 
+import erp.backend.domain.emp.dto.EmpSalaryListResponse;
 import erp.backend.domain.emp.entity.Emp;
+import erp.backend.domain.emp.repository.EmpRepository;
 import erp.backend.domain.salary.Vo.SalaryVO;
 import erp.backend.domain.salary.dto.SalaryInsert;
 import erp.backend.domain.salary.dto.SalaryResponse;
@@ -18,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SalaryService {
     private final SalaryRepository salaryRepository;
+    private final EmpRepository empRepository;
     private final SalaryVO salaryVO;
 
     @Transactional
@@ -37,28 +40,25 @@ public class SalaryService {
                     .build();
             return salaryRepository.save(entity).getSalaryId();
         } else {
-            return null;
+            throw new IllegalArgumentException("실패");
         }
     }
 
     @Transactional(readOnly = true)
-    public SalaryResponse getEmpSalary(Long empId) {
+    public List<SalaryResponse> getSalaryDetail(Long empId) {
         Emp emp = SecurityHelper.getAccount();
-        if (emp.getDept().getDeptId() == 20) {
-            List<Salary> entities = salaryRepository.findSalaryByEmpEmpId(empId);
-            if (entities != null && !entities.isEmpty()) {
-                Salary entity = entities.get(0);
-                return SalaryResponse.builder()
-                        .salaryPayDate(entity.getSalaryPayDate())
-                        .salaryBank(entity.getSalaryBank())
-                        .salaryAccountNumber(entity.getSalaryAccountNumber())
-                        .salaryPayMoney(entity.getSalaryPayMoney())
-                        .salaryTax(entity.getSalaryTax())
-                        .salaryBonus(entity.getSalaryBonus())
-                        .build();
-            }
-        }
-        return null;
+        getEmpListHandler(emp.getEmpId());
+        List<Salary> list = salaryRepository.findSalaryByEmpEmpId(empId);
+        return list.stream()
+                .map(salary -> SalaryResponse.builder()
+                        .salaryTax(salary.getSalaryTax())
+                        .salaryBonus(salary.getSalaryBonus())
+                        .salaryPayMoney(salary.getSalaryPayMoney())
+                        .salaryPayDate(salary.getSalaryPayDate())
+                        .salaryBank(salary.getSalaryBank())
+                        .salaryAccountNumber(salary.getSalaryAccountNumber())
+                        .build())
+                .toList();
     }
 
     @Transactional
@@ -67,6 +67,12 @@ public class SalaryService {
         if (emp.getDept().getDeptId() == 20) {
             salaryRepository.deleteById(id);
         }
+    }
+
+    private Emp getEmpListHandler(Long empId) {
+        return empRepository.findById(empId)
+                .filter(emp -> emp.getDept().getDeptName().equals("재무부"))
+                .orElseThrow(() -> new IllegalArgumentException("권한 없음."));
     }
 
 }

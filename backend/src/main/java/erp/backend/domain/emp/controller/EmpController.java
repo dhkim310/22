@@ -44,15 +44,13 @@ public class EmpController {
         return ResponseEntity.ok(empService.passwordUpdate(request));
     }
 
-    @GetMapping("/emp")
-    public ResponseEntity<EmpListResult> empList(@PageableDefault(size = 10, sort = "empId", direction = Sort.Direction.ASC) Pageable pageable,
-                                                 Model model) {
-        EmpListResult listResult = empService.getEmpListResult(pageable);
-        model.addAttribute("listResult", listResult);
-        return ResponseEntity.ok(listResult);
+    @GetMapping("/emp/salary-list")
+    public ResponseEntity<List<EmpSalaryListResponse>> empSalaryList(){
+        return ResponseEntity.ok(empService.getEmpList());
     }
     @GetMapping("/emp/hrm-list")//인사관리 리스트
     public ResponseEntity<List<EmpHrmListResponse>> hrmList() {
+
         return ResponseEntity.ok(empService.searchAllList());
     }
     @GetMapping("/emp/hrm/{id}")//인사관리 한명보기
@@ -65,13 +63,13 @@ public class EmpController {
         return ResponseEntity.ok(empService.updateReshuffle(id, request));
     }
 
-    @GetMapping("/{empName}")
-    public ResponseEntity<EmpListResult> searchList(@PageableDefault(size = 6, sort = "empId", direction = Sort.Direction.ASC)
-                                                    Pageable pageable, @PathVariable("empName") String empName, Model model) {
-        EmpListResult listResult = empService.getEmpSearchList(pageable, empName);
-        model.addAttribute("listResult", listResult);
-        return ResponseEntity.ok(listResult);
-    }
+//    @GetMapping("/salary/{empName}")
+//    public ResponseEntity<EmpSalaryListResult> searchList(@PageableDefault(size = 6, sort = "empId", direction = Sort.Direction.ASC)
+//                                                    Pageable pageable, @PathVariable("empName") String empName, Model model) {
+//        EmpSalaryListResult listResult = empService.getEmpSearchList(pageable, empName);
+//        model.addAttribute("listResult", listResult);
+//        return ResponseEntity.ok(listResult);
+//    }
 
     @GetMapping("/main")
     public ResponseEntity<EmpMainResponse> empMain() {
