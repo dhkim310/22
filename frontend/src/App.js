@@ -21,6 +21,7 @@ import EmpSalaryList from "./pages/EmpSalaryList";
 import EmpSalary from "./pages/EmpSalary";
 import MovieList from "./pages/MovieList";
 import NoticeDetail from "./pages/NoticeDetailView";
+import BoardDetail from "./pages/BoardDetailView";
 
 function App() {
     return (
@@ -41,6 +42,7 @@ function App() {
                     <Route path="/notice-insert" element={<NoticeInsert/>}/>
                     <Route path="/board-insert" element={<BoardInsert/>}/>
                     <Route path="/board" element={<BoardList/>}/>
+                    <Route path="/board/:id" element={<BoardDetail/>}/>
                     <Route path="/notice" element={<NoticeList/>}/>
                     <Route path="/notice/:id" element={<NoticeDetail/>}/>
                     <Route path="/hrm" element={<Hrm/>}/>
