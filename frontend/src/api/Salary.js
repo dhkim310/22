@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const salaryList = async (id) => {
+export const selectSalaryList = async (id) => {
     try {
         const response = await axios.get(`/api/salary/${id}`);
         return response.data;
