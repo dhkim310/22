@@ -1,27 +1,26 @@
-package erp.backend.domain.approval.dto;
+package erp.backend.domain.movie.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 
-@Getter
 @NoArgsConstructor
-@AllArgsConstructor
-public class ApprovalListResult {
-    private Page<ApprovalListResponse> list;
+@Getter
+public class MovieListResult {
+    private Page<MovieListResponse> list;
     private int page;
     private int size;
     private long totalCount;
     private long totalPageCount;
 
-    public ApprovalListResult(int page, long totalCount, int size, Page<ApprovalListResponse> list) {
+    public MovieListResult(int page, long totalCount, int size, Page<MovieListResponse> list) {
         this.page = page;
         this.totalCount = totalCount;
         this.size = size;
         this.list = list;
         this.totalPageCount = calTotalPageCount();
     }
+
     private long calTotalPageCount() {
         long tpc = totalCount / size;
         if (totalCount % size != 0)

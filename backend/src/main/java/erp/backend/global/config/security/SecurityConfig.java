@@ -69,6 +69,7 @@ public class SecurityConfig {
                                 "/api/comment/{id}",
                                 "/api/approval",
                                 "/api/approval/wait",
+                                "/api/approval/success",
                                 "/api/approval/success/{id}",
                                 "/api/approval/reject/{id}",
                                 "/api/schedule",
@@ -76,7 +77,14 @@ public class SecurityConfig {
                                 "/api/member",
                                 "/api/memo",
                                 "/api/emp/hrm-list",
-                                "/api/emp/hrm/{id}")
+                                "/api/emp/hrm/{id}",
+                                "/api/movie",
+                                "/api/movie/getInfo",
+                                "/api/movie/{id}",
+                                "/api/serviceMovie/{movieId}",
+                                "/api/serviceMovie/{id}",
+                                "/api/serviceMovie"
+                        )
                         .permitAll()
                         .anyRequest().hasRole("USER"))
                 .addFilterBefore(jwtSecurityFilter, UsernamePasswordAuthenticationFilter.class)

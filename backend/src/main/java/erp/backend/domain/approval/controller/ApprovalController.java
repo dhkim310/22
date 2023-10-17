@@ -23,9 +23,14 @@ public class ApprovalController {
 
     private final ApprovalService approvalService;
 
-    @GetMapping("wait")
+    @GetMapping("/wait")
     public ResponseEntity<ApprovalListResult> approvalWaitPage(@PageableDefault(size = 10, sort = "approvalId", direction = Sort.Direction.DESC) Pageable pageable) {
         ApprovalListResult listResult = approvalService.approvalListResult(pageable);
+        return ResponseEntity.ok(listResult);
+    }
+    @GetMapping("/success")
+    public ResponseEntity<ApprovalListResult> approvalSuccessPage(@PageableDefault(size = 10, sort = "approvalId", direction = Sort.Direction.DESC) Pageable pageable) {
+        ApprovalListResult listResult = approvalService.approvalSuccessListResult(pageable);
         return ResponseEntity.ok(listResult);
     }
 

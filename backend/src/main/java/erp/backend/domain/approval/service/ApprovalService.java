@@ -60,7 +60,34 @@ public class ApprovalService {
                 , pageable.getPageSize()
                 , new PageImpl<>(approvalListResponses, pageable, totalCount));
     }
+    @Transactional(readOnly = true)//결재 대기 및 반려 리스트
+    public ApprovalListResult approvalSuccessListResult(Pageable pageable) {
+        List<Approval> approvalList = approvalRepository
+                .findByApprovalCheckOrderByApprovalIdDesc("결재완료");
 
+        long totalCount = approvalList.size();
+
+        List<ApprovalListResponse> approvalListResponses = approvalList
+                .stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .map(approval -> ApprovalListResponse.builder()
+                        .approvalId(approval.getApprovalId())
+                        .approvalDrafter(approval.getEmp().getEmpName())
+                        .approvalSubject(approval.getApprovalSubject())
+                        .approvalCheckMan(approval.getApprovalCheckMan())
+                        .approvalCheck(approval.getApprovalCheck())
+                        .approvalUpLoadDate(approval.getApprovalUpLoadDate())
+                        .approvalBackDate(approval.getApprovalBackDate())
+                        .approvalSuccessDate(approval.getApprovalSuccessDate())
+                        .build())
+                .toList();
+
+        return new ApprovalListResult(pageable.getPageNumber()
+                , totalCount
+                , pageable.getPageSize()
+                , new PageImpl<>(approvalListResponses, pageable, totalCount));
+    }
 
     @Transactional(readOnly = true)
     public ApprovalDetailResponse approvalDetail(Long id) {

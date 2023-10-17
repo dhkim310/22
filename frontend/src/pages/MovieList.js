@@ -2,17 +2,17 @@ import React, {useEffect, useState} from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {fetchBoardList} from '../api/Board';
+import {fetchMovieList} from '../api/movie';
 import {FormatDate} from "../component/FormatDate";
 import PaginationButtons from '../component/PaginationButton';
 
-function BoardList() {
-    const [boardList, setBoardList] = useState([]);
+function MovieList() {
+    const [movieList, setMovieList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호 (1부터 시작)
     const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation(); // 현재 위치 가져오기
-    const isBoardPage = location.pathname === '/board'; // "/board" 경로에 있는지 확인
+    const isMoviePage = location.pathname === '/movie'; // "/movie" 경로에 있는지 확인
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -22,8 +22,8 @@ function BoardList() {
         // 데이터를 가져오는 비동기 함수를 정의
         const fetchData = async () => {
             try {
-                const data = await fetchBoardList(currentPage - 1);
-                setBoardList(data.list.content);
+                const data = await fetchMovieList(currentPage - 1);
+                setMovieList(data.list.content);
                 setTotalPages(data.totalPageCount);
             } catch (error) {
                 console.error('데이터 가져오기 오류:', error);
@@ -34,8 +34,8 @@ function BoardList() {
     }, [currentPage]);
 
     const navigate = useNavigate();
-    const navigateToWrite = () => {
-        navigate("/board-insert");
+    const navigateToNewMovie = () => {
+        navigate("/movie-insert");
     };
 
     // 클릭 이벤트 핸들러 추가
@@ -43,12 +43,12 @@ function BoardList() {
         navigate("/notice");
     };
 
-    const handleBoardClick = () => {
-        navigate("/board");
+    const handleMovieClick = () => {
+        navigate("/movie");
     };
 
     const handleItemClick = (id) => {
-        navigate(`/board/${id}`)
+        navigate(`/movie/${id}`)
     }
 
     useEffect(() => {
@@ -64,21 +64,22 @@ function BoardList() {
             <div style={{width: '100%', height: '100%'}}>
                 <div className="d-xxl-flex justify-content-xxl-center"
                      style={{width: '100%', height: '100%', background: 'transparent'}}>
-                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                         style={{ marginTop: "3%", marginLeft: "2%", width: '10%', height: '100%', background: 'white'}}>
+                    <div className="d-xxl-flex justify-content-xxl-center"
+                         style={{width: '10%', height: '100%', background: 'white'}}>
                         <button
                             className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                            data-bss-hover-animate="pulse" type="button" onClick={navigateToWrite} style={{
-                            background: "rgba(13,110,253,0)",
-                            border: "2px ridge black",
-                            width: "auto",
-                            height: "auto",
-                            color: "black",
-                            paddingRight: 35,
-                            paddingLeft: 35
-                        }}>글쓰기
+                            data-bss-hover-animate="pulse" type="button" onClick={navigateToNewMovie} style={{
+                            width: '150px',
+                            height: '50px',
+                            color: 'black',
+                            background: 'rgba(13,110,253,0)',
+                            borderRadius: '6px',
+                            borderColor: 'black',
+                            marginTop: '24px'
+                        }}>컨텐츠 업데이트
                         </button>
                     </div>
+
                     <div style={{background: 'white', width: '90%', height: '100%'}}>
                         <div
                             style={{width: '100%', height: '7%', borderBottom: '2px ridge rgba(128,128,128,0.26)'}}>
@@ -88,37 +89,38 @@ function BoardList() {
                                     fontWeight: 'bold',
                                     paddingTop: '0px',
                                     marginLeft: '41px'
-                                }}>게시판</span>
+                                }}>컨텐츠 목록</span>
+
                             </div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
                                  style={{width: '100%', height: '50%'}}>
                                 <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                                      style={{width: '30%', height: '100%'}}>
                                     <button
-                                        className={`btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center ${isBoardPage ? 'active' : ''}`}
+                                        className={`btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center ${isMoviePage ? 'active' : ''}`}
                                         data-bss-hover-animate="pulse"
                                         type="button"
-                                        onClick={handleNoticeClick}
+                                        onClick={handleMovieClick}
                                         style={{
                                             width: '150px',
                                             height: '30px',
-                                            color: isBoardPage ? 'black' : 'darkgray',
+                                            color: isMoviePage ? 'black' : 'darkgray',
                                             background: 'rgba(255, 255, 255, 1)',
                                             borderRadius: '0px',
                                             border: '0px none black',
                                         }}
                                     >
-                                        공지사항
+                                        컨텐츠
                                     </button>
                                     <button
-                                        className={`btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center ${isBoardPage ? 'active' : ''}`}
+                                        className={`btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center ${isMoviePage ? 'active' : ''}`}
                                         data-bss-hover-animate="pulse"
                                         type="button"
-                                        onClick={handleBoardClick}
+                                        onClick={handleMovieClick}
                                         style={{
                                             width: '150px',
                                             height: '30px',
-                                            color: isBoardPage ? 'darkgray' : 'black',
+                                            color: isMoviePage ? 'darkgray' : 'black',
                                             background: 'rgba(255, 255, 255, 1)',
                                             borderRadius: '0px',
                                             borderStyle: 'none',
@@ -126,7 +128,7 @@ function BoardList() {
                                             borderBottomStyle: 'none',
                                         }}
                                     >
-                                        게시판
+                                        서비스컨텐츠
                                     </button>
                                 </div>
                                 <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
@@ -140,7 +142,9 @@ function BoardList() {
                                         color: 'black'
                                     }}>검색
                                     </button>
+
                                 </div>
+
                             </div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
                                  style={{width: '100%', height: '50%'}}/>
@@ -172,18 +176,17 @@ function BoardList() {
                                         display: 'flex',
                                         justifyContent: 'space-between',
                                         alignItems: 'center', // 추가: 세로 중앙 정렬
-                                        textAlign: "center",
+                                        textAlign: "center"
                                     }}>
-
-                                    <div style={{width: '5%', fontWeight: 'bold', whiteSpace: "nowrap"}}>글번호</div>
-                                    <div style={{width: '50%', fontWeight: 'bold', whiteSpace: "nowrap"}}>제목</div>
-                                    <div style={{width: '10%', fontWeight: 'bold', whiteSpace: "nowrap"}}>조회수</div>
-                                    <div style={{width: '10%', fontWeight: 'bold', whiteSpace: "nowrap"}}>작성자</div>
-                                    <div style={{width: '35%', fontWeight: 'bold', whiteSpace: "nowrap"}}>작성일</div>
+                                    <div style={{width: '10%', fontWeight: 'bold'}}>영화 코드</div>
+                                    <div style={{width: '30%', fontWeight: 'bold'}}>영화명(한글)</div>
+                                    <div style={{width: '30%', fontWeight: 'bold'}}>영화명(원제)</div>
+                                    <div style={{width: '35%', fontWeight: 'bold'}}>개봉일</div>
+                                    <div style={{width: '10%', fontWeight: 'bold'}}>평점</div>
                                 </div>
 
                                 <div>
-                                    {boardList.map((item) => (
+                                    {movieList.map((item) => (
                                         <button
                                             className="list-group-item list-group-item-action d-flex flex-row align-items-start"
                                             onClick={() => handleItemClick(item.id)} // 클릭 시 상세보기 페이지로 이동
@@ -208,31 +211,32 @@ function BoardList() {
                                             key={item.id}
                                         >
                                             <div style={{
-                                                width: '5%',
+                                                width: '10%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
                                             }}>{item.id}</div>
                                             <div style={{
-                                                width: '50%',
-                                                fontWeight: 'bold',
-                                                textAlign: 'left'
-                                            }}>{item.subject}</div>
-                                            <div style={{
-                                                width: '10%',
+                                                width: '30%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
-                                            }}>{item.views}</div>
+                                            }}>{item.krName}</div>
                                             <div style={{
-                                                width: '10%',
+                                                width: '30%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
-                                            }}>{item.writer}</div>
+                                            }}>{item.ogName}</div>
                                             <div style={{
                                                 width: '35%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
-                                            }}>{FormatDate(item.boardCreatedDate)}</div>
+                                            }}>{FormatDate(item.releaseDate)}</div>
+                                            <div style={{
+                                                width: '10%',
+                                                fontWeight: 'bold',
+                                                textAlign: 'center'
+                                            }}>{item.rating}</div>
                                         </button>
+
                                     ))}
                                 </div>
                             </div>
@@ -257,4 +261,4 @@ function BoardList() {
     );
 }
 
-export default BoardList;
+export default MovieList;

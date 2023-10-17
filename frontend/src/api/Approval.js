@@ -11,3 +11,12 @@ export const SelectApprovalWaitListApi = async (page) => {
         throw error;
     }
 };
+
+export const SelectApprovalSuccessListApi = async (page) => {
+    try {
+        const response = await axios.get(`/api/approval/success?page=${page}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

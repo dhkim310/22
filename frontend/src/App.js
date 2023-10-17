@@ -5,7 +5,9 @@ import Header from "./component/Header";
 import PrivateRoute from "./routes/PrivateRoute";
 import ReactBigCalendar from "./pages/ReactBigCalendar";
 import FixInfo from "./pages/FixInfo";
-import Approval from "./pages/Approval"
+import Approval from "./pages/Approval";
+import ApprovalComplete from "./pages/ApprovalComplete"
+import ApprovalDetail from "./pages/ApprovalDetail"
 import SweetAlert from "./component/SweetAlert"
 import NoticeInsert from "./pages/NoticeInsert"
 import NoticeList from "./pages/NoticeList"
@@ -17,6 +19,8 @@ import Reshuffle from "./pages/Reshuffle"
 import empList from "./pages/EmpSalaryList";
 import EmpSalaryList from "./pages/EmpSalaryList";
 import EmpSalary from "./pages/EmpSalary";
+import MovieList from "./pages/MovieList";
+
 function App() {
     return (
         <Router>
@@ -28,6 +32,8 @@ function App() {
                 <Route element={<PrivateRoute/>}>
                     <Route path="/main" element={<Main/>}/>
                     <Route path="/approval" element={<Approval/>}/>
+                    <Route path="/approval-complete" element={<ApprovalComplete/>}/>
+                    <Route path="/approval-detail" element={<ApprovalDetail/>}/>
                     <Route path="/fix-info" element={<FixInfo/>}/>
                     <Route path="/schedule" element={<ReactBigCalendar/>}/>
                     <Route path="/sweetalert" element={<SweetAlert/>}/>
@@ -40,7 +46,7 @@ function App() {
                     <Route path="/reshuffle/:id" element={ <Reshuffle />}/>
                     <Route path="/salary" element={ <EmpSalaryList/>}/>
                     <Route path="/salary/list/:id" element={<EmpSalary/>}/>
-
+                    <Route path="/movie" element={<MovieList/>}/>
                 </Route>
             </Routes>
         </Router>
