@@ -78,10 +78,12 @@ public class SecurityConfig {
                                 "/api/memo",
                                 "/api/emp/hrm-list",
                                 "/api/emp/hrm/{id}",
+                                "/api/movie",
                                 "/api/movie/getInfo",
                                 "/api/movie/{id}",
                                 "/api/serviceMovie/{movieId}",
-                                "/api/serviceMovie/{id}"
+                                "/api/serviceMovie/{id}",
+                                "/api/serviceMovie"
                         )
                         .permitAll()
                         .anyRequest().hasRole("USER"))

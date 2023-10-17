@@ -3,19 +3,22 @@ package erp.backend.domain.movie.service;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import erp.backend.domain.movie.dto.MovieListResponse;
+import erp.backend.domain.movie.dto.MovieListResult;
 import erp.backend.domain.movie.entity.Movie;
 import erp.backend.domain.movie.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -59,5 +62,24 @@ public class MovieService {
             System.out.println("$$$$$$$$$"+contents.get("title").toString());
         }
         return "ok";
+    }
+
+    @Transactional(readOnly = true)
+    public MovieListResult movieListResult(Pageable pageable) {
+        List<Movie> list = movieRepository.findAll(Sort.by(Sort.Order.desc("movieId")));
+        List<MovieListResponse> movieListResponses = new ArrayList<>();
+
+        for (Movie movie : list) {
+            MovieListResponse response = MovieListResponse.fromMovie(movie);
+            movieListResponses.add(response);
+        }
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), movieListResponses.size());
+        List<MovieListResponse> sublist = movieListResponses.subList(start, end);
+
+        Page<MovieListResponse> page = new PageImpl<>(sublist, pageable, movieListResponses.size());
+
+        return new MovieListResult(pageable.getPageNumber(), movieListResponses.size(), pageable.getPageSize(), page);
     }
 }

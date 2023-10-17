@@ -1,10 +1,17 @@
 package erp.backend.domain.movie.controller;
 
+
+import erp.backend.domain.movie.dto.MovieListResult;
 import erp.backend.domain.movie.entity.Movie;
 import erp.backend.domain.movie.repository.MovieRepository;
 import erp.backend.domain.movie.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
@@ -26,12 +33,13 @@ public class MovieController{
         Movie movie = movieRepository.findById(id).orElse(null); //매핑, 레포지토리 -> 서비스로 수정예정
         return movie;
     }
+
     @ResponseBody
     @GetMapping("/getInfo")
     public String getInfo() {
         int pages = 1;
         try {
-            for (int i = 1; i <= 1; i++) {
+            for (int i = 1; i <= 5; i++) {
                 String apiURL = "https://api.themoviedb.org/3/discover/movie?api_key=" + key
                         + "&release_date.gte=2000-01-01&watch_region=KR&language=ko&page=" + i;
                 URL url = new URL(apiURL);
@@ -45,6 +53,15 @@ public class MovieController{
             e.printStackTrace();
         }
         return "ok";
+    }
+
+    @GetMapping
+    public ResponseEntity<MovieListResult> movieList(@PageableDefault(size = 7, sort = "movieId", direction = Sort.Direction.DESC) Pageable pageable,
+                                                     Model model) {
+        MovieListResult listResult = movieService.movieListResult(pageable);
+        model.addAttribute("listResult", listResult);
+        System.out.println("$$$$$$$$$"+listResult);
+        return ResponseEntity.ok(listResult);
     }
 }
 
