@@ -2,11 +2,15 @@ package erp.backend.domain.approval.controller;
 
 import erp.backend.domain.approval.dto.ApprovalDetailResponse;
 import erp.backend.domain.approval.dto.ApprovalInsert;
-import erp.backend.domain.approval.dto.ApprovalListResponse;
+import erp.backend.domain.approval.dto.ApprovalListResult;
 import erp.backend.domain.approval.dto.ApprovalUpdate;
 import erp.backend.domain.approval.service.ApprovalService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,10 +23,10 @@ public class ApprovalController {
 
     private final ApprovalService approvalService;
 
-
-    @GetMapping
-    public ResponseEntity<List<ApprovalListResponse>> searchList() {
-        return ResponseEntity.ok(approvalService.searchList());
+    @GetMapping("wait")
+    public ResponseEntity<ApprovalListResult> approvalWaitPage(@PageableDefault(size = 10, sort = "approvalId", direction = Sort.Direction.DESC) Pageable pageable) {
+        ApprovalListResult listResult = approvalService.approvalListResult(pageable);
+        return ResponseEntity.ok(listResult);
     }
 
     @PostMapping
