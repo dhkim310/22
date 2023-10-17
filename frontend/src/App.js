@@ -48,6 +48,7 @@ function App() {
                     <Route path="/reshuffle/:id" element={ <Reshuffle />}/>
                     <Route path="/emp" element={ <EmpList/>}/>
                     <Route path="/salary/:id" element={<EmpSalary/>}/>
+                    <Route path="/movie" element={<MovieList/>}/>
 
                 </Route>
             </Routes>
