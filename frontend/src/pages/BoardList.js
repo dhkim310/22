@@ -88,7 +88,7 @@ function BoardList() {
                                     fontWeight: 'bold',
                                     paddingTop: '0px',
                                     marginLeft: '41px'
-                                }}>게시판 홈</span>
+                                }}>게시판</span>
                             </div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
                                  style={{width: '100%', height: '50%'}}>
@@ -172,13 +172,13 @@ function BoardList() {
                                         display: 'flex',
                                         justifyContent: 'space-between',
                                         alignItems: 'center', // 추가: 세로 중앙 정렬
-                                        textAlign: "center"
+                                        textAlign: "center",
                                     }}>
-                                    <div style={{width: '5%', fontWeight: 'bold'}}>글번호</div>
-                                    <div style={{width: '50%', fontWeight: 'bold'}}>제목</div>
-                                    <div style={{width: '10%', fontWeight: 'bold'}}>조회수</div>
-                                    <div style={{width: '10%', fontWeight: 'bold'}}>작성자</div>
-                                    <div style={{width: '35%', fontWeight: 'bold'}}>작성일</div>
+                                    <div style={{width: '5%', fontWeight: 'bold', whiteSpace: "nowrap"}}>글번호</div>
+                                    <div style={{width: '50%', fontWeight: 'bold', whiteSpace: "nowrap"}}>제목</div>
+                                    <div style={{width: '10%', fontWeight: 'bold', whiteSpace: "nowrap"}}>조회수</div>
+                                    <div style={{width: '10%', fontWeight: 'bold', whiteSpace: "nowrap"}}>작성자</div>
+                                    <div style={{width: '35%', fontWeight: 'bold', whiteSpace: "nowrap"}}>작성일</div>
                                 </div>
 
                                 <div>

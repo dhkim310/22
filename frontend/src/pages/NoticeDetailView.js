@@ -43,7 +43,6 @@ function NoticeDetail() {
 
     return (
         <div
-            // 페이지 고정
             style={{
                 position: 'absolute',
                 top: 0,
@@ -63,13 +62,16 @@ function NoticeDetail() {
                     height: "100%",
                     width: "11%",
                     background: "rgba(13,110,253,0)",
-                    borderRight: "2px ridge rgba(128,128,128,0.32)"
+                    display: "flex", // Flex 컨테이너로 설정
+                    flexDirection: "column", // 수직 정렬을 위해 column 방향으로 설정
+                    alignItems: "center", // 수평 중앙 정렬
                 }}>
                     {/* 글쓰기 버튼 */}
-                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                    <div className="d-xxl-flex justify-content-center align-items-xxl-center"
                          style={{background: "rgba(102,16,242,0)", width: "100%", height: "7%"}}>
-                        <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
-                                onClick={navigateToWrite} style={{
+                        <button
+                            className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
+                            onClick={navigateToWrite} style={{
                             background: "rgba(13,110,253,0)",
                             border: "2px ridge black",
                             width: "auto",
@@ -81,34 +83,40 @@ function NoticeDetail() {
                             글쓰기
                         </button>
                     </div>
-
                     {/* 게시판 선택(공지사항, 사내게시판) */}
-                    <div style={{width: "100%", background: "rgba(13,110,253,0)", height: "7%"}}>
-                        <button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start"
-                                data-bss-hover-animate="pulse" type="button" onClick={handleNoticeClick} style={{
-                            background: "rgba(13,110,253,0)",
-                            borderStyle: "none",
-                            color: isNoticePage ? 'black' : 'darkgray',
-                            width: "auto",
-                            height: "auto",
-                            paddingLeft: 0
-                        }}>공지사항
-                        </button>
-                        <button className="btn btn-primary d-xxl-flex" data-bss-hover-animate="pulse" type="button"
-                                onClick={handleBoardClick}
-                                style={{
-                                    width: '150px',
-                                    height: '30px',
-                                    color: isNoticePage ? 'darkgray' : 'black',
-                                    background: 'rgba(255, 255, 255, 1)',
-                                    borderRadius: '0px',
-                                    borderStyle: 'none',
-                                    borderColor: 'black',
-                                    borderBottomStyle: 'none',
-                                }}
-                        >
-                            게시판
-                        </button>
+                    <div className="d-xxl-flex justify-content-center align-items-xxl-center"
+                         style={{width: "100%", background: "rgba(13, 110, 253, 0)", height: "2%"}}>
+                        <div style={{width: "50%", display: "flex", justifyContent: "center"}}>
+                            <button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start"
+                                    data-bss-hover-animate="pulse" type="button" onClick={handleNoticeClick}
+                                    style={{
+                                        color: isNoticePage ? 'black' : 'darkgray',
+                                        background: 'rgba(255, 255, 255, 1)',
+                                        borderStyle: "none",
+                                        width: "auto",
+                                        height: "auto",
+                                    }}>공지사항
+                            </button>
+                        </div>
+                    </div>
+                    <div className="d-xxl-flex justify-content-center align-items-xxl-center"
+                         style={{width: "100%", background: "rgba(13, 110, 253, 0)", height: "2%"}}>
+                        <div style={{width: "50%", display: "flex", justifyContent: "center"}}>
+                            <button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start"
+                                    data-bss-hover-animate="pulse" type="button" onClick={handleNoticeClick}
+                                    style={{
+                                        color: isNoticePage ? 'darkgray' : 'black',
+                                        background: "rgba(13, 110, 253, 0)",
+                                        width: "auto",
+                                        height: "auto",
+                                        borderRadius: '0px',
+                                        borderStyle: 'none',
+                                        borderColor: 'black',
+                                        borderBottomStyle: 'none',
+                                    }}
+                            >게시판
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -220,10 +228,20 @@ function NoticeDetail() {
                                 </div>
                                 <div style={{
                                     paddingRight: "3%",
+                                    borderRight: "3px ridge rgba(128,128,128,0.32)",
                                     fontSize: 11,
-                                    marginRight: "1%"
+                                    marginRight: "3%"
                                 }}>11
                                 </div>
+                                <div style={{
+                                    textAlign: "left",
+                                    height: "auto",
+                                    width: 45,
+                                }}>
+                                <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                      style={{fontSize: 11}}>댓글</span>
+                                </div>
+                                <div style={{paddingRight: "3%", fontSize: 11}}>2</div>
                             </div>
                         </div>
                     </div>

@@ -16,24 +16,15 @@ import java.util.List;
 public class CommentController {
     private final CommentService commentService;
 
-    @PostMapping("/{boardId}") //보드 상세보기랑 합쳐야 함.
-    public ResponseEntity<Long> commentInsert(@PathVariable("boardId") Long boardId, @RequestBody CommentRequest request) {
+    @PostMapping("/{id}") //보드 상세보기랑 합쳐야 함.
+    public ResponseEntity<CommentResponse> commentInsert(@PathVariable("id") Long boardId, @RequestBody CommentRequest request) {
         return ResponseEntity.ok(commentService.commentInsert(boardId, request));
     }
 
-    @DeleteMapping("/{boardId}/{commentId}")
-    public ResponseEntity<Void> commentDelete(@PathVariable("boardId") Long boardId, @PathVariable("commentId") Long commentId) {
-        commentService.commentDelete(boardId, commentId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> commentDelete(@PathVariable("id") Long commentId) {
+        commentService.commentDelete(commentId);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{boardId}")
-    public ResponseEntity<List<CommentResponse>> commentList(@PathVariable("boardId") Long boardId) {
-        return ResponseEntity.ok(commentService.commentList(boardId));
-    }
-
-    @GetMapping("/board/{boardId}")
-    public ResponseEntity<List<Comment>> commentSelect(@PathVariable Long boardId) {
-        return ResponseEntity.ok(commentService.commentSelect(boardId));
-    }
 }
