@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/salary")
@@ -19,9 +21,9 @@ public class SalaryController {
         return ResponseEntity.ok(salaryService.salaryInsert(request));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<SalaryResponse> detailList(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(salaryService.getEmpSalary(id));
+    @GetMapping("/list/{id}")
+    public ResponseEntity<List<SalaryResponse>> detailList(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(salaryService.getSalaryDetail(id));
     }
 
     @DeleteMapping("/{id}")
