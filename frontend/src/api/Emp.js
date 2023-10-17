@@ -30,6 +30,7 @@ export const insertEmpApi = async (params) => {
     });
 }
 
+
 export const updateHrmApi = async (id,params) => {
     return new Promise((resolve,reject)=>{
         axios.put(`/api/emp/hrm/${id}`,params)
@@ -41,3 +42,12 @@ export const updateHrmApi = async (id,params) => {
         })
     });
 }
+
+export const selectEmpList = async (page) => {
+    try {
+        const response = await axios.get(`/api/emp?page=${page}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

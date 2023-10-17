@@ -16,5 +16,5 @@ public class EmpListResponse {
     private String empPosition;
     private long empAmount;
     private String empEmail;
-    private Dept dept;
+    private String deptName;
 }
