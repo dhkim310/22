@@ -13,9 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -24,7 +21,7 @@ public class CommentService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Long commentInsert(Long boardId, CommentRequest request) {
+    public CommentResponse commentInsert(Long boardId, CommentRequest request) {
         Emp emp = SecurityHelper.getAccount();
         Board thisBoard = boardRepository.findByBoardId(boardId);
         Comment entity = Comment.builder()
@@ -34,35 +31,31 @@ public class CommentService {
                 .commentCreatedDate(LocalDateTime.now())
                 .build();
         commentRepository.save(entity);
-        return entity.getCommentId();
+        return CommentResponse.builder()
+                .commentId(entity.getCommentId())
+                .comment(entity.getCommentComment())
+                .boardId(thisBoard.getBoardId())
+                .writer(entity.getEmp().getEmpName())
+                .createdDate(entity.getCommentCreatedDate())
+                .build();
     }
 
     @Transactional
-    public void commentDelete(Long boardId, Long commentId) {
-        Optional<Comment> commentOptional = commentRepository.findById(commentId);
+    public void commentDelete(Long commentId) {
+        Emp emp = SecurityHelper.getAccount();
+        Comment entity = getComment(commentId, emp);
 
-        commentOptional.ifPresent(comment -> {
-            if (comment.getBoard().getBoardId() == (boardId))
-                commentRepository.deleteById(commentId);
-        });
+        commentRepository.delete(entity);
     }
 
-    @Transactional(readOnly = true)
-    public List<CommentResponse> commentList(Long boardId) {
-        List<Comment> comments = commentRepository.findByBoardBoardId(boardId);
-        List<CommentResponse> commentResponses = new ArrayList<>();
-
-        for (Comment comment : comments) {
-            commentResponses.add(new CommentResponse(comment));
+    // 댓글 사용자와 접속자가 같은 지 확인
+    private Comment getComment(Long id, Emp emp) {
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 데이터입니다."));
+        if (comment.getEmp().getEmpId().equals(emp.getEmpId())) {
+            return comment;
+        } else {
+            throw new IllegalArgumentException("현재 로그인 된 사용자와 게시글 작성자가 일치하지 않습니다.");
         }
-
-        return commentResponses;
-    }
-
-    @Transactional(readOnly = true)
-    public List<Comment> commentSelect(Long boardId) {
-        List<Comment> list = commentRepository.findByBoardBoardId(boardId);
-
-        return list;
     }
 }

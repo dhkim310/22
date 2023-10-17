@@ -3,6 +3,7 @@ package erp.backend.domain.emp.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import erp.backend.domain.dept.entity.Dept;
 import erp.backend.domain.emp.dto.EmpReshuffleRequest;
+import erp.backend.domain.emp.vo.EmpVo;
 import erp.backend.domain.salary.entity.Salary;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -122,6 +123,7 @@ public class Emp implements UserDetails {
         this.empPosition = request.getEmpPosition();
         this.empEndDate = request.getEmpEndDate();
         this.empStatus = request.getEmpStatus();
+        this.roles = new EmpVo().type1(request.getEmpPosition());
     }
 
 }

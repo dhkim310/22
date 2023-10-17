@@ -2,6 +2,7 @@ package erp.backend.domain.comment.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.emp.entity.Emp;
 import jakarta.persistence.*;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor // 기본생성자
 @Builder
 @Getter
+@JsonIgnoreProperties(value = {"board"}) // entity 호출 시 불러오지 않음
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

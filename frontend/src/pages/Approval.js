@@ -1,12 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
+import {useLocation, useNavigate} from 'react-router-dom';
+import { SelectApprovalWaitListApi } from '../api/Approval';
+import PaginationButtons from '../component/PaginationButton';
 
 function Approval() {
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
+    const [approvalList, setApprovalList] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호 (1부터 시작)
+    const [totalPages, setTotalPages] = useState(); // 전체 페이지 수
 
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await SelectApprovalWaitListApi(currentPage - 1);
+                setApprovalList(data.list.content);
+                setTotalPages(data.totalPageCount);
+            } catch (error) {
+                console.error('데이터 가져오기 오류:', error);
+            }
+        };
         const getWidth = () => {
             return window.innerWidth;
         };
@@ -24,7 +42,8 @@ function Approval() {
             element.classList.remove('animated', element.dataset.bssHoverAnimate);
             });
         });
-    }, []);
+        fetchData();
+    }, [currentPage]);
 
     return (
         <div>
@@ -50,58 +69,38 @@ function Approval() {
           <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>결재상태</span></div>
           <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>반려날짜</span></div>
         </div>
-        <div className="d-xxl-flex justify-content-center justify-content-xxl-start align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '0px', maxHeight: '1000px', width: '100%', height: '100%'}}><a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '100%', marginBottom: '2px', width: '100%', padding: '0px', maxHeight: '5%', borderStyle: 'none'}}>
+        <div>
+            {approvalList.map((item) => (
+        <div className="d-xxl-flex justify-content-center justify-content-xxl-start align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '0px', width: '100%', height: '100%'}}><a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '100%', marginBottom: '2px', width: '100%', padding: '0px', maxHeight: '5%', borderStyle: 'none'}}>
             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{width: '100%', background: 'rgba(220,53,69,0)', height: '100%'}}>
               <div style={{height: '100%', width: '4%', background: 'rgba(220,53,69,0)'}} />
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>202020</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '41%', background: 'rgba(220,53,69,0)'}}><span>유재형 인턴 휴가 신청하겠습니다</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>유재형</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>엄용민</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>거부</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>XXXXXXXXX</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>{item.approvalUpLoadDate}</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '41%', background: 'rgba(220,53,69,0)'}}><span>{item.approvalSubject}</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>{item.approvalDrafter}</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>{item.approvalCheckMan}</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>{item.approvalCheck}</span></div>
+              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>{item.approvalBackDate}</span></div>
             </div>
-          </a><a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '100%', marginBottom: '2px', width: '100%', padding: '0px', maxHeight: '5%', borderStyle: 'none'}}>
-            <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{width: '100%', background: 'rgba(220,53,69,0)', height: '100%'}}>
-              <div style={{height: '100%', width: '4%', background: 'rgba(220,53,69,0)'}} />
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>202020</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '41%', background: 'rgba(220,53,69,0)'}}><span>유재형 인턴 휴가 신청하겠습니다</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>유재형</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>엄용민</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>거부</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>XXXXXXXXX</span></div>
-            </div>
-          </a><a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '100%', marginBottom: '2px', width: '100%', padding: '0px', maxHeight: '5%', borderStyle: 'none'}}>
-            <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{width: '100%', background: 'rgba(220,53,69,0)', height: '100%'}}>
-              <div style={{height: '100%', width: '4%', background: 'rgba(220,53,69,0)'}} />
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>202020</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '41%', background: 'rgba(220,53,69,0)'}}><span>유재형 인턴 휴가 신청하겠습니다</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>유재형</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}><span>엄용민</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>거부</span></div>
-              <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>XXXXXXXXX</span></div>
-            </div>
-          </a></div>
-      </div>
-      <div className="d-xxl-flex justify-content-xxl-start" style={{background: 'rgba(111,66,193,0)', height: '10%', width: '100%'}}>
-        <div style={{width: '35%', height: '100%'}} />
-        <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{height: '100%', width: '342px'}}>
-          <nav>
-            <ul className="pagination">
-              <li className="page-item"><a className="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
-              <li className="page-item"><a className="page-link" href="#">1</a></li>
-              <li className="page-item"><a className="page-link" href="#">2</a></li>
-              <li className="page-item"><a className="page-link" href="#">3</a></li>
-              <li className="page-item"><a className="page-link" href="#">4</a></li>
-              <li className="page-item"><a className="page-link" href="#">5</a></li>
-              <li className="page-item"><a className="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
-            </ul>
-          </nav>
+          </a>
+        </div>
+        ))}
         </div>
       </div>
-    </div>
-  </div>
-</div>
+                  <div className="d-xxl-flex justify-content-xxl-start"
+                       style={{background: 'rgba(111,66,193,0)', height: '109px'}}>
+                      <div style={{width: '50%', height: '100%'}}/>
 
+                      { /* PaginationButtons 컴포넌트 사용 */}
+                      <PaginationButtons
+                          currentPage={currentPage}
+                          totalPages={totalPages}
+                          onPageChange={handlePageChange}
+                      />
+                  </div>
+
+                </div>
+              </div>
+            </div>
         </div>
     )
 };

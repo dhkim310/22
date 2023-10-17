@@ -1,18 +1,23 @@
 package erp.backend.domain.comment.dto;
 
 import erp.backend.domain.comment.entity.Comment;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommentResponse {
-
-    private final Long commentId;
-    private final String comment;
-    private final Long boardId;
-    private final String writer;
-    private final LocalDateTime createdDate;
+    private Long commentId;
+    private String comment;
+    private Long boardId;
+    private String writer;
+    private LocalDateTime createdDate;
 
     //entity에서 dto로 응답
     public CommentResponse(Comment comment) {

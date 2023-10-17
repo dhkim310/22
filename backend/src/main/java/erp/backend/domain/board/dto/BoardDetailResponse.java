@@ -1,6 +1,7 @@
 package erp.backend.domain.board.dto;
 
 import erp.backend.domain.board.entity.BoardFile;
+import erp.backend.domain.comment.dto.CommentResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,4 +23,5 @@ public class BoardDetailResponse {
     private LocalDateTime boardCreatedDate;
     private LocalDateTime boardModifiedDate;
     private List<BoardFile> boardFileList;
+    private List<CommentResponse> boardCommentList;
 }

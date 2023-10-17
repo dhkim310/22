@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import Editor from '../component/Editor';
-import {createBoard} from "../api/Board";
+import {boardInsert} from "../api/Board";
 import {useNavigate} from 'react-router-dom';
 
 function BoardInsert() {
@@ -11,10 +11,10 @@ function BoardInsert() {
     const navigate = useNavigate();
 
     const handlePost = async () => {
-        if (subject.length < 5) {
-            alert("제목은 최소 5글자입니다");
-        } else if (content.length < 10) {
-            alert("내용은 최소 10 글자입니다");
+        if (subject.length < 2) {
+            alert("제목을 입력해주세요");
+        } else if (content.length < 2) {
+            alert("내용을 입력해주세요");
         } else {
             const requestDto = {
                 "subject": subject,
@@ -35,7 +35,7 @@ function BoardInsert() {
 
             try {
                 // 이 부분을 수정하여 createBoard 함수 사용
-                await createBoard(formData);
+                await boardInsert(formData);
                 alert('게시물이 성공적으로 업로드되었습니다.')
                 navigate('/board');
             } catch (error) {
