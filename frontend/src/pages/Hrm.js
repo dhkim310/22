@@ -138,11 +138,22 @@ function Hrm() {
                             width: '100%'
                         }}>
                             <div className="d-xxl-flex justify-content-xxl-start"
-                                 style={{height: '100%', width: '130px'}}/>
+                                 style={{height: '100%', width: '150px'}}/>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                 style={{height: '100%', width: '15%'}}><span>이름</span></div>
+                                 style={{height: '100%', width: '14%'}}><span>이름</span></div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                                  style={{height: '100%', width: '15%'}}>
+                                <select className="form-select" value={selectedDepartment}
+                                        onChange={handleDepartmentChange} style={{width: '150px'}}>
+                                    <option value="all">부서</option>
+                                    <option value="인사부">인사부</option>
+                                    <option value="재무부">재무부</option>
+                                    <option value="콘텐츠관리부">콘텐츠관리부</option>
+                                    <option value="회원관리부">회원관리부</option>
+                                </select>
+                            </div>
+                            <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                 style={{height: '100%', width: '20%'}}>
                                 <select className="form-select" value={selectedPosition} onChange={handlePositionChange}
                                         style={{width: '150px'}}>
                                     <option value="all">직급</option>
@@ -154,19 +165,7 @@ function Hrm() {
                             </div>
 
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                 style={{height: '100%', width: '20%'}}>
-                                <select className="form-select" value={selectedDepartment}
-                                        onChange={handleDepartmentChange} style={{width: '150px'}}>
-                                    <option value="all">부서</option>
-                                    <option value="인사부">인사부</option>
-                                    <option value="재무부">재무부</option>
-                                    <option value="콘텐츠관리부">콘텐츠관리부</option>
-                                    <option value="회원관리부">회원관리부</option>
-                                </select>
-                            </div>
-
-                            <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                 style={{height: '100%', width: '25%'}}><span>이메일</span></div>
+                                 style={{height: '100%', width: '24%'}}><span>이메일</span></div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                                  style={{height: '100%', width: '15%'}}><span>재직상태</span></div>
                         </div>
@@ -188,9 +187,9 @@ function Hrm() {
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                                              style={{height: '100%', width: '15%'}}><span>{e.empName}</span></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                             style={{height: '100%', width: '15%'}}><span>{e.empPosition}</span></div>
+                                             style={{height: '100%', width: '15%'}}><span>{e.dept}</span></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                             style={{height: '100%', width: '20%'}}><span>{e.dept}</span></div>
+                                             style={{height: '100%', width: '20%'}}><span>{e.empPosition}</span></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                                              style={{height: '100%', width: '25%'}}><span>{e.empEmail}</span></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"

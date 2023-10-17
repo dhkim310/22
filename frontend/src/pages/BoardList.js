@@ -174,6 +174,7 @@ function BoardList() {
                                         alignItems: 'center', // 추가: 세로 중앙 정렬
                                         textAlign: "center",
                                     }}>
+
                                     <div style={{width: '5%', fontWeight: 'bold', whiteSpace: "nowrap"}}>글번호</div>
                                     <div style={{width: '50%', fontWeight: 'bold', whiteSpace: "nowrap"}}>제목</div>
                                     <div style={{width: '10%', fontWeight: 'bold', whiteSpace: "nowrap"}}>조회수</div>

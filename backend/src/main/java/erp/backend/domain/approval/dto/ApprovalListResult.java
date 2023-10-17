@@ -24,8 +24,6 @@ public class ApprovalListResult {
     }
     private long calTotalPageCount() {
         long tpc = totalCount / size;
-        System.out.println("totalCount : " + totalCount);
-        System.out.println("size : " + size);
         if (totalCount % size != 0)
             tpc++;
         return tpc;
