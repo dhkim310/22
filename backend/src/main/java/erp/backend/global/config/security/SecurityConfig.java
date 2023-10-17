@@ -66,7 +66,7 @@ public class SecurityConfig {
                                 "/api/board",
                                 "/api/board/{id}",
                                 "/api/comment/{boardId}",
-                                "/api/comment/{boardId}/{commentId}",
+                                "/api/comment/{id}",
                                 "/api/approval",
                                 "/api/approval/wait",
                                 "/api/approval/success/{id}",

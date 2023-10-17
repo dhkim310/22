@@ -1,9 +1,6 @@
 package erp.backend.domain.approval.service;
 
-import erp.backend.domain.approval.dto.ApprovalDetailResponse;
-import erp.backend.domain.approval.dto.ApprovalInsert;
-import erp.backend.domain.approval.dto.ApprovalListResponse;
-import erp.backend.domain.approval.dto.ApprovalUpdate;
+import erp.backend.domain.approval.dto.*;
 import erp.backend.domain.approval.entity.Approval;
 import erp.backend.domain.approval.entity.ApprovalFile;
 import erp.backend.domain.approval.repository.ApprovalFileRepository;
@@ -15,6 +12,8 @@ import erp.backend.domain.uploadfile.service.UploadFileService;
 import erp.backend.global.config.security.SecurityHelper;
 import erp.backend.global.util.SchemaType;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,39 +32,33 @@ public class ApprovalService {
     private final UploadFileService uploadFileService;
     private final ApprovalVo approvalVo;
 
-    @Transactional(readOnly = true)
-    public List<ApprovalListResponse> searchList() {
-        List<Approval> list = approvalRepository.findAll();
+    @Transactional(readOnly = true)//결재 대기 및 반려 리스트
+    public ApprovalListResult approvalListResult(Pageable pageable) {
+        List<Approval> approvalList = approvalRepository
+                .findByApprovalCheckOrderByApprovalIdDesc();
 
-        return list.stream()
+        long totalCount = approvalList.size();
+
+        List<ApprovalListResponse> approvalListResponses = approvalList
+                .stream()
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .map(approval -> ApprovalListResponse.builder()
                         .approvalId(approval.getApprovalId())
+                        .approvalDrafter(approval.getEmp().getEmpName())
                         .approvalSubject(approval.getApprovalSubject())
                         .approvalCheckMan(approval.getApprovalCheckMan())
                         .approvalCheck(approval.getApprovalCheck())
                         .approvalUpLoadDate(approval.getApprovalUpLoadDate())
-                        .approvalSuccessDate(approval.getApprovalSuccessDate())
                         .approvalBackDate(approval.getApprovalBackDate())
-                        .build()
-                )
+                        .approvalSuccessDate(approval.getApprovalSuccessDate())
+                        .build())
                 .toList();
-    }
-    @Transactional(readOnly = true)
-    public List<ApprovalListResponse> searchByCheckList() {
-        List<Approval> list = approvalRepository.findByApprovalCheck("결재요청");
 
-        return list.stream()
-                .map(approval -> ApprovalListResponse.builder()
-                        .approvalId(approval.getApprovalId())
-                        .approvalSubject(approval.getApprovalSubject())
-                        .approvalCheckMan(approval.getApprovalCheckMan())
-                        .approvalCheck(approval.getApprovalCheck())
-                        .approvalUpLoadDate(approval.getApprovalUpLoadDate())
-                        .approvalSuccessDate(approval.getApprovalSuccessDate())
-                        .approvalBackDate(approval.getApprovalBackDate())
-                        .build()
-                )
-                .toList();
+        return new ApprovalListResult(pageable.getPageNumber()
+                , totalCount
+                , pageable.getPageSize()
+                , new PageImpl<>(approvalListResponses, pageable, totalCount));
     }
 
 
