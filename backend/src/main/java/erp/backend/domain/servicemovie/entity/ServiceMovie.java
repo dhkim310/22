@@ -42,11 +42,9 @@ public class ServiceMovie {
     @Column(name = "SERVICEMOVIE_ACCOUNTNUMBER")
     private String serviceMovieAccountNumber;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @Column(name = "SERVICEMOVIE_STARTDATE")
     private LocalDate serviceMovieStartDate;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @Column(name = "SERVICEMOVIE_ENDDATE")
     private LocalDate serviceMovieEndDate;
 
