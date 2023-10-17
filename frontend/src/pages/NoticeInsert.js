@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import Editor from '../component/Editor';
-import {createNotice} from '../api/Notice';
+import {noticeInsert} from '../api/Notice';
 import {useNavigate} from 'react-router-dom';
 
 function NoticeInsert() {
@@ -34,7 +34,7 @@ function NoticeInsert() {
             }
 
             try {
-                await createNotice(formData);
+                await noticeInsert(formData);
                 alert('게시물이 성공적으로 업로드되었습니다.');
                 navigate('/notice');
             } catch (error) {

@@ -1,26 +1,26 @@
 import axios from 'axios'
 
 export const commuteApi = async (params) => {
-    return new Promise((resolve,reject)=> {
+    return new Promise((resolve, reject) => {
         axios.post('/api/log', params)
-        .then((res)=>{
-            return resolve(res);
-        })
-        .catch((err)=>{
-            return reject(err);
-        })
+            .then((res) => {
+                return resolve(res);
+            })
+            .catch((err) => {
+                return reject(err);
+            })
     });
 }
 
 export const commuteUpdateApi = async (params) => {
-    return new Promise((resolve,reject)=> {
+    return new Promise((resolve, reject) => {
         axios.put('/api/log', params)
-        .then((res)=>{
-            return resolve(res);
-        })
-        .catch((err)=>{
-            return reject(err);
-        })
+            .then((res) => {
+                return resolve(res);
+            })
+            .catch((err) => {
+                return reject(err);
+            })
     });
 }
 
@@ -30,7 +30,7 @@ export const commuteSelectApi = async (params) => {
 
         if (response.data.logCheckOut.indexOf('1999') !== -1) {
             response.data.logCheckOut = 'T ';
-            }
+        }
         if (response.data.logCheckIn.indexOf('1999') !== -1) {
             response.data.logCheckIn = 'T ';
         }
@@ -38,6 +38,6 @@ export const commuteSelectApi = async (params) => {
         response.data.logCheckOut = response.data.logCheckOut.split("T")[1];
         return response.data;
     } catch (error) {
-    throw error;
+        throw error;
     }
 };

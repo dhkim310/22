@@ -1,4 +1,4 @@
-const TIME_OUT = 300*1000;
+const TIME_OUT = 300 * 1000;
 
 const statusError = {
     status: false,
@@ -17,9 +17,9 @@ const timeoutPromise = () => {
 
 const getPromise = async (url, option) => {
     return await Promise.race([
-                                  requestPromise(url, option),
-                                  timeoutPromise()
-                              ]);
+        requestPromise(url, option),
+        timeoutPromise()
+    ]);
 };
 
 export const loginUser = async (credentials) => {
@@ -35,7 +35,7 @@ export const loginUser = async (credentials) => {
         return statusError;
     });
 
-    if (parseInt(Number(data.status)/100)===2) {
+    if (parseInt(Number(data.status) / 100) === 2) {
         const status = data.ok;
         const code = data.status;
         const text = await data.text();
@@ -64,7 +64,7 @@ export const logoutUser = async (credentials, accessToken) => {
         return statusError;
     });
 
-    if (parseInt(Number(data.status)/100)===2) {
+    if (parseInt(Number(data.status) / 100) === 2) {
         const status = data.ok;
         const code = data.status;
         const text = await data.text();
@@ -86,14 +86,14 @@ export const requestToken = async (refreshToken) => {
         headers: {
             'Content-Type': 'application/json;charset=UTF-8'
         },
-        body: JSON.stringify({ refresh_token: refreshToken })
+        body: JSON.stringify({refresh_token: refreshToken})
     }
 
     const data = await getPromise('/user/login', option).catch(() => {
         return statusError;
     });
 
-    if (parseInt(Number(data.status)/100)===2) {
+    if (parseInt(Number(data.status) / 100) === 2) {
         const status = data.ok;
         const code = data.status;
         const text = await data.text();

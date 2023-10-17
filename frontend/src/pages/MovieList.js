@@ -79,6 +79,7 @@ function MovieList() {
                         }}>컨텐츠 업데이트
                         </button>
                     </div>
+
                     <div style={{background: 'white', width: '90%', height: '100%'}}>
                         <div
                             style={{width: '100%', height: '7%', borderBottom: '2px ridge rgba(128,128,128,0.26)'}}>
@@ -89,6 +90,7 @@ function MovieList() {
                                     paddingTop: '0px',
                                     marginLeft: '41px'
                                 }}>컨텐츠 목록</span>
+
                             </div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
                                  style={{width: '100%', height: '50%'}}>
@@ -140,7 +142,9 @@ function MovieList() {
                                         color: 'black'
                                     }}>검색
                                     </button>
+
                                 </div>
+
                             </div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
                                  style={{width: '100%', height: '50%'}}/>
@@ -232,6 +236,7 @@ function MovieList() {
                                                 textAlign: 'center'
                                             }}>{item.rating}</div>
                                         </button>
+
                                     ))}
                                 </div>
                             </div>
