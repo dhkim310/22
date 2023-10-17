@@ -8,7 +8,7 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     Comment findByBoardBoardIdAndCommentId(Long boardId, Long commentId);
 
-    List<Comment> findByBoardBoardId(Long boardId);
+    List<Comment> findByBoardBoardIdOrderByCommentIdDesc(Long boardId);
 
     Comment deleteCommentByCommentIdAndBoardBoardId(Long commentId, Long boardId);
 }
