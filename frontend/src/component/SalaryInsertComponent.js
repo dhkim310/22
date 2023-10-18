@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Modal from "react-modal";
 import {salaryInsert} from "../api/Salary";
 import {useForm} from "react-hook-form";
@@ -7,6 +7,9 @@ import {useParams} from "react-router-dom";
 function SalaryInsertComponent({ isOpen, closeModal, empId }) {
     const {register, formState: {errors}, handleSubmit} = useForm();
     const {id} = useParams();
+    useEffect(() => {
+        console.log('empIIIIIIDDDDDD', empId);
+    }, [empId]);
     const onValid = async ({ salaryBank, salaryAccountNumber, salaryBonus }) => {
         await salaryInsert({ empId: id, salaryBank, salaryAccountNumber, salaryBonus })
             .then((res) => {
@@ -47,11 +50,8 @@ function SalaryInsertComponent({ isOpen, closeModal, empId }) {
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2>급여등록</h2>
             </div>
+            <p>empId: {empId}</p>
             <form onSubmit={handleSubmit(onValid)}>
-                {/*<div className="mb-3">*/}
-                {/*    <label htmlFor="empId" className="form-label">사번</label>*/}
-                {/*    <input type="text" defaultValue={empId} {...register('empId')} className="form-control" id="empId" />*/}
-                {/*</div>*/}
                 <div className="mb-3">
                     <label htmlFor="salaryBank" className="form-label">지급은행</label>
                     <input type="text" {...register('salaryBank')} className="form-control" id="salaryBank" />
