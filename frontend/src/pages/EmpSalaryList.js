@@ -4,6 +4,7 @@ import '../assets/css/animate.min.css'
 import {selectEmpList} from "../api/Emp";
 import {useNavigate} from "react-router-dom";
 import SalaryInsertComponent from "../component/SalaryInsertComponent";
+import {salaryDelete} from "../api/Salary";
 
 function EmpSalaryList() {
     const [empList, setEmpList] = useState([]);
