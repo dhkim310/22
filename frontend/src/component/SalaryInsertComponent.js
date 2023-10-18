@@ -7,9 +7,11 @@ import {useParams} from "react-router-dom";
 function SalaryInsertComponent({ isOpen, closeModal, empId }) {
     const {register, formState: {errors}, handleSubmit} = useForm();
     const {id} = useParams();
+
     useEffect(() => {
         console.log('empIIIIIIDDDDDD', empId);
     }, [empId]);
+
     const onValid = async ({ salaryBank, salaryAccountNumber, salaryBonus }) => {
         await salaryInsert({ empId: id, salaryBank, salaryAccountNumber, salaryBonus })
             .then((res) => {

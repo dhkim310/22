@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SalaryResponse {
+    private Long salaryId;
     private LocalDate salaryPayDate;
     private String salaryBank;
     private String salaryAccountNumber;

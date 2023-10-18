@@ -11,9 +11,6 @@ function EmpSalary() {
     const [isMobile, setIsMobile] = useState(false);
 
     const navigate = useNavigate();
-    const navigateToDelete = (id) => {
-        navigate(`/salary/${id}`)
-    }
 
     useEffect(() => {
         async function fetchData() {
@@ -33,11 +30,16 @@ function EmpSalary() {
         fetchData();
     }, [])
 
-    const onDelete = async (id) => {
-        try {
-            await salaryDelete(id);
-        } catch (error) {
-            console.error('Error deleting salary:', error);
+    const onDelete = (id) => {
+        const shouldDelete = window.confirm("삭제하시겠습니까?");
+        if (shouldDelete) {
+            try {
+                salaryDelete(id).then(() => {
+                    window.location.reload();
+                });
+            } catch (error) {
+                console.error('Error deleting salary:', error);
+            }
         }
     };
 
@@ -108,7 +110,7 @@ function EmpSalary() {
                                         className="btn btn-danger"
                                         data-bss-hover-animate="pulse"
                                         type="button"
-                                        onClick={onDelete}
+                                        onClick={() => onDelete(item.salaryId)}
                                         style={{
                                             background: 'black',
                                             borderStyle: 'none',
