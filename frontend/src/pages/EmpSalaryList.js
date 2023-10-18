@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
-import {selectEmpList, selectHrmListApi} from "../api/Emp";
+import {selectEmpList} from "../api/Emp";
 import {useNavigate} from "react-router-dom";
 import SalaryInsertComponent from "../component/SalaryInsertComponent";
 import {salaryDelete} from "../api/Salary";
@@ -101,7 +101,7 @@ function EmpSalaryList() {
                         paddingTop: '0px',
                         paddingBottom: '13px',
                         width: '85%'
-                    }}>인사관리</span>
+                    }}>재무관리</span>
                     <div style={{width: '15%', height: '100%'}}>
                         <div className="d-xxl-flex align-items-xxl-center"
                              style={{height: '50%', width: '100%', background: 'rgba(214,51,132,0)'}}>

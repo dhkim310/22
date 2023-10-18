@@ -27,7 +27,6 @@ public class SalaryService {
     public Long salaryInsert(SalaryInsert request) {
         Emp emp = SecurityHelper.getAccount();
         salaryVO.setBonus(request.getBonus());
-        getEmpListHandler(emp.getEmpId());
 
         Salary entity = Salary.builder()
                 .emp(emp)
@@ -44,7 +43,6 @@ public class SalaryService {
     @Transactional(readOnly = true)
     public List<SalaryResponse> getSalaryDetail(Long empId) {
         Emp emp = SecurityHelper.getAccount();
-        getEmpListHandler(emp.getEmpId());
         List<Salary> list = salaryRepository.findSalaryByEmpEmpId(empId);
         return list.stream()
                 .map(salary -> SalaryResponse.builder()
@@ -61,14 +59,8 @@ public class SalaryService {
     @Transactional
     public void salaryDelete(Long id) {
         Emp emp = SecurityHelper.getAccount();
-        getEmpListHandler(emp.getEmpId());
         salaryRepository.deleteById(id);
     }
 
-    private Emp getEmpListHandler(Long empId) {
-        return empRepository.findById(empId)
-                .filter(emp -> emp.getDept().getDeptName().equals("재무부"))
-                .orElseThrow(() -> new IllegalArgumentException("권한 없음."));
-    }
 
 }
