@@ -24,6 +24,7 @@ import MovieList from "./pages/MovieList";
 import NoticeDetail from "./pages/NoticeDetailView";
 import BoardDetail from "./pages/BoardDetailView";
 import MemberList from "./pages/MemberList";
+import ServiceMovieList from "./pages/ServiceMovieList";
 
 function App() {
     return (
@@ -55,6 +56,7 @@ function App() {
                     <Route path="/salary/list/:id" element={<EmpSalary/>}/>
                     <Route path="/movie" element={<MovieList/>}/>
                     <Route path="/member" element={<MemberList/>}/>
+                    <Route path="/serviceMovie" element={<ServiceMovieList/>}/>
                 </Route>
             </Routes>
         </Router>
