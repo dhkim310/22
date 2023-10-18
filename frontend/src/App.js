@@ -8,6 +8,7 @@ import FixInfo from "./pages/FixInfo";
 import Approval from "./pages/Approval";
 import ApprovalComplete from "./pages/ApprovalComplete"
 import ApprovalDetail from "./pages/ApprovalDetail"
+import ApprovalCompleteDetail from "./pages/ApprovalCompleteDetail"
 import SweetAlert from "./component/SweetAlert"
 import NoticeInsert from "./pages/NoticeInsert"
 import NoticeList from "./pages/NoticeList"
@@ -36,6 +37,7 @@ function App() {
                     <Route path="/approval" element={<Approval/>}/>
                     <Route path="/approval-complete" element={<ApprovalComplete/>}/>
                     <Route path="/approval/:id" element={<ApprovalDetail/>}/>
+                    <Route path="/approval-complete/:id" element={<ApprovalCompleteDetail/>}/>
                     <Route path="/fix-info" element={<FixInfo/>}/>
                     <Route path="/schedule" element={<ReactBigCalendar/>}/>
                     <Route path="/sweetalert" element={<SweetAlert/>}/>

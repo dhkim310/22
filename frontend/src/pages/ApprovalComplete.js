@@ -15,6 +15,9 @@ function Approval() {
     const navigateToApproval = () => {
         navigate("/approval");
     };
+    const navigateToDetail= (id) => {
+        navigate(`/approval-complete/${id}`);
+    }
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
@@ -74,7 +77,7 @@ function Approval() {
         </div>
         <div>
             {approvalList.map((item) => (
-        <div className="d-xxl-flex justify-content-center justify-content-xxl-start align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '0px', width: '100%', height: '100%'}}><a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start" href="#" style={{height: '100%', marginBottom: '2px', width: '100%', padding: '0px', maxHeight: '5%', borderStyle: 'none'}}>
+        <div className="d-xxl-flex justify-content-center justify-content-xxl-start align-items-xxl-center list-group" style={{marginLeft: '0px', marginRight: '0px', width: '100%', height: '100%'}}><a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start" onClick={() => navigateToDetail(item.approvalId)} style={{height: '100%', marginBottom: '2px', width: '100%', padding: '0px', maxHeight: '5%', borderStyle: 'none'}}>
             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{width: '100%', background: 'rgba(220,53,69,0)', height: '100%'}}>
               <div style={{height: '100%', width: '4%', background: 'rgba(220,53,69,0)'}} />
               <div className="d-xxl-flex align-items-xxl-center" style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}><span>{item.approvalUpLoadDate}</span></div>
