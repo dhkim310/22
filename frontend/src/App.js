@@ -8,12 +8,11 @@ import FixInfo from "./pages/FixInfo";
 import Approval from "./pages/Approval";
 import ApprovalComplete from "./pages/ApprovalComplete"
 import ApprovalDetail from "./pages/ApprovalDetail"
+import ApprovalCompleteDetail from "./pages/ApprovalCompleteDetail"
 import SweetAlert from "./component/SweetAlert"
-import NoticeList from "./pages/NoticeList"
 import NoticeInsert from "./pages/NoticeInsert"
-import NoticeDetail from "./pages/NoticeDetailView";
+import NoticeList from "./pages/NoticeList"
 import BoardInsert from "./pages/BoardInsert";
-import BoardDetail from "./pages/BoardDetailView";
 import BoardList from "./pages/BoardList";
 import MemoComponent from "./component/MemoComponent"
 import Hrm from "./pages/Hrm"
@@ -22,7 +21,9 @@ import empList from "./pages/EmpSalaryList";
 import EmpSalaryList from "./pages/EmpSalaryList";
 import EmpSalary from "./pages/EmpSalary";
 import MovieList from "./pages/MovieList";
-import ServiceMovieList from "./pages/ServiceMovieList";
+import NoticeDetail from "./pages/NoticeDetailView";
+import BoardDetail from "./pages/BoardDetailView";
+import MemberList from "./pages/MemberList";
 
 function App() {
     return (
@@ -37,22 +38,23 @@ function App() {
                     <Route path="/approval" element={<Approval/>}/>
                     <Route path="/approval-complete" element={<ApprovalComplete/>}/>
                     <Route path="/approval/:id" element={<ApprovalDetail/>}/>
+                    <Route path="/approval-complete/:id" element={<ApprovalCompleteDetail/>}/>
                     <Route path="/fix-info" element={<FixInfo/>}/>
                     <Route path="/schedule" element={<ReactBigCalendar/>}/>
                     <Route path="/sweetalert" element={<SweetAlert/>}/>
-                    <Route path="/notice" element={<NoticeList/>}/>
-                    <Route path="/notice/:id" element={<NoticeDetail/>}/>
                     <Route path="/notice-insert" element={<NoticeInsert/>}/>
+                    <Route path="/board-insert" element={<BoardInsert/>}/>
                     <Route path="/board" element={<BoardList/>}/>
                     <Route path="/board/:id" element={<BoardDetail/>}/>
-                    <Route path="/board-insert" element={<BoardInsert/>}/>
+                    <Route path="/notice" element={<NoticeList/>}/>
+                    <Route path="/notice/:id" element={<NoticeDetail/>}/>
                     <Route path="/hrm" element={<Hrm/>}/>
                     <Route path="/memo" element={<MemoComponent/>}/>
                     <Route path="/reshuffle/:id" element={ <Reshuffle />}/>
                     <Route path="/salary" element={ <EmpSalaryList/>}/>
                     <Route path="/salary/list/:id" element={<EmpSalary/>}/>
                     <Route path="/movie" element={<MovieList/>}/>
-                    <Route path="/serviceMovie" element={<ServiceMovieList/>}/>
+                    <Route path="/member" element={<MemberList/>}/>
                 </Route>
             </Routes>
         </Router>
