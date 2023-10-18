@@ -8,3 +8,15 @@ export const fetchServiceMovieList = async (page) => {
         throw error;
     }
 };
+
+export const insertServiceMovieApi = async (id,params) => {
+    return new Promise((resolve,reject)=>{
+        axios.post(`/api/serviceMovie/${id}`,params)
+        .then((res)=>{
+             return resolve(res);
+        })
+        .catch((err)=>{
+             return reject(err);
+        })
+    });
+}

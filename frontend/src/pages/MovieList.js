@@ -19,6 +19,7 @@ function MovieList() {
 
     const [searchCode, setSearchCode] = useState('');
 
+
     const handleSearchChange = (event) => {
         setSearchCode(event.target.value);
     };
@@ -67,8 +68,10 @@ function MovieList() {
     };
 
     const handleItemClick = (id) => {
-        navigate(`/movie/${id}`)
-    }
+        navigate(`/movie/${id}`);
+    };
+
+
 
     useEffect(() => {
         const getWidth = () => {
@@ -80,6 +83,7 @@ function MovieList() {
 
     return (
         <div>
+
             <div style={{width: '100%', height: '100%'}}>
                 <div className="d-xxl-flex justify-content-xxl-center"
                      style={{width: '100%', height: '100%', background: 'transparent'}}>
@@ -207,6 +211,7 @@ function MovieList() {
                                         <button
                                             className="list-group-item list-group-item-action d-flex flex-row align-items-start"
                                             onClick={() => handleItemClick(item.id)} // 클릭 시 상세보기 페이지로 이동
+                                            //onClick={openModal}
                                             style={{
                                                 height: '50px',
                                                 marginBottom: '2px',
@@ -254,6 +259,10 @@ function MovieList() {
                                             }}>{item.rating}</div>
                                         </button>
                                     ))}
+                                    <div className="d-xxl-flex justify-content-xxl-center" style={{width: '100%', height: '45px', borderLeft: '2px ridge rgba(128,128,128,0.32)'}}>
+                                                                                                                      <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center" style={{width: '47.5%'}}><button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{background: 'black', width: '90px', borderStyle: 'none', borderLeftStyle: 'none'}}>추가</button></div>
+                                                                                                                      <div style={{width: '5%'}} />
+                                                                                                                      <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{width: '47.5%'}}><button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{background: 'black', borderStyle: 'none'}}>상세보기</button></div></div>
                                 </div>
                             </div>
                         </div>

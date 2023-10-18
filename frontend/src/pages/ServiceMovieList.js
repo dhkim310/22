@@ -6,6 +6,7 @@ import {fetchServiceMovieList} from '../api/serviceMovie';
 import {FormatDate} from "../component/FormatDate";
 import PaginationButtons from '../component/PaginationButton';
 
+
 import axios from "axios";
 
 function MovieList() {
@@ -15,6 +16,8 @@ function MovieList() {
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation(); // 현재 위치 가져오기
     const isMoviePage = location.pathname === '/movie'; // "/movie" 경로에 있는지 확인
+
+
 
     const [searchCode, setSearchCode] = useState('');
 
@@ -47,6 +50,8 @@ function MovieList() {
 
         };
 
+
+
     // 클릭 이벤트 핸들러 추가
 
     const handleMovieClick = () => {
@@ -71,6 +76,7 @@ function MovieList() {
 
     return (
         <div>
+
             <div style={{width: '100%', height: '100%'}}>
                 <div className="d-xxl-flex justify-content-xxl-center"
                      style={{width: '100%', height: '100%', background: 'transparent'}}>
