@@ -8,3 +8,15 @@ export const fetchMovieList = async (page) => {
         throw error;
     }
 };
+
+export const insertMovieApi = async () => {
+    return new Promise((resolve,reject)=> {
+        axios.get('/api/movie/getInfo')
+        .then((res)=>{
+            return resolve(res);
+        })
+        .catch((err)=>{
+            return reject(err);
+        })
+    });
+}

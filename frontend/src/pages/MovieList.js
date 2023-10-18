@@ -3,8 +3,11 @@ import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {fetchMovieList} from '../api/movie';
+import {insertMovieApi} from '../api/movie';
 import {FormatDate} from "../component/FormatDate";
 import PaginationButtons from '../component/PaginationButton';
+
+import axios from "axios";
 
 function MovieList() {
     const [movieList, setMovieList] = useState([]);
@@ -34,17 +37,27 @@ function MovieList() {
     }, [currentPage]);
 
     const navigate = useNavigate();
-    const navigateToNewMovie = () => {
-        navigate("/movie-insert");
-    };
+
+    const newMovie = async () => {
+            await insertMovieApi()
+            .then((res) => {
+                if (res.status === 200) {
+                    window.location.reload();
+                }
+            })
+            .catch((err) => {
+                alert('에러');
+            })
+        };
 
     // 클릭 이벤트 핸들러 추가
-    const handleNoticeClick = () => {
-        navigate("/notice");
-    };
 
     const handleMovieClick = () => {
-        navigate("/movie");
+            navigate("/movie");
+        };
+
+    const handleNoticeClick = () => {
+        navigate("/notice");
     };
 
     const handleItemClick = (id) => {
@@ -68,7 +81,7 @@ function MovieList() {
                          style={{width: '10%', height: '100%', background: 'white'}}>
                         <button
                             className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                            data-bss-hover-animate="pulse" type="button" onClick={navigateToNewMovie} style={{
+                            data-bss-hover-animate="pulse" type="button" onClick={newMovie} style={{
                             width: '150px',
                             height: '50px',
                             color: 'black',
