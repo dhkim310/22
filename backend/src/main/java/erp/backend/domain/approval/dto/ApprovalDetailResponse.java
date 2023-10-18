@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -17,5 +18,7 @@ public class ApprovalDetailResponse {
     private String approvalDrafter;
     private String approvalSubject;
     private String approvalContent;
+    private String approvalCheckMan;
+    private LocalDate approvalUpLoadDate;
     private List<ApprovalFile> approvalFileList;
 }

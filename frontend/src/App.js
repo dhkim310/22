@@ -35,7 +35,7 @@ function App() {
                     <Route path="/main" element={<Main/>}/>
                     <Route path="/approval" element={<Approval/>}/>
                     <Route path="/approval-complete" element={<ApprovalComplete/>}/>
-                    <Route path="/approval-detail" element={<ApprovalDetail/>}/>
+                    <Route path="/approval/:id" element={<ApprovalDetail/>}/>
                     <Route path="/fix-info" element={<FixInfo/>}/>
                     <Route path="/schedule" element={<ReactBigCalendar/>}/>
                     <Route path="/sweetalert" element={<SweetAlert/>}/>

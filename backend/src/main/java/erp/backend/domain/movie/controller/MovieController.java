@@ -23,7 +23,8 @@ import java.net.URL;
 @RequestMapping("/api/movie")
 public class MovieController{
 
-//    @Value("${movie.key}")
+
+   // @Value("${movie.key}")
     String key;
     private final MovieService movieService;
     private final MovieRepository movieRepository;
