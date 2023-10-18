@@ -20,3 +20,23 @@ export const SelectApprovalSuccessListApi = async (page) => {
         throw error;
     }
 };
+export const SelectApprovalDetailApi = async (id) => {
+    try {
+        const response = await axios.get(`/api/approval/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const UpdateApprovalApi = async (id,updateData) => {
+    return new Promise((resolve, reject) => {
+        axios.put(`/api/approval/${id}`, updateData)
+            .then((res) => {
+                return resolve(res);
+            })
+            .catch((err) => {
+                return reject(err);
+            })
+    });
+}

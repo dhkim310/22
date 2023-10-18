@@ -20,6 +20,8 @@ import empList from "./pages/EmpSalaryList";
 import EmpSalaryList from "./pages/EmpSalaryList";
 import EmpSalary from "./pages/EmpSalary";
 import MovieList from "./pages/MovieList";
+import NoticeDetail from "./pages/NoticeDetailView";
+import BoardDetail from "./pages/BoardDetailView";
 
 function App() {
     return (
@@ -33,14 +35,16 @@ function App() {
                     <Route path="/main" element={<Main/>}/>
                     <Route path="/approval" element={<Approval/>}/>
                     <Route path="/approval-complete" element={<ApprovalComplete/>}/>
-                    <Route path="/approval-detail" element={<ApprovalDetail/>}/>
+                    <Route path="/approval/:id" element={<ApprovalDetail/>}/>
                     <Route path="/fix-info" element={<FixInfo/>}/>
                     <Route path="/schedule" element={<ReactBigCalendar/>}/>
                     <Route path="/sweetalert" element={<SweetAlert/>}/>
                     <Route path="/notice-insert" element={<NoticeInsert/>}/>
                     <Route path="/board-insert" element={<BoardInsert/>}/>
                     <Route path="/board" element={<BoardList/>}/>
+                    <Route path="/board/:id" element={<BoardDetail/>}/>
                     <Route path="/notice" element={<NoticeList/>}/>
+                    <Route path="/notice/:id" element={<NoticeDetail/>}/>
                     <Route path="/hrm" element={<Hrm/>}/>
                     <Route path="/memo" element={<MemoComponent/>}/>
                     <Route path="/reshuffle/:id" element={ <Reshuffle />}/>

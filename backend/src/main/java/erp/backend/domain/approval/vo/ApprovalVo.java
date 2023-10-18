@@ -11,4 +11,5 @@ public class ApprovalVo {
         return check.equals(waiting) ? waiting :
                 check.equals(success) ? success : reject;
     }
+
 }

@@ -45,13 +45,8 @@ public class ApprovalController {
 
     }
 
-    @PutMapping("/success/{id}")
-    public ResponseEntity<Long> successApproval(@PathVariable("id") Long id, @RequestBody ApprovalUpdate request) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Long> approvalUpdate(@PathVariable("id") Long id, @RequestBody ApprovalUpdate request) {
         return ResponseEntity.ok(approvalService.update(id, request));
-    }
-
-    @PutMapping("/reject/{id}")
-    public ResponseEntity<Long> rejectApproval(@PathVariable("id") Long id, @RequestBody ApprovalUpdate request) {
-        return ResponseEntity.ok(approvalService.reject(id, request));
     }
 }
