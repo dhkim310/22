@@ -19,4 +19,4 @@ export const insertMovieApi = async () => {
             return reject(err);
         })
     });
-}
+};

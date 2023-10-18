@@ -22,6 +22,7 @@ import empList from "./pages/EmpSalaryList";
 import EmpSalaryList from "./pages/EmpSalaryList";
 import EmpSalary from "./pages/EmpSalary";
 import MovieList from "./pages/MovieList";
+import ServiceMovieList from "./pages/ServiceMovieList";
 
 function App() {
     return (
@@ -35,7 +36,7 @@ function App() {
                     <Route path="/main" element={<Main/>}/>
                     <Route path="/approval" element={<Approval/>}/>
                     <Route path="/approval-complete" element={<ApprovalComplete/>}/>
-                    <Route path="/approval-detail" element={<ApprovalDetail/>}/>
+                    <Route path="/approval/:id" element={<ApprovalDetail/>}/>
                     <Route path="/fix-info" element={<FixInfo/>}/>
                     <Route path="/schedule" element={<ReactBigCalendar/>}/>
                     <Route path="/sweetalert" element={<SweetAlert/>}/>
@@ -51,6 +52,7 @@ function App() {
                     <Route path="/salary" element={ <EmpSalaryList/>}/>
                     <Route path="/salary/list/:id" element={<EmpSalary/>}/>
                     <Route path="/movie" element={<MovieList/>}/>
+                    <Route path="/serviceMovie" element={<ServiceMovieList/>}/>
                 </Route>
             </Routes>
         </Router>

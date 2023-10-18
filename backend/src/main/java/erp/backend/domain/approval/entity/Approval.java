@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,14 +64,13 @@ public class Approval {
     private List<ApprovalFile> approvalFileList = new ArrayList<>();
 
 
-    public void update(Emp emp, ApprovalUpdate request) {
+    public void update(ApprovalUpdate request) {
         this.approvalCheck = request.getApprovalCheck();
-        this.approvalSuccessDate = LocalDate.now();
-    }
-
-    public void reject(Emp emp, ApprovalUpdate request) {
-        this.approvalCheck = request.getApprovalCheck();
-        this.approvalBackDate = LocalDate.now();
+        if(approvalCheck.equals("결재완료")){
+            this.approvalSuccessDate = LocalDate.now();
+        } else if(approvalCheck.equals("결재반려")){
+            this.approvalBackDate = LocalDate.now();
+        }
     }
 
 }

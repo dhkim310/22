@@ -5,7 +5,6 @@ import erp.backend.domain.approval.entity.Approval;
 import erp.backend.domain.approval.entity.ApprovalFile;
 import erp.backend.domain.approval.repository.ApprovalFileRepository;
 import erp.backend.domain.approval.repository.ApprovalRepository;
-import erp.backend.domain.approval.vo.ApprovalVo;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.uploadfile.entity.UploadFile;
 import erp.backend.domain.uploadfile.service.UploadFileService;
@@ -30,7 +29,6 @@ public class ApprovalService {
     private final ApprovalRepository approvalRepository;
     private final ApprovalFileRepository approvalFileRepository;
     private final UploadFileService uploadFileService;
-    private final ApprovalVo approvalVo;
 
     @Transactional(readOnly = true)//결재 대기 및 반려 리스트
     public ApprovalListResult approvalListResult(Pageable pageable) {
@@ -99,6 +97,8 @@ public class ApprovalService {
                 .approvalDrafter(entity.getEmp().getEmpName())
                 .approvalSubject(entity.getApprovalSubject())
                 .approvalContent(entity.getApprovalContent())
+                .approvalCheckMan(entity.getApprovalCheckMan())
+                .approvalUpLoadDate(entity.getApprovalUpLoadDate())
                 .approvalFileList(approvalFiles)
                 .build();
     }
@@ -126,18 +126,12 @@ public class ApprovalService {
     public Long update(Long id, ApprovalUpdate request) {
         Emp emp = SecurityHelper.getAccount();
         Approval entity = getApproval(id);
-        entity.update(emp, request);
-        approvalRepository.save(entity);
-        return entity.getApprovalId();
-    }
-
-    @Transactional
-    public Long reject(Long id, ApprovalUpdate request) {
-        Emp emp = SecurityHelper.getAccount();
-        Approval entity = getApproval(id);
-        entity.reject(emp, request);
-        approvalRepository.save(entity);
-        return entity.getApprovalId();
+        if(entity.getApprovalCheckMan().equals(emp.getEmpName())){
+            entity.update(request);
+            approvalRepository.save(entity);
+            return entity.getApprovalId();
+        }
+        throw new IllegalArgumentException("권한이 없습니다.");
     }
 
     @Transactional
