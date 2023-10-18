@@ -11,7 +11,7 @@ function EmpSalary() {
     const [isMobile, setIsMobile] = useState(false);
 
     const navigate = useNavigate();
-    const navigateToDelete = (id) =>{
+    const navigateToDelete = (id) => {
         navigate(`/salary/${id}`)
     }
 
@@ -108,7 +108,7 @@ function EmpSalary() {
                                         className="btn btn-danger"
                                         data-bss-hover-animate="pulse"
                                         type="button"
-                                        onClick={() => onDelete(id)}
+                                        onClick={onDelete}
                                         style={{
                                             background: 'black',
                                             borderStyle: 'none',
@@ -129,8 +129,6 @@ function EmpSalary() {
                             borderTop: '2px ridge rgba(128, 128, 128, 0.32)',
                             borderBottom: '2px ridge rgba(128, 128, 128, 0.32)'
                         }}></div>
-
-
                     </div>
                 </div>
             </div>

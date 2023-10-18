@@ -13,5 +13,7 @@ public class MemberInsert {
     private String memberEmail;
     private String memberPassword;
     private String memberPhoneNumber;
+    private String memberRateplan;
     private LocalDate memberBirthDay;
+    private LocalDate memberJoinDate;
 }
