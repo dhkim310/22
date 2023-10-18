@@ -169,7 +169,7 @@ public class EmpService {
                         .empName(emp1.getEmpName())
                         .empPosition(emp1.getEmpPosition())
                         .empAmount(emp1.getEmpAmount())
-                        .deptName(emp1.getDept().getDeptName())
+                        .dept(emp1.getDept().getDeptName())
                         .build())
                 .toList();
     }
@@ -216,6 +216,7 @@ public class EmpService {
     }
 
     private Emp getEmpAccountId(Long id) {
+
         return empRepository.findByEmpId(id);
     }
 

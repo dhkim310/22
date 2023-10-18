@@ -27,21 +27,18 @@ public class SalaryService {
     public Long salaryInsert(SalaryInsert request) {
         Emp emp = SecurityHelper.getAccount();
         salaryVO.setBonus(request.getBonus());
+        getEmpListHandler(emp.getEmpId());
 
-        if (emp.getDept().getDeptId() == 20) {
-            Salary entity = Salary.builder()
-                    .emp(emp)
-                    .salaryPayDate(LocalDate.now().withDayOfMonth(15))
-                    .salaryPayMoney(salaryVO.paymoney(emp.getEmpPosition()))
-                    .salaryBank(request.getBank())
-                    .salaryAccountNumber(request.getAccountNumber())
-                    .salaryTax(salaryVO.taxmoney(emp.getEmpPosition()))
-                    .salaryBonus(salaryVO.getBonus())
-                    .build();
-            return salaryRepository.save(entity).getSalaryId();
-        } else {
-            throw new IllegalArgumentException("실패");
-        }
+        Salary entity = Salary.builder()
+                .emp(emp)
+                .salaryPayDate(LocalDate.now().withDayOfMonth(15))
+                .salaryPayMoney(salaryVO.paymoney(emp.getEmpPosition()))
+                .salaryBank(request.getBank())
+                .salaryAccountNumber(request.getAccountNumber())
+                .salaryTax(salaryVO.taxmoney(emp.getEmpPosition()))
+                .salaryBonus(salaryVO.getBonus())
+                .build();
+        return salaryRepository.save(entity).getSalaryId();
     }
 
     @Transactional(readOnly = true)
@@ -64,9 +61,8 @@ public class SalaryService {
     @Transactional
     public void salaryDelete(Long id) {
         Emp emp = SecurityHelper.getAccount();
-        if (emp.getDept().getDeptId() == 20) {
-            salaryRepository.deleteById(id);
-        }
+        getEmpListHandler(emp.getEmpId());
+        salaryRepository.deleteById(id);
     }
 
     private Emp getEmpListHandler(Long empId) {
