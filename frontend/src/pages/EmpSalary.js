@@ -108,7 +108,7 @@ function EmpSalary() {
                                         className="btn btn-danger"
                                         data-bss-hover-animate="pulse"
                                         type="button"
-                                        onClick={() => onDelete(id)}
+                                        onClick={onDelete}
                                         style={{
                                             background: 'black',
                                             borderStyle: 'none',

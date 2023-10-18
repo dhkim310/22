@@ -58,7 +58,6 @@ public class SecurityConfig {
                                 "/api/emp/salary-list",
                                 "/api/emp/salary/{empName}",
                                 "/api/salary",
-                                "/api/salary/{id}",
                                 "/api/salary/list/{id}",
                                 "/api/main",
                                 "/api/notice",

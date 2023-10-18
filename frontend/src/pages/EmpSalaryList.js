@@ -14,13 +14,16 @@ function EmpSalaryList() {
     const [selectedDepartment, setSelectedDepartment] = useState('all'); // Default value for department filter
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
+    const [selectedEmpId, setSelectedEmpId] = useState(null);
 
 
-    const openModal = () => {
+    const openModal = (empId) => {
+        setSelectedEmpId(empId);
         setIsModalOpen(true);
     };
 
     const closeModal = () => {
+        setSelectedEmpId(null);
         setIsModalOpen(false);
     };
     const handleSearchChange = (event) => {
@@ -82,7 +85,7 @@ function EmpSalaryList() {
     return (
         <div>
             <div>
-                <SalaryInsertComponent isOpen={isModalOpen} closeModal={closeModal}/>
+                <SalaryInsertComponent isOpen={isModalOpen} closeModal={closeModal} empId={selectedEmpId}/>
             </div>
 
             <div style={{background: 'rgba(111,66,193,0)', height: '100%', width: 'Auto'}}>
@@ -205,8 +208,9 @@ function EmpSalaryList() {
 
                                         <button
                                             className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                                            data-bss-hover-animate="pulse" type="button"
-                                            onClick={openModal}
+                                            data-bss-hover-animate="pulse"
+                                            type="button"
+                                            onClick={() => openModal(e.empId)}
                                             style={{
                                                 fontSize: '13px',
                                                 fontWeight: 'bold',
@@ -218,8 +222,9 @@ function EmpSalaryList() {
                                                 paddingRight: '9px',
                                                 paddingLeft: '9px',
                                                 color: 'black',
-                                                border: '1px solid black'
-                                            }}>
+                                                border: '1px solid black',
+                                            }}
+                                        >
                                             급여 등록
                                         </button>
                                     </div>

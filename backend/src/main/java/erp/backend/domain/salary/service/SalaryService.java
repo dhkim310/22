@@ -25,8 +25,9 @@ public class SalaryService {
 
     @Transactional
     public Long salaryInsert(SalaryInsert request) {
-        Emp emp = SecurityHelper.getAccount();
+        Emp emp = empRepository.findByEmpId(request.getEmpId());
         salaryVO.setBonus(request.getBonus());
+        System.err.println(request.getEmpId());
 
         Salary entity = Salary.builder()
                 .emp(emp)
@@ -57,9 +58,9 @@ public class SalaryService {
     }
 
     @Transactional
-    public void salaryDelete(Long id) {
+    public void salaryDelete(Long salaryId) {
         Emp emp = SecurityHelper.getAccount();
-        salaryRepository.deleteById(id);
+        salaryRepository.deleteById(salaryId);
     }
 
 

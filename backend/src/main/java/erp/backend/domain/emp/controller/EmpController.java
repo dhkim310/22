@@ -63,14 +63,6 @@ public class EmpController {
         return ResponseEntity.ok(empService.updateReshuffle(id, request));
     }
 
-//    @GetMapping("/salary/{empName}")
-//    public ResponseEntity<EmpSalaryListResult> searchList(@PageableDefault(size = 6, sort = "empId", direction = Sort.Direction.ASC)
-//                                                    Pageable pageable, @PathVariable("empName") String empName, Model model) {
-//        EmpSalaryListResult listResult = empService.getEmpSearchList(pageable, empName);
-//        model.addAttribute("listResult", listResult);
-//        return ResponseEntity.ok(listResult);
-//    }
-
     @GetMapping("/main")
     public ResponseEntity<EmpMainResponse> empMain() {
         return ResponseEntity.ok(empService.empMainResponse());

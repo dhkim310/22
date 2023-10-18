@@ -2,22 +2,24 @@ import React, {useState} from "react";
 import Modal from "react-modal";
 import {salaryInsert} from "../api/Salary";
 import {useForm} from "react-hook-form";
+import {useParams} from "react-router-dom";
 
-function SalaryInsertComponent({isOpen, closeModal}) {
+function SalaryInsertComponent({ isOpen, closeModal, empId }) {
     const {register, formState: {errors}, handleSubmit} = useForm();
-    const onValid = async ({salaryBank, salaryAccountNumber, salaryBonus}) => {
-        await salaryInsert({salaryBank, salaryAccountNumber, salaryBonus})
+    const {id} = useParams();
+    const onValid = async ({ salaryBank, salaryAccountNumber, salaryBonus }) => {
+        await salaryInsert({ empId: id, salaryBank, salaryAccountNumber, salaryBonus })
             .then((res) => {
-                if (res.status === 200){
+                if (res.status === 200) {
                     closeModal();
                     window.location.reload();
                 }
             })
             .catch((err) => {
                 console.log('err', err);
-            })
+                alert(err);
+            });
     };
-
     return (
         <Modal
             isOpen={isOpen}
@@ -26,7 +28,7 @@ function SalaryInsertComponent({isOpen, closeModal}) {
                 content: {
                     justifyContent: 'center',
                     width: '450px',
-                    height: '550px',
+                    height: '410px',
                     backgroundColor: 'white',
                     borderRadius: '20px',
                     border: 'none',
@@ -44,9 +46,12 @@ function SalaryInsertComponent({isOpen, closeModal}) {
         >
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2>급여등록</h2>
-                <button type="button" className="btn-close" onClick={closeModal}></button>
             </div>
             <form onSubmit={handleSubmit(onValid)}>
+                {/*<div className="mb-3">*/}
+                {/*    <label htmlFor="empId" className="form-label">사번</label>*/}
+                {/*    <input type="text" defaultValue={empId} {...register('empId')} className="form-control" id="empId" />*/}
+                {/*</div>*/}
                 <div className="mb-3">
                     <label htmlFor="salaryBank" className="form-label">지급은행</label>
                     <input type="text" {...register('salaryBank')} className="form-control" id="salaryBank" />
@@ -57,10 +62,10 @@ function SalaryInsertComponent({isOpen, closeModal}) {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="salaryBonus" className="form-label">성과금</label>
-                    <input type="text" {...register('salaryBonus')} className="form-control" id="salaryBonus" />
+                    <input type="text" {...register('salaryBonus')} defaultValue= "0" className="form-control" id="salaryBonus" />
                 </div>
                 <div className="d-flex justify-content-end">
-                    <button type="submit" className="btn btn-primary me-2">작성</button>
+                    <button type="submit" style={{backgroundColor: 'black'}} className="btn btn-primary me-2">작성</button>
                     <button type="button" className="btn btn-secondary" onClick={closeModal}>취소</button>
                 </div>
             </form>
