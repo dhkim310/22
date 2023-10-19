@@ -13,7 +13,7 @@ function SalaryInsertComponent({ isOpen, closeModal, empId }) {
     }, [empId]);
 
     const onValid = async ({ salaryBank, salaryAccountNumber, salaryBonus }) => {
-        await salaryInsert({ empId: id, salaryBank, salaryAccountNumber, salaryBonus })
+        await salaryInsert({ empId: empId, salaryBank, salaryAccountNumber, salaryBonus })
             .then((res) => {
                 if (res.status === 200) {
                     closeModal();

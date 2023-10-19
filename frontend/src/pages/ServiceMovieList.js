@@ -17,8 +17,6 @@ function MovieList() {
     const location = useLocation(); // 현재 위치 가져오기
     const isMoviePage = location.pathname === '/movie'; // "/movie" 경로에 있는지 확인
 
-
-
     const [searchCode, setSearchCode] = useState('');
 
     const handleSearchChange = (event) => {
@@ -105,7 +103,7 @@ function MovieList() {
                                     fontWeight: 'bold',
                                     paddingTop: '0px',
                                     marginLeft: '41px'
-                                }}>컨텐츠 목록</span>
+                                }}>서비스 컨텐츠 목록</span>
 
                             </div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
@@ -147,17 +145,7 @@ function MovieList() {
                                         서비스컨텐츠
                                     </button>
                                 </div>
-                                <div className="d-xxl-flex align-items-xxl-center"
-                                     style={{height: '30%', width: '30%', background: 'rgba(214,51,132,0)'}}>
-                                    <input type="search" placeholder="코드 검색" onChange={handleSearchChange}
-                                           style={{height: '81%', width: '85%'}}/>
-                                    <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{
-                                        background: 'url("assets/img/icons8-수색-144.png") center / contain no-repeat',
-                                        height: '100%',
-                                        width: '15%',
-                                        borderColor: 'rgba(255,255,255,0)'
-                                    }}/>
-                                </div>
+
 
                             </div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
@@ -205,9 +193,9 @@ function MovieList() {
 
                                 <div>
                                     {serviceMovieList.map((item) => (
-                                        <button
+                                        <div
                                             className="list-group-item list-group-item-action d-flex flex-row align-items-start"
-                                            onClick={() => handleItemClick(item.id)} // 클릭 시 상세보기 페이지로 이동
+                                            //onClick={() => handleItemClick(item.id)} // 클릭 시 상세보기 페이지로 이동
                                             style={{
                                                 height: '50px',
                                                 marginBottom: '2px',
@@ -273,7 +261,7 @@ function MovieList() {
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
                                             }}>{item.producer}</div>
-                                        </button>
+                                        </div>
                                     ))}
                                 </div>
                             </div>

@@ -21,5 +21,14 @@ export const insertMovieApi = async () => {
     });
 };
 
+export const serviceMovieInsert = async (id, params) => {
+    try {
+        const response = await axios.post(`/api/serviceMovie/${id}`, params);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
 
 

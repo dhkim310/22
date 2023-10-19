@@ -26,15 +26,15 @@ public class SalaryService {
     @Transactional
     public Long salaryInsert(SalaryInsert request) {
         Emp emp = empRepository.findByEmpId(request.getEmpId());
-        salaryVO.setBonus(request.getBonus());
+        salaryVO.setBonus(request.getSalaryBonus());
         System.err.println(request.getEmpId());
 
         Salary entity = Salary.builder()
                 .emp(emp)
                 .salaryPayDate(LocalDate.now().withDayOfMonth(15))
                 .salaryPayMoney(salaryVO.paymoney(emp.getEmpPosition()))
-                .salaryBank(request.getBank())
-                .salaryAccountNumber(request.getAccountNumber())
+                .salaryBank(request.getSalaryBank())
+                .salaryAccountNumber(request.getSalaryAccountNumber())
                 .salaryTax(salaryVO.taxmoney(emp.getEmpPosition()))
                 .salaryBonus(salaryVO.getBonus())
                 .build();
