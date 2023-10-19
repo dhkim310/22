@@ -23,6 +23,7 @@ import MovieList from "./pages/MovieList";
 import NoticeDetail from "./pages/NoticeDetailView";
 import BoardDetail from "./pages/BoardDetailView";
 import DepartmentCommuteList from "./pages/DepartmentCommuteList";
+import CommuteList from "./pages/CommuteList";
 import MemberList from "./pages/MemberList";
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
                     <Route path="/salary/list/:id" element={<EmpSalary/>}/>
                     <Route path="/movie" element={<MovieList/>}/>
                     <Route path="/department-hr" element={<DepartmentCommuteList/>}/>
+                    <Route path="/commute/:id" element={<CommuteList/>}/>
                     <Route path="/member" element={<MemberList/>}/>
                 </Route>
             </Routes>
