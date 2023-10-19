@@ -1,6 +1,7 @@
 package erp.backend.domain.vacation.controller;
 
-import erp.backend.domain.vacation.dto.VacationInsert;
+import erp.backend.domain.vacation.dto.VacationInitiate;
+import erp.backend.domain.vacation.dto.VacationInsertRequest;
 import erp.backend.domain.vacation.dto.VacationListResponse;
 import erp.backend.domain.vacation.dto.VacationUpdate;
 import erp.backend.domain.vacation.service.VacationService;
@@ -22,7 +23,7 @@ public class VacationController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> vacationInsert(@RequestBody VacationInsert request) {
+    public ResponseEntity<Long> vacationInsert(@RequestBody VacationInsertRequest request) {
         return ResponseEntity.ok(vacationService.vacationInsert(request));
     }
 

@@ -3,7 +3,8 @@ package erp.backend.domain.vacation.service;
 
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
-import erp.backend.domain.vacation.dto.VacationInsert;
+import erp.backend.domain.vacation.dto.VacationInitiate;
+import erp.backend.domain.vacation.dto.VacationInsertRequest;
 import erp.backend.domain.vacation.dto.VacationListResponse;
 import erp.backend.domain.vacation.dto.VacationUpdate;
 import erp.backend.domain.vacation.entity.Vacation;
@@ -24,17 +25,17 @@ public class VacationService {
     private final EmpRepository empRepository;
 
     @Transactional
-    public Long vacationInsert(VacationInsert request) {
+    public Long vacationInsert(VacationInsertRequest request) {
         Emp emp = empRepository.findByEmpId(request.getEmpId());
         Vacation entity = Vacation.builder()
                 .emp(emp)
-                .vacationTotalVacation(request.getTotalVacation())
-                .vacationUsedVacation(request.getUsedVacation())
-                .vacationTotalDayOff(request.getTotalDayOff())
-                .vacationUsedDayOff(request.getUsedDayOff())
-                .vacationStartDate(request.getStartDate())
-                .vacationEndDate(request.getEndDate())
-                .vacationWhy(request.getWhy())
+                .vacationTotalVacation(request.getVacationTotalVacation())
+                .vacationUsedVacation(request.getVacationUsedVacation())
+                .vacationTotalDayOff(request.getVacationTotalDayOff())
+                .vacationUsedDayOff(request.getVacationUsedDayOff())
+                .vacationStartDate(request.getVacationStartDate())
+                .vacationEndDate(request.getVacationEndDate())
+                .vacationWhy(request.getVacationWhy())
                 .build();
         return vacationRepository.save(entity).getVacationId();
     }
@@ -55,27 +56,26 @@ public class VacationService {
                     .map(vacation -> VacationListResponse.builder()
                             .vacationId(vacation.getVacationId())
                             .empId(vacation.getEmp().getEmpId())
-                            .name(vacation.getEmp().getEmpName())
-                            .totalVacation(vacation.getVacationTotalVacation())
-                            .usedVacation(vacation.getVacationUsedVacation())
-                            .totalDayOff(vacation.getVacationTotalDayOff())
-                            .usedDayOff(vacation.getVacationUsedDayOff())
-                            .startDate(vacation.getVacationStartDate())
-                            .endDate(vacation.getVacationEndDate())
-                            .why(vacation.getVacationWhy())
+                            .vacationTotalVacation(vacation.getVacationTotalVacation())
+                            .vacationUsedVacation(vacation.getVacationUsedVacation())
+                            .vacationTotalDayOff(vacation.getVacationTotalDayOff())
+                            .vacationUsedDayOff(vacation.getVacationUsedDayOff())
+                            .vacationStartDate(vacation.getVacationStartDate())
+                            .vacationEndDate(vacation.getVacationEndDate())
+                            .vacationWhy(vacation.getVacationWhy())
                             .build()
                     )
 
                     .toList();
         else {
             VacationListResponse vacationListResponse = VacationListResponse.builder()
-                    .totalVacation(0)
-                    .usedVacation(0)
-                    .totalDayOff(0)
-                    .usedDayOff(0)
-                    .startDate(LocalDate.now())
-                    .endDate(LocalDate.now())
-                    .why("-")
+                    .vacationTotalVacation(0)
+                    .vacationUsedVacation(0)
+                    .vacationTotalDayOff(0)
+                    .vacationUsedDayOff(0)
+                    .vacationStartDate(LocalDate.now())
+                    .vacationEndDate(LocalDate.now())
+                    .vacationWhy("-")
                     .build();
             return Collections.singletonList(vacationListResponse);
         }
