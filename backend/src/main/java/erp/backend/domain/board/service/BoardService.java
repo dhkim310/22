@@ -80,9 +80,11 @@ public class BoardService {
     public BoardDetailResponse boardDetail(Long id) {
         Board entity = getBoard(id);
         List<BoardFile> boardFiles = entity.getBoardFileList();
-
+        List<UploadFile> uploadFileList = null;
         List<Comment> comments = commentRepository.findByBoardBoardIdOrderByCommentIdDesc(id);
         List<CommentResponse> commentResponses = new ArrayList<>();
+        if (!boardFiles.isEmpty())
+            uploadFileList = uploadFileService.fileList(id, SchemaType.board);
 
         for (Comment comment : comments) {
             commentResponses.add(new CommentResponse(comment));
@@ -96,7 +98,7 @@ public class BoardService {
                 .views(entity.getBoardViews())
                 .boardCreatedDate(entity.getBoardCreatedDate())
                 .boardModifiedDate(entity.getBoardModifiedDate())
-                .boardFileList(boardFiles)
+                .boardFileList(uploadFileList)
                 .boardCommentList(commentResponses)
                 .build();
     }

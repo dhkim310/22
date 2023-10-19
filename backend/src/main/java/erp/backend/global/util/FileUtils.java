@@ -10,8 +10,11 @@ import java.util.Objects;
 public class FileUtils {
 
     public static String generatorFilePath(String saveId, String schema) {
-        String rootDir = System.getProperty("user.dir");
-        return rootDir + "/backend/src/main/resources/media/" + schema + "/" + saveId;
+        String userHome = System.getProperty("user.home");
+        String erpFilePath = userHome + "/Desktop/ERP_FILE/" + schema;
+        File downloadDir = new File(erpFilePath);
+        if (!downloadDir.exists()) downloadDir.mkdirs();
+        return erpFilePath + "/" + saveId;
     }
 
     public static void deleteFile(String path) {

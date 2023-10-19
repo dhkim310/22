@@ -86,7 +86,7 @@ function EmpSalaryList() {
     );
 
     return (
-        <div>
+        <div style={{paddingTop: "50px",}}>
             <div>
                 <SalaryInsertComponent isOpen={isModalOpen} closeModal={closeModal} empId={selectedEmpId} />
             </div>

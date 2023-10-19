@@ -17,7 +17,6 @@ import BoardList from "./pages/BoardList";
 import MemoComponent from "./component/MemoComponent"
 import Hrm from "./pages/Hrm"
 import Reshuffle from "./pages/Reshuffle"
-import empList from "./pages/EmpSalaryList";
 import EmpSalaryList from "./pages/EmpSalaryList";
 import EmpSalary from "./pages/EmpSalary";
 import MovieList from "./pages/MovieList";
@@ -52,8 +51,8 @@ function App() {
                     <Route path="/notice/:id" element={<NoticeDetail/>}/>
                     <Route path="/hrm" element={<Hrm/>}/>
                     <Route path="/memo" element={<MemoComponent/>}/>
-                    <Route path="/reshuffle/:id" element={ <Reshuffle />}/>
-                    <Route path="/salary" element={ <EmpSalaryList/>}/>
+                    <Route path="/reshuffle/:id" element={<Reshuffle/>}/>
+                    <Route path="/salary" element={<EmpSalaryList/>}/>
                     <Route path="/salary/list/:id" element={<EmpSalary/>}/>
                     <Route path="/movie" element={<MovieList/>}/>
                     <Route path="/department-hr" element={<DepartmentCommuteList/>}/>

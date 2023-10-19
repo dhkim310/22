@@ -26,7 +26,7 @@ function MemberList() {
     }, []);
 
     return (
-        <div>
+        <div style={{paddingTop: "50px"}}>
             <div style={{background: 'rgba(111,66,193,0)', height: '100%', width: 'Auto'}}>
                 <div className="d-xxl-flex align-items-xxl-center" style={{
                     height: '70px',
