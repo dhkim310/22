@@ -90,9 +90,9 @@ public class NoticeService {
     public NoticeDetailResponse noticeDetail(Long id) {
         Notice entity = getNotice(id);
         List<NoticeFile> noticeFiles = entity.getNoticeFileList();
-
+        List<UploadFile> uploadFileList = null;
         if (!noticeFiles.isEmpty())
-            uploadFileService.fileList(id, SchemaType.board);
+            uploadFileList = uploadFileService.fileList(id, SchemaType.notice);
 
         return NoticeDetailResponse.builder()
                 .id(entity.getNoticeId())
@@ -102,7 +102,7 @@ public class NoticeService {
                 .views(entity.getNoticeViews())
                 .noticeCreatedDate(entity.getNoticeCreatedDate())
                 .noticeModifiedDate(entity.getNoticeModifiedDate())
-                .noticeFileList(noticeFiles)
+                .noticeFileList(uploadFileList)
                 .build();
     }
 
