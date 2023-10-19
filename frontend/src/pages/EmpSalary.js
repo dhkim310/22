@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
-import {useParams} from "react-router-dom";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {salaryDelete, selectSalaryList} from "../api/Salary";
 
 function EmpSalary() {
@@ -43,7 +42,7 @@ function EmpSalary() {
 
     return (
         <div>
-            <div style={{background: 'rgba(111, 66, 193, 0)', height: '100%', width: 'auto'}}>
+            <div style={{paddingTop: "50px", background: 'rgba(111, 66, 193, 0)', height: '100%', width: 'auto'}}>
                 <div className="d-xxl-flex align-items-xxl-center"
                      style={{height: '70px', padding: '0', width: 'auto'}}>
                     <span

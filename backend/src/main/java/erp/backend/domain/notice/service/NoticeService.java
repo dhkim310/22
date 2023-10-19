@@ -91,6 +91,9 @@ public class NoticeService {
         Notice entity = getNotice(id);
         List<NoticeFile> noticeFiles = entity.getNoticeFileList();
 
+        if (!noticeFiles.isEmpty())
+            uploadFileService.fileList(id, SchemaType.board);
+
         return NoticeDetailResponse.builder()
                 .id(entity.getNoticeId())
                 .writer(entity.getEmp().getEmpName())

@@ -56,7 +56,7 @@ export default function ReactBigCalendar() {
     };
 
     return (
-        <div className="App">
+        <div className="App" style={{paddingTop: "50px",}}>
             <Calendar
                 views={["month"]}
                 selectable
