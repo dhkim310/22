@@ -6,9 +6,6 @@ import {fetchServiceMovieList} from '../api/serviceMovie';
 import {FormatDate} from "../component/FormatDate";
 import PaginationButtons from '../component/PaginationButton';
 
-
-import axios from "axios";
-
 function MovieList() {
     const [serviceMovieList, setServiceMovieList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호 (1부터 시작)
@@ -16,7 +13,6 @@ function MovieList() {
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation(); // 현재 위치 가져오기
     const isMoviePage = location.pathname === '/movie'; // "/movie" 경로에 있는지 확인
-
 
 
     const [searchCode, setSearchCode] = useState('');
@@ -48,19 +44,18 @@ function MovieList() {
 
     const newServiceMovie = async () => {
 
-        };
-
+    };
 
 
     // 클릭 이벤트 핸들러 추가
 
     const handleMovieClick = () => {
-            navigate("/movie");
-        };
+        navigate("/movie");
+    };
 
     const handleServiceMovieClick = () => {
-            navigate("/serviceMovie");
-       };
+        navigate("/serviceMovie");
+    };
 
     const handleItemClick = (id) => {
         navigate(`/movie/${id}`)
@@ -75,8 +70,7 @@ function MovieList() {
     }, []);
 
     return (
-        <div>
-
+        <div style={{paddingTop: "50px"}}>
             <div style={{width: '100%', height: '100%'}}>
                 <div className="d-xxl-flex justify-content-xxl-center"
                      style={{width: '100%', height: '100%', background: 'transparent'}}>
@@ -151,12 +145,13 @@ function MovieList() {
                                      style={{height: '30%', width: '30%', background: 'rgba(214,51,132,0)'}}>
                                     <input type="search" placeholder="코드 검색" onChange={handleSearchChange}
                                            style={{height: '81%', width: '85%'}}/>
-                                    <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{
-                                        background: 'url("assets/img/icons8-수색-144.png") center / contain no-repeat',
-                                        height: '100%',
-                                        width: '15%',
-                                        borderColor: 'rgba(255,255,255,0)'
-                                    }}/>
+                                    <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
+                                            style={{
+                                                background: 'url("assets/img/icons8-수색-144.png") center / contain no-repeat',
+                                                height: '100%',
+                                                width: '15%',
+                                                borderColor: 'rgba(255,255,255,0)'
+                                            }}/>
                                 </div>
 
                             </div>

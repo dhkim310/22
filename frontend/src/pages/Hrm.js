@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
 import EmpCreateComponent from "../component/EmpCreateComponent";
 import {selectHrmListApi} from "../api/Emp";
 import {useParams, useNavigate} from 'react-router-dom';
 import VacationInsertComponent from "../component/VacationInsertComponent";
+
 
 function Hrm() {
     const [hrm, setHrm] = useState([]);
@@ -88,7 +89,7 @@ function Hrm() {
     );
 
     return (
-        <div>
+        <div style={{paddingTop: "50px"}}>
             <div>
                 <EmpCreateComponent isOpen={isModalOpen} closeModal={closeModal}/>
             </div>

@@ -59,7 +59,7 @@ function NoticeInsert() {
     return (
         <div>
             <div>
-                <div style={{width: '100%', height: '100%'}}>
+                <div style={{paddingTop: "50px", width: '100%', height: '100%'}}>
                     <div className="d-xxl-flex justify-content-xxl-center"
                          style={{width: '100%', height: '100%', background: 'transparent'}}>
                         <div className="d-xxl-flex justify-content-xxl-center"

@@ -62,6 +62,7 @@ public class Board {
             orphanRemoval = true
     )
     @Builder.Default
+    @JsonIgnore
     private List<BoardFile> boardFileList = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.REMOVE)

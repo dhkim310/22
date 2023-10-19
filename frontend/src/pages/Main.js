@@ -121,8 +121,7 @@ function Main() {
     }, []);
 
     return (
-        <div>
-
+        <div style={{paddingTop: "50px"}}>
             <div>
               <MemoComponent isOpen={isModalOpen} closeModal={closeModal} memoContent={memo.memoContent} />
             </div>
