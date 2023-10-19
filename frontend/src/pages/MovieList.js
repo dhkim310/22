@@ -308,8 +308,7 @@ function MovieList() {
                                                     >
                                                     서비스 등록
                                                     </button>
-                                                    </div>
-
+                                             </div>
                                         </div>
                                     ))}
                                 </div>

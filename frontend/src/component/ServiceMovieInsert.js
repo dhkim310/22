@@ -47,7 +47,7 @@ function ServiceMovieInsert({ isOpen, closeModal, movieId }) {
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
+                    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)'
                 },
                 overlay: {
                     backgroundColor: 'rgba(0, 0, 0, 0.5)',
