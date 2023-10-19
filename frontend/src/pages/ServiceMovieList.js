@@ -163,7 +163,7 @@ function MovieList() {
                                     style={{
                                         height: '30px',
                                         marginBottom: '0px',
-                                        width: '80%',
+                                        width: '90%',
                                         paddingTop: '0px',
                                         paddingRight: '0px',
                                         paddingBottom: '0px',
@@ -189,6 +189,7 @@ function MovieList() {
                                     <div style={{width: '20%', fontWeight: 'bold'}}>서비스시작일</div>
                                     <div style={{width: '20%', fontWeight: 'bold'}}>서비스종료일</div>
                                     <div style={{width: '20%', fontWeight: 'bold'}}>제작사</div>
+                                    <div style={{width: '21%', fontWeight: 'bold'}}>관리</div>
                                 </div>
 
                                 <div>
@@ -262,6 +263,7 @@ function MovieList() {
                                                 textAlign: 'center'
                                             }}>{item.producer}</div>
                                         </div>
+
                                     ))}
                                 </div>
                             </div>
