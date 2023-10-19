@@ -11,9 +11,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VacationListResponse {
-
-    private Long vacationId;
+public class VacationInsertRequest {
     private Long empId;
     private int vacationTotalVacation;
     private int vacationUsedVacation;
@@ -22,5 +20,4 @@ public class VacationListResponse {
     private LocalDate vacationStartDate;
     private LocalDate vacationEndDate;
     private String vacationWhy;
-
 }
