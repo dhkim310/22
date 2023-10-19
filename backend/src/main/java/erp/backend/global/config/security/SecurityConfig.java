@@ -73,6 +73,7 @@ public class SecurityConfig {
                                 "/api/approval/success",
                                 "/api/schedule",
                                 "/api/log",
+                                "/api/log/{id}",
                                 "/api/member",
                                 "/api/member/list",
                                 "/api/memo",

@@ -101,7 +101,8 @@ function Header() {
                             </button>
                             <button className="btn btn-primary text-nowrap" data-bss-hover-animate="pulse" type="button"
                                     onClick={navigateToEmpList}
-                                    style={{borderStyle: 'none', background: 'rgba(0,0,0,0)'}}>재무관리
+                                    style={{borderStyle: 'none', background: 'rgba(0,0,0,0)'}}>급여관리
+
                             </button>
                             <button className="btn btn-primary text-nowrap" data-bss-hover-animate="pulse" type="button"
                                     onClick={navigateToHrm}

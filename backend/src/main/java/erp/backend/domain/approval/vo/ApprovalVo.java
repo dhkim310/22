@@ -7,9 +7,8 @@ public class ApprovalVo {
     private final String success = "결재승인";
     private final String reject = "결재반려";
 
-    public String type1(String check) {
-        return check.equals(waiting) ? waiting :
-                check.equals(success) ? success : reject;
+    public boolean type1 (String check, String approver) {
+        return check.equals(approver);
     }
 
 }

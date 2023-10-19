@@ -11,14 +11,10 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VacationInsert {
+public class VacationInitiate {
     private Long empId;
-    private String name;
-    private int totalVacation;
-    private int usedVacation;
-    private int totalDayOff;
-    private int usedDayOff;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String why;
+    private int vacationTotalVacation;
+    private int vacationUsedVacation;
+    private int vacationTotalDayOff;
+    private int vacationUsedDayOff;
 }

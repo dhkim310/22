@@ -12,11 +12,6 @@ function SalaryInsertComponent({isOpen, closeModal, empId}) {
     } = useForm();
 
     const onValid = async ({salaryBank, salaryAccountNumber, salaryBonus}) => {
-        if (!salaryAccountNumber) {
-            alert("계좌번호를 입력해주세요.");
-            return;
-        }
-
         await salaryInsert({
             empId: empId,
             salaryBank,

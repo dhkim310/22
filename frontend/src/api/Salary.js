@@ -19,15 +19,5 @@ export const salaryInsert = async (params) => {
 };
 
 export const salaryDelete = async (id) => {
-
-        return new Promise((resolve, reject) => {
-        axios.delete(`/api/salary/list/${id}`)
-            .then((res) => {
-                return resolve(res);
-            })
-            .catch((err) => {
-                return reject(err);
-            })
-    })
-
+    return axios.delete(`/api/salary/list/${id}`);
 };
