@@ -73,7 +73,7 @@ function MovieList() {
     }, []);
 
     return (
-        <div>
+        <div style ={{paddingTop : '50px'}}>
 
             <div style={{width: '100%', height: '100%'}}>
                 <div className="d-xxl-flex justify-content-xxl-center"
@@ -236,7 +236,7 @@ function MovieList() {
                                                 width: '20%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
-                                            }}>{FormatDate(item.paymentDate)}</div>
+                                            }}>{item.paymentDate}</div>
                                             <div style={{
                                                 width: '20%',
                                                 fontWeight: 'bold',
@@ -251,12 +251,12 @@ function MovieList() {
                                                 width: '20%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
-                                            }}>{FormatDate(item.startDate)}</div>
+                                            }}>{item.startDate}</div>
                                             <div style={{
                                                 width: '20%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
-                                            }}>{FormatDate(item.endDate)}</div>
+                                            }}>{item.endDate}</div>
                                             <div style={{
                                                 width: '20%',
                                                 fontWeight: 'bold',

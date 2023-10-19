@@ -94,7 +94,8 @@ function MovieList() {
     }, []);
 
     return (
-        <div>
+        <div style ={{paddingTop : '50px'}}>
+
         <div>
             <ServiceMovieInsert isOpen={isModalOpen} closeModal={closeModal} movieId={selectedMovieId} />
         </div>
@@ -256,7 +257,7 @@ function MovieList() {
                                                 width: '35%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
-                                            }}>{FormatDate(item.releaseDate)}</div>
+                                            }}>{item.releaseDate}</div>
                                             <div style={{
                                                 width: '10%',
                                                 fontWeight: 'bold',
