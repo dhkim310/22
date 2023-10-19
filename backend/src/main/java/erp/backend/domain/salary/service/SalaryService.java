@@ -47,6 +47,7 @@ public class SalaryService {
         List<Salary> list = salaryRepository.findSalaryByEmpEmpId(empId);
         return list.stream()
                 .map(salary -> SalaryResponse.builder()
+                        .salaryId(salary.getSalaryId())
                         .salaryTax(salary.getSalaryTax())
                         .salaryBonus(salary.getSalaryBonus())
                         .salaryPayMoney(salary.getSalaryPayMoney())
@@ -59,9 +60,7 @@ public class SalaryService {
 
     @Transactional
     public void salaryDelete(Long salaryId) {
-        Emp emp = SecurityHelper.getAccount();
-        salaryRepository.deleteById(salaryId);
+        Salary salary = salaryRepository.findBySalaryId(salaryId);
+        salaryRepository.delete(salary);
     }
-
-
 }
