@@ -35,8 +35,6 @@ public class ApprovalService {
         List<Approval> approvalList = approvalRepository
                 .findByApprovalCheckOrderByApprovalIdDesc();
 
-        long totalCount = approvalList.size();
-
         List<ApprovalListResponse> approvalListResponses = approvalList
                 .stream()
                 .skip(pageable.getOffset())
@@ -54,17 +52,15 @@ public class ApprovalService {
                 .toList();
 
         return new ApprovalListResult(pageable.getPageNumber()
-                , totalCount
+                , approvalList.size()
                 , pageable.getPageSize()
-                , new PageImpl<>(approvalListResponses, pageable, totalCount));
+                , new PageImpl<>(approvalListResponses, pageable, approvalList.size()));
     }
-    @Transactional(readOnly = true)//결재 대기 및 반려 리스트
+    @Transactional(readOnly = true)//결재 완료 리스트
     public ApprovalListResult approvalSuccessListResult(Pageable pageable) {
         List<Approval> approvalList = approvalRepository
                 .findByApprovalCheckOrderByApprovalIdDesc("결재완료");
 
-        long totalCount = approvalList.size();
-
         List<ApprovalListResponse> approvalListResponses = approvalList
                 .stream()
                 .skip(pageable.getOffset())
@@ -82,9 +78,9 @@ public class ApprovalService {
                 .toList();
 
         return new ApprovalListResult(pageable.getPageNumber()
-                , totalCount
+                , approvalList.size()
                 , pageable.getPageSize()
-                , new PageImpl<>(approvalListResponses, pageable, totalCount));
+                , new PageImpl<>(approvalListResponses, pageable, approvalList.size()));
     }
 
     @Transactional(readOnly = true)
