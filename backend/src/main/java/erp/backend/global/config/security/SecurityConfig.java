@@ -84,7 +84,8 @@ public class SecurityConfig {
                                 "/api/movie/{id}",
                                 "/api/serviceMovie/{movieId}",
                                 "/api/serviceMovie/{id}",
-                                "/api/serviceMovie"
+                                "/api/serviceMovie",
+                                "/api/vacation"
                         )
                         .permitAll()
                         .anyRequest().hasRole("USER"))
