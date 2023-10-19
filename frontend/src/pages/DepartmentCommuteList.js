@@ -13,8 +13,8 @@ function DepartmentCommuteList() {
     const [selectedPosition, setSelectedPosition] = useState('all'); // Default value for job position filter
     const [selectedDepartment, setSelectedDepartment] = useState('all'); // Default value for department filter
     const navigate = useNavigate();
-    const navigateToReshuffle = (id) => {
-        navigate(`/reshuffle/${id}`);
+    const navigateToList = (id) => {
+        navigate(`/commute/${id}`);
     };
 
     const handleSearchChange = (event) => {
@@ -66,6 +66,19 @@ function DepartmentCommuteList() {
 
     return (
         <div>
+            <div style={{width: '15%', height: '100%'}}>
+                <div className="d-xxl-flex-end align-items-xxl-center"
+                     style={{height: '50%', width: '100%', background: 'rgba(214,51,132,0)'}}>
+                    <input type="search" placeholder="이름 검색" onChange={handleSearchChange}
+                           style={{height: '81%', width: '85%'}}/>
+                    <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{
+                        background: 'url("assets/img/icons8-수색-144.png") center / contain no-repeat',
+                        height: '100%',
+                        width: '15%',
+                        borderColor: 'rgba(255,255,255,0)'
+                    }}/>
+                </div>
+                </div>
         <div>
           <div className="d-xxl-flex justify-content-xxl-start" style={{width: '100%', height: '100%'}}>
             <div style={{height: '100%', width: '2%'}} />
@@ -143,7 +156,7 @@ function DepartmentCommuteList() {
                                     <button
                                         className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
                                         data-bss-hover-animate="pulse" type="button"
-                                        onClick={() => navigateToReshuffle(e.empId)} style={{
+                                        onClick={() => navigateToList(e.empId)} style={{
                                         fontSize: '13px',
                                         fontWeight: 'bold',
                                         background: 'var(--bs-btn-disabled-color)',
