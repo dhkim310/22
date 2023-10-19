@@ -2,6 +2,7 @@ package erp.backend.domain.log.service;
 
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.log.Vo.LogVo;
+import erp.backend.domain.log.dto.LogListResponse;
 import erp.backend.domain.log.dto.LogResponse;
 import erp.backend.domain.log.entity.Log;
 import erp.backend.domain.log.repository.LogRepository;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,6 +52,21 @@ public class LogService {
                 .logCheckIn(entity.map(e -> logVo.type3(e.getLogCheckIn())).orElse(null))
                 .logCheckOut(entity.map(e -> logVo.type3(e.getLogCheckOut())).orElse(null))
                 .build();
+    }
+    @Transactional(readOnly = true)
+    public List<LogListResponse> searchList(Long id) {
+        List<Log> list = logRepository.findByEmpEmpId(id);
+
+        return list.stream()
+                .map(log -> LogListResponse.builder()
+                        .logId(log.getLogId())
+                        .logDate(log.getLogDate())
+                        .logCheckIn(log.getLogCheckIn())
+                        .logCheckOut(log.getLogCheckOut())
+                        .logStatus(log.getLogStatus())
+                        .build()
+                )
+                .toList();
     }
 
     private Log getLog(Long logId) {

@@ -41,3 +41,12 @@ export const commuteSelectApi = async (params) => {
         throw error;
     }
 };
+
+export const commuteListSelectApi = async (id) => {
+    try {
+        const response = await axios.get(`/api/log/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
