@@ -28,7 +28,7 @@ function ServiceMovieInsert({ isOpen, closeModal, movieId }) {
             })
             .catch((err) => {
                 console.log('err', err);
-                alert('paymentDate : ' + paymentDate + 'amount : ' + amount);
+                //alert('paymentDate : ' + paymentDate + 'amount : ' + amount);
             });
     };
     return (
@@ -38,8 +38,8 @@ function ServiceMovieInsert({ isOpen, closeModal, movieId }) {
             style={{
                 content: {
                     justifyContent: 'center',
-                    width: '450px',
-                    height: '410px',
+                    width: '600px',
+                    height: '600px',
                     backgroundColor: 'white',
                     borderRadius: '20px',
                     border: 'none',
@@ -58,7 +58,7 @@ function ServiceMovieInsert({ isOpen, closeModal, movieId }) {
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2>서비스 등록</h2>
             </div>
-            <p>movieId: {movieId}</p>
+            <h4>Id: {movieId}</h4>
             <form onSubmit={handleSubmit(onValid)}>
                 <div className="mb-3">
                     <label htmlFor="amount" className="form-label">판권금액</label>
