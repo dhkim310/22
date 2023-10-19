@@ -163,7 +163,7 @@ function MovieList() {
                                     style={{
                                         height: '30px',
                                         marginBottom: '0px',
-                                        width: '90%',
+                                        width: '80%',
                                         paddingTop: '0px',
                                         paddingRight: '0px',
                                         paddingBottom: '0px',
@@ -189,7 +189,7 @@ function MovieList() {
                                     <div style={{width: '20%', fontWeight: 'bold'}}>서비스시작일</div>
                                     <div style={{width: '20%', fontWeight: 'bold'}}>서비스종료일</div>
                                     <div style={{width: '20%', fontWeight: 'bold'}}>제작사</div>
-                                    <div style={{width: '21%', fontWeight: 'bold'}}>관리</div>
+                                    <div style={{width: '30%', fontWeight: 'bold'}}>관리</div>
                                 </div>
 
                                 <div>
@@ -262,7 +262,33 @@ function MovieList() {
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
                                             }}>{item.producer}</div>
+
+                                            <div className="d-xxl-flex justify-content-xxl-center"
+                                                 style={{width: '30%', height: '100%', background: 'white'}}>
+                                                 <button
+                                                     className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                                     data-bss-hover-animate="pulse" type="button"
+                                                     onClick={() => handleItemClick(item.id)}
+                                                     style={{
+                                                     fontSize: '13px',
+                                                     fontWeight: 'bold',
+                                                     background: 'var(--bs-btn-disabled-color)',
+                                                     width: 'auto',
+                                                     height: '80%',
+                                                     margin: '0px',
+                                                     marginLeft: '30px',
+                                                     padding: '0px',
+                                                     paddingRight: '9px',
+                                                     paddingLeft: '9px',
+                                                     color: 'black',
+                                                     border: '1px solid black',
+                                                     marginRight: '30px'
+                                                     }}>
+                                                     정보 수정
+                                                     </button>
+                                                 </div>
                                         </div>
+
 
                                     ))}
                                 </div>
