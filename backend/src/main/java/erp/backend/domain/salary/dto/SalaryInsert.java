@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class SalaryInsert {
     private Long empId;
-    private String bank;
-    private String accountNumber;
-    private int bonus;
+    private String salaryBank;
+    private String salaryAccountNumber;
+    private int salaryBonus;
 }
