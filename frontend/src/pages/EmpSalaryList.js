@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
-import {selectEmpList, selectHrmListApi} from "../api/Emp";
+import {selectEmpList} from "../api/Emp";
 import {useNavigate} from "react-router-dom";
 import SalaryInsertComponent from "../component/SalaryInsertComponent";
-import {salaryDelete} from "../api/Salary";
 
 function EmpSalaryList() {
     const [empList, setEmpList] = useState([]);
@@ -14,13 +13,16 @@ function EmpSalaryList() {
     const [selectedDepartment, setSelectedDepartment] = useState('all'); // Default value for department filter
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
+    const [selectedEmpId, setSelectedEmpId] = useState(null);
 
 
-    const openModal = () => {
+    const openModal = (empId) => {
+        setSelectedEmpId(empId);
         setIsModalOpen(true);
     };
 
     const closeModal = () => {
+        setSelectedEmpId(null);
         setIsModalOpen(false);
     };
     const handleSearchChange = (event) => {
@@ -40,7 +42,6 @@ function EmpSalaryList() {
     const navigateToDetail = (id) => {
         navigate(`/salary/list/${id}`)
     }
-
 
     useEffect(() => {
         async function fetchData() {
@@ -82,7 +83,7 @@ function EmpSalaryList() {
     return (
         <div>
             <div>
-                <SalaryInsertComponent isOpen={isModalOpen} closeModal={closeModal}/>
+                <SalaryInsertComponent isOpen={isModalOpen} closeModal={closeModal} empId={selectedEmpId} />
             </div>
 
             <div style={{background: 'rgba(111,66,193,0)', height: '100%', width: 'Auto'}}>
@@ -101,7 +102,7 @@ function EmpSalaryList() {
                         paddingTop: '0px',
                         paddingBottom: '13px',
                         width: '85%'
-                    }}>인사관리</span>
+                    }}>급여관리</span>
                     <div style={{width: '15%', height: '100%'}}>
                         <div className="d-xxl-flex align-items-xxl-center"
                              style={{height: '50%', width: '100%', background: 'rgba(214,51,132,0)'}}>
@@ -205,8 +206,9 @@ function EmpSalaryList() {
 
                                         <button
                                             className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                                            data-bss-hover-animate="pulse" type="button"
-                                            onClick={openModal}
+                                            data-bss-hover-animate="pulse"
+                                            type="button"
+                                            onClick={() => openModal(e.empId)}
                                             style={{
                                                 fontSize: '13px',
                                                 fontWeight: 'bold',
@@ -218,8 +220,9 @@ function EmpSalaryList() {
                                                 paddingRight: '9px',
                                                 paddingLeft: '9px',
                                                 color: 'black',
-                                                border: '1px solid black'
-                                            }}>
+                                                border: '1px solid black',
+                                            }}
+                                        >
                                             급여 등록
                                         </button>
                                     </div>

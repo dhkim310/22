@@ -26,7 +26,7 @@ public class SalaryController {
         return ResponseEntity.ok(salaryService.getSalaryDetail(id));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/list/{id}")
     public ResponseEntity<Void> salaryDelete(@PathVariable("id") Long id) {
         salaryService.salaryDelete(id);
         return ResponseEntity.ok().build();

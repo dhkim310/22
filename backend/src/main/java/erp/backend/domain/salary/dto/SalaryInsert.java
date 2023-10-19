@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SalaryInsert {
-    private String bank;
-    private String accountNumber;
-    private int bonus;
+    private Long empId;
+    private String salaryBank;
+    private String salaryAccountNumber;
+    private int salaryBonus;
 }

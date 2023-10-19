@@ -39,7 +39,7 @@ public class ServiceMovieController {
     }
 
     @GetMapping
-    public ResponseEntity<ServiceMovieListResult> serviceMovieList(@PageableDefault(size = 3, sort = "serviceMovieId", direction = Sort.Direction.DESC) Pageable pageable,
+    public ResponseEntity<ServiceMovieListResult> serviceMovieList(@PageableDefault(size = 7, sort = "serviceMovieId", direction = Sort.Direction.DESC) Pageable pageable,
                                                             Model model) {
         ServiceMovieListResult listResult = serviceMovieService.serviceMovieListResult(pageable);
         model.addAttribute("listResult", listResult);
