@@ -61,7 +61,7 @@ function Login() {
     return (
         <div>
             <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                 style={{height: '1080px', background: 'url("img/erp.jpeg") center / contain no-repeat, white'}}>
+                 style={{height: '1080px', background: 'url("img/f05ee6c832afa3bac801c2c1825426ba.jpg") center / contain no-repeat, white'}}>
                 <div style={{width: '350px', height: '450px', background: 'rgba(0,0,0,0.63)'}}>
                     <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-end"
                          style={{height: '100px'}}><span style={{fontWeight: 'bold', fontSize: '28px', color: 'white'}}>엄용민 프로덕션</span>

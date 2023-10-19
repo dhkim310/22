@@ -23,6 +23,7 @@ import EmpSalary from "./pages/EmpSalary";
 import MovieList from "./pages/MovieList";
 import NoticeDetail from "./pages/NoticeDetailView";
 import BoardDetail from "./pages/BoardDetailView";
+import DepartmentCommuteList from "./pages/DepartmentCommuteList";
 import MemberList from "./pages/MemberList";
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
                     <Route path="/salary" element={ <EmpSalaryList/>}/>
                     <Route path="/salary/list/:id" element={<EmpSalary/>}/>
                     <Route path="/movie" element={<MovieList/>}/>
+                    <Route path="/department-hr" element={<DepartmentCommuteList/>}/>
                     <Route path="/member" element={<MemberList/>}/>
                 </Route>
             </Routes>
