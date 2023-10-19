@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UploadFileRepository extends JpaRepository<UploadFile, Long> {
     Optional<UploadFile> findById(Long id);
+    UploadFile findUploadFileByUuid(String uuid);
 }

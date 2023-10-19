@@ -6,19 +6,20 @@ import erp.backend.domain.notice.entity.NoticeFile;
 import erp.backend.domain.notice.repository.NoticeFileRepository;
 import erp.backend.domain.uploadfile.entity.UploadFile;
 import erp.backend.domain.uploadfile.repository.UploadFileRepository;
-import erp.backend.global.util.FileUtils;
 import erp.backend.global.util.SchemaType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -64,6 +65,7 @@ public class UploadFileService {
 
         String path = generatorFilePath(saveId, schema.getName());
         File uploadPath = new File(path);
+        String newPath = "/backend/src/main/resources/media/" + schema + "_file/" + saveId;
 
         uploadFile.transferTo(uploadPath);
 
@@ -72,7 +74,7 @@ public class UploadFileService {
                 .uuid(saveId)
                 .name(fileName)
                 .extension(extension)
-                .path(path)
+                .path(newPath)
                 .size(uploadFile.getSize())
                 .build();
     }
@@ -96,4 +98,29 @@ public class UploadFileService {
         return uploadFiles;
     }
 
+    public ResponseEntity<Resource> downloadFile(String uuid) {
+        try {
+            UploadFile uploadFile = uploadFileRepository.findUploadFileByUuid(uuid);
+            String fileName = uploadFile.getName();
+            String userDir = System.getProperty("user.dir");
+            String downloadPath = userDir + uploadFile.getPath();
+
+            File file = new File(downloadPath);
+            if (!file.exists()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
+            Resource resource = new FileSystemResource(file);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", fileName);
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 }
