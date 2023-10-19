@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
-import {commentDelete, fetchBoardDetail, getFile, postComment} from '../api/Board';
+import {commentDelete, fetchBoardDetail, postComment} from '../api/Board';
 import {FormatDate} from '../component/FormatDate';
 import Comment from '../component/Comment';
 import DownloadFile from '../component/DownloadFile';
@@ -172,7 +172,7 @@ function BoardDetail() {
                      style={{width: "100%", background: "rgba(13, 110, 253, 0)", height: "2%"}}>
                     <div style={{width: "50%", display: "flex", justifyContent: "center"}}>
                         <button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start"
-                                data-bss-hover-animate="pulse" type="button" onClick={handleNoticeClick}
+                                data-bss-hover-animate="pulse" type="button" onClick={handleBoardClick}
                                 style={{
                                     color: isBoardPage ? 'black' : 'darkgray',
                                     background: 'rgba(255, 255, 255, 1)',
@@ -283,7 +283,6 @@ function BoardDetail() {
                                     </ul>
                                 </div>
                             }
-
                         </div>
                         <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
                              style={{width: "85%", height: "40%", borderBottom: "2px ridge rgba(128,128,128,0.32)"}}>

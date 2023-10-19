@@ -1,6 +1,7 @@
 package erp.backend.domain.notice.dto;
 
 import erp.backend.domain.notice.entity.NoticeFile;
+import erp.backend.domain.uploadfile.entity.UploadFile;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +22,6 @@ public class NoticeDetailResponse {
     private int views; //조회수
     private LocalDateTime noticeCreatedDate; // 작성일
     private LocalDateTime noticeModifiedDate; // 수정일
-    private List<NoticeFile> noticeFileList; // 파일
+    private List<UploadFile> noticeFileList; // 파일
 
 }

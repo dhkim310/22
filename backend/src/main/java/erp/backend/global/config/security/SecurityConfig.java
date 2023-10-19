@@ -85,6 +85,7 @@ public class SecurityConfig {
                                 "/api/serviceMovie/{movieId}",
                                 "/api/serviceMovie/{id}",
                                 "/api/serviceMovie",
+                                "/api/file/{uuid}",
                                 "/api/vacation"
                         )
                         .permitAll()

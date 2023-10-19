@@ -247,7 +247,7 @@ function MovieList() {
                                                 width: '35%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
-                                            }}>{FormatDate(item.releaseDate)}</div>
+                                            }}>{item.releaseDate}</div>
                                             <div style={{
                                                 width: '10%',
                                                 fontWeight: 'bold',
