@@ -31,10 +31,10 @@ public class ServiceMovie {
     @Column(name = "SERVICEMOVIE_AMOUNT")
     private long serviceMovieAmount;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone = "Asia/Seoul")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 //  @CreationTimestamp
     @Column(name = "SERVICEMOVIE_PAYMENTDATE")
-    private LocalDateTime serviceMoviePaymentDate;
+    private LocalDate serviceMoviePaymentDate;
 
     @Column(name = "SERVICEMOVIE_PAYMENTBANK")
     private String serviceMoviePaymentBank;

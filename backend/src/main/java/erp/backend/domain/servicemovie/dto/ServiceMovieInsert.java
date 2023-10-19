@@ -17,7 +17,7 @@ public class ServiceMovieInsert {
     private Long serviceMovieId;
     private String MovieId;
     private long amount;
-    private LocalDateTime paymentDate;
+    private LocalDate paymentDate;
     private String paymentBank;
     private String accountNumber;
     private LocalDate startDate;

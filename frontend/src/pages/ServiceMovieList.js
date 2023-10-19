@@ -6,6 +6,9 @@ import {fetchServiceMovieList} from '../api/serviceMovie';
 import {FormatDate} from "../component/FormatDate";
 import PaginationButtons from '../component/PaginationButton';
 
+
+import axios from "axios";
+
 function MovieList() {
     const [serviceMovieList, setServiceMovieList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호 (1부터 시작)
@@ -13,7 +16,6 @@ function MovieList() {
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation(); // 현재 위치 가져오기
     const isMoviePage = location.pathname === '/movie'; // "/movie" 경로에 있는지 확인
-
 
     const [searchCode, setSearchCode] = useState('');
 
@@ -44,18 +46,19 @@ function MovieList() {
 
     const newServiceMovie = async () => {
 
-    };
+        };
+
 
 
     // 클릭 이벤트 핸들러 추가
 
     const handleMovieClick = () => {
-        navigate("/movie");
-    };
+            navigate("/movie");
+        };
 
     const handleServiceMovieClick = () => {
-        navigate("/serviceMovie");
-    };
+            navigate("/serviceMovie");
+       };
 
     const handleItemClick = (id) => {
         navigate(`/movie/${id}`)
@@ -70,7 +73,8 @@ function MovieList() {
     }, []);
 
     return (
-        <div style={{paddingTop: "50px"}}>
+        <div style ={{paddingTop : '50px'}}>
+
             <div style={{width: '100%', height: '100%'}}>
                 <div className="d-xxl-flex justify-content-xxl-center"
                      style={{width: '100%', height: '100%', background: 'transparent'}}>
@@ -99,7 +103,7 @@ function MovieList() {
                                     fontWeight: 'bold',
                                     paddingTop: '0px',
                                     marginLeft: '41px'
-                                }}>컨텐츠 목록</span>
+                                }}>서비스 컨텐츠 목록</span>
 
                             </div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
@@ -141,18 +145,7 @@ function MovieList() {
                                         서비스컨텐츠
                                     </button>
                                 </div>
-                                <div className="d-xxl-flex align-items-xxl-center"
-                                     style={{height: '30%', width: '30%', background: 'rgba(214,51,132,0)'}}>
-                                    <input type="search" placeholder="코드 검색" onChange={handleSearchChange}
-                                           style={{height: '81%', width: '85%'}}/>
-                                    <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
-                                            style={{
-                                                background: 'url("assets/img/icons8-수색-144.png") center / contain no-repeat',
-                                                height: '100%',
-                                                width: '15%',
-                                                borderColor: 'rgba(255,255,255,0)'
-                                            }}/>
-                                </div>
+
 
                             </div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
@@ -196,13 +189,14 @@ function MovieList() {
                                     <div style={{width: '20%', fontWeight: 'bold'}}>서비스시작일</div>
                                     <div style={{width: '20%', fontWeight: 'bold'}}>서비스종료일</div>
                                     <div style={{width: '20%', fontWeight: 'bold'}}>제작사</div>
+                                    <div style={{width: '30%', fontWeight: 'bold'}}>관리</div>
                                 </div>
 
                                 <div>
                                     {serviceMovieList.map((item) => (
-                                        <button
+                                        <div
                                             className="list-group-item list-group-item-action d-flex flex-row align-items-start"
-                                            onClick={() => handleItemClick(item.id)} // 클릭 시 상세보기 페이지로 이동
+                                            //onClick={() => handleItemClick(item.id)} // 클릭 시 상세보기 페이지로 이동
                                             style={{
                                                 height: '50px',
                                                 marginBottom: '2px',
@@ -242,7 +236,7 @@ function MovieList() {
                                                 width: '20%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
-                                            }}>{FormatDate(item.paymentDate)}</div>
+                                            }}>{item.paymentDate}</div>
                                             <div style={{
                                                 width: '20%',
                                                 fontWeight: 'bold',
@@ -257,18 +251,45 @@ function MovieList() {
                                                 width: '20%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
-                                            }}>{FormatDate(item.startDate)}</div>
+                                            }}>{item.startDate}</div>
                                             <div style={{
                                                 width: '20%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
-                                            }}>{FormatDate(item.endDate)}</div>
+                                            }}>{item.endDate}</div>
                                             <div style={{
                                                 width: '20%',
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
                                             }}>{item.producer}</div>
-                                        </button>
+
+                                            <div className="d-xxl-flex justify-content-xxl-center"
+                                                 style={{width: '30%', height: '100%', background: 'white'}}>
+                                                 <button
+                                                     className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                                     data-bss-hover-animate="pulse" type="button"
+                                                     onClick={() => handleItemClick(item.id)}
+                                                     style={{
+                                                     fontSize: '13px',
+                                                     fontWeight: 'bold',
+                                                     background: 'var(--bs-btn-disabled-color)',
+                                                     width: 'auto',
+                                                     height: '80%',
+                                                     margin: '0px',
+                                                     marginLeft: '30px',
+                                                     padding: '0px',
+                                                     paddingRight: '9px',
+                                                     paddingLeft: '9px',
+                                                     color: 'black',
+                                                     border: '1px solid black',
+                                                     marginRight: '30px'
+                                                     }}>
+                                                     정보 수정
+                                                     </button>
+                                                 </div>
+                                        </div>
+
+
                                     ))}
                                 </div>
                             </div>
