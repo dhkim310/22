@@ -46,8 +46,13 @@ function EmpSalaryList() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await selectEmpList();
-                setEmpList(data);
+                const dept = "재무부";
+                if (dept === "재무부"){
+                    const data = await selectEmpList();
+                    setEmpList(data);
+                } else {
+                    alert("권한이 없습니다");
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

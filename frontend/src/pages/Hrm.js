@@ -1,13 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
 import EmpCreateComponent from "../component/EmpCreateComponent";
 import {selectHrmListApi} from "../api/Emp";
-import {useNavigate} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
+import VacationInsertComponent from "../component/VacationInsertComponent";
 
 function Hrm() {
     const [hrm, setHrm] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isVacationModalOpen, setIsVacationModalOpen] = useState(false);
     const [searchName, setSearchName] = useState('');
     const [selectedPosition, setSelectedPosition] = useState('all'); // Default value for job position filter
     const [selectedDepartment, setSelectedDepartment] = useState('all'); // Default value for department filter
@@ -36,6 +38,14 @@ function Hrm() {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+    const openVacationModal = () => {
+        setIsVacationModalOpen(true);
+    };
+
+    const closeVacationModal = () => {
+        setIsVacationModalOpen(false);
+    };
+
 
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
@@ -78,9 +88,12 @@ function Hrm() {
     );
 
     return (
-        <div style={{paddingTop: "50px"}}>
+        <div>
             <div>
                 <EmpCreateComponent isOpen={isModalOpen} closeModal={closeModal}/>
+            </div>
+            <div>
+                <VacationInsertComponent isOpen={isVacationModalOpen} closeModal={closeVacationModal}/>
             </div>
 
             <div style={{background: 'rgba(111,66,193,0)', height: '100%', width: 'Auto'}}>
@@ -208,8 +221,26 @@ function Hrm() {
                                             paddingRight: '9px',
                                             paddingLeft: '9px',
                                             color: 'black',
-                                            border: '1px solid black'
+                                            border: '1px solid black',
+                                            marginRight: '30px'
                                         }}>인사 변경
+                                        </button>
+                                        <button
+                                            className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                            data-bss-hover-animate="pulse" type="button"
+                                            onClick={ VacationInsertComponent} style={{
+                                            fontSize: '13px',
+                                            fontWeight: 'bold',
+                                            background: 'var(--bs-btn-disabled-color)',
+                                            width: 'auto',
+                                            height: '80%',
+                                            margin: '0px',
+                                            padding: '0px',
+                                            paddingRight: '9px',
+                                            paddingLeft: '9px',
+                                            color: 'black',
+                                            border: '1px solid black'
+                                        }}>휴가 등록
                                         </button>
                                     </div>
                                 </li>

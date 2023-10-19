@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function Header() {
@@ -10,26 +11,26 @@ function Header() {
         navigate("/sweetalert");
     };
     const navigateToMain = () => {
-        navigate("/main");
+            navigate("/main");
     };
     const navigateToSchedule = () => {
-        navigate("/schedule");
+                navigate("/schedule");
     };
     const navigateToList = () => {
-        navigate("/notice");
+                navigate("/notice");
     };
     const navigateToHrm = () => {
-        navigate("/hrm");
+                navigate("/hrm");
     };
     const navigateToApprovalList = () => {
-        navigate("/approval");
+                navigate("/approval");
     };
     const navigateToEmpList = () => {
-        navigate("/salary")
+                navigate("/salary")
     };
     const navigateToMovieList = () => {
-        navigate("/movie")
-    };
+                    navigate("/movie")
+        };
     const navigateToMemberList = () => {
         navigate("/member")
     }
@@ -37,22 +38,23 @@ function Header() {
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
 
 
+
     useEffect(() => {
         const getWidth = () => {
             return window.innerWidth;
         };
-
+    
         setIsMobile(getWidth() < 768);
-
+    
         const elements = document.querySelectorAll('[data-bss-hover-animate]');
         setHoverAnimationList(elements);
-
+    
         elements.forEach((element) => {
             element.addEventListener('mouseenter', () => {
-                element.classList.add('animated', element.dataset.bssHoverAnimate);
+            element.classList.add('animated', element.dataset.bssHoverAnimate);
             });
             element.addEventListener('mouseleave', () => {
-                element.classList.remove('animated', element.dataset.bssHoverAnimate);
+            element.classList.remove('animated', element.dataset.bssHoverAnimate);
             });
         });
     }, []);
