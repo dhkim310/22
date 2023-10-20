@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from "react";
 import Modal from "react-modal";
 import {useForm} from "react-hook-form";
-import {useParams} from "react-router-dom";
 import {vacationInsert} from "../api/Vacation";
 import DatePicker from "react-datepicker";
 
 function calculateDayDifference(startDate, endDate) {
     if (startDate && endDate) {
-        const oneDay = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+        const oneDay = 24 * 60 * 60 * 1000;
         const differenceInDays = Math.round((endDate - startDate) / oneDay);
         return differenceInDays;
     }
-    return 0; // Default to 0 if start or end date is not selected
+    return 0;
 }
 
 function VacationInsertComponent({isOpen, closeModal, empId}) {

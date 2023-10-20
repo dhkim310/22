@@ -4,6 +4,7 @@ import erp.backend.domain.emp.dto.*;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
 import erp.backend.domain.emp.vo.EmpVo;
+import erp.backend.domain.vacation.service.VacationService;
 import erp.backend.global.config.security.SecurityHelper;
 import erp.backend.global.config.security.jwt.JwtProvider;
 import erp.backend.global.mailsender.service.MailService;
