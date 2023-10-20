@@ -1,24 +1,21 @@
 package erp.backend.domain.member.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
-public class MemberInsert {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class MemberDetailResponse {
     private String memberName;
-    private String memberEmail;
-    private String memberPassword;
     private String memberPhoneNumber;
     private LocalDate memberBirthDay;
-    private LocalDate memberJoinDate;
-    private String memberRatePlan;
-    private int memberPaymentPrice;
-    private LocalDateTime memberPaymentDate;
     private String memberPaymentBank;
     private String memberAccountNumber;
-
 }

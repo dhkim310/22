@@ -76,6 +76,7 @@ public class SecurityConfig {
                                 "/api/log/{id}",
                                 "/api/member",
                                 "/api/member/list",
+                                "/api/member/detail/{id}",
                                 "/api/memo",
                                 "/api/emp/hrm-list",
                                 "/api/emp/hrm/{id}",

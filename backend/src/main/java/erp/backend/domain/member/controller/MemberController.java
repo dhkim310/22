@@ -1,5 +1,6 @@
 package erp.backend.domain.member.controller;
 
+import erp.backend.domain.member.dto.MemberDetailResponse;
 import erp.backend.domain.member.dto.MemberInsert;
 import erp.backend.domain.member.dto.MemberListResponse;
 import erp.backend.domain.member.service.MemberService;
@@ -23,5 +24,9 @@ public class MemberController {
     @GetMapping("/list")
     public ResponseEntity<List<MemberListResponse>> getMemberList(){
         return ResponseEntity.ok(memberService.getMemberList());
+    }
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<MemberDetailResponse> getMemberDetail(@PathVariable Long id){
+        return ResponseEntity.ok(memberService.getMemberDetail(id));
     }
 }
