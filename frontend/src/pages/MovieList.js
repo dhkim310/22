@@ -60,7 +60,7 @@ function MovieList() {
     const navigate = useNavigate();
 
     const newMovie = async () => {
-            await insertMovieApi()
+        await insertMovieApi()
             .then((res) => {
                 if (res.status === 200) {
                     window.location.reload();
@@ -69,13 +69,13 @@ function MovieList() {
             .catch((err) => {
                 alert('에러');
             })
-        };
+    };
 
     // 클릭 이벤트 핸들러 추가
 
     const handleMovieClick = () => {
-            navigate("/movie");
-        };
+        navigate("/movie");
+    };
 
     const handleServiceMovieClick = () => {
         navigate("/serviceMovie");
@@ -94,11 +94,11 @@ function MovieList() {
     }, []);
 
     return (
-        <div style ={{paddingTop : '50px'}}>
+        <div style={{paddingTop: '50px'}}>
 
-        <div>
-            <ServiceMovieInsert isOpen={isModalOpen} closeModal={closeModal} movieId={selectedMovieId} />
-        </div>
+            <div>
+                <ServiceMovieInsert isOpen={isModalOpen} closeModal={closeModal} movieId={selectedMovieId}/>
+            </div>
             <div style={{width: '100%', height: '100%'}}>
                 <div className="d-xxl-flex justify-content-xxl-center"
                      style={{width: '100%', height: '100%', background: 'transparent'}}>
@@ -215,7 +215,6 @@ function MovieList() {
                                 <div>
                                     {movieList.map((item) => (
                                         <div
-                                            className="list-group-item list-group-item-action d-flex flex-row align-items-start"
                                             //onClick={() => handleItemClick(item.id)} // 클릭 시 상세보기 페이지로 이동
                                             //onClick={openModal}
                                             style={{
@@ -265,50 +264,50 @@ function MovieList() {
                                             }}>{item.rating}</div>
 
                                             <div className="d-xxl-flex justify-content-xxl-center"
-                                                                     style={{width: '30%', height: '100%', background: 'white'}}>
-                                            <button
+                                                 style={{width: '30%', height: '100%', background: 'white'}}>
+                                                <button
                                                     className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
                                                     data-bss-hover-animate="pulse" type="button"
                                                     onClick={() => handleItemClick(item.id)}
                                                     style={{
-                                                    fontSize: '13px',
-                                                    fontWeight: 'bold',
-                                                    background: 'var(--bs-btn-disabled-color)',
-                                                    width: 'auto',
-                                                    height: '80%',
-                                                    margin: '0px',
-                                                    padding: '0px',
-                                                    paddingRight: '9px',
-                                                    paddingLeft: '9px',
-                                                    color: 'black',
-                                                    border: '1px solid black',
-                                                    marginRight: '30px'
+                                                        fontSize: '13px',
+                                                        fontWeight: 'bold',
+                                                        background: 'var(--bs-btn-disabled-color)',
+                                                        width: 'auto',
+                                                        height: '80%',
+                                                        margin: '0px',
+                                                        padding: '0px',
+                                                        paddingRight: '9px',
+                                                        paddingLeft: '9px',
+                                                        color: 'black',
+                                                        border: '1px solid black',
+                                                        marginRight: '30px'
                                                     }}>
                                                     상세 정보
-                                                    </button>
+                                                </button>
 
-                                                    <button
+                                                <button
                                                     className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
                                                     data-bss-hover-animate="pulse"
                                                     type="button"
                                                     onClick={() => openModal(item.id)}
                                                     style={{
-                                                    fontSize: '13px',
-                                                    fontWeight: 'bold',
-                                                    background: 'var(--bs-btn-disabled-color)',
-                                                    width: 'auto',
-                                                    height: '80%',
-                                                    margin: '0px',
-                                                    padding: '0px',
-                                                    paddingRight: '9px',
-                                                    paddingLeft: '9px',
-                                                    color: 'black',
-                                                    border: '1px solid black',
+                                                        fontSize: '13px',
+                                                        fontWeight: 'bold',
+                                                        background: 'var(--bs-btn-disabled-color)',
+                                                        width: 'auto',
+                                                        height: '80%',
+                                                        margin: '0px',
+                                                        padding: '0px',
+                                                        paddingRight: '9px',
+                                                        paddingLeft: '9px',
+                                                        color: 'black',
+                                                        border: '1px solid black',
                                                     }}
-                                                    >
+                                                >
                                                     서비스 등록
-                                                    </button>
-                                             </div>
+                                                </button>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
