@@ -26,6 +26,7 @@ import DepartmentCommuteList from "./pages/DepartmentCommuteList";
 import CommuteList from "./pages/CommuteList";
 import MemberList from "./pages/MemberList";
 import ServiceMovieList from "./pages/ServiceMovieList";
+import MovieDetail from "./pages/MovieDetail";
 
 function App() {
     return (
@@ -60,6 +61,7 @@ function App() {
                     <Route path="/commute/:id" element={<CommuteList/>}/>
                     <Route path="/member" element={<MemberList/>}/>
                     <Route path="/serviceMovie" element={<ServiceMovieList/>}/>
+                    <Route path="/movieDetail/:id" element={<MovieDetail/>}/>
                 </Route>
             </Routes>
         </Router>

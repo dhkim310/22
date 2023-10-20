@@ -30,5 +30,14 @@ export const serviceMovieInsert = async (id, params) => {
     }
 };
 
+export const fetchMovieDetail = async (id) => {
+    try {
+        const response = await axios.get(`/api/movie/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 
 
