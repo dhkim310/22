@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ServiceMovieUpdate {
     private long amount;
-    private LocalDateTime paymentDate;
+    private LocalDate paymentDate;
     private String paymentBank;
     private String accountNumber;
     private LocalDate startDate;

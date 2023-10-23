@@ -65,7 +65,7 @@ function DepartmentCommuteList() {
     );
 
     return (
-        <div>
+        <div style={ {paddingTop : "50px"} }>
             <div style={{width: '15%', height: '100%'}}>
                 <div className="d-xxl-flex-end align-items-xxl-center"
                      style={{height: '50%', width: '100%', background: 'rgba(214,51,132,0)'}}>

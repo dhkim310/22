@@ -3,13 +3,22 @@ import Modal from "react-modal";
 import {useForm} from "react-hook-form";
 import {useParams} from "react-router-dom";
 import {vacationInsert} from "../api/Vacation";
-import {insertEmpApi} from "../api/Emp";
 import DatePicker from "react-datepicker";
+
+function calculateDayDifference(startDate, endDate) {
+    if (startDate && endDate) {
+        const oneDay = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+        const differenceInDays = Math.round((endDate - startDate) / oneDay);
+        return differenceInDays;
+    }
+    return 0; // Default to 0 if start or end date is not selected
+}
 
 function VacationInsertComponent({isOpen, closeModal, empId}) {
     const {register, formState: {errors}, handleSubmit} = useForm();
     const [startdate, setStartdate] = useState(null);
     const [enddate, setEnddate] = useState(null);
+    const [usedDayOff, setUsedDayOff] = useState(0);
     const onValid = async ({
                                vacationTotalVacation,
                                vacationUsedVacation,
@@ -17,17 +26,18 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                vacationUsedDayOff,
                                vacationStartDate,
                                vacationEndDate,
-                               vacationWhy
+                               vacationWhy,
                            }) => {
+        const dayOffDifference = calculateDayDifference(startdate, enddate);
         await vacationInsert({
             empId: empId,
             vacationTotalVacation,
             vacationUsedVacation,
             vacationTotalDayOff,
-            vacationUsedDayOff,
+            vacationUsedDayOff: dayOffDifference,
             vacationStartDate: startdate,
             vacationEndDate: enddate,
-            vacationWhy
+            vacationWhy,
         })
             .then((res) => {
                 if (res.status === 200) {
@@ -39,6 +49,14 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                 console.log('err', err)
             })
     };
+
+    useEffect(() => {
+        if (startdate && enddate) {
+            setUsedDayOff(calculateDayDifference(startdate, enddate));
+        } else {
+            setUsedDayOff(0);
+        }
+    }, [startdate, enddate]);
 
     const customModalStyles = {
         content: {
@@ -185,10 +203,15 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                              }}>
                                             <span>사용 연차</span>
                                         </div>
-                                        <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
+                                        <div style={{ background: 'rgba(111,66,193,0)', height: '2px', width: '100%' }} />
                                         <div className="d-xxl-flex align-items-xxl-center"
-                                             style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
-                                            <input type="text" name="useddayoff" {...register('vacationUsedDayOff')} />
+                                             style={{ background: 'rgba(111,66,193,0)', height: '40%', width: '100%' }}>
+                                            <input
+                                                type="text"
+                                                name="useddayoff"
+                                                value={usedDayOff} // Set the value of usedDayOff
+                                                readOnly // Make it read-only
+                                            />
                                         </div>
                                     </div>
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"

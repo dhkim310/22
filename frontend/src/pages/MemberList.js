@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
 import {selectMemberList} from "../api/Member";
+import {useNavigate} from "react-router-dom";
 
 function MemberList() {
     const [memberList, setMemberList] = useState([]);
@@ -24,6 +25,12 @@ function MemberList() {
 
         fetchData();
     }, []);
+
+    const navigate = useNavigate();
+
+    const navigateToDetail = (id) => {
+        navigate(`/member/detail/${id}`)
+    }
 
     return (
         <div style={{paddingTop: "50px"}}>
@@ -80,7 +87,8 @@ function MemberList() {
                                              height: '45px',
                                              borderTop: '2px none rgba(128,128,128,0.32)',
                                              borderBottom: '2px none rgba(128,128,128,0.32)',
-                                             width: '100%'
+                                             width: '100%',
+                                             position: 'relative', // Add this line to enable button positioning
                                          }}>
                                         <div className="d-xxl-flex justify-content-xxl-start"
                                              style={{ height: '100%', width: '130px' }} />
@@ -95,7 +103,31 @@ function MemberList() {
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                                              style={{ height: '100%', width: '16%' }}><span>{e.memberRatePlan}</span></div>
                                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                             style={{ height: '100%', width: '14%' }}><span>{e.memberPaymentPrice}</span></div>
+                                             style={{ height: '100%', width: '14%' }}>
+                                            <span>{e.memberPaymentPrice}</span>
+                                            <button
+                                                onClick={() => navigateToDetail(e.memberId)}
+                                                style={{
+                                                    fontSize: '13px',
+                                                    fontWeight: 'bold',
+                                                    background: 'var(--bs-btn-disabled-color)',
+                                                    width: 'auto',
+                                                    height: '80%',
+                                                    margin: '0px',
+                                                    padding: '0px',
+                                                    paddingRight: '9px',
+                                                    paddingLeft: '9px',
+                                                    color: 'black',
+                                                    border: '1px solid black',
+                                                    position: 'absolute',
+                                                    top: '50%',
+                                                    transform: 'translateY(-50%)',
+                                                    right: '10px',
+                                                }}
+                                            >
+                                                상세 정보
+                                            </button>
+                                        </div>
                                     </div>
                                 </li>
                             ))}

@@ -2,8 +2,14 @@ import React, {useEffect, useState} from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {fetchMovieList, insertMovieApi} from '../api/movie';
+import {fetchMovieList} from '../api/movie';
+import {insertMovieApi} from '../api/movie';
+import {FormatDate} from "../component/FormatDate";
 import PaginationButtons from '../component/PaginationButton';
+
+import ServiceMovieInsert from "../component/ServiceMovieInsert";
+
+import axios from "axios";
 
 function MovieList() {
     const [movieList, setMovieList] = useState([]);
@@ -15,6 +21,18 @@ function MovieList() {
 
     const [searchCode, setSearchCode] = useState('');
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedMovieId, setSelectedMovieId] = useState(null);
+
+    const openModal = (movieId) => {
+        setSelectedMovieId(movieId);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setSelectedMovieId(null);
+        setIsModalOpen(false);
+    };
 
     const handleSearchChange = (event) => {
         setSearchCode(event.target.value);
@@ -67,18 +85,21 @@ function MovieList() {
         navigate(`/movie/${id}`);
     };
 
-
     useEffect(() => {
         const getWidth = () => {
             return window.innerWidth;
         };
-
         setIsMobile(getWidth() < 768);
+
     }, []);
 
     return (
-        <div>
-            <div style={{paddingTop: "50px", width: '100%', height: '100%'}}>
+        <div style={{paddingTop: '50px'}}>
+
+            <div>
+                <ServiceMovieInsert isOpen={isModalOpen} closeModal={closeModal} movieId={selectedMovieId}/>
+            </div>
+            <div style={{width: '100%', height: '100%'}}>
                 <div className="d-xxl-flex justify-content-xxl-center"
                      style={{width: '100%', height: '100%', background: 'transparent'}}>
                     <div className="d-xxl-flex justify-content-xxl-center"
@@ -148,18 +169,7 @@ function MovieList() {
                                         서비스컨텐츠
                                     </button>
                                 </div>
-                                <div className="d-xxl-flex align-items-xxl-center"
-                                     style={{height: '30%', width: '30%', background: 'rgba(214,51,132,0)'}}>
-                                    <input type="search" placeholder="코드 검색" onChange={handleSearchChange}
-                                           style={{height: '81%', width: '85%'}}/>
-                                    <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
-                                            style={{
-                                                background: 'url("assets/img/icons8-수색-144.png") center / contain no-repeat',
-                                                height: '100%',
-                                                width: '15%',
-                                                borderColor: 'rgba(255,255,255,0)'
-                                            }}/>
-                                </div>
+
 
                             </div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
@@ -177,7 +187,7 @@ function MovieList() {
                                     style={{
                                         height: '30px',
                                         marginBottom: '0px',
-                                        width: '80%',
+                                        width: '90%',
                                         paddingTop: '0px',
                                         paddingRight: '0px',
                                         paddingBottom: '0px',
@@ -199,19 +209,19 @@ function MovieList() {
                                     <div style={{width: '30%', fontWeight: 'bold'}}>영화명(원제)</div>
                                     <div style={{width: '35%', fontWeight: 'bold'}}>개봉일</div>
                                     <div style={{width: '10%', fontWeight: 'bold'}}>평점</div>
+                                    <div style={{width: '30%', fontWeight: 'bold'}}>관리</div>
                                 </div>
 
                                 <div>
                                     {movieList.map((item) => (
-                                        <button
-                                            className="list-group-item list-group-item-action d-flex flex-row align-items-start"
-                                            onClick={() => handleItemClick(item.id)} // 클릭 시 상세보기 페이지로 이동
+                                        <div
+                                            //onClick={() => handleItemClick(item.id)} // 클릭 시 상세보기 페이지로 이동
                                             //onClick={openModal}
                                             style={{
                                                 height: '50px',
                                                 marginBottom: '2px',
                                                 marginTop: '30px',
-                                                width: '80%',
+                                                width: '90%',
                                                 paddingTop: '0px',
                                                 paddingRight: '0px',
                                                 paddingBottom: '0px',
@@ -252,33 +262,54 @@ function MovieList() {
                                                 fontWeight: 'bold',
                                                 textAlign: 'center'
                                             }}>{item.rating}</div>
-                                        </button>
-                                    ))}
-                                    <div className="d-xxl-flex justify-content-xxl-center" style={{
-                                        width: '100%',
-                                        height: '45px',
-                                        borderLeft: '2px ridge rgba(128,128,128,0.32)'
-                                    }}>
-                                        <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
-                                             style={{width: '47.5%'}}>
-                                            <button className="btn btn-primary" data-bss-hover-animate="pulse"
-                                                    type="button" style={{
-                                                background: 'black',
-                                                width: '90px',
-                                                borderStyle: 'none',
-                                                borderLeftStyle: 'none'
-                                            }}>추가
-                                            </button>
-                                        </div>
-                                        <div style={{width: '5%'}}/>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                             style={{width: '47.5%'}}>
-                                            <button className="btn btn-primary" data-bss-hover-animate="pulse"
+
+                                            <div className="d-xxl-flex justify-content-xxl-center"
+                                                 style={{width: '30%', height: '100%', background: 'white'}}>
+                                                <button
+                                                    className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                                    data-bss-hover-animate="pulse" type="button"
+                                                    onClick={() => handleItemClick(item.id)}
+                                                    style={{
+                                                        fontSize: '13px',
+                                                        fontWeight: 'bold',
+                                                        background: 'var(--bs-btn-disabled-color)',
+                                                        width: 'auto',
+                                                        height: '80%',
+                                                        margin: '0px',
+                                                        padding: '0px',
+                                                        paddingRight: '9px',
+                                                        paddingLeft: '9px',
+                                                        color: 'black',
+                                                        border: '1px solid black',
+                                                        marginRight: '30px'
+                                                    }}>
+                                                    상세 정보
+                                                </button>
+
+                                                <button
+                                                    className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                                    data-bss-hover-animate="pulse"
                                                     type="button"
-                                                    style={{background: 'black', borderStyle: 'none'}}>상세보기
-                                            </button>
+                                                    onClick={() => openModal(item.id)}
+                                                    style={{
+                                                        fontSize: '13px',
+                                                        fontWeight: 'bold',
+                                                        background: 'var(--bs-btn-disabled-color)',
+                                                        width: 'auto',
+                                                        height: '80%',
+                                                        margin: '0px',
+                                                        padding: '0px',
+                                                        paddingRight: '9px',
+                                                        paddingLeft: '9px',
+                                                        color: 'black',
+                                                        border: '1px solid black',
+                                                    }}
+                                                >
+                                                    서비스 등록
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>

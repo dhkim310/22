@@ -25,6 +25,8 @@ import BoardDetail from "./pages/BoardDetailView";
 import DepartmentCommuteList from "./pages/DepartmentCommuteList";
 import CommuteList from "./pages/CommuteList";
 import MemberList from "./pages/MemberList";
+import ServiceMovieList from "./pages/ServiceMovieList";
+import MemberDetail from "./pages/MemberDetail";
 
 function App() {
     return (
@@ -58,6 +60,8 @@ function App() {
                     <Route path="/department-hr" element={<DepartmentCommuteList/>}/>
                     <Route path="/commute/:id" element={<CommuteList/>}/>
                     <Route path="/member" element={<MemberList/>}/>
+                    <Route path="/member/detail/:id" element={<MemberDetail/>}/>
+                    <Route path="/serviceMovie" element={<ServiceMovieList/>}/>
                 </Route>
             </Routes>
         </Router>
