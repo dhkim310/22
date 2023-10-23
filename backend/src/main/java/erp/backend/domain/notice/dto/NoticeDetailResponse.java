@@ -23,5 +23,4 @@ public class NoticeDetailResponse {
     private LocalDateTime noticeCreatedDate; // 작성일
     private LocalDateTime noticeModifiedDate; // 수정일
     private List<UploadFile> noticeFileList; // 파일
-
 }

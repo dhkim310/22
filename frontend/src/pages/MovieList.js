@@ -3,7 +3,6 @@ import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {fetchMovieList, insertMovieApi} from '../api/movie';
-import {FormatDate} from "../component/FormatDate";
 import PaginationButtons from '../component/PaginationButton';
 
 function MovieList() {
