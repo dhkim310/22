@@ -3,6 +3,7 @@ import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
 import {useNavigate, useParams} from 'react-router-dom';
 import {SelectApprovalDetailApi} from '../api/Approval';
+import DownloadFile from "../component/DownloadFile";
 
 function ApprovalCompleteDetail() {
     const {id} = useParams();
@@ -10,12 +11,23 @@ function ApprovalCompleteDetail() {
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
     const [detail, setDetail] = useState({});
     const navigate = useNavigate();
+    const [fileListIsOpen, setFileListIsOpen] = useState(false);
+
     const navigateToCompleteList = () => {
         navigate("/approval-complete");
     };
     const navigateToApproval = () => {
         navigate("/approval");
     };
+
+    const openFileList = () => {
+        setFileListIsOpen(true);
+    };
+
+    const closeFileList = () => {
+        setFileListIsOpen(false);
+    };
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -163,13 +175,52 @@ function ApprovalCompleteDetail() {
                                                  height: '60%',
                                                  borderTop: '2px ridge rgba(128,128,128,0.32)'
                                              }}>
-                                            <button className="btn btn-primary" data-bss-hover-animate="pulse"
-                                                    type="button" style={{
-                                                background: 'rgba(13,110,253,0)',
-                                                color: 'black',
-                                                borderStyle: 'none'
-                                            }}>첨부파일(0)
+                                            <button
+                                                className="btn btn-primary"
+                                                data-bss-hover-animate="pulse"
+                                                type="button"
+                                                style={{
+                                                    background: 'rgba(13,110,253,0)',
+                                                    color: 'black',
+                                                    borderStyle: 'none',
+                                                }}
+                                                onClick={fileListIsOpen ? closeFileList : openFileList}
+                                            >
+                                                {fileListIsOpen ? '닫기' : `첨부파일(${detail.approvalFileList ? detail.approvalFileList.length : 0})`}
                                             </button>
+                                            {fileListIsOpen &&
+                                                <div
+                                                    style={{
+                                                        position: 'fixed',
+                                                        top: "5%",
+                                                        right: 0,
+                                                        bottom: "5%",
+                                                        width: '15%',
+                                                        background: 'rgba(0, 0, 0, 0.1)',
+                                                        color: 'black', overflowY: 'auto',
+                                                        whiteSpace: "nowrap"
+                                                    }}>
+                                                    <ul>
+                                                        <div style={{
+                                                            marginTop: "50px",
+                                                            fontSize: "20px",
+                                                            marginBottom: "3%"
+                                                        }}>파일 다운로드
+                                                        </div>
+                                                        {fileListIsOpen &&
+                                                            detail &&
+                                                            detail.approvalFileList &&
+                                                            detail.approvalFileList.length > 0 &&
+                                                            detail.approvalFileList.map((file, index) => (
+                                                                <li key={index}
+                                                                    style={{fontSize: '16px', marginBottom: "2%"}}>
+                                                                    {file.name}
+                                                                    <DownloadFile file={file}/>
+                                                                </li>
+                                                            ))}
+                                                    </ul>
+                                                </div>
+                                            }
                                         </div>
                                         <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
                                              style={{

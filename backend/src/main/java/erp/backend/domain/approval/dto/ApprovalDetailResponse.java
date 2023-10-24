@@ -1,6 +1,6 @@
 package erp.backend.domain.approval.dto;
 
-import erp.backend.domain.approval.entity.ApprovalFile;
+import erp.backend.domain.uploadfile.entity.UploadFile;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,5 +20,5 @@ public class ApprovalDetailResponse {
     private String approvalContent;
     private String approvalCheckMan;
     private LocalDate approvalUpLoadDate;
-    private List<ApprovalFile> approvalFileList;
+    private List<UploadFile> approvalFileList;
 }

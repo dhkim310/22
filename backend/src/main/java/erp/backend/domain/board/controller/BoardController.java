@@ -51,5 +51,4 @@ public class BoardController {
     public ResponseEntity<Long> boardUpdate(@PathVariable("id") Long id, @RequestPart(value = "requestDto") BoardUpdate request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
         return ResponseEntity.ok(boardService.boardUpdate(id, request, files));
     }
-
 }

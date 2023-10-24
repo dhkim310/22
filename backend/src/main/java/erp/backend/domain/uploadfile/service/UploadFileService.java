@@ -1,5 +1,7 @@
 package erp.backend.domain.uploadfile.service;
 
+import erp.backend.domain.approval.entity.ApprovalFile;
+import erp.backend.domain.approval.repository.ApprovalFileRepository;
 import erp.backend.domain.board.entity.BoardFile;
 import erp.backend.domain.board.repository.BoardFileRepository;
 import erp.backend.domain.notice.entity.NoticeFile;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -33,6 +36,7 @@ public class UploadFileService {
     private final UploadFileRepository uploadFileRepository;
     private final NoticeFileRepository noticeFileRepository;
     private final BoardFileRepository boardFileRepository;
+    private final ApprovalFileRepository approvalFileRepository;
 
 
     // 지원하지 않는 확장자
@@ -81,35 +85,31 @@ public class UploadFileService {
 
     @Transactional(readOnly = true)
     public List<UploadFile> fileList(Long id, SchemaType schemaType) {
-        List<UploadFile> uploadFiles;
-
-        if (schemaType.equals(SchemaType.notice)) {
-            List<NoticeFile> noticeFiles = noticeFileRepository.findByNotice_NoticeId(id);
-            uploadFiles = noticeFiles.stream()
+        return switch (schemaType) {
+            case notice -> noticeFileRepository.findByNotice_NoticeId(id).stream()
                     .map(NoticeFile::getUploadFile)
                     .collect(Collectors.toList());
-        } else {
-            List<BoardFile> boardFiles = boardFileRepository.findByBoard_BoardId(id);
-            uploadFiles = boardFiles.stream()
+            case board -> boardFileRepository.findByBoard_BoardId(id).stream()
                     .map(BoardFile::getUploadFile)
                     .collect(Collectors.toList());
-        }
-        // uploadFiles 이제 선택한 schemaType에 따른 UploadFile 목록을 가지고 있습니다.
-        return uploadFiles;
+            case approval -> approvalFileRepository.findByApproval_ApprovalId(id).stream()
+                    .map(ApprovalFile::getUploadFile)
+                    .collect(Collectors.toList());
+            default -> Collections.emptyList(); // 기본값 또는 처리되지 않은 'schemaType'에 대한 예외 처리
+        };
     }
 
     public ResponseEntity<Resource> downloadFile(String uuid) {
+        UploadFile uploadFile = uploadFileRepository.findUploadFileByUuid(uuid);
+        String fileName = uploadFile.getName();
+        String downloadPath = System.getProperty("user.dir") + uploadFile.getPath();
+
+        File file = new File(downloadPath);
+        if (!file.exists()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
         try {
-            UploadFile uploadFile = uploadFileRepository.findUploadFileByUuid(uuid);
-            String fileName = uploadFile.getName();
-            String userDir = System.getProperty("user.dir");
-            String downloadPath = userDir + uploadFile.getPath();
-
-            File file = new File(downloadPath);
-            if (!file.exists()) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-            }
-
             Resource resource = new FileSystemResource(file);
 
             HttpHeaders headers = new HttpHeaders();
