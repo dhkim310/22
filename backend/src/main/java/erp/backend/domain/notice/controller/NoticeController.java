@@ -21,7 +21,7 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @GetMapping
-    public ResponseEntity<NoticeListResult> noticeList(@PageableDefault(size = 7, sort = "noticeId", direction = Sort.Direction.DESC) Pageable pageable,
+    public ResponseEntity<NoticeListResult> noticeList(@PageableDefault(size = 10, sort = "noticeId", direction = Sort.Direction.DESC) Pageable pageable,
                                                        Model model) {
         NoticeListResult listResult = noticeService.noticeListResult(pageable);
         model.addAttribute("listResult", listResult);
