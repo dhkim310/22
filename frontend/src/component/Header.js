@@ -2,9 +2,12 @@ import React, {useEffect, useState} from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
 import {useNavigate} from 'react-router-dom';
+import Alarm from '../component/Alarm'
 
 
 function Header() {
+
+    const allowedPaths = ['/','/login'];
     const navigate = useNavigate();
     const navigateToCat = () => {
         navigate("/sweetalert");
@@ -56,10 +59,11 @@ function Header() {
             });
         });
     }, []);
-    if (window.location.pathname === '/login') return null;
 
     return (
+    allowedPaths.includes(window.location.pathname) ? null : (
         <div>
+            <Alarm/>
             <div>
                 <div className="d-lg-flex align-items-lg-center justify-content-xxl-start"
                      style={{width: 'auto', height: '50px', background: '#000000'}}>
@@ -113,13 +117,17 @@ function Header() {
                     </div>
                     <div className="d-lg-flex justify-content-lg-end" style={{height: 'auto', width: '100%'}}>
                         <button className="btn btn-primary text-nowrap" type="button" onClick={navigateToCat}
+                                style={{borderStyle: 'none', background: 'rgba(0,0,0,0)', width: '90px'}}>쪽지
+                        </button>
+                        <button className="btn btn-primary text-nowrap" type="button" onClick={navigateToCat}
                                 style={{borderStyle: 'none', background: 'rgba(0,0,0,0)', width: '90px'}}>로그아웃
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-    )
+        )
+    );
 };
 
 export default Header;
