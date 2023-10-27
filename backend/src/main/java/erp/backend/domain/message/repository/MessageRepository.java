@@ -10,8 +10,6 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
     Message findByMessageId(Long id);
-    Message findTopByMessageReceiverEmpIdOrderByMessageIdDesc(long id);
-    @Query("SELECT m FROM Message m JOIN FETCH m.messageSenderEmpId s WHERE s.id = :messageReceiverEmpId")
-    List<Message> findByMessageReceiverEmpId(@Param("messageReceiverEmpId") long id);
+    List<Message> findByMessageReceiverEmpIdOrderByMessageIdDesc(long id);
 
 }

@@ -26,6 +26,8 @@ import BoardDetail from "./pages/BoardDetailView";
 import DepartmentCommuteList from "./pages/DepartmentCommuteList";
 import CommuteList from "./pages/CommuteList";
 import MemberList from "./pages/MemberList";
+import MessageList from "./component/MessageList";
+import MessageSend from "./component/MessageSend";
 
 function App() {
     return (
@@ -59,6 +61,9 @@ function App() {
                     <Route path="/department-hr" element={<DepartmentCommuteList/>}/>
                     <Route path="/commute/:id" element={<CommuteList/>}/>
                     <Route path="/member" element={<MemberList/>}/>
+                    <Route path="/message" element={<MessageList/>}/>
+                    <Route path="/message-send" element={<MessageSend/>}/>
+
                 </Route>
             </Routes>
         </Router>

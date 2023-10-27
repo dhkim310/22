@@ -27,7 +27,7 @@ function MemoComponent({ isOpen, closeModal, memoContent }) {
             height: '500px',
             backgroundColor: 'white',
             borderStyle: 'solid',
-            top: '50%', // top 값을 픽셀 단위로 설정
+            top: '60%', // top 값을 픽셀 단위로 설정
             left: '80%', // left 값을 픽셀 단위로 설정
             transform: 'translate(-50%, -50%)', // 중앙 정렬을 위한 transform 속성 추가
         },

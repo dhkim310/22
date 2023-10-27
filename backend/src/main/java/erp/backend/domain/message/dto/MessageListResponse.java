@@ -14,6 +14,7 @@ public class MessageListResponse {
 
     private long messageId;
     private long messageSenderEmpId;
+    private String messageSenderName;
     private String messageSubject;
     private String messageStatus;
 }

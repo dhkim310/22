@@ -26,7 +26,7 @@ public class MessageService {
                 .messageSenderEmpId(emp)
                 .messageContent(request.getMessageContent())
                 .messageSubject(request.getMessageSubject())
-                .messageStatus(request.getMessageStatus())
+                .messageStatus("unread")
                 .messageReceiverEmpId(request.getMessageReceiverEmpId())
                 .build();
 
@@ -40,11 +40,12 @@ public class MessageService {
     @Transactional(readOnly = true)
     public List<MessageListResponse> searchList() {
         Emp emp = SecurityHelper.getAccount();
-        List<Message> list = messageRepository.findByMessageReceiverEmpId(emp.getEmpId());
+        List<Message> list = messageRepository.findByMessageReceiverEmpIdOrderByMessageIdDesc(emp.getEmpId());
 
         return list.stream()
                 .map(message -> MessageListResponse.builder()
                         .messageId(message.getMessageId())
+                        .messageSenderName(message.getMessageSenderEmpId().getEmpName())
                         .messageSenderEmpId(message.getMessageSenderEmpId().getEmpId())
                         .messageSubject(message.getMessageSubject())
                         .messageStatus(message.getMessageStatus())

@@ -11,5 +11,4 @@ public class MessageRequest {
     private long messageReceiverEmpId;
     private String messageContent;
     private String messageSubject;
-    private String messageStatus;
 }

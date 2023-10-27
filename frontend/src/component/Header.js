@@ -7,7 +7,7 @@ import Alarm from '../component/Alarm'
 
 function Header() {
 
-    const allowedPaths = ['/','/login'];
+    const allowedPaths = ['/','/login','/message','/message-send'];
     const navigate = useNavigate();
     const navigateToCat = () => {
         navigate("/sweetalert");
@@ -35,6 +35,13 @@ function Header() {
     };
     const navigateToMemberList = () => {
         navigate("/member")
+    }
+    const navigateToMessageList = () => {
+         const width = 800;
+         const height = 500;
+         const left = window.innerWidth / 2 - width / 2;
+         const top = window.innerHeight / 2 - height / 2;
+         window.open('/message', '_blank', `width=${width},height=${height},left=${left}`);
     }
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
@@ -116,8 +123,8 @@ function Header() {
                         </div>
                     </div>
                     <div className="d-lg-flex justify-content-lg-end" style={{height: 'auto', width: '100%'}}>
-                        <button className="btn btn-primary text-nowrap" type="button" onClick={navigateToCat}
-                                style={{borderStyle: 'none', background: 'rgba(0,0,0,0)', width: '90px'}}>쪽지
+                        <button className="btn btn-primary text-nowrap" type="button" onClick={navigateToMessageList}
+                                style={{borderStyle: 'none',height: '35px', background: 'url("img/message.png") center / contain no-repeat', width: '30px'}}>
                         </button>
                         <button className="btn btn-primary text-nowrap" type="button" onClick={navigateToCat}
                                 style={{borderStyle: 'none', background: 'rgba(0,0,0,0)', width: '90px'}}>로그아웃
