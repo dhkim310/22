@@ -25,6 +25,10 @@ function Main() {
     const navigateToFixInfo = () => {
         navigate("/fix-info");
     };
+
+    const navigateToNotice = (id) => {
+        navigate(`/notice/${id}`)
+    }
     const [notice, setNotice] = useState([]);
     const [memo, setMemo] = useState({});
     const [logInfo, setLogInfo] = useState({});
@@ -204,7 +208,7 @@ function Main() {
                                     <ul>
                                     {notice.map((e,i) => (
                                     <li key={i} style={{ listStyleType: 'none' }}>
-                                    <a className="d-xxl-flex justify-content-xxl-center list-group-item list-group-item-action flex-column align-items-start" style={{height: '70px', marginBottom: '2px', width: '561px'}}>
+                                    <a className="d-xxl-flex justify-content-xxl-center list-group-item list-group-item-action flex-column align-items-start" onClick={() => navigateToNotice(e.id)} style={{height: '70px', marginBottom: '2px', width: '561px'}}>
                                         <div className="d-flex w-100 justify-content-between" style={{width: '100%'}}>
                                         <h5 className="mb-1" style={{width: '100%'}}>{e.subject}</h5>
                                         </div>
