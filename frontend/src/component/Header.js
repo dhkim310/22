@@ -3,11 +3,14 @@ import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
 import {useNavigate} from 'react-router-dom';
 import Alarm from '../component/Alarm'
+import {removeCookieToken} from '../storage/Cookie';
 
 
 function Header() {
+    const url_a=window.location.pathname.includes("/")
+    const url_b=window.location.pathname.startsWith("/login")
+    const url_c =window.location.pathname.startsWith("/message")
 
-    const allowedPaths = ['/','/login','/message','/message-send'];
     const navigate = useNavigate();
     const navigateToCat = () => {
         navigate("/sweetalert");
@@ -36,6 +39,11 @@ function Header() {
     const navigateToMemberList = () => {
         navigate("/member")
     }
+    const logout = () => {
+        removeCookieToken();
+        window.location.reload();
+    }
+
     const navigateToMessageList = () => {
          const width = 800;
          const height = 500;
@@ -68,7 +76,7 @@ function Header() {
     }, []);
 
     return (
-    allowedPaths.includes(window.location.pathname) ? null : (
+    (url_b || url_c)? null : (
         <div>
             <Alarm/>
             <div>
@@ -126,7 +134,7 @@ function Header() {
                         <button className="btn btn-primary text-nowrap" type="button" onClick={navigateToMessageList}
                                 style={{borderStyle: 'none',height: '35px', background: 'url("img/message.png") center / contain no-repeat', width: '30px'}}>
                         </button>
-                        <button className="btn btn-primary text-nowrap" type="button" onClick={navigateToCat}
+                        <button className="btn btn-primary text-nowrap" type="button" onClick={logout}
                                 style={{borderStyle: 'none', background: 'rgba(0,0,0,0)', width: '90px'}}>로그아웃
                         </button>
                     </div>
