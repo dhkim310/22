@@ -76,6 +76,7 @@ public class SecurityConfig {
                                 "/api/log/{id}",
                                 "/api/member",
                                 "/api/member/list",
+                                "/api/member/detail/{id}",
                                 "/api/memo",
                                 "/api/emp/hrm-list",
                                 "/api/emp/hrm/{id}",
@@ -87,7 +88,9 @@ public class SecurityConfig {
                                 "/api/serviceMovie",
                                 "/api/message",
                                 "/api/message/{id}",
-                                "/api/message/test/{messageId}"
+                                "/api/message/test/{messageId}",
+                                "/api/file/{uuid}",
+                                "/api/vacation"
                         )
                         .permitAll()
                         .anyRequest().hasRole("USER"))

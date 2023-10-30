@@ -4,6 +4,7 @@ import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
 import {fetchNoticeDetail} from '../api/Notice';
 import {FormatDate} from '../component/FormatDate';
+import DownloadFile from '../component/DownloadFile';
 
 function NoticeDetail() {
     const navigate = useNavigate(); // useNavigate를 항상 호출
@@ -12,12 +13,13 @@ function NoticeDetail() {
     const [content, setContent] = useState(null); // 초기에 null로 설정
     const pathname = location.pathname;
     const isNoticePage = pathname.startsWith('/api/notice/');
+    const [fileListIsOpen, setFileListIsOpen] = useState(false);
 
     useEffect(() => {
         const fetchNoticeDetailData = async () => {
             try {
-                const response = await fetchNoticeDetail(id);
-                setContent(response); // 전체 데이터를 설정
+                const data = await fetchNoticeDetail(id);
+                setContent(data); // 전체 데이터를 설정
             } catch (error) {
                 console.error('게시글 내용을 가져오는 중 오류 발생:', error);
             }
@@ -41,16 +43,23 @@ function NoticeDetail() {
         navigate("/board"); // "/api/board" 대신 실제 경로로 수정
     };
 
+    const openFileList = () => {
+        setFileListIsOpen(true);
+    };
+
+    const closeFileList = () => {
+        setFileListIsOpen(false);
+    };
+
     return (
         <div
             style={{
+                paddingTop: "50px",
                 position: 'absolute',
                 top: 0,
                 right: 0,
                 bottom: 0,
                 left: 0,
-                marginTop: "3%",
-                overflow: 'hidden', // 스크롤 없애기
             }}
         >
             <div className="d-xxl-flex justify-content-xxl-start"
@@ -103,7 +112,7 @@ function NoticeDetail() {
                          style={{width: "100%", background: "rgba(13, 110, 253, 0)", height: "2%"}}>
                         <div style={{width: "50%", display: "flex", justifyContent: "center"}}>
                             <button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start"
-                                    data-bss-hover-animate="pulse" type="button" onClick={handleNoticeClick}
+                                    data-bss-hover-animate="pulse" type="button" onClick={handleBoardClick}
                                     style={{
                                         color: isNoticePage ? 'darkgray' : 'black',
                                         background: "rgba(13, 110, 253, 0)",
@@ -121,7 +130,7 @@ function NoticeDetail() {
                 </div>
 
                 {/* 게시글 내용 부분 */}
-                <div style={{width: "88%", height: "100%"}}>
+                <div style={{width: "75%", height: "100%"}}>
                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{
                         marginTop: "1%",
                         marginBottom: "1%",
@@ -178,7 +187,8 @@ function NoticeDetail() {
                                 <div style={{
                                     fontSize: 11,
                                     marginLeft: "2%"
-                                }}>{FormatDate(content.noticeCreatedDate)}</div>
+                                }}>{FormatDate(content.noticeCreatedDate)}
+                                </div>
                                 <div style={{fontSize: 11, marginLeft: "2%"}}>
                                     {content.noticeModifiedDate ? FormatDate(content.noticeModifiedDate) : null}
                                 </div>
@@ -187,15 +197,50 @@ function NoticeDetail() {
 
                         {/* 첨부파일 부분 */}
                         <div style={{height: "100%", width: "47%"}}>
-                            <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
-                                 style={{width: "85%", height: "60%", borderTop: "2px ridge rgba(128,128,128,0.32)"}}>
-                                <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
-                                        style={{
-                                            background: "rgba(13,110,253,0)",
-                                            color: "black",
-                                            borderStyle: "none"
-                                        }}>첨부파일(0)
+                            <div
+                                className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                                style={{width: '85%', height: '60%', borderTop: '2px ridge rgba(128,128,128,0.32)'}}
+                            >
+                                <button
+                                    className="btn btn-primary"
+                                    data-bss-hover-animate="pulse"
+                                    type="button"
+                                    style={{
+                                        background: 'rgba(13,110,253,0)',
+                                        color: 'black',
+                                        borderStyle: 'none',
+                                    }}
+                                    onClick={fileListIsOpen ? closeFileList : openFileList}
+                                >
+                                    {fileListIsOpen ? '닫기' : `첨부파일(${content.noticeFileList ? content.noticeFileList.length : 0})`}
                                 </button>
+                                {fileListIsOpen &&
+                                    <div
+                                        style={{
+                                            position: 'fixed',
+                                            top: "5%",
+                                            right: 0,
+                                            bottom: "5%",
+                                            width: '15%',
+                                            background: 'rgba(0, 0, 0, 0.1)',
+                                            color: 'black', overflowY: 'auto',
+                                            whiteSpace: "nowrap"
+                                        }}>
+                                        <ul>
+                                            <div style={{ marginTop: "50px", fontSize: "20px", marginBottom: "3%" }}>파일 다운로드</div>
+                                            {fileListIsOpen &&
+                                                content &&
+                                                content.noticeFileList &&
+                                                content.noticeFileList.length > 0 &&
+                                                content.noticeFileList.map((file, index) => (
+                                                    <li key={index} style={{ fontSize: '16px', marginBottom: "2%" }}>
+                                                        {file.name}
+                                                        <DownloadFile file={file} />
+                                                    </li>
+                                                ))}
+                                        </ul>
+                                    </div>
+                                }
                             </div>
                             <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
                                  style={{
@@ -228,20 +273,10 @@ function NoticeDetail() {
                                 </div>
                                 <div style={{
                                     paddingRight: "3%",
-                                    borderRight: "3px ridge rgba(128,128,128,0.32)",
                                     fontSize: 11,
-                                    marginRight: "3%"
+                                    marginRight: "1%"
                                 }}>11
                                 </div>
-                                <div style={{
-                                    textAlign: "left",
-                                    height: "auto",
-                                    width: 45,
-                                }}>
-                                <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                      style={{fontSize: 11}}>댓글</span>
-                                </div>
-                                <div style={{paddingRight: "3%", fontSize: 11}}>2</div>
                             </div>
                         </div>
                     </div>

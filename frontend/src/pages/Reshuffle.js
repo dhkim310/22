@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
-import {useParams, useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {selectHrmDetailApi, updateHrmApi} from '../api/Emp';
 import {useForm} from 'react-hook-form';
 import DatePicker from 'react-datepicker';
@@ -58,7 +58,7 @@ function Reshuffle() {
     }, []);
 
     return (
-        <div>
+        <div style={{paddingTop: "50px"}}>
             <div>
                 <div className="d-xxl-flex align-items-xxl-center"
                      style={{height: '70px', paddingTop: '0px', paddingRight: '0px', paddingLeft: '0px'}}><span style={{

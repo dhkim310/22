@@ -8,10 +8,13 @@ import java.util.Objects;
 
 @Slf4j
 public class FileUtils {
-
     public static String generatorFilePath(String saveId, String schema) {
-        String rootDir = System.getProperty("user.dir");
-        return rootDir + "/backend/src/main/resources/media/" + schema + "/" + saveId;
+        String userDir = System.getProperty("user.dir");
+        // 개발단계에서 파일 저장 서버가 없는 관계로 본인의 첨부파일만 저장 가능
+        String erpFilePath = userDir + "/backend/src/main/resources/media/" + schema;
+        File downloadDir = new File(erpFilePath);
+        if (!downloadDir.exists()) downloadDir.mkdirs();
+        return erpFilePath + "/" + saveId;
     }
 
     public static void deleteFile(String path) {

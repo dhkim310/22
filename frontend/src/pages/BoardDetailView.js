@@ -5,6 +5,7 @@ import '../assets/css/animate.min.css';
 import {commentDelete, fetchBoardDetail, postComment} from '../api/Board';
 import {FormatDate} from '../component/FormatDate';
 import Comment from '../component/Comment';
+import DownloadFile from '../component/DownloadFile';
 
 function BoardDetail() {
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ function BoardDetail() {
     const [moreBtn, setMoreBtn] = useState("댓글보기 ▼");
     const [isView, setIsView] = useState(false);
     const [visibleComments, setVisibleComments] = useState(5); // 초기에 5개의 댓글만 보이도록 설정
+    const [fileListIsOpen, setFileListIsOpen] = useState(false);
 
     // 게시글 데이터 가져오기
     useEffect(() => {
@@ -46,7 +48,7 @@ function BoardDetail() {
             .then(() => {
                 // 삭제 성공 시 필요한 작업 수행
                 // 예를 들어, 댓글 목록을 업데이트하는 로직 추가
-                alert("댓글 삭제");
+                alert("댓글 삭제~💦");
                 const updatedContent = {...content};
                 updatedContent.boardCommentList = updatedContent.boardCommentList.filter(
                     (comment) => comment.commentId !== commentId
@@ -54,8 +56,7 @@ function BoardDetail() {
                 setContent(updatedContent); // content를 업데이트하여 화면을 다시 그림
             })
             .catch((error) => {
-                alert(commentId)
-                alert(error); // 삭제 실패 또는 오류 메시지 표시
+                alert("삭제는 본인만 되지롱~😘"); // 삭제 실패 또는 오류 메시지 표시
             });
     };
 
@@ -111,9 +112,17 @@ function BoardDetail() {
         setVisibleComments((prevVisibleComments) => prevVisibleComments + 5);
     };
 
+    const openFileList = () => {
+        setFileListIsOpen(true);
+    };
+
+    const closeFileList = () => {
+        setFileListIsOpen(false);
+    };
+
     return (
         <div className="d-xxl-flex justify-content-xxl-start"
-             style={{width: "100%", background: "rgba(0,0,0,0)", height: 2000}}>
+             style={{paddingTop: "50px", width: "100%", background: "rgba(0,0,0,0)", height: 2000}}>
             <div style={{height: "100%", width: "2%"}}/>
 
             {/* 좌측 사이드바 */}
@@ -163,7 +172,7 @@ function BoardDetail() {
                      style={{width: "100%", background: "rgba(13, 110, 253, 0)", height: "2%"}}>
                     <div style={{width: "50%", display: "flex", justifyContent: "center"}}>
                         <button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start"
-                                data-bss-hover-animate="pulse" type="button" onClick={handleNoticeClick}
+                                data-bss-hover-animate="pulse" type="button" onClick={handleBoardClick}
                                 style={{
                                     color: isBoardPage ? 'black' : 'darkgray',
                                     background: 'rgba(255, 255, 255, 1)',
@@ -230,14 +239,50 @@ function BoardDetail() {
 
                     {/* 첨부파일 부분 */}
                     <div style={{height: "100%", width: "47%"}}>
-                        <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
-                             style={{width: "85%", height: "60%", borderTop: "2px ridge rgba(128,128,128,0.32)"}}>
-                            <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{
-                                background: "rgba(13,110,253,0)",
-                                color: "black",
-                                borderStyle: "none"
-                            }}>첨부파일(0)
+                        <div
+                            className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                            style={{width: '85%', height: '60%', borderTop: '2px ridge rgba(128,128,128,0.32)'}}
+                        >
+                            <button
+                                className="btn btn-primary"
+                                data-bss-hover-animate="pulse"
+                                type="button"
+                                style={{
+                                    background: 'rgba(13,110,253,0)',
+                                    color: 'black',
+                                    borderStyle: 'none',
+                                }}
+                                onClick={fileListIsOpen ? closeFileList : openFileList}
+                            >
+                                {fileListIsOpen ? '닫기' : `첨부파일(${content.boardFileList ? content.boardFileList.length : 0})`}
                             </button>
+                            {fileListIsOpen &&
+                                <div
+                                    style={{
+                                        position: 'fixed',
+                                        top: "5%",
+                                        right: 0,
+                                        bottom: "5%",
+                                        width: '15%',
+                                        background: 'rgba(0, 0, 0, 0.1)',
+                                        color: 'black', overflowY: 'auto',
+                                        whiteSpace: "nowrap"
+                                    }}>
+                                    <ul>
+                                        <div style={{ marginTop: "50px", fontSize: "20px", marginBottom: "3%" }}>파일 다운로드</div>
+                                        {fileListIsOpen &&
+                                            content &&
+                                            content.boardFileList &&
+                                            content.boardFileList.length > 0 &&
+                                            content.boardFileList.map((file, index) => (
+                                                <li key={index} style={{ fontSize: '16px', marginBottom: "2%" }}>
+                                                    {file.name}
+                                                    <DownloadFile file={file} />
+                                                </li>
+                                            ))}
+                                    </ul>
+                                </div>
+                            }
                         </div>
                         <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
                              style={{width: "85%", height: "40%", borderBottom: "2px ridge rgba(128,128,128,0.32)"}}>
@@ -274,32 +319,37 @@ function BoardDetail() {
                             <div style={{
                                 textAlign: "left",
                                 height: "auto",
-                                width: 45,
+                                width: 25,
                             }}>
                                 <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                                       style={{fontSize: 14}}>댓글
                                 </span>
                             </div>
                             <div style={{paddingRight: "3%", fontSize: 14}}>
-                                {content && content.boardCommentList && content.boardCommentList.length > 0 ? (
-                                    <button
-                                        onClick={goComment}
-                                        style={{
-                                            width: "auto",
-                                            height: "auto",
-                                            fontSize: 12,
-                                            background: "transparent",
-                                            border: "none",  // 테두리 없애기
-                                            paddingRight: 20,
-                                            paddingLeft: 20,
-                                            paddingTop: 6,
-                                            paddingBottom: 6,
-                                            marginBottom: "2%",
-                                            color: "black"
-                                        }}
-                                    >({content.boardCommentList.length})</button>
+                                {content && content.boardCommentList ? (
+                                    content.boardCommentList.length > 0 ? (
+                                        <button
+                                            onClick={goComment}
+                                            style={{
+                                                width: "auto",
+                                                height: "auto",
+                                                fontSize: 12,
+                                                background: "transparent",
+                                                border: "none",
+                                                paddingLeft: 10,
+                                                paddingTop: 6,
+                                                paddingBottom: 6,
+                                                marginBottom: "2%",
+                                                color: "black"
+                                            }}
+                                        >
+                                            ({content.boardCommentList.length})
+                                        </button>
+                                    ) : (
+                                        <button onClick={goComment}>(0)</button>
+                                    )
                                 ) : (
-                                    <button onClick={goComment}>(0)</button>
+                                    <p>No comments available.</p>
                                 )}
                             </div>
                         </div>
@@ -434,8 +484,12 @@ function BoardDetail() {
                                     </div>
                                 </div>
                             </div>
-                            {isView && content.boardCommentList.slice(0, visibleComments).map((comment, i) => (
-                                <Comment key={i} comment={comment} onDelete={handleCommentDelete}/>
+                            {isView && (content.boardCommentList.length > 0 ? (
+                                content.boardCommentList.slice(0, visibleComments).map((comment, i) => (
+                                    <Comment key={i} comment={comment} onDelete={handleCommentDelete}/>
+                                ))
+                            ) : (
+                                <p>댓글이 없습니다.</p>
                             ))}
                             {isView && content.boardCommentList.length > visibleComments && (
                                 <button

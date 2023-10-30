@@ -79,16 +79,23 @@ function Header() {
     (url_b || url_c)? null : (
         <div>
             <Alarm/>
+        <div style={{
+            position: 'fixed', // 상단 고정
+            top: 0, // 화면 맨 위에 위치
+            width: '100%', // 화면 가로폭 전체
+            zIndex: 100, // z-index 값을 조절하여 다른 콘텐츠 위에 나타낼 수 있습니다.
+            background: '#000000',
+        }}>
             <div>
                 <div className="d-lg-flex align-items-lg-center justify-content-xxl-start"
                      style={{width: 'auto', height: '50px', background: '#000000'}}>
                     <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
                             onClick={navigateToMain} style={{
+                        background: 'url("img/logo.png") center / contain no-repeat rgba(128,128,128,0)',
+                        borderRadius: '0px',
                         borderStyle: 'none',
                         height: '50px',
-                        borderRadius: '0px',
-                        width: '25%',
-                        background: 'url("img/logo.png") center / contain no-repeat'
+                        width: '25%'
                     }}></button>
                     <div style={{height: 'auto', width: '400px'}}/>
                     <div className="d-lg-flex justify-content-lg-end justify-content-xxl-start"
@@ -115,6 +122,7 @@ function Header() {
                             <button className="btn btn-primary text-nowrap" data-bss-hover-animate="pulse" type="button"
                                     onClick={navigateToEmpList}
                                     style={{borderStyle: 'none', background: 'rgba(0,0,0,0)'}}>급여관리
+
                             </button>
                             <button className="btn btn-primary text-nowrap" data-bss-hover-animate="pulse" type="button"
                                     onClick={navigateToHrm}

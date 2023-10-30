@@ -36,6 +36,7 @@ public class EmpController {
 
     @GetMapping("/emp/fix-info")
     public ResponseEntity<EmpDetailResponse> fixInfo() {
+
         return ResponseEntity.ok(empService.empDetailResponse());
     }
 

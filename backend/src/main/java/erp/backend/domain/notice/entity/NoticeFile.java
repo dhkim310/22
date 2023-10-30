@@ -23,12 +23,11 @@ public class NoticeFile {
     private Notice notice;
 
     @OneToOne(
-            fetch = FetchType.LAZY,
+            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     @JoinColumn(name = "NOTICEFILE_UPLOADFILE_ID")
-    @JsonIgnore
     private UploadFile uploadFile;
 
     public NoticeFile(Notice notice, UploadFile uploadFile) {

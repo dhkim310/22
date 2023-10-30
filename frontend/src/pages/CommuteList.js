@@ -40,7 +40,7 @@ function CommuteList() {
     }, []);
 
     return (
-        <div>
+        <div style={ {paddingTop : "50px"} }>
         <div>
           <div className="d-xxl-flex justify-content-xxl-start" style={{width: '100%', height: '100%'}}>
             <div style={{height: '100%', width: '2%'}} />

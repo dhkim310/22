@@ -61,11 +61,11 @@ function BoardList() {
 
     return (
         <div>
-            <div style={{width: '100%', height: '100%'}}>
+            <div style={{paddingTop: "50px", width: '100%', height: '100%'}}>
                 <div className="d-xxl-flex justify-content-xxl-center"
                      style={{width: '100%', height: '100%', background: 'transparent'}}>
                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                         style={{ marginTop: "3%", marginLeft: "2%", width: '10%', height: '100%', background: 'white'}}>
+                         style={{marginTop: "3%", marginLeft: "2%", width: '10%', height: '100%', background: 'white'}}>
                         <button
                             className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center"
                             data-bss-hover-animate="pulse" type="button" onClick={navigateToWrite} style={{
