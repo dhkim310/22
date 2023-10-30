@@ -26,6 +26,8 @@ import DepartmentCommuteList from "./pages/DepartmentCommuteList";
 import CommuteList from "./pages/CommuteList";
 import MemberList from "./pages/MemberList";
 import ServiceMovieList from "./pages/ServiceMovieList";
+import MemberDetail from "./pages/MemberDetail";
+import MovieDetail from "./pages/MovieDetail";
 
 function App() {
     return (
