@@ -2,9 +2,12 @@ import React, {useEffect, useState} from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
 import {useNavigate} from 'react-router-dom';
+import Alarm from '../component/Alarm'
 
 
 function Header() {
+
+    const allowedPaths = ['/','/login','/message','/message-send'];
     const navigate = useNavigate();
     const navigateToCat = () => {
         navigate("/sweetalert");
@@ -33,6 +36,13 @@ function Header() {
     const navigateToMemberList = () => {
         navigate("/member")
     }
+    const navigateToMessageList = () => {
+         const width = 800;
+         const height = 500;
+         const left = window.innerWidth / 2 - width / 2;
+         const top = window.innerHeight / 2 - height / 2;
+         window.open('/message', '_blank', `width=${width},height=${height},left=${left}`);
+    }
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
 
@@ -56,9 +66,11 @@ function Header() {
             });
         });
     }, []);
-    if (window.location.pathname === '/login') return null;
 
     return (
+    allowedPaths.includes(window.location.pathname) ? null : (
+        <div>
+            <Alarm/>
         <div style={{
             position: 'fixed', // 상단 고정
             top: 0, // 화면 맨 위에 위치
@@ -119,6 +131,9 @@ function Header() {
                         </div>
                     </div>
                     <div className="d-lg-flex justify-content-lg-end" style={{height: 'auto', width: '100%'}}>
+                        <button className="btn btn-primary text-nowrap" type="button" onClick={navigateToMessageList}
+                                style={{borderStyle: 'none',height: '35px', background: 'url("img/message.png") center / contain no-repeat', width: '30px'}}>
+                        </button>
                         <button className="btn btn-primary text-nowrap" type="button" onClick={navigateToCat}
                                 style={{borderStyle: 'none', background: 'rgba(0,0,0,0)', width: '90px'}}>로그아웃
                         </button>
@@ -126,7 +141,8 @@ function Header() {
                 </div>
             </div>
         </div>
-    )
+        )
+    );
 };
 
 export default Header;

@@ -28,6 +28,7 @@ function Login() {
                     delete data.token;
                     const userInfo = {...data}
                     dispatch(SET_USER_INFO(userInfo))
+                    localStorage.setItem('empId',data.empId);
                     alert('로그인 성공');
                     return navigate('/main')
                 }
