@@ -90,7 +90,8 @@ public class SecurityConfig {
                                 "/api/message/{id}",
                                 "/api/message/test/{messageId}",
                                 "/api/file/{uuid}",
-                                "/api/vacation"
+                                "/api/vacation",
+                                "/api/vacation/{id}"
                         )
                         .permitAll()
                         .anyRequest().hasRole("USER"))

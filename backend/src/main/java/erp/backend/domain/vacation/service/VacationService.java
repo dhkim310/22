@@ -25,19 +25,6 @@ public class VacationService {
     private final EmpRepository empRepository;
 
     @Transactional
-    public Long vacationInitiate(VacationInitiate request){
-        Emp emp = empRepository.findByEmpId(request.getEmpId());
-        Vacation entity = Vacation.builder()
-                .emp(emp)
-                .vacationTotalVacation(18)
-                .vacationTotalDayOff(12)
-                .vacationUsedVacation(0)
-                .vacationUsedDayOff(0)
-                .build();
-        return vacationRepository.save(entity).getVacationId();
-    }
-
-    @Transactional
     public Long vacationInsert(VacationInsertRequest request) {
         Emp emp = empRepository.findByEmpId(request.getEmpId());
         Vacation entity = Vacation.builder()
@@ -54,11 +41,18 @@ public class VacationService {
     }
 
     @Transactional
-    public Long vacationUpdate(Long vacationId, VacationUpdate request) {
-        Vacation entity = vacationRepository.findByVacationId(vacationId);
+    public Long vacationUpdate(VacationUpdate request){
+        Vacation entity = vacationRepository.findByVacationId(request.getEmpId());
         entity.update(request);
         return entity.getVacationId();
     }
+
+//    @Transactional
+//    public Long vacationUpdate(Long vacationId, VacationUpdate request) {
+//        Vacation entity = vacationRepository.findByVacationId(vacationId);
+//        entity.update(request);
+//        return entity.getVacationId();
+//    }
 
     @Transactional(readOnly = true)
     public List<VacationListResponse> vacationList() {

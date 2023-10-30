@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VacationUpdate {
+    private Long empId;
     private int totalVacation;
     private int usedVacation;
     private int totalDayOff;
