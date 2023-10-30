@@ -55,9 +55,9 @@ function FixInfo() {
     }, []);
 
     return (
-        <div>
+        <div style={{paddingTop: "50px"}}>
             <div className="d-xxl-flex align-items-xxl-center"
-                 style={{height: '70px', paddingTop: '0px', paddingRight: '0px', paddingLeft: '0px'}}><span style={{
+                 style={{height: '70px',}}><span style={{
                 fontWeight: 'bold',
                 fontSize: '30px',
                 paddingLeft: '110px',

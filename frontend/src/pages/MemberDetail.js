@@ -1,52 +1,49 @@
 import React, {useEffect, useState} from "react";
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
-import {useNavigate, useParams} from "react-router-dom";
-import {salaryDelete, selectSalaryList} from "../api/Salary";
+import {useParams} from "react-router-dom";
+import {selectMemberDetail} from "../api/Member";
 
-function EmpSalary() {
+function MemberDetail(){
     const {id} = useParams();
-    const [salaryList, setSalaryList] = useState([]);
+    const [memberDetail, setMemberDetail] = useState({});
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        async function fetchData() {
+        // async function fetchData() {
+        //     try {
+        //         const data = await selectMemberDetail(id);
+        //         setMemberDetail(data);
+        //     }catch (error){
+        //         console.log('error', error);
+        //     }
+        // };
+        const fetchData = async () => {
             try {
-                const data = await selectSalaryList(id);
-                setSalaryList(data);
+                const data = await selectMemberDetail(id);
+                setMemberDetail(data);
+                console.log(memberDetail.memberName)
             } catch (error) {
-                console.log('error', error);
-            }
-        };
-
-        const getWidth = () => {
-            return window.innerWidth;
-        };
-
-        setIsMobile(getWidth() < 768);
-        fetchData();
-    }, [])
-
-    const onDelete = (id) => {
-        const shouldDelete = window.confirm("삭제하시겠습니까?");
-        if (shouldDelete) {
-            try {
-                salaryDelete(id).then(() => {
-                    window.location.reload();
-                });
-            } catch (error) {
-                console.error('Error deleting salary:', error);
+                console.log("dddsfsd")
             }
         }
-    };
+        fetchData();
+    }, [id])
+        // const getWidth = () => {
+        //     return window.innerWidth;
+        // };
+        //
+        // setIsMobile(getWidth() < 768);
 
-    return (
+
+    
+    return(
         <div>
             <div style={{paddingTop: "50px", background: 'rgba(111, 66, 193, 0)', height: '100%', width: 'auto'}}>
                 <div className="d-xxl-flex align-items-xxl-center"
                      style={{height: '70px', padding: '0', width: 'auto'}}>
                     <span
-                        style={{fontWeight: 'bold', fontSize: '30px', paddingLeft: '110px', width: '100%'}}>급여내역</span>
+                        style={{fontWeight: 'bold', fontSize: '30px', paddingLeft: '110px', width: '100%'}}>회원 상세내역</span>
                 </div>
 
                 <div className="d-xxl-flex" style={{width: 'auto', height: '1080px'}}>
@@ -61,21 +58,17 @@ function EmpSalary() {
                             <div className="d-xxl-flex justify-content-xxl-start"
                                  style={{height: '100%', width: '115px'}}></div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                 style={{height: '100%', width: '175px'}}><span>지급은행</span></div>
+                                 style={{height: '100%', width: '175px'}}><span>이름</span></div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                 style={{height: '100%', width: '200px'}}><span>계좌번호</span></div>
+                                 style={{height: '100%', width: '175px'}}><span>휴대폰번호</span></div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                 style={{height: '100%', width: '175px'}}><span>지급금액(월)</span></div>
+                                 style={{height: '100%', width: '175px'}}><span>생년월일</span></div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                 style={{height: '100%', width: '175px'}}><span>성과금</span></div>
+                                 style={{height: '100%', width: '175px'}}><span>결제은행</span></div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                 style={{height: '100%', width: '175px'}}><span>제세공과금</span></div>
-                            <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                 style={{height: '100%', width: '175px'}}><span>지급일</span></div>
+                                 style={{height: '100%', width: '175px'}}><span>결제계좌</span></div>
                         </div>
                         <div style={{width: '100%', height: '20px'}}></div>
-                        {salaryList.map((item, index) => (
-                            <div key={index}>
                                 <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{
                                     background: 'rgba(13, 110, 253, 0)',
                                     height: '45px',
@@ -86,40 +79,22 @@ function EmpSalary() {
                                     <div className="d-xxl-flex justify-content-xxl-start"
                                          style={{height: '45px', width: '115px'}}></div>
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                         style={{height: '45px', width: '175px'}}><span>{item.salaryBank}</span></div>
+                                         style={{height: '45px', width: '175px'}}><span>{memberDetail.memberName}</span></div>
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                         style={{height: '45px', width: '200px'}}>
-                                        <span>{item.salaryAccountNumber}</span></div>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                         style={{height: '45px', width: '175px'}}><span>{item.salaryPayMoney}</span>
+                                         style={{height: '45px', width: '175px'}}><span>{memberDetail.memberPhoneNumber}</span>
                                     </div>
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                         style={{height: '45px', width: '175px'}}><span>{item.salaryBonus}</span></div>
+                                         style={{height: '45px', width: '175px'}}><span>{memberDetail.memberBirthDay}</span></div>
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                         style={{height: '45px', width: '175px'}}><span>{item.salaryTax}</span></div>
+                                         style={{height: '45px', width: '175px'}}><span>{memberDetail.memberPaymentBank}</span></div>
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                         style={{height: '45px', width: '175px'}}><span>{item.salaryPayDate}</span>
+                                         style={{height: '45px', width: '175px'}}><span>{memberDetail.memberAccountNumber}</span>
                                     </div>
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                                          style={{height: '45px', width: '50px'}}>
                                     </div>
-                                    <button
-                                        className="btn btn-danger"
-                                        data-bss-hover-animate="pulse"
-                                        type="button"
-                                        onClick={() => onDelete(item.salaryId)}
-                                        style={{
-                                            background: 'black',
-                                            borderStyle: 'none',
-                                            width: '70px',
-                                        }}
-                                    >
-                                        삭제
-                                    </button>
                                 </div>
                                 <div style={{width: '100%', height: '50px'}}></div>
-                            </div>
-                        ))}
                     </div>
                     <div style={{background: 'rgba(13, 110, 253, 0)', height: '100%', width: '15%'}}>
                         <div style={{
@@ -135,4 +110,4 @@ function EmpSalary() {
     );
 }
 
-export default EmpSalary;
+export default MemberDetail;

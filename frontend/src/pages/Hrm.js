@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
 import EmpCreateComponent from "../component/EmpCreateComponent";
 import {selectHrmListApi} from "../api/Emp";
 import {useParams, useNavigate} from 'react-router-dom';
 import VacationInsertComponent from "../component/VacationInsertComponent";
+
 
 function Hrm() {
     const [hrm, setHrm] = useState([]);
@@ -13,6 +14,7 @@ function Hrm() {
     const [searchName, setSearchName] = useState('');
     const [selectedPosition, setSelectedPosition] = useState('all'); // Default value for job position filter
     const [selectedDepartment, setSelectedDepartment] = useState('all'); // Default value for department filter
+    const [selectedEmpId, setSelectedEmpId] = useState(null);
     const navigate = useNavigate();
 
     const navigateToReshuffle = (id) => {
@@ -38,11 +40,13 @@ function Hrm() {
     const closeModal = () => {
         setIsModalOpen(false);
     };
-    const openVacationModal = () => {
+    const openVacationModal = (empId) => {
+        setSelectedEmpId(empId);
         setIsVacationModalOpen(true);
     };
 
     const closeVacationModal = () => {
+        setSelectedEmpId(null);
         setIsVacationModalOpen(false);
     };
 
@@ -88,12 +92,12 @@ function Hrm() {
     );
 
     return (
-        <div>
+        <div style={{paddingTop: "50px"}}>
             <div>
                 <EmpCreateComponent isOpen={isModalOpen} closeModal={closeModal}/>
             </div>
             <div>
-                <VacationInsertComponent isOpen={isVacationModalOpen} closeModal={closeVacationModal}/>
+                <VacationInsertComponent isOpen={isVacationModalOpen} closeModal={closeVacationModal} empId={selectedEmpId}/>
             </div>
 
             <div style={{background: 'rgba(111,66,193,0)', height: '100%', width: 'Auto'}}>
@@ -228,7 +232,7 @@ function Hrm() {
                                         <button
                                             className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
                                             data-bss-hover-animate="pulse" type="button"
-                                            onClick={ VacationInsertComponent} style={{
+                                            onClick={() => openVacationModal(e.empId)} style={{
                                             fontSize: '13px',
                                             fontWeight: 'bold',
                                             background: 'var(--bs-btn-disabled-color)',
