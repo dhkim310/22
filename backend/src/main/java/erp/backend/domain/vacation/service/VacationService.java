@@ -41,8 +41,8 @@ public class VacationService {
     }
 
     @Transactional
-    public Long vacationUpdate(VacationUpdate request){
-        Vacation entity = vacationRepository.findByVacationId(request.getEmpId());
+    public Long vacationUpdate(Long empId, VacationUpdate request){
+        Vacation entity = vacationRepository.findVacationByEmpEmpId(empId);
         entity.update(request);
         return entity.getVacationId();
     }
