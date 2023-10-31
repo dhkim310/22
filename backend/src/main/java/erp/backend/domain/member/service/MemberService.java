@@ -1,13 +1,10 @@
 package erp.backend.domain.member.service;
 
-import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.emp.repository.EmpRepository;
 import erp.backend.domain.member.dto.MemberDetailResponse;
 import erp.backend.domain.member.dto.MemberInsert;
 import erp.backend.domain.member.dto.MemberListResponse;
 import erp.backend.domain.member.entity.Member;
 import erp.backend.domain.member.repository.MemberRepository;
-import erp.backend.global.config.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +52,7 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public MemberDetailResponse getMemberDetail(Long id){
+    public MemberDetailResponse getMemberDetail(Long id) {
         Member entity = memberRepository.findByMemberId(id);
         return MemberDetailResponse.builder()
                 .memberName(entity.getMemberName())

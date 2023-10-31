@@ -3,10 +3,18 @@ package erp.backend.domain.movie.service;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import erp.backend.domain.board.dto.BoardDetailResponse;
+import erp.backend.domain.board.entity.Board;
+import erp.backend.domain.board.entity.BoardFile;
+import erp.backend.domain.comment.dto.CommentResponse;
+import erp.backend.domain.comment.entity.Comment;
+import erp.backend.domain.movie.dto.MovieDetailResponse;
 import erp.backend.domain.movie.dto.MovieListResponse;
 import erp.backend.domain.movie.dto.MovieListResult;
 import erp.backend.domain.movie.entity.Movie;
 import erp.backend.domain.movie.repository.MovieRepository;
+import erp.backend.domain.uploadfile.entity.UploadFile;
+import erp.backend.global.util.SchemaType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -81,5 +89,18 @@ public class MovieService {
         Page<MovieListResponse> page = new PageImpl<>(sublist, pageable, movieListResponses.size());
 
         return new MovieListResult(pageable.getPageNumber(), movieListResponses.size(), pageable.getPageSize(), page);
+    }
+
+    @Transactional(readOnly = true)
+    public MovieDetailResponse movieDetail(String id) {
+        Movie entity = movieRepository.findByMovieId(id);
+
+        return MovieDetailResponse.builder()
+                .id(entity.getMovieId())
+                .krName(entity.getMovieKrName())
+                .ogName(entity.getMovieOgName())
+                .movieOverView(entity.getMovieOverView())
+                .moviePosterPath(entity.getMoviePosterPath())
+                .build();
     }
 }

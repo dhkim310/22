@@ -53,6 +53,7 @@ public class LogService {
                 .logCheckOut(entity.map(e -> logVo.type3(e.getLogCheckOut())).orElse(null))
                 .build();
     }
+
     @Transactional(readOnly = true)
     public List<LogListResponse> searchList(Long id) {
         List<Log> list = logRepository.findByEmpEmpId(id);

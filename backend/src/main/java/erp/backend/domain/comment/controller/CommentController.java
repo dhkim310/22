@@ -2,13 +2,10 @@ package erp.backend.domain.comment.controller;
 
 import erp.backend.domain.comment.dto.CommentRequest;
 import erp.backend.domain.comment.dto.CommentResponse;
-import erp.backend.domain.comment.entity.Comment;
 import erp.backend.domain.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/comment")

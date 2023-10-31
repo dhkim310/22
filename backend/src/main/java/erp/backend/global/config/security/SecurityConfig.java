@@ -55,6 +55,7 @@ public class SecurityConfig {
                                 "/api/sign-up",
                                 "/api/sign-in",
                                 "/api/emp/fix-info",
+                                "/api/emp/picture-update",
                                 "/api/emp/salary-list",
                                 "/api/emp/salary/{empName}",
                                 "/api/salary",

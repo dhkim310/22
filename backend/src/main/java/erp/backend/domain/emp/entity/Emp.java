@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import erp.backend.domain.dept.entity.Dept;
 import erp.backend.domain.emp.dto.EmpReshuffleRequest;
 import erp.backend.domain.emp.vo.EmpVo;
+import erp.backend.domain.notice.entity.NoticeFile;
 import erp.backend.domain.salary.entity.Salary;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,8 +16,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
@@ -77,9 +80,6 @@ public class Emp implements UserDetails {
     @JsonIgnore
     @Column(name = "EMP_DETAILADDRESS")
     private String empDetailAddress;
-
-//    @OneToMany(mappedBy = "emp", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
-//    private Set<Board> boardList = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
