@@ -40,19 +40,19 @@ public class VacationService {
         return vacationRepository.save(entity).getVacationId();
     }
 
+//    @Transactional
+//    public Long vacationUpdate(VacationUpdate request){
+//        Vacation vacation = vacationRepository.findVacationByEmpEmpId(request.getEmpId());
+//        vacation.update(request);
+//        return vacation.getVacationId();
+//    }
+
     @Transactional
-    public Long vacationUpdate(Long empId, VacationUpdate request){
-        Vacation entity = vacationRepository.findVacationByEmpEmpId(empId);
+    public Long vacationUpdate(Long vacationId, VacationUpdate request) {
+        Vacation entity = vacationRepository.findByVacationId(vacationId);
         entity.update(request);
         return entity.getVacationId();
     }
-
-//    @Transactional
-//    public Long vacationUpdate(Long vacationId, VacationUpdate request) {
-//        Vacation entity = vacationRepository.findByVacationId(vacationId);
-//        entity.update(request);
-//        return entity.getVacationId();
-//    }
 
     @Transactional(readOnly = true)
     public List<VacationListResponse> vacationList() {

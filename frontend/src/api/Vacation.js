@@ -8,9 +8,9 @@ export const vacationInsert = async (params) => {
         throw error;
     }
 };
-export const vacationUpdate = async (id, params) => {
+export const vacationUpdate = async (params) => {
     try{
-        const response = await axios.put(`/api/vacation/${id}`, params);
+        const response = await axios.put('api/vacation', params);
         return response;
     }catch (error){
         throw error;

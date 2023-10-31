@@ -28,8 +28,8 @@ public class VacationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> vacationUpdate(@PathVariable("id") Long empId, @RequestBody VacationUpdate request) {
-        return ResponseEntity.ok(vacationService.vacationUpdate(empId, request));
+    public ResponseEntity<Long> vacationUpdate(@PathVariable Long vacationId, @RequestBody VacationUpdate request) {
+        return ResponseEntity.ok(vacationService.vacationUpdate(vacationId, request));
     }
 }
 
