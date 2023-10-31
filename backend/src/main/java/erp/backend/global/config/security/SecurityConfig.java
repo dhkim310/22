@@ -87,6 +87,9 @@ public class SecurityConfig {
                                 "/api/serviceMovie/{movieId}",
                                 "/api/serviceMovie/{id}",
                                 "/api/serviceMovie",
+                                "/api/message",
+                                "/api/message/{id}",
+                                "/api/message/test/{messageId}",
                                 "/api/file/{uuid}",
                                 "/api/vacation"
                         )
