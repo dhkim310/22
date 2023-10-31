@@ -74,7 +74,6 @@ function Reshuffle() {
                     style={{paddingRight: '0px', paddingLeft: '110px', height: '200px'}}>사진</span>
                     <div className="d-xxl-flex" style={{
                         width: 'auto',
-                        background: `url(${detail.empPicturePath}) center / contain no-repeat`,
                         height: '200px',
                         paddingLeft: '0px',
                         marginLeft: '49px',

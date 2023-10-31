@@ -297,18 +297,7 @@ function Main() {
                         </div>
                     </div>
                     <div style={{width: '90%', background: 'var(--bs-gray-200)', height: '100%'}}>
-                        <div className="text-end d-xxl-flex justify-content-xxl-end align-items-xxl-center" style={{
-                            height: '50px', background: 'rgba(0,0,0,0)', borderBottom: '1px ridge rgba(0,0,0,0.09)'
-                        }}><input type="search"/>
-                            <button className="btn btn-primary text-nowrap" type="button" style={{
-                                background: 'rgba(13,110,253,0)',
-                                borderStyle: 'none',
-                                width: '54.3px',
-                                height: '36px',
-                                color: 'black'
-                            }}>검색
-                            </button>
-                        </div>
+
                         <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{
                             width: 'auto',
                             height: '100%',

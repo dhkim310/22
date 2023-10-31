@@ -15,7 +15,7 @@ function ServiceMovieInsert({ isOpen, closeModal, movieId }) {
     const [endDateI, setEndDateI] = useState(null);
 
     useEffect(() => {
-        console.log('movieId', movieId);
+
     }, [movieId]);
 
     const onValid = async ({ amount, paymentDate, paymentBank, accountNumber, startDate, endDate, producer }) => {

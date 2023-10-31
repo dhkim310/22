@@ -19,8 +19,6 @@ export function CheckToken(key) {
             } else {
                 if (authenticated) {
                     setIsAuth('Success');
-                } else {
-                    const response = await requestToken(refreshToken);
                 }
             }
         };

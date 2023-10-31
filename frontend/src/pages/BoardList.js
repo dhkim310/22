@@ -133,12 +133,12 @@ function BoardList() {
                                      style={{width: '70%', height: '100%'}}>
                                     <input type="search"/>
                                     <button className="btn btn-primary text-nowrap" type="button" style={{
-                                        background: 'rgba(13,110,253,0)',
+                                        background: 'url("img/Search.png") center / contain no-repeat',
                                         borderStyle: 'none',
                                         width: '54.3px',
                                         height: '36px',
                                         color: 'black'
-                                    }}>검색
+                                    }}>
                                     </button>
                                 </div>
                             </div>
