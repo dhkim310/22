@@ -17,6 +17,14 @@ public class FileUtils {
         return erpFilePath + "/" + saveId;
     }
 
+    public static String generatorPicturePath(String saveId, String schema) {
+        String userDir = System.getProperty("user.dir");
+        String picturePath = userDir + "/frontend/public/img/" + schema;
+        File downloadDir = new File(picturePath);
+        if (!downloadDir.exists()) downloadDir.mkdirs();
+        return picturePath + "/" + saveId;
+    }
+
     public static void deleteFile(String path) {
         File file = new File(path);
 
@@ -24,11 +32,10 @@ public class FileUtils {
             File[] files = file.listFiles();
 
             if (files != null) {
-                Arrays.stream(Objects.requireNonNull(files))
-                        .forEach(childFile -> {
-                            String resultMessage = childFile.delete() ? " 삭제성공" : " 삭제실패";
-                            log.info(childFile.getName() + resultMessage);
-                        });
+                Arrays.stream(Objects.requireNonNull(files)).forEach(childFile -> {
+                    String resultMessage = childFile.delete() ? " 삭제성공" : " 삭제실패";
+                    log.info(childFile.getName() + resultMessage);
+                });
             }
 
             String resultMessage = file.delete() ? "파일삭제 성공" : "파일삭제 실패";

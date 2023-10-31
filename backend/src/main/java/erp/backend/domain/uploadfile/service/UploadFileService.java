@@ -29,6 +29,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static erp.backend.global.util.FileUtils.generatorFilePath;
+import static erp.backend.global.util.FileUtils.generatorPicturePath;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +43,7 @@ public class UploadFileService {
     // 지원하지 않는 확장자
     private final List<String> DENIED_EXTENSION = Arrays.asList("exe", "zip");
     private final List<String> DENIED_CONTENT_TYPE = Arrays.asList("application/x-msdos-program", "application/zip");
+    private final List<String> IMG_EXTENSION = Arrays.asList("jpg", "jpeg", "png");
 
 
     @Transactional
@@ -53,6 +55,44 @@ public class UploadFileService {
             throw new RuntimeException(e);
         }
         return uploadFileRepository.save(uploadFile);
+    }
+
+    @Transactional
+    public UploadFile empPicture(MultipartFile file, SchemaType schema) {
+        UploadFile uploadFile = null;
+        try {
+            uploadFile = uploadEmpPicture(file, schema);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return uploadFileRepository.save(uploadFile);
+    }
+
+    @Transactional
+    public UploadFile uploadEmpPicture(MultipartFile uploadFile, SchemaType schema) throws IOException, NullPointerException {
+        String uuid = UUID.randomUUID().toString();
+        String fileName = uploadFile.getOriginalFilename();
+        String extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+        String saveId = uuid + "." + extension; // S3에 저장된 파일 이름
+
+        if (! IMG_EXTENSION.contains(extension)) {
+            throw new IOException("지원 하지 않는 확장자.");
+        }
+
+        String path = generatorPicturePath(saveId, schema.getName());
+        File uploadPath = new File(path);
+        String newPath = "img/emp_picture/" + saveId;
+
+        uploadFile.transferTo(uploadPath);
+
+        return UploadFile.builder()
+                .fschema(schema)
+                .uuid(saveId)
+                .name(fileName)
+                .extension(extension)
+                .path(newPath)
+                .size(uploadFile.getSize())
+                .build();
     }
 
     @Transactional
@@ -69,7 +109,7 @@ public class UploadFileService {
 
         String path = generatorFilePath(saveId, schema.getName());
         File uploadPath = new File(path);
-        String newPath = "/backend/src/main/resources/media/" + schema + "_file/" + saveId;
+        String newPath = "/backend/src/main/resources/media/" + schema + "/" + saveId;
 
         uploadFile.transferTo(uploadPath);
 
