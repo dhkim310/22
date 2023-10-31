@@ -93,7 +93,6 @@ function FixInfo() {
             <span style={{paddingRight: '0px', paddingLeft: '110px', height: '200px'}}>사진</span>
             <div className="d-xxl-flex" style={{
                 width: 'auto',
-                background: `url(${empInfo.empPicturePath}), rgba(220,53,69,0)`,
                 height: '200px',
                 paddingLeft: '0px',
                 marginLeft: '49px',
@@ -107,6 +106,7 @@ function FixInfo() {
                     background: `url(${empInfo.empPicturePath}) center / contain no-repeat`
                 }} src={empInfo.empPicturePath}/>
             </div>
+
             <input type="file" style={{display: 'none'}} accept="image/*" onChange={handleImageChange}
                    ref={fileInputRef}/> {/* 파일 선택을 위한 input */}
             <button
