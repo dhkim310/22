@@ -23,4 +23,5 @@ public class EmpReshuffleResponse {
     private LocalDate empStartDate;
     private LocalDate empEndDate;
     private String empStatus;
+    private String empPicturePath;
 }

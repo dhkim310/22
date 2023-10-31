@@ -58,8 +58,12 @@ public class EmpService {
     @Transactional(readOnly = true) // 인사이동 페이지
     public EmpReshuffleResponse reshuffleResponse(Long id) {
         Emp emp = getEmpAccountId(id);
-
-        return EmpReshuffleResponse.builder().empId(emp.getEmpId()).deptId(emp.getDept().getDeptId()).empName(emp.getEmpName()).deptName(emp.getDept().getDeptName()).empEmail(emp.getEmpEmail()).empPosition(emp.getEmpPosition()).empStartDate(emp.getEmpStartDate()).empEndDate(emp.getEmpEndDate()).empStatus(emp.getEmpStatus()).build();
+        EmpPicture picturePath = empPictureRepository.findByEmp_EmpId(emp.getEmpId());
+//        if (picturePath == null ) {
+//            picturePath = empPictureRepository.findByEmp_EmpId(99999L);
+//        }
+        picturePath = (picturePath != null) ? picturePath : empPictureRepository.findByEmp_EmpId(99999L);
+        return EmpReshuffleResponse.builder().empId(emp.getEmpId()).deptId(emp.getDept().getDeptId()).empName(emp.getEmpName()).deptName(emp.getDept().getDeptName()).empEmail(emp.getEmpEmail()).empPosition(emp.getEmpPosition()).empStartDate(emp.getEmpStartDate()).empEndDate(emp.getEmpEndDate()).empStatus(emp.getEmpStatus()).empPicturePath(picturePath.getUploadFile().getPath()).build();
     }
 
     @Transactional // 인사이동 업데이트
