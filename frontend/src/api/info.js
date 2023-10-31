@@ -30,3 +30,14 @@ export const selectEmp = async (params) => {
         throw error;
     }
 };
+
+export const uploadImage = async (formData) => {
+    try {
+        const response = await axios.put('/api/emp/picture-update', formData, {
+            headers: {'Content-Type': 'multipart/form-data'},
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

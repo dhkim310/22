@@ -22,11 +22,7 @@ public class BoardFile {
     @JsonIgnore
     private Board board;
 
-    @OneToOne(
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "BOARDFILE_UPLOADFILE_ID")
     private UploadFile uploadFile;
 

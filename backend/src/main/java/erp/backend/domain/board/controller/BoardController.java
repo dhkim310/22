@@ -24,7 +24,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping
-    public ResponseEntity<BoardListResult> boardList(@PageableDefault(size = 7, sort = "boardId", direction = Sort.Direction.DESC) Pageable pageable,
+    public ResponseEntity<BoardListResult> boardList(@PageableDefault(size = 10, sort = "boardId", direction = Sort.Direction.DESC) Pageable pageable,
                                                      Model model) {
         BoardListResult listResult = boardService.boardListResult(pageable);
         model.addAttribute("listResult", listResult);
@@ -51,5 +51,4 @@ public class BoardController {
     public ResponseEntity<Long> boardUpdate(@PathVariable("id") Long id, @RequestPart(value = "requestDto") BoardUpdate request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
         return ResponseEntity.ok(boardService.boardUpdate(id, request, files));
     }
-
 }

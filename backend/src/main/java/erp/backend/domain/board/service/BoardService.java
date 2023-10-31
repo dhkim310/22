@@ -171,10 +171,10 @@ public class BoardService {
 
     // 게시글 작성자와 사용자가 일치하는지 확인
     private Board getBoard(Long id, Emp emp) {
-        Board board = boardRepository.findById(id)
+        Board entity = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 데이터입니다."));
-        if (board.getEmp().getEmpId().equals(emp.getEmpId())) {
-            return board;
+        if (entity.getEmp().getEmpId().equals(emp.getEmpId())) {
+            return entity;
         } else {
             throw new IllegalArgumentException("현재 로그인 된 사용자와 게시글 작성자가 일치하지 않습니다.");
         }
