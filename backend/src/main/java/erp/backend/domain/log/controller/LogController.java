@@ -21,8 +21,9 @@ public class LogController {
         LogResponse logResponse = logService.logResponse();
         return ResponseEntity.ok(logResponse);
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<List<LogListResponse>>  logListResponse(@PathVariable("id") Long id) {
+    public ResponseEntity<List<LogListResponse>> logListResponse(@PathVariable("id") Long id) {
         return ResponseEntity.ok(logService.searchList(id));
     }
 

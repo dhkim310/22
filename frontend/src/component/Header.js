@@ -1,49 +1,51 @@
 import React, {useEffect, useState} from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
-import '../assets/css/animate.min.css';
+import '../assets/css/animate.min.css'
 import {useNavigate} from 'react-router-dom';
-import Alarm from '../component/Alarm';
+import Alarm from '../component/Alarm'
+
 
 function Header() {
-    const allowedPaths = ['/', '/login', '/message', '/message-send'];
-    const navigate = useNavigate();
 
+    const allowedPaths = ['/','/login','/message','/message-send'];
+    const navigate = useNavigate();
     const navigateToCat = () => {
-        navigate('/sweetalert');
+        navigate("/sweetalert");
     };
     const navigateToMain = () => {
-        navigate('/main');
+        navigate("/main");
     };
     const navigateToSchedule = () => {
-        navigate('/schedule');
+        navigate("/schedule");
     };
     const navigateToList = () => {
-        navigate('/notice');
+        navigate("/notice");
     };
     const navigateToHrm = () => {
-        navigate('/hrm');
+        navigate("/hrm");
     };
     const navigateToApprovalList = () => {
-        navigate('/approval');
+        navigate("/approval");
     };
     const navigateToEmpList = () => {
-        navigate('/salary');
+        navigate("/salary")
     };
     const navigateToMovieList = () => {
-        navigate('/movie');
+        navigate("/movie")
     };
     const navigateToMemberList = () => {
-        navigate('/member');
-    };
+        navigate("/member")
+    }
     const navigateToMessageList = () => {
-        const width = 800;
-        const height = 500;
-        const left = window.innerWidth / 2 - width / 2;
-        const top = window.innerHeight / 2 - height / 2;
-        window.open('/message', '_blank', `width=${width},height=${height},left=${left}`);
-    };
+         const width = 800;
+         const height = 500;
+         const left = window.innerWidth / 2 - width / 2;
+         const top = window.innerHeight / 2 - height / 2;
+         window.open('/message', '_blank', `width=${width},height=${height},left=${left}`);
+    }
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
+
 
     useEffect(() => {
         const getWidth = () => {
