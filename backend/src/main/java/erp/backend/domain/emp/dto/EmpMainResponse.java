@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class EmpMainResponse {
     private String empName;
     private String empPosition;
+    private String empPicturePath;
 }

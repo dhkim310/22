@@ -1,6 +1,7 @@
 package erp.backend.domain.approval.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import erp.backend.domain.approval.dto.ApprovalUpdate;
 import erp.backend.domain.emp.entity.Emp;
 import jakarta.persistence.*;
@@ -10,7 +11,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +19,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor // 파라미터있는생성자
 @NoArgsConstructor // 기본생성자
+@JsonIgnoreProperties(value = {"approvalFileList"})
 public class Approval {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,21 +55,16 @@ public class Approval {
     @Column(name = "APPROVAL_SUCCESSDATE")
     private LocalDate approvalSuccessDate;
 
-    @OneToMany(
-            mappedBy = "approval",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "approval", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
+    @JsonIgnore
     private List<ApprovalFile> approvalFileList = new ArrayList<>();
-
 
     public void update(ApprovalUpdate request) {
         this.approvalCheck = request.getApprovalCheck();
-        if(approvalCheck.equals("결재완료")){
+        if (approvalCheck.equals("결재완료")) {
             this.approvalSuccessDate = LocalDate.now();
-        } else if(approvalCheck.equals("결재반려")){
+        } else if (approvalCheck.equals("결재반려")) {
             this.approvalBackDate = LocalDate.now();
         }
     }
