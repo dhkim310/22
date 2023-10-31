@@ -23,8 +23,7 @@ public class BoardListResult {
 
     private long calTotalPageCount() {
         long tpc = totalCount / size;
-        if (totalCount % size != 0)
-            tpc++;
+        if (totalCount % size != 0) tpc++;
         return tpc;
     }
 }

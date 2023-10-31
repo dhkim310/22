@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
-import {commuteApi, commuteUpdateApi, commuteSelectApi} from '../api/Commute';
+import {commuteApi, commuteSelectApi, commuteUpdateApi} from '../api/Commute';
 import {selectNoticeTop4Api} from "../api/Notice";
 import {selectEmp} from "../api/info";
 import {selectMemoApi} from '../api/Memo';
@@ -285,26 +285,20 @@ function Main() {
                         </form>
 
                         <div style={{
-                            height: 'auto',
-                            background: 'rgba(0,0,0,0)',
-                            paddingBottom: '15px',
-                            paddingTop: '37px'
+                            height: 'auto', background: 'rgba(0,0,0,0)', paddingBottom: '15px', paddingTop: '37px'
                         }}>
                             <div className="d-lg-flex justify-content-xxl-start"
                                  style={{height: '30px', background: 'rgba(126,126,126,0)', fontSize: '12px'}}><span
                                 style={{fontWeight: 'bold'}}>&nbsp; 출근시간 :&nbsp; {logInfo.logCheckIn}</span></div>
                             <div className="d-lg-flex justify-content-xxl-start"
                                  style={{height: '30px', background: 'rgba(126,126,126,0)'}}><span style={{
-                                fontSize: '12px',
-                                fontWeight: 'bold'
+                                fontSize: '12px', fontWeight: 'bold'
                             }}>&nbsp; 퇴근시간 :&nbsp; {logInfo.logCheckOut}</span></div>
                         </div>
                     </div>
                     <div style={{width: '90%', background: 'var(--bs-gray-200)', height: '100%'}}>
                         <div className="text-end d-xxl-flex justify-content-xxl-end align-items-xxl-center" style={{
-                            height: '50px',
-                            background: 'rgba(0,0,0,0)',
-                            borderBottom: '1px ridge rgba(0,0,0,0.09)'
+                            height: '50px', background: 'rgba(0,0,0,0)', borderBottom: '1px ridge rgba(0,0,0,0.09)'
                         }}><input type="search"/>
                             <button className="btn btn-primary text-nowrap" type="button" style={{
                                 background: 'rgba(13,110,253,0)',
@@ -341,8 +335,7 @@ function Main() {
                                                     <div
                                                         className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
                                                         style={{width: '50%', height: '100%'}}><span style={{
-                                                        fontSize: '26px',
-                                                        fontWeight: 'bold'
+                                                        fontSize: '26px', fontWeight: 'bold'
                                                     }}>{main.empName} {main.empPosition}</span></div>
                                                     <div
                                                         className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
@@ -385,35 +378,26 @@ function Main() {
                                                     <div
                                                         className="d-xxl-flex justify-content-xxl-center align-items-xxl-end"
                                                         style={{
-                                                            background: 'transparent',
-                                                            width: '100%',
-                                                            height: '50%'
+                                                            background: 'transparent', width: '100%', height: '50%'
                                                         }}><span
                                                         style={{fontSize: '27px', fontWeight: 'bold'}}>진행중 결재</span>
                                                     </div>
                                                     <div className="d-xxl-flex justify-content-xxl-center" style={{
-                                                        background: 'transparent',
-                                                        width: '100%',
-                                                        height: '50%'
+                                                        background: 'transparent', width: '100%', height: '50%'
                                                     }}><span style={{fontSize: '31px', fontWeight: 'bold'}}>0</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div style={{
-                                            height: '200px',
-                                            background: 'rgba(255,255,255,0)',
-                                            width: '20px'
+                                            height: '200px', background: 'rgba(255,255,255,0)', width: '20px'
                                         }}/>
                                         <div style={{height: '850px', background: 'transparent', width: '561px'}}>
                                             <div style={{background: 'white', width: '100%', height: '450px'}}>
                                                 <div className="d-xxl-flex align-items-xxl-center" style={{
-                                                    height: '50px',
-                                                    borderBottom: '1px ridge rgba(128,128,128,0.24)'
+                                                    height: '50px', borderBottom: '1px ridge rgba(128,128,128,0.24)'
                                                 }}><span style={{
-                                                    fontSize: '25px',
-                                                    fontWeight: 'bold',
-                                                    paddingLeft: '23px'
+                                                    fontSize: '25px', fontWeight: 'bold', paddingLeft: '23px'
                                                 }}>공지사항</span></div>
                                                 <div
                                                     className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
@@ -451,18 +435,12 @@ function Main() {
                                                 </div>
                                             </div>
                                             <div style={{
-                                                background: 'white',
-                                                width: '100%',
-                                                height: '300px',
-                                                marginTop: '20px'
+                                                background: 'white', width: '100%', height: '300px', marginTop: '20px'
                                             }}>
                                                 <div className="d-xxl-flex align-items-xxl-center" style={{
-                                                    height: '50px',
-                                                    borderBottom: '1px ridge rgba(128,128,128,0.24)'
+                                                    height: '50px', borderBottom: '1px ridge rgba(128,128,128,0.24)'
                                                 }}><span style={{
-                                                    fontSize: '25px',
-                                                    fontWeight: 'bold',
-                                                    paddingLeft: '23px'
+                                                    fontSize: '25px', fontWeight: 'bold', paddingLeft: '23px'
                                                 }}>메모</span></div>
                                                 <div
                                                     className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
@@ -512,10 +490,7 @@ function Main() {
                                         data-bss-hover-animate="pulse"
                                         className="list-group-item list-group-item-action flex-column align-items-start"
                                         href="#" style={{
-                                        height: '200px',
-                                        marginBottom: '2px',
-                                        width: 'auto',
-                                        background: 'white'
+                                        height: '200px', marginBottom: '2px', width: 'auto', background: 'white'
                                     }}>
                                         <div
                                             className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between"
@@ -532,10 +507,7 @@ function Main() {
                                         data-bss-hover-animate="pulse"
                                         className="list-group-item list-group-item-action flex-column align-items-start"
                                         href="#" style={{
-                                        height: '200px',
-                                        marginBottom: '2px',
-                                        width: 'auto',
-                                        background: 'white'
+                                        height: '200px', marginBottom: '2px', width: 'auto', background: 'white'
                                     }}>
                                         <div
                                             className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between"
@@ -552,10 +524,7 @@ function Main() {
                                         data-bss-hover-animate="pulse"
                                         className="list-group-item list-group-item-action flex-column align-items-start"
                                         href="#" style={{
-                                        height: '200px',
-                                        marginBottom: '2px',
-                                        width: 'auto',
-                                        background: 'white'
+                                        height: '200px', marginBottom: '2px', width: 'auto', background: 'white'
                                     }}>
                                         <div
                                             className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between"
@@ -563,8 +532,7 @@ function Main() {
                                             <h5 className="mb-1" style={{color: 'white'}}>9/21</h5>
                                         </div>
                                         <p className="mb-1" style={{
-                                            textAlign: 'center',
-                                            borderBottom: '1px ridge rgba(128,128,128,0.18)'
+                                            textAlign: 'center', borderBottom: '1px ridge rgba(128,128,128,0.18)'
                                         }}>Thu</p>
                                     </a></div>
                                     <div className="col-md-3 col-xxl-1" style={{maxWidth: '25%', height: '100%'}}><a
@@ -588,8 +556,7 @@ function Main() {
                                             <h5 className="mb-1" style={{color: 'white'}}>9/22</h5>
                                         </div>
                                         <p className="mb-1" style={{
-                                            textAlign: 'center',
-                                            borderBottom: '1px ridge rgba(128,128,128,0.18)'
+                                            textAlign: 'center', borderBottom: '1px ridge rgba(128,128,128,0.18)'
                                         }}>Fri</p>
                                     </a></div>
                                 </div>

@@ -81,16 +81,6 @@ public class Emp implements UserDetails {
     @Column(name = "EMP_DETAILADDRESS")
     private String empDetailAddress;
 
-    @JsonIgnore
-    @OneToOne(
-            mappedBy = "emp",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    @Builder.Default
-    private EmpPicture empPicture = new EmpPicture();
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String role = this.roles = roles + "_" + dept.getDeptName();

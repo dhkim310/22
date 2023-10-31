@@ -109,7 +109,7 @@ public class UploadFileService {
 
         String path = generatorFilePath(saveId, schema.getName());
         File uploadPath = new File(path);
-        String newPath = "/backend/src/main/resources/media/" + schema + "/" + saveId;
+        String newPath = "/backend/src/main/resources/media/" + schema + "_file/" + saveId;
 
         uploadFile.transferTo(uploadPath);
 

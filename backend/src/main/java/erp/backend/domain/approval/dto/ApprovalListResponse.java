@@ -1,6 +1,5 @@
 package erp.backend.domain.approval.dto;
 
-import erp.backend.domain.approval.entity.Approval;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
