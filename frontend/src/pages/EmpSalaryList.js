@@ -114,7 +114,7 @@ function EmpSalaryList() {
                             <input type="search" placeholder="이름 검색" onChange={handleSearchChange}
                                    style={{height: '81%', width: '85%'}}/>
                             <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{
-                                background: 'url("assets/img/icons8-수색-144.png") center / contain no-repeat',
+                                background: 'url("img/Search.png") center / contain no-repeat',
                                 height: '100%',
                                 width: '15%',
                                 borderColor: 'rgba(255,255,255,0)'

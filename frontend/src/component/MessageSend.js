@@ -65,7 +65,7 @@ function MessageSend() {
                            <select className="form-select" {...register('messageReceiverEmpId')}>
 
                            {list.map((e) => (
-                               <option value={e.empId}>{e.empName}</option>
+                               <option key={e.empId} value={e.empId}>{e.empName}</option>
                             ))}
                            </select></div>
 
