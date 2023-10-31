@@ -56,6 +56,7 @@ public class ApprovalService {
                 , pageable.getPageSize()
                 , new PageImpl<>(approvalListResponses, pageable, approvalList.size()));
     }
+
     @Transactional(readOnly = true)//결재 완료 리스트
     public ApprovalListResult approvalSuccessListResult(Pageable pageable) {
         List<Approval> approvalList = approvalRepository
@@ -87,6 +88,10 @@ public class ApprovalService {
     public ApprovalDetailResponse approvalDetail(Long id) {
         Approval entity = getApproval(id);
         List<ApprovalFile> approvalFiles = entity.getApprovalFileList();
+        List<UploadFile> uploadFileList = null;
+        if (!approvalFiles.isEmpty()) {
+            uploadFileList = uploadFileService.fileList(id, SchemaType.approval);
+        }
 
         return ApprovalDetailResponse.builder()
                 .approvalId(entity.getApprovalId())
@@ -95,7 +100,7 @@ public class ApprovalService {
                 .approvalContent(entity.getApprovalContent())
                 .approvalCheckMan(entity.getApprovalCheckMan())
                 .approvalUpLoadDate(entity.getApprovalUpLoadDate())
-                .approvalFileList(approvalFiles)
+                .approvalFileList(uploadFileList)
                 .build();
     }
 
@@ -121,21 +126,17 @@ public class ApprovalService {
     @Transactional
     public Long update(Long id, ApprovalUpdate request) {
         Emp emp = SecurityHelper.getAccount();
-        Approval entity = getApproval(id);
-        if(entity.getApprovalCheckMan().equals(emp.getEmpName())){
-            entity.update(request);
-            approvalRepository.save(entity);
-            return entity.getApprovalId();
-        }
-        throw new IllegalArgumentException("권한이 없습니다.");
+        Approval entity = getApproval(id, emp);
+        entity.update(request);
+        return entity.getApprovalId();
     }
 
     @Transactional
-    public void createApprovalFileList(Approval approval, List<MultipartFile> files) {
+    public List<ApprovalFile> createApprovalFileList(Approval approval, List<MultipartFile> files) {
         List<ApprovalFile> approvalFileList = new ArrayList<>();
 
         if (isNullOrEmpty(files)) {
-            return;
+            return approvalFileList;
         } else {
             for (MultipartFile file : files) {
                 UploadFile uploadFile = uploadFileService.createUploadFile(file, SchemaType.approval);
@@ -143,10 +144,22 @@ public class ApprovalService {
                 approvalFileList.add(approvalFile);
             }
         }
-        approvalFileRepository.saveAll(approvalFileList);
+        return approvalFileRepository.saveAll(approvalFileList);
     }
 
     private Approval getApproval(Long id) {
         return approvalRepository.findByApprovalId(id);
+    }
+
+    private Approval getApproval(Long id, Emp emp) {
+        Approval entity = approvalRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 데이터 입니다"));
+        if (entity.getApprovalCheckMan().equals(emp.getEmpName())) {
+            System.out.println("#####"+entity.getApprovalCheckMan());
+            System.out.println(emp.getEmpName());
+            return entity;
+        } else {
+            throw new IllegalArgumentException("권한이 없습니다.");
+        }
     }
 }

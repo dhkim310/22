@@ -9,7 +9,7 @@ public enum SchemaType {
     notice("notice_file"),
     board("board_file"),
     approval("approval_file"),
-    emppicture("emppicture_file");
+    emppicture("emp_picture");
 
     private final String name;
 

@@ -55,12 +55,7 @@ public class Board {
     @Column(name = "BOARD_MODIFIEDDATE")
     private LocalDateTime boardModifiedDate;
 
-    @OneToMany(
-            mappedBy = "board",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @JsonIgnore
     private List<BoardFile> boardFileList = new ArrayList<>();

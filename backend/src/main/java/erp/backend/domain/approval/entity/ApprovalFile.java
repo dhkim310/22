@@ -22,13 +22,8 @@ public class ApprovalFile {
     @JsonIgnore
     private Approval approval;
 
-    @OneToOne(
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "APPROVALFILE_UPLOADFILE_ID")
-    @JsonIgnore
     private UploadFile uploadFile;
 
     public ApprovalFile(Approval approval, UploadFile uploadFile) {
