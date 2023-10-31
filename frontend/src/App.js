@@ -30,6 +30,7 @@ import MessageSend from "./component/MessageSend";
 import MessageDetail from "./component/MessageDetail";
 import ServiceMovieList from "./pages/ServiceMovieList";
 import MemberDetail from "./pages/MemberDetail";
+import MovieDetail from "./pages/MovieDetail";
 
 function App() {
 
@@ -69,6 +70,7 @@ function App() {
                     <Route path="/message/:id" element={<MessageDetail/>}/>
                     <Route path="/member/detail/:id" element={<MemberDetail/>}/>
                     <Route path="/serviceMovie" element={<ServiceMovieList/>}/>
+                    <Route path="/movieDetail/:id" element={<MovieDetail/>}/>
                 </Route>
             </Routes>
         </Router>
