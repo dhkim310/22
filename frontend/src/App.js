@@ -27,19 +27,21 @@ import CommuteList from "./pages/CommuteList";
 import MemberList from "./pages/MemberList";
 import MessageList from "./component/MessageList";
 import MessageSend from "./component/MessageSend";
+import MessageDetail from "./component/MessageDetail";
 import ServiceMovieList from "./pages/ServiceMovieList";
 import MemberDetail from "./pages/MemberDetail";
 import MovieDetail from "./pages/MovieDetail";
 
 function App() {
+
     return (
         <Router>
             <Header/>
             <Routes>
-                <Route path="/" element={<Login/>}/>
                 <Route path="/login" element={<Login/>}/>
 
                 <Route element={<PrivateRoute/>}>
+                    <Route path="/" element={<Login/>}/>
                     <Route path="/main" element={<Main/>}/>
                     <Route path="/approval" element={<Approval/>}/>
                     <Route path="/approval-complete" element={<ApprovalComplete/>}/>
@@ -65,6 +67,7 @@ function App() {
                     <Route path="/member" element={<MemberList/>}/>
                     <Route path="/message" element={<MessageList/>}/>
                     <Route path="/message-send" element={<MessageSend/>}/>
+                    <Route path="/message/:id" element={<MessageDetail/>}/>
                     <Route path="/member/detail/:id" element={<MemberDetail/>}/>
                     <Route path="/serviceMovie" element={<ServiceMovieList/>}/>
                     <Route path="/movieDetail/:id" element={<MovieDetail/>}/>

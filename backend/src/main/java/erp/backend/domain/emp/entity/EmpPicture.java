@@ -1,7 +1,6 @@
 package erp.backend.domain.emp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import erp.backend.domain.notice.entity.Notice;
 import erp.backend.domain.uploadfile.entity.UploadFile;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

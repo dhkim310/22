@@ -72,8 +72,22 @@ public class EmpService {
     @Transactional
     public void signUp(SignUpRequest request) {
         // 신입 사원은 초기 비밀번호가 1541로 설정
-        Emp emp = Emp.builder().empName(request.getEmpName()).empEmail(request.getEmpEmail()).dept(request.getEmpDeptId()).password(passwordEncoder.encode("1541")) // 사원의 초기 비밀번호 1541
-                .empPosition(request.getEmpPosition()).roles(empVo.type1(request.getEmpPosition())).empAmount(empVo.type2(request.getEmpPosition())).empBirthday(request.getEmpBirthday()).empPhoneNumber(request.getEmpPhoneNumber()).empAddress(request.getEmpAddress()).empDetailAddress(request.getEmpDetailAddress()).empGender(request.getEmpGender()).empStartDate(request.getEmpStartDate()).empStatus("재직").build();
+        Emp emp = Emp.builder()
+                .empName(request.getEmpName())
+                .empEmail(request.getEmpEmail())
+                .dept(request.getEmpDeptId())
+                .password(passwordEncoder.encode("1541")) // 사원의 초기 비밀번호 1541
+                .empPosition(request.getEmpPosition())
+                .roles(empVo.type1(request.getEmpPosition()))
+                .empAmount(empVo.type2(request.getEmpPosition()))
+                .empBirthday(request.getEmpBirthday())
+                .empPhoneNumber(request.getEmpPhoneNumber())
+                .empAddress(request.getEmpAddress())
+                .empDetailAddress(request.getEmpDetailAddress())
+                .empGender(request.getEmpGender())
+                .empStartDate(request.getEmpStartDate())
+                .empStatus("재직")
+                .build();
         empRepository.save(emp);
     }
 
@@ -95,7 +109,13 @@ public class EmpService {
         cookie.setPath("/");
 
         httpResponse.addCookie(cookie);
-        return SignInResponse.builder().token(token).empId(emp.getEmpId()).empName(emp.getEmpName()).empEmail(emp.getEmpEmail()).roles(roles).build();
+        return SignInResponse.builder()
+                .token(token)
+                .empId(emp.getEmpId())
+                .empName(emp.getEmpName())
+                .empEmail(emp.getEmpEmail())
+                .roles(roles)
+                .build();
     }
 
     @Transactional(readOnly = true)
@@ -108,7 +128,19 @@ public class EmpService {
         System.out.println(empPicture.getUploadFile().getPath());
         String empPicturePathLoad = empPicture.getUploadFile().getPath();
 
-        return EmpDetailResponse.builder().empName(emp.getEmpName()).dept(emp.getDept().getDeptName()).empPosition(emp.getEmpPosition()).empPhoneNumber(emp.getEmpPhoneNumber()).empBirthday(emp.getEmpBirthday()).empStartDate(emp.getEmpStartDate()).empAddress(emp.getEmpAddress()).empDetailAddress(emp.getEmpDetailAddress()).empEmail(emp.getEmpEmail()).password(emp.getPassword()).empPicturePath(empPicturePathLoad).build();
+        return EmpDetailResponse.builder()
+                .empName(emp.getEmpName())
+                .dept(emp.getDept().getDeptName())
+                .empPosition(emp.getEmpPosition())
+                .empPhoneNumber(emp.getEmpPhoneNumber())
+                .empBirthday(emp.getEmpBirthday())
+                .empStartDate(emp.getEmpStartDate())
+                .empAddress(emp.getEmpAddress())
+                .empDetailAddress(emp.getEmpDetailAddress())
+                .empEmail(emp.getEmpEmail())
+                .password(emp.getPassword())
+                .empPicturePath(empPicturePathLoad)
+                .build();
     }
 
     @Transactional
@@ -172,11 +204,5 @@ public class EmpService {
 
         return empRepository.findByEmpId(id);
     }
-
-//    private Emp getEmpListHandler(Long empId) {
-//        return empRepository.findById(empId)
-//                .filter(emp -> emp.getDept().getDeptName().equals("재무부"))
-//                .orElseThrow(() -> new IllegalArgumentException("권한 없음."));
-//    }
 
 }
