@@ -27,3 +27,12 @@ export const insertMessageApi = async (params) => {
         })
     });
 }
+
+export const selectMessageDetailApi = async (id) => {
+    try {
+        const response =  await axios.get(`/api/message/${id}`);
+        return response.data;
+    } catch (error){
+        throw error;
+    }
+};
