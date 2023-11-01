@@ -147,9 +147,16 @@ public class ApprovalService {
         return approvalFileRepository.saveAll(approvalFileList);
     }
 
+    @Transactional(readOnly = true)
+    public Long approvalCount() {
+        Emp emp = SecurityHelper.getAccount();
+        return approvalRepository.countByApprovalCheck(emp.getEmpName());
+    }
+
     private Approval getApproval(Long id) {
         return approvalRepository.findByApprovalId(id);
     }
+
 
     private Approval getApproval(Long id, Emp emp) {
         Approval entity = approvalRepository.findById(id)
