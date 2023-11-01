@@ -471,7 +471,7 @@ function Main() {
                                     <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a
                                         data-bss-hover-animate="pulse"
                                         className="list-group-item list-group-item-action flex-column align-items-start"
-                                        href="#" style={{
+                                        style={{
                                         height: '200px',
                                         marginBottom: '2px',
                                         width: 'auto',
@@ -492,7 +492,7 @@ function Main() {
                                     <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a
                                         data-bss-hover-animate="pulse"
                                         className="list-group-item list-group-item-action flex-column align-items-start"
-                                        href="#" style={{
+                                        style={{
                                         height: '200px', marginBottom: '2px', width: 'auto', background: 'white'
                                     }}>
                                         <div
@@ -509,7 +509,7 @@ function Main() {
                                     <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a
                                         data-bss-hover-animate="pulse"
                                         className="list-group-item list-group-item-action flex-column align-items-start"
-                                        href="#" style={{
+                                        style={{
                                         height: '200px', marginBottom: '2px', width: 'auto', background: 'white'
                                     }}>
                                         <div
@@ -526,7 +526,7 @@ function Main() {
                                     <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a
                                         data-bss-hover-animate="pulse"
                                         className="list-group-item list-group-item-action flex-column align-items-start"
-                                        href="#" style={{
+                                        style={{
                                         height: '200px', marginBottom: '2px', width: 'auto', background: 'white'
                                     }}>
                                         <div
@@ -541,7 +541,7 @@ function Main() {
                                     <div className="col-md-3 col-xxl-1" style={{maxWidth: '25%', height: '100%'}}><a
                                         data-bss-hover-animate="pulse"
                                         className="list-group-item list-group-item-action flex-column align-items-start"
-                                        href="#" style={{
+                                        style={{
                                         height: '200px',
                                         marginBottom: '2px',
                                         width: 'auto',
