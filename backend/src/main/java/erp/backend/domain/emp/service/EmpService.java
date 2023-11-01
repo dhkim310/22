@@ -9,6 +9,8 @@ import erp.backend.domain.emp.vo.EmpVo;
 import erp.backend.domain.uploadfile.entity.UploadFile;
 import erp.backend.domain.uploadfile.repository.UploadFileRepository;
 import erp.backend.domain.uploadfile.service.UploadFileService;
+import erp.backend.domain.vacation.entity.Vacation;
+import erp.backend.domain.vacation.repository.VacationRepository;
 import erp.backend.global.config.security.SecurityHelper;
 import erp.backend.global.config.security.jwt.JwtProvider;
 import erp.backend.global.mailsender.service.MailService;
@@ -40,6 +42,7 @@ public class EmpService {
     private final EmpRepository empRepository;
     private final EmpPictureRepository empPictureRepository;
     private final UploadFileRepository uploadFileRepository;
+    private final VacationRepository vacationRepository;
 
     private final UploadFileService uploadFileService;
 
@@ -93,6 +96,14 @@ public class EmpService {
                 .empStatus("재직")
                 .build();
         empRepository.save(emp);
+        Vacation vacation = Vacation.builder()
+                .emp(emp)
+                .vacationTotalVacation(18)
+                .vacationUsedVacation(0)
+                .vacationTotalDayOff(12)
+                .vacationUsedDayOff(0)
+                .build();
+        vacationRepository.save(vacation);
     }
 
     @Transactional(readOnly = true)

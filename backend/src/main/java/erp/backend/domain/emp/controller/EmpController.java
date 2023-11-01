@@ -3,6 +3,8 @@ package erp.backend.domain.emp.controller;
 import erp.backend.domain.emp.dto.*;
 import erp.backend.domain.emp.entity.EmpPicture;
 import erp.backend.domain.emp.service.EmpService;
+import erp.backend.domain.vacation.entity.Vacation;
+import erp.backend.domain.vacation.service.VacationService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -20,6 +22,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class EmpController {
     private final EmpService empService;
+    private final VacationService vacationService;
 
     @PostMapping("/sign-in")
     public ResponseEntity<SignInResponse> signIn(@RequestBody @Valid SignInRequest request, HttpServletResponse httpResponse) {
