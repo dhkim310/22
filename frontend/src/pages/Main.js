@@ -8,7 +8,7 @@ import {selectMemoApi} from '../api/Memo';
 import {useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
 import MemoComponent from "../component/MemoComponent";
-
+import {ApprovalCountApi} from '../api/Approval';
 
 function Main() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,6 +26,10 @@ function Main() {
         navigate("/fix-info");
     };
 
+    const navigateToApproval = () => {
+        navigate("/approval");
+    };
+
     const navigateToNotice = (id) => {
         navigate(`/notice/${id}`)
     }
@@ -33,6 +37,7 @@ function Main() {
     const [memo, setMemo] = useState({});
     const [logInfo, setLogInfo] = useState({});
     const [main, setMain] = useState({})
+    const [count, setCount] = useState(null)
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
     const {register, formState: {errors}, handleSubmit} = useForm();
@@ -101,6 +106,14 @@ function Main() {
             }
         }
 
+        async function fetchData4() {
+            try {
+                const data4 = await ApprovalCountApi();
+                setCount(data4);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
         const getWidth = () => {
             return window.innerWidth;
         };
@@ -122,6 +135,7 @@ function Main() {
         fetchData1();
         fetchData2();
         fetchData3();
+        fetchData4();
     }, []);
 
     return (<div style={{paddingTop: "50px"}}>
@@ -355,7 +369,7 @@ function Main() {
                                                 <div
                                                     className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
                                                     style={{width: '50%', height: '100%'}}>
-                                                    <button className="btn btn-primary" data-bss-hover-animate="pulse"
+                                                    <button className="btn btn-primary" onClick = { navigateToApproval } data-bss-hover-animate="pulse"
                                                             type="button" style={{
                                                         background: 'url("img/3.png") center / contain no-repeat',
                                                         width: '55%',
@@ -373,7 +387,7 @@ function Main() {
                                                     </div>
                                                     <div className="d-xxl-flex justify-content-xxl-center" style={{
                                                         background: 'transparent', width: '100%', height: '50%'
-                                                    }}><span style={{fontSize: '31px', fontWeight: 'bold'}}>0</span>
+                                                    }}><span style={{fontSize: '31px', fontWeight: 'bold'}}>{count}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -457,7 +471,7 @@ function Main() {
                                     <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a
                                         data-bss-hover-animate="pulse"
                                         className="list-group-item list-group-item-action flex-column align-items-start"
-                                        href="#" style={{
+                                        style={{
                                         height: '200px',
                                         marginBottom: '2px',
                                         width: 'auto',
@@ -478,7 +492,7 @@ function Main() {
                                     <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a
                                         data-bss-hover-animate="pulse"
                                         className="list-group-item list-group-item-action flex-column align-items-start"
-                                        href="#" style={{
+                                        style={{
                                         height: '200px', marginBottom: '2px', width: 'auto', background: 'white'
                                     }}>
                                         <div
@@ -495,7 +509,7 @@ function Main() {
                                     <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a
                                         data-bss-hover-animate="pulse"
                                         className="list-group-item list-group-item-action flex-column align-items-start"
-                                        href="#" style={{
+                                        style={{
                                         height: '200px', marginBottom: '2px', width: 'auto', background: 'white'
                                     }}>
                                         <div
@@ -512,7 +526,7 @@ function Main() {
                                     <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a
                                         data-bss-hover-animate="pulse"
                                         className="list-group-item list-group-item-action flex-column align-items-start"
-                                        href="#" style={{
+                                        style={{
                                         height: '200px', marginBottom: '2px', width: 'auto', background: 'white'
                                     }}>
                                         <div
@@ -527,7 +541,7 @@ function Main() {
                                     <div className="col-md-3 col-xxl-1" style={{maxWidth: '25%', height: '100%'}}><a
                                         data-bss-hover-animate="pulse"
                                         className="list-group-item list-group-item-action flex-column align-items-start"
-                                        href="#" style={{
+                                        style={{
                                         height: '200px',
                                         marginBottom: '2px',
                                         width: 'auto',
