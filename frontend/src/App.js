@@ -32,6 +32,9 @@ import MemberDetail from "./pages/MemberDetail";
 import ApprovalInsert from "./pages/ApprovalInsert";
 import BoardUpdate from "./pages/BoardUpdate";
 import NoticeUpdate from "./pages/NoticeUpdate";
+import MessageDetail from "./component/MessageDetail";
+import MovieDetail from "./pages/MovieDetail";
+import VacationUpdateComponent from "./component/VacationUpdateComponent";
 
 function App() {
 

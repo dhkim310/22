@@ -17,10 +17,14 @@ function Approval() {
     };
     const navigateToDetail = (id) => {
         navigate(`/approval-complete/${id}`);
-    }
+    };
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
+    const navigateToApprovalInsert = () => {
+        navigate("/approval-insert")
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -65,7 +69,8 @@ function Approval() {
                     }}>
                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                              style={{background: 'rgba(102,16,242,0)', width: '100%', height: '7%'}}>
-                            <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{
+                            <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
+                                    onClick={navigateToApprovalInsert} style={{
                                 background: 'rgba(13,110,253,0)',
                                 border: '1px ridge black',
                                 width: 'auto',
