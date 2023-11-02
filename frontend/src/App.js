@@ -31,7 +31,6 @@ import MessageDetail from "./component/MessageDetail";
 import ServiceMovieList from "./pages/ServiceMovieList";
 import MemberDetail from "./pages/MemberDetail";
 import MovieDetail from "./pages/MovieDetail";
-
 function App() {
 
     return (
