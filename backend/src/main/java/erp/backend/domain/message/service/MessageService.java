@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,7 @@ public class MessageService {
         Emp emp = SecurityHelper.getAccount();
         Message entity = Message.builder()
                 .messageSenderEmpId(emp)
+                .messageSendTime(LocalDateTime.now())
                 .messageContent(request.getMessageContent())
                 .messageSubject(request.getMessageSubject())
                 .messageStatus("unread")
@@ -47,6 +49,7 @@ public class MessageService {
                         .messageId(message.getMessageId())
                         .messageSenderName(message.getMessageSenderEmpId().getEmpName())
                         .messageSenderEmpId(message.getMessageSenderEmpId().getEmpId())
+                        .messageSendTime(message.getMessageSendTime())
                         .messageSubject(message.getMessageSubject())
                         .messageStatus(message.getMessageStatus())
                         .build()
@@ -63,6 +66,7 @@ public class MessageService {
                 .messageSender(entity.getMessageSenderEmpId().getEmpName())
                 .messageContent(entity.getMessageContent())
                 .messageSubject(entity.getMessageSubject())
+                .messageSendTime(entity.getMessageSendTime())
                 .build();
     }
     @Transactional

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { selectMessageListApi } from '../api/Message';
 import {useNavigate} from 'react-router-dom';
-
+import {FormatDate} from '../component/FormatDate';
 
 function MessageList() {
 
@@ -65,8 +65,8 @@ function MessageList() {
                                 <div style={{ width: 'auto', height: 'auto' }}><span style={{ ...textStyle, fontSize: '30px' }}>쪽지함</span></div>
                             </div>
                             <div className="d-flex align-items-center" style={{ width: '100%', background: 'rgba(214,51,132,0)', height: '12%', borderBottom: '2px ridge rgba(128,128,128,0.32)' }}>
-                                <div className="d-flex align-items-center" style={{ height: 'auto', width: '150px' }}><span style={textStyle}>보낸 사람</span></div>
-                                <div className="d-flex align-items-center" style={{ height: 'auto', width: '400px' }}><span style={textStyle}>제목</span></div>
+                                <div className="d-flex align-items-center" style={{ height: 'auto', width: '140px' }}><span style={textStyle}>보낸 사람</span></div>
+                                <div className="d-flex align-items-center" style={{ height: 'auto', width: '420px' }}><span style={textStyle}>제목</span></div>
                                 <div className="d-flex align-items-center" style={{ height: 'auto', width: '100px' }}><span style={textStyle}>날짜</span></div>
                                 <div className="d-flex align-items-center" style={{ height: 'auto', width: '100px' }}><span style={textStyle}>상태</span></div>
                             </div>
@@ -74,7 +74,7 @@ function MessageList() {
                             <div key={e.messageId} className="d-flex align-items-center" onClick={() => navigateToDetail(e.messageId)} style={{ width: '100%', background: 'rgba(214,51,132,0)', height: '12%', borderBottom: '2px ridge rgba(128,128,128,0.32)' }}>
                        <div className="d-flex align-items-center" style={{height: 'auto', width: '150px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{e.messageSenderName}</span></div>
                        <div className="d-flex align-items-center" style={{height: 'auto', width: '400px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{e.messageSubject}</span></div>
-                       <div className="d-flex align-items-center" style={{height: 'auto', width: '100px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>오늘</span></div>
+                       <div className="d-flex align-items-center" style={{height: 'auto', width: '150px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{FormatDate(e.messageSendTime)}</span></div>
                        <div className="d-flex align-items-center" style={{height: 'auto', width: '100px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{e.messageStatus}</span></div>
                    </div>
                    ))}
