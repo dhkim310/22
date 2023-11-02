@@ -48,13 +48,12 @@ public class Vacation {
     private String vacationWhy;
 
     public void update(VacationUpdate request) {
-        this.vacationTotalVacation = request.getTotalVacation();
+        this.vacationTotalVacation = request.getTotalVacation() - request.getUsedVacation();
         this.vacationUsedVacation = request.getUsedVacation();
-        this.vacationTotalDayOff = request.getTotalDayOff();
+        this.vacationTotalDayOff = request.getTotalDayOff() - request.getUsedDayOff();
         this.vacationUsedDayOff = request.getUsedDayOff();
         this.vacationStartDate = request.getStartDate();
         this.vacationEndDate = request.getEndDate();
         this.vacationWhy = request.getWhy();
     }
-
 }

@@ -171,6 +171,20 @@ public class EmpService {
         }
         return emp.getEmpId();
     }
+    @Transactional
+    public Long addressUpdate(EmpAddressRequest request) {
+        Emp emp = SecurityHelper.getAccount();
+        emp.updateAddress(request);
+        empRepository.save(emp);
+        return emp.getEmpId();
+    }
+    @Transactional
+    public Long detailAddressUpdate(EmpAddressRequest request) {
+        Emp emp = SecurityHelper.getAccount();
+        emp.updateAddressDetail(request);
+        empRepository.save(emp);
+        return emp.getEmpId();
+    }
 
     @Transactional
     public EmpPicture pictureUpdate(MultipartFile file) throws IOException {
