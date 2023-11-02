@@ -27,7 +27,7 @@ public class VacationController {
         return ResponseEntity.ok(vacationService.vacationInsert(request));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity<Long> vacationUpdate(@RequestBody VacationUpdate request) {
         return ResponseEntity.ok(vacationService.vacationUpdate(request));
     }
