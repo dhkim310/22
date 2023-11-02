@@ -1,10 +1,11 @@
 package erp.backend.domain.message.dto;
 
-import erp.backend.domain.emp.entity.Emp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -17,4 +18,5 @@ public class MessageListResponse {
     private String messageSenderName;
     private String messageSubject;
     private String messageStatus;
+    private LocalDateTime messageSendTime;
 }

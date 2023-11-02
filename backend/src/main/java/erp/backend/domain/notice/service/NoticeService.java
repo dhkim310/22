@@ -91,6 +91,11 @@ public class NoticeService {
         Notice entity = getNotice(id);
         List<NoticeFile> noticeFiles = entity.getNoticeFileList();
         List<UploadFile> uploadFileList = null;
+
+        // 관리자인지 아닌지 권한 체크 ( 프론트에서 수정, 삭제 버튼을 띄워주기 위함 )
+        Emp emp = SecurityHelper.getAccount();
+        boolean hasPermission = emp != null && emp.getRoles().startsWith("ROLE_ADMIN");
+
         if (!noticeFiles.isEmpty())
             uploadFileList = uploadFileService.fileList(id, SchemaType.notice);
 
@@ -103,13 +108,13 @@ public class NoticeService {
                 .noticeCreatedDate(entity.getNoticeCreatedDate())
                 .noticeModifiedDate(entity.getNoticeModifiedDate())
                 .noticeFileList(uploadFileList)
+                .hasPermission(hasPermission)
                 .build();
     }
 
     @Transactional
     public Long noticeUpdate(Long id, NoticeUpdate request, List<MultipartFile> files) {
-        Emp emp = SecurityHelper.getAccount();
-        Notice entity = getNotice(id, emp);
+        Notice entity = getNotice(id);
         entity.update(request);
 
         List<Long> deleteUploadFileIds = request.getDeleteUploadFileIds();
@@ -133,8 +138,7 @@ public class NoticeService {
 
     @Transactional
     public void noticeDelete(Long id) {
-        Emp emp = SecurityHelper.getAccount(); // 현재 로그인 된 사용자 확인
-        Notice entity = getNotice(id, emp);
+        Notice entity = getNotice(id);
 
         // 연결된 파일 정보를 삭제
         List<NoticeFile> noticeFiles = entity.getNoticeFileList();
@@ -177,11 +181,5 @@ public class NoticeService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 글은 존재하지 않는 데이터입니다."));
     }
 
-    // 게시글 작성자와 사용자가 일치하는지 확인
-    private Notice getNotice(Long id, Emp emp) {
-        return noticeRepository.findById(id)
-                .filter(notice -> notice.getEmp().getEmpId().equals(emp.getEmpId()))
-                .orElseThrow(() -> new IllegalArgumentException("현재 로그인 된 사용자와 게시글 작성자가 일치하지 않습니다."));
-    }
 }
 

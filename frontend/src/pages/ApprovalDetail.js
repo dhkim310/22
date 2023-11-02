@@ -20,8 +20,12 @@ function ApprovalDetail() {
         navigate("/approval-complete");
     };
     const navigateToApproval = () => {
-        navigate("/approval");
+        navigate("/approval-list");
     };
+
+    const navigateToApprovalInsert = () => {
+        navigate("/approval-insert");
+    }
     const onValid = async ({approvalCheck}) => {
         await UpdateApprovalApi(id, {approvalCheck})
             .then((res) => {
@@ -100,7 +104,7 @@ function ApprovalDetail() {
                     }}>
                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                              style={{background: 'rgba(102,16,242,0)', width: '100%', height: '7%'}}>
-                            <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{
+                            <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" onClick={navigateToApprovalInsert} style={{
                                 background: 'rgba(13,110,253,0)',
                                 width: 'auto',
                                 height: 'auto',
@@ -279,13 +283,20 @@ function ApprovalDetail() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="d-xxl-flex justify-content-xxl-start"
-                                     style={{width: '100%', height: '87%'}}>
-                                    <div style={{width: '4%', height: '100%'}}/>
-                                    <div style={{width: '85%', height: '85%'}}>
-                                        <div style={{width: '100%', height: '3%'}}/>
-                                        <textarea style={{width: '100%', height: '100%'}}
-                                                  defaultValue={detail.approvalContent} readOnly/>
+                                <div
+                                    style={{
+                                        marginTop: "2%",
+                                        marginLeft: "4%",
+                                        minHeight: "50%",
+                                        width: "85%",
+                                        height: "30%",
+                                        border: "2px ridge rgba(128,128,128,0.32)",
+                                        padding: "10px",
+                                        overflow: "auto",
+                                    }}
+                                >
+                                    {/* html 렌더링 게시글 내용 */}
+                                    <div dangerouslySetInnerHTML={{__html: detail.approvalContent}}>
                                     </div>
                                 </div>
                             </div>

@@ -28,7 +28,7 @@ function Header() {
         navigate("/hrm");
     };
     const navigateToApprovalList = () => {
-        navigate("/approval");
+        navigate("/approval-list");
     };
     const navigateToEmpList = () => {
         navigate("/salary")

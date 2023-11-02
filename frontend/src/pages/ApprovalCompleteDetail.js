@@ -17,7 +17,7 @@ function ApprovalCompleteDetail() {
         navigate("/approval-complete");
     };
     const navigateToApproval = () => {
-        navigate("/approval");
+        navigate("/approval-list");
     };
 
     const openFileList = () => {
@@ -255,15 +255,24 @@ function ApprovalCompleteDetail() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="d-xxl-flex justify-content-xxl-start"
-                                     style={{width: '100%', height: '87%'}}>
-                                    <div style={{width: '4%', height: '100%'}}/>
-                                    <div style={{width: '85%', height: '85%'}}>
-                                        <div style={{width: '100%', height: '3%'}}/>
-                                        <textarea style={{width: '100%', height: '100%'}}
-                                                  defaultValue={detail.approvalContent} readOnly/>
+
+                                <div
+                                    style={{
+                                        marginTop: "2%",
+                                        marginLeft: "4%",
+                                        minHeight: "50%",
+                                        width: "85%",
+                                        height: "100%",
+                                        border: "2px ridge rgba(128,128,128,0.32)",
+                                        padding: "10px",
+                                        overflow: "auto",
+                                    }}
+                                >
+                                    {/* html 렌더링 게시글 내용 */}
+                                    <div dangerouslySetInnerHTML={{__html: detail.approvalContent}}>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center">

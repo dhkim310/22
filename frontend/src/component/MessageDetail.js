@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from "react";
 import {selectMessageDetailApi} from "../api/Message";
 import {useNavigate,useParams} from "react-router-dom";
-
+import {FormatDate} from '../component/FormatDate';
 
 function MessageDetail() {
     const navigate = useNavigate();
@@ -68,7 +68,7 @@ function MessageDetail() {
                                     <div style={{width: '15px'}} /><span>{detail.messageSender}</span>
                                 </div>
                                 <div className="d-flex align-items-start" style={{height: '50%', width: '25%'}}>
-                                    <div style={{width: '15px'}} /><span style={{width: '141.3px'}}>받은 날짜 23/10/11</span>
+                                    <div style={{width: '15px'}} /><span style={{width: '141.3px'}}>{FormatDate(detail.messageSendTime)}</span>
                                 </div>
                             </div>
                             <div className="d-flex" style={{width: '100%', height: '70%', borderBottom: '2px ridge rgba(128,128,128,0.32)'}}>

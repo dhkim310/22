@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
-import {fetchNoticeDetail} from '../api/Notice';
+import {fetchNoticeDelete, fetchNoticeDetail} from '../api/Notice';
 import {FormatDate} from '../component/FormatDate';
 import DownloadFile from '../component/DownloadFile';
 
@@ -16,7 +16,7 @@ function NoticeDetail() {
     const [fileListIsOpen, setFileListIsOpen] = useState(false);
 
     useEffect(() => {
-        const fetchNoticeDetailData = async () => {
+        const noticeDetail = async () => {
             try {
                 const data = await fetchNoticeDetail(id);
                 setContent(data); // 전체 데이터를 설정
@@ -24,7 +24,7 @@ function NoticeDetail() {
                 console.error('게시글 내용을 가져오는 중 오류 발생:', error);
             }
         };
-        fetchNoticeDetailData();
+        noticeDetail();
     }, [id]);
 
     if (content === null) {
@@ -49,6 +49,19 @@ function NoticeDetail() {
 
     const closeFileList = () => {
         setFileListIsOpen(false);
+    };
+
+    const handleUpdate = (id) => {
+        navigate(`/notice-update/${id}`);
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            await fetchNoticeDelete(id);
+            navigate('/notice'); // 삭제 성공시 공지사항 리스트로 이동
+        } catch (error) {
+            alert('삭제할 수 없는 글입니다.', error);
+        }
     };
 
     return (
@@ -156,8 +169,8 @@ function NoticeDetail() {
                             <span style={{
                                 width: "auto",
                                 height: "auto",
-                                fontSize: 18,
-                                fontWeight: "bold"
+                                fontSize: 20,
+                                fontWeight: "bold",
                             }}>{content.subject}</span>
                             </div>
                             <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
@@ -173,7 +186,7 @@ function NoticeDetail() {
                                     marginRight: "1%",
                                 }}>
                                 <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                      style={{fontSize: 15, fontWeight: "bold"}}>{content.writer}</span>
+                                      style={{whiteSpace: "nowrap", fontSize: 20, fontWeight: "bold"}}>{content.writer}</span>
                                 </div>
                                 <div style={{
                                     paddingLeft: "4px",
@@ -189,8 +202,22 @@ function NoticeDetail() {
                                     marginLeft: "2%"
                                 }}>{FormatDate(content.noticeCreatedDate)}
                                 </div>
-                                <div style={{fontSize: 11, marginLeft: "2%"}}>
+                                <div style={{fontSize: 11, marginLeft: "2%", marginRight: "1%"}}>
                                     {content.noticeModifiedDate ? FormatDate(content.noticeModifiedDate) : null}
+                                </div>
+                                <div style={{
+                                    textAlign: "left",
+                                    height: "auto",
+                                    width: 45,
+                                }}>
+                                <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                      style={{fontSize: 11}}>조회수</span>
+                                </div>
+                                <div style={{
+                                    paddingRight: "3%",
+                                    fontSize: 11,
+                                    marginRight: "3%"
+                                }}>{content.views}
                                 </div>
                             </div>
                         </div>
@@ -209,6 +236,7 @@ function NoticeDetail() {
                                         background: 'rgba(13,110,253,0)',
                                         color: 'black',
                                         borderStyle: 'none',
+                                        marginBottom: "1%",
                                     }}
                                     onClick={fileListIsOpen ? closeFileList : openFileList}
                                 >
@@ -227,15 +255,17 @@ function NoticeDetail() {
                                             whiteSpace: "nowrap"
                                         }}>
                                         <ul>
-                                            <div style={{ marginTop: "50px", fontSize: "20px", marginBottom: "3%" }}>파일 다운로드</div>
+                                            <div style={{marginTop: "50px", fontSize: "20px", marginBottom: "3%"}}>파일
+                                                다운로드
+                                            </div>
                                             {fileListIsOpen &&
                                                 content &&
                                                 content.noticeFileList &&
                                                 content.noticeFileList.length > 0 &&
                                                 content.noticeFileList.map((file, index) => (
-                                                    <li key={index} style={{ fontSize: '16px', marginBottom: "2%" }}>
+                                                    <li key={index} style={{fontSize: '16px', marginBottom: "2%"}}>
                                                         {file.name}
-                                                        <DownloadFile file={file} />
+                                                        <DownloadFile file={file}/>
                                                     </li>
                                                 ))}
                                         </ul>
@@ -248,35 +278,35 @@ function NoticeDetail() {
                                      height: "40%",
                                      borderBottom: "2px ridge rgba(128,128,128,0.32)"
                                  }}>
-                                <div style={{
-                                    textAlign: "left",
-                                    height: "auto",
-                                    width: 45,
-                                }}>
-                                <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                      style={{fontSize: 11}}>조회수</span>
-                                </div>
-                                <div style={{
-                                    paddingRight: "3%",
-                                    borderRight: "3px ridge rgba(128,128,128,0.32)",
-                                    fontSize: 11,
-                                    marginRight: "3%"
-                                }}>{content.views}
-                                </div>
-                                <div style={{
-                                    textAlign: "left",
-                                    height: "auto",
-                                    width: 45,
-                                }}>
-                                <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                      style={{fontSize: 11}}>좋아요</span>
-                                </div>
-                                <div style={{
-                                    paddingRight: "3%",
-                                    fontSize: 11,
-                                    marginRight: "1%"
-                                }}>11
-                                </div>
+                                {/* 수정 버튼 */}
+                                {content.hasPermission && ( // content에 권한 정보인 hasPermission이 존재하고 true일 때만 수정 버튼을 보여줍니다
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={() => handleUpdate(content.id)}
+                                        style={{
+                                            background: 'rgba(0, 0, 0)',
+                                            marginBottom: '20px',
+                                            marginRight: '1%',
+                                            borderColor: 'black'
+                                        }}
+                                    >
+                                        수정
+                                    </button>
+                                )}
+                                {/* 삭제 버튼*/}
+                                {content.hasPermission && ( // content에 권한 정보인 hasPermission이 존재하고 true일 때만 수정 버튼을 보여줍니다
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={() => handleDelete(content.id)} // 이벤트 핸들러 함수를 작성해야 합니다.
+                                        style={{
+                                            background: 'rgba(0, 0, 0)',
+                                            marginBottom: "20px",
+                                            borderColor: 'black'
+                                        }} // borderColor를 추가하여 검정색으로 설정
+                                    >
+                                        삭제
+                                    </button>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -286,7 +316,7 @@ function NoticeDetail() {
                         style={{
                             marginTop: "2%",
                             marginLeft: "4%",
-                            minHeight: "35%",
+                            minHeight: "20%",
                             width: "85%",
                             height: "30%",
                             border: "2px ridge rgba(128,128,128,0.32)",
