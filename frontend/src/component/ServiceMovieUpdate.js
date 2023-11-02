@@ -6,7 +6,7 @@ import {useParams} from "react-router-dom";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-function ServiceMovieUpdate({ isOpen, closeModal, movieId }) {
+function ServiceMovieUpdate({isOpen, closeModal, movieId}) {
     const {register, formState: {errors}, handleSubmit} = useForm();
     //useParams(movieId);
 
@@ -18,35 +18,43 @@ function ServiceMovieUpdate({ isOpen, closeModal, movieId }) {
     const [detail, setDetail] = useState({});
     const [date1, setDate1] = useState(null);
 
-     const [amount, setAmount] = useState("");
-     const onChange = (e) => {
-       setAmount(e.target.value);
-     };
+    const [amount, setAmount] = useState("");
+    const onChange = (e) => {
+        setAmount(e.target.value);
+    };
 
     useEffect(() => {
-                async function fetchData() {
-                    try {
-                        const data = await serviceMovieDetailApi(movieId);
-                        setDetail(data);
-                    } catch (error) {
-                        console.error('Error fetching data:', error);
-                    }
-                };
-                const getWidth = () => {
-                    return window.innerWidth;
-                };
+        async function fetchData() {
+            try {
+                const data = await serviceMovieDetailApi(movieId);
+                setDetail(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        const getWidth = () => {
+            return window.innerWidth;
+        };
 
-                setIsMobile(getWidth() < 768);
+        setIsMobile(getWidth() < 768);
 
-                fetchData();
-            }, [movieId]);
+        fetchData();
+    }, [movieId]);
 
     useEffect(() => {
         //console.log('movieId', movieId);
     }, [movieId]);
 
-    const onValid = async ({ amount, paymentDate, paymentBank, accountNumber, startDate, endDate, producer }) => {
-        await updateServiceMovieApi(movieId, { amount, paymentDate:paymentDateI, paymentBank, accountNumber, startDate:startDateI, endDate:endDateI, producer })
+    const onValid = async ({amount, paymentDate, paymentBank, accountNumber, startDate, endDate, producer}) => {
+        await updateServiceMovieApi(movieId, {
+            amount,
+            paymentDate: paymentDateI,
+            paymentBank,
+            accountNumber,
+            startDate: startDateI,
+            endDate: endDateI,
+            producer
+        })
             .then((res) => {
                 if (res.status === 200) {
                     closeModal();
@@ -60,8 +68,6 @@ function ServiceMovieUpdate({ isOpen, closeModal, movieId }) {
                 //alert('paymentDate : ' + paymentDate + 'amount : ' + amount);
             });
     };
-
-
 
 
     return (
@@ -95,7 +101,8 @@ function ServiceMovieUpdate({ isOpen, closeModal, movieId }) {
             <form onSubmit={handleSubmit(onValid)}>
                 <div className="mb-3">
                     <label htmlFor="amount" className="form-label">판권금액</label>
-                    <input type="text" {...register('amount')} defaultValue={detail.amount} className="form-control" id="amount" name= "amount" />
+                    <input type="text" {...register('amount')} defaultValue={detail.amount} className="form-control"
+                           id="amount" name="amount"/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="paymentDate" className="form-label">판권결제일</label>
@@ -112,14 +119,16 @@ function ServiceMovieUpdate({ isOpen, closeModal, movieId }) {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="paymentBank" className="form-label">결제은행</label>
-                    <input type="text" {...register('paymentBank')} defaultValue={detail.paymentBank} className="form-control" id="paymentBank" />
+                    <input type="text" {...register('paymentBank')} defaultValue={detail.paymentBank}
+                           className="form-control" id="paymentBank"/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="accountNumber" className="form-label">결제계좌</label>
-                    <input type="text" {...register('accountNumber')} defaultValue={detail.accountNumber} className="form-control" id="accountNumber" />
+                    <input type="text" {...register('accountNumber')} defaultValue={detail.accountNumber}
+                           className="form-control" id="accountNumber"/>
                 </div>
                 <div className="mb-3">
-                <label htmlFor="startDate" className="form-label">서비스 시작일</label>
+                    <label htmlFor="startDate" className="form-label">서비스 시작일</label>
                     <br></br>
                     <DatePicker
                         selected={startDateI}
@@ -146,10 +155,12 @@ function ServiceMovieUpdate({ isOpen, closeModal, movieId }) {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="producer" className="form-label">제작사</label>
-                    <input type="text" {...register('producer')} defaultValue={detail.producer} className="form-control" id="producer" />
+                    <input type="text" {...register('producer')} defaultValue={detail.producer} className="form-control"
+                           id="producer"/>
                 </div>
                 <div className="d-flex justify-content-end">
-                    <button type="submit" style={{backgroundColor: 'black'}} className="btn btn-primary me-2">수정</button>
+                    <button type="submit" style={{backgroundColor: 'black'}} className="btn btn-primary me-2">수정
+                    </button>
                     <button type="button" className="btn btn-secondary" onClick={closeModal}>취소</button>
                 </div>
             </form>
