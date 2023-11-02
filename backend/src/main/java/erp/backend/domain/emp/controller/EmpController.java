@@ -45,6 +45,14 @@ public class EmpController {
     public ResponseEntity<Long> fixInfoPasswordUpdate(@RequestBody EmpPasswordUpdateRequest request) throws MessagingException, UnsupportedEncodingException {
         return ResponseEntity.ok(empService.passwordUpdate(request));
     }
+    @PutMapping("/emp/fix-address")
+    public ResponseEntity<Long> fixAddress(@RequestBody EmpAddressRequest request) {
+        return ResponseEntity.ok(empService.addressUpdate(request));
+    }
+    @PutMapping("/emp/fix-detail-address")
+    public ResponseEntity<Long> fixDetailAddress(@RequestBody EmpAddressRequest request) {
+        return ResponseEntity.ok(empService.detailAddressUpdate(request));
+    }
 
     @PutMapping("/emp/picture-update")
     public ResponseEntity<EmpPicture> pictureUpdate(@RequestPart(value = "file", required = false) MultipartFile file) throws IOException {

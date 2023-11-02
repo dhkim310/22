@@ -2,10 +2,9 @@ package erp.backend.domain.emp.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import erp.backend.domain.dept.entity.Dept;
+import erp.backend.domain.emp.dto.EmpAddressRequest;
 import erp.backend.domain.emp.dto.EmpReshuffleRequest;
 import erp.backend.domain.emp.vo.EmpVo;
-import erp.backend.domain.notice.entity.NoticeFile;
-import erp.backend.domain.salary.entity.Salary;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,10 +15,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Getter
@@ -124,6 +121,13 @@ public class Emp implements UserDetails {
         this.empEndDate = request.getEmpEndDate();
         this.empStatus = request.getEmpStatus();
         this.roles = new EmpVo().type1(request.getEmpPosition());
+    }
+
+    public void updateAddress(EmpAddressRequest request) {
+        this.empAddress = request.getEmpAddress();
+    }
+    public void updateAddressDetail(EmpAddressRequest request) {
+        this.empDetailAddress = request.getEmpDetailAddress();
     }
 
 }

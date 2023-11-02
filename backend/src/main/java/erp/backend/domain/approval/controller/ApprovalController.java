@@ -38,6 +38,10 @@ public class ApprovalController {
     public ResponseEntity<Long> approvalInsert(@RequestPart(value = "requestDto") ApprovalInsert request, @RequestPart(value = "files", required = false) List<MultipartFile> files) {
         return ResponseEntity.ok(approvalService.approvalInsert(request, files));
     }
+    @GetMapping
+    public Long approvalCount() {
+        return approvalService.approvalCount();
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ApprovalDetailResponse> approvalDetail(@PathVariable("id") Long id) {
