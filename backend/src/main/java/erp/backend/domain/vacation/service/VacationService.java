@@ -3,10 +3,7 @@ package erp.backend.domain.vacation.service;
 
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
-import erp.backend.domain.vacation.dto.VacationInitiate;
-import erp.backend.domain.vacation.dto.VacationInsertRequest;
-import erp.backend.domain.vacation.dto.VacationListResponse;
-import erp.backend.domain.vacation.dto.VacationUpdate;
+import erp.backend.domain.vacation.dto.*;
 import erp.backend.domain.vacation.entity.Vacation;
 import erp.backend.domain.vacation.repository.VacationRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,13 +37,24 @@ public class VacationService {
         return vacationRepository.save(entity).getVacationId();
     }
 
+    // 업데이트부분
     @Transactional
-    public Long vacationUpdate(Long vacationId, VacationUpdate request) {
-        Vacation entity = vacationRepository.findByVacationId(vacationId);
-        entity.update(request);
-        return entity.getVacationId();
+    public Long vacationUpdate(VacationUpdate request){
+        Vacation vacation = vacationRepository.findVacationByEmpEmpId(request.getEmpId());
+        vacation.update(request);
+        return vacation.getVacationId();
     }
 
+    @Transactional
+    public VacationDetail vacationDetail(Long empId){
+        Vacation entity = vacationRepository.findVacationByEmpEmpId(empId);
+        return VacationDetail.builder()
+                .totalVacation(entity.getVacationTotalVacation())
+                .usedVacation(entity.getVacationUsedVacation())
+                .totalDayOff(entity.getVacationTotalDayOff())
+                .usedDayOff(entity.getVacationUsedDayOff())
+                .build();
+    }
     @Transactional(readOnly = true)
     public List<VacationListResponse> vacationList() {
         List<Vacation> list = vacationRepository.findAll();

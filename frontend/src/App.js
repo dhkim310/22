@@ -34,6 +34,7 @@ import BoardUpdate from "./pages/BoardUpdate";
 import NoticeUpdate from "./pages/NoticeUpdate";
 
 function App() {
+
     return (
         <Router>
             <Header/>
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
 
                 <Route element={<PrivateRoute/>}>
+                    <Route path="/" element={<Login/>}/>
                     <Route path="/main" element={<Main/>}/>
                     <Route path="/approval-insert" element={<ApprovalInsert/>}/>
                     <Route path="/approval-list" element={<ApprovalList/>}/>
@@ -70,8 +72,11 @@ function App() {
                     <Route path="/member" element={<MemberList/>}/>
                     <Route path="/message" element={<MessageList/>}/>
                     <Route path="/message-send" element={<MessageSend/>}/>
+                    <Route path="/message/:id" element={<MessageDetail/>}/>
                     <Route path="/member/detail/:id" element={<MemberDetail/>}/>
                     <Route path="/serviceMovie" element={<ServiceMovieList/>}/>
+                    <Route path="/movieDetail/:id" element={<MovieDetail/>}/>
+                    <Route path="/vacation" element={<VacationUpdateComponent/>}/>
                 </Route>
             </Routes>
         </Router>

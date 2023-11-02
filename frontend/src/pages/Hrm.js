@@ -4,7 +4,7 @@ import '../assets/css/animate.min.css';
 import EmpCreateComponent from "../component/EmpCreateComponent";
 import {selectHrmListApi} from "../api/Emp";
 import {useParams, useNavigate} from 'react-router-dom';
-import VacationInsertComponent from "../component/VacationInsertComponent";
+import VacationUpdateComponent from "../component/VacationUpdateComponent";
 
 
 function Hrm() {
@@ -97,7 +97,7 @@ function Hrm() {
                 <EmpCreateComponent isOpen={isModalOpen} closeModal={closeModal}/>
             </div>
             <div>
-                <VacationInsertComponent isOpen={isVacationModalOpen} closeModal={closeVacationModal} empId={selectedEmpId}/>
+                <VacationUpdateComponent isOpen={isVacationModalOpen} closeModal={closeVacationModal} empId={selectedEmpId}/>
             </div>
 
             <div style={{background: 'rgba(111,66,193,0)', height: '100%', width: 'Auto'}}>
@@ -123,7 +123,7 @@ function Hrm() {
                             <input type="search" placeholder="이름 검색" onChange={handleSearchChange}
                                    style={{height: '81%', width: '85%'}}/>
                             <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{
-                                background: 'url("assets/img/icons8-수색-144.png") center / contain no-repeat',
+                                background: 'url("img/Search.png") center / contain no-repeat',
                                 height: '100%',
                                 width: '15%',
                                 borderColor: 'rgba(255,255,255,0)'

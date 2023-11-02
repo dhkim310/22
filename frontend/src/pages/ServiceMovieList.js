@@ -3,13 +3,15 @@ import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {fetchServiceMovieList} from '../api/serviceMovie';
+import {updateServiceMovieApi} from '../api/serviceMovie';
 import {FormatDate} from "../component/FormatDate";
 import PaginationButtons from '../component/PaginationButton';
 
+import ServiceMovieUpdate from "../component/ServiceMovieUpdate";
 
 import axios from "axios";
 
-function MovieList() {
+function ServiceMovieList() {
     const [serviceMovieList, setServiceMovieList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호 (1부터 시작)
     const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수
@@ -18,6 +20,20 @@ function MovieList() {
     const isMoviePage = location.pathname === '/movie'; // "/movie" 경로에 있는지 확인
 
     const [searchCode, setSearchCode] = useState('');
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedMovieId, setSelectedMovieId] = useState(null);
+
+    const openModal = (movieId) => {
+            setSelectedMovieId(movieId);
+            setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setSelectedMovieId(null);
+        setIsModalOpen(false);
+        window.location.reload();
+    };
 
     const handleSearchChange = (event) => {
         setSearchCode(event.target.value);
@@ -74,6 +90,9 @@ function MovieList() {
 
     return (
         <div style ={{paddingTop : '50px'}}>
+            <div>
+                <ServiceMovieUpdate isOpen={isModalOpen} closeModal={closeModal} movieId={selectedMovieId} />
+            </div>
 
             <div style={{width: '100%', height: '100%'}}>
                 <div className="d-xxl-flex justify-content-xxl-center"
@@ -195,7 +214,7 @@ function MovieList() {
                                 <div>
                                     {serviceMovieList.map((item) => (
                                         <div
-                                            className="list-group-item list-group-item-action d-flex flex-row align-items-start"
+                                            //className="list-group-item list-group-item-action d-flex flex-row align-items-start"
                                             //onClick={() => handleItemClick(item.id)} // 클릭 시 상세보기 페이지로 이동
                                             style={{
                                                 height: '50px',
@@ -268,7 +287,8 @@ function MovieList() {
                                                  <button
                                                      className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
                                                      data-bss-hover-animate="pulse" type="button"
-                                                     onClick={() => handleItemClick(item.id)}
+                                                     //onClick={() => handleItemClick(item.id)}
+                                                     onClick={() => openModal(item.id)}
                                                      style={{
                                                      fontSize: '13px',
                                                      fontWeight: 'bold',
@@ -314,4 +334,4 @@ function MovieList() {
     );
 }
 
-export default MovieList;
+export default ServiceMovieList;

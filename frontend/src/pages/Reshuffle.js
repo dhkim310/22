@@ -74,7 +74,6 @@ function Reshuffle() {
                     style={{paddingRight: '0px', paddingLeft: '110px', height: '200px'}}>사진</span>
                     <div className="d-xxl-flex" style={{
                         width: 'auto',
-                        background: 'url("https://cdn.bootstrapstudio.io/placeholders/1400x800.png"), rgba(220,53,69,0)',
                         height: '200px',
                         paddingLeft: '0px',
                         marginLeft: '49px',
@@ -84,8 +83,8 @@ function Reshuffle() {
                         height: '200px',
                         borderWidth: '1px',
                         borderStyle: 'solid',
-                        background: 'url("https://cdn.bootstrapstudio.io/placeholders/1400x800.png") center / contain no-repeat'
-                    }} src="assets/img/f05ee6c832afa3bac801c2c1825426ba.jpg"/></div>
+                        background: `url(${detail.empPicturePath}) center / contain no-repeat`
+                    }}/></div>
                 </div>
                 <form onSubmit={handleSubmit(onValid)}>
                     <div style={{height: '60px', width: '1393px', paddingLeft: '0px'}}>

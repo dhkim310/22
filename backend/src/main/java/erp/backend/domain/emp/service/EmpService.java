@@ -9,6 +9,8 @@ import erp.backend.domain.emp.vo.EmpVo;
 import erp.backend.domain.uploadfile.entity.UploadFile;
 import erp.backend.domain.uploadfile.repository.UploadFileRepository;
 import erp.backend.domain.uploadfile.service.UploadFileService;
+import erp.backend.domain.vacation.entity.Vacation;
+import erp.backend.domain.vacation.repository.VacationRepository;
 import erp.backend.global.config.security.SecurityHelper;
 import erp.backend.global.config.security.jwt.JwtProvider;
 import erp.backend.global.mailsender.service.MailService;
@@ -40,6 +42,7 @@ public class EmpService {
     private final EmpRepository empRepository;
     private final EmpPictureRepository empPictureRepository;
     private final UploadFileRepository uploadFileRepository;
+    private final VacationRepository vacationRepository;
 
     private final UploadFileService uploadFileService;
 
@@ -58,8 +61,12 @@ public class EmpService {
     @Transactional(readOnly = true) // 인사이동 페이지
     public EmpReshuffleResponse reshuffleResponse(Long id) {
         Emp emp = getEmpAccountId(id);
-
-        return EmpReshuffleResponse.builder().empId(emp.getEmpId()).deptId(emp.getDept().getDeptId()).empName(emp.getEmpName()).deptName(emp.getDept().getDeptName()).empEmail(emp.getEmpEmail()).empPosition(emp.getEmpPosition()).empStartDate(emp.getEmpStartDate()).empEndDate(emp.getEmpEndDate()).empStatus(emp.getEmpStatus()).build();
+        EmpPicture picturePath = empPictureRepository.findByEmp_EmpId(emp.getEmpId());
+//        if (picturePath == null ) {
+//            picturePath = empPictureRepository.findByEmp_EmpId(99999L);
+//        }
+        picturePath = (picturePath != null) ? picturePath : empPictureRepository.findByEmp_EmpId(99999L);
+        return EmpReshuffleResponse.builder().empId(emp.getEmpId()).deptId(emp.getDept().getDeptId()).empName(emp.getEmpName()).deptName(emp.getDept().getDeptName()).empEmail(emp.getEmpEmail()).empPosition(emp.getEmpPosition()).empStartDate(emp.getEmpStartDate()).empEndDate(emp.getEmpEndDate()).empStatus(emp.getEmpStatus()).empPicturePath(picturePath.getUploadFile().getPath()).build();
     }
 
     @Transactional // 인사이동 업데이트
@@ -89,6 +96,14 @@ public class EmpService {
                 .empStatus("재직")
                 .build();
         empRepository.save(emp);
+        Vacation vacation = Vacation.builder()
+                .emp(emp)
+                .vacationTotalVacation(18)
+                .vacationUsedVacation(0)
+                .vacationTotalDayOff(12)
+                .vacationUsedDayOff(0)
+                .build();
+        vacationRepository.save(vacation);
     }
 
     @Transactional(readOnly = true)
@@ -154,6 +169,20 @@ public class EmpService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return emp.getEmpId();
+    }
+    @Transactional
+    public Long addressUpdate(EmpAddressRequest request) {
+        Emp emp = SecurityHelper.getAccount();
+        emp.updateAddress(request);
+        empRepository.save(emp);
+        return emp.getEmpId();
+    }
+    @Transactional
+    public Long detailAddressUpdate(EmpAddressRequest request) {
+        Emp emp = SecurityHelper.getAccount();
+        emp.updateAddressDetail(request);
+        empRepository.save(emp);
         return emp.getEmpId();
     }
 

@@ -1,6 +1,8 @@
 package erp.backend.domain.movie.controller;
 
 
+import erp.backend.domain.board.dto.BoardDetailResponse;
+import erp.backend.domain.movie.dto.MovieDetailResponse;
 import erp.backend.domain.movie.dto.MovieListResult;
 import erp.backend.domain.movie.entity.Movie;
 import erp.backend.domain.movie.repository.MovieRepository;
@@ -23,15 +25,20 @@ import java.net.URL;
 @RequestMapping("/api/movie")
 public class MovieController{
 
-    @Value("${movie.key}")
+   // @Value("${movie.key}")
     String key;
     private final MovieService movieService;
     private final MovieRepository movieRepository;
 
+//    @GetMapping("/{id}")
+//    public Movie movieSelect(@PathVariable String id) {
+//        Movie movie = movieRepository.findById(id).orElse(null); //매핑, 레포지토리 -> 서비스로 수정예정
+//        return movie;
+//    }
+
     @GetMapping("/{id}")
-    public Movie getMovieById(@PathVariable String id) {
-        Movie movie = movieRepository.findById(id).orElse(null); //매핑, 레포지토리 -> 서비스로 수정예정
-        return movie;
+    public ResponseEntity<MovieDetailResponse> movieDetail(@PathVariable("id") String id) {
+        return ResponseEntity.ok(movieService.movieDetail(id));
     }
 
     @ResponseBody

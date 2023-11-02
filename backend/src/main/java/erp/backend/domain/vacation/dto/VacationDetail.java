@@ -6,19 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class VacationUpdate {
-    private Long empId;
+public class VacationDetail {
     private int totalVacation;
     private int usedVacation;
     private int totalDayOff;
     private int usedDayOff;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String why;
-}
 
+}

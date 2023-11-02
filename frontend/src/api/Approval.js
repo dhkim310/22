@@ -29,6 +29,15 @@ export const SelectApprovalDetailApi = async (id) => {
     }
 };
 
+export const ApprovalCountApi = async () => {
+    try {
+        const response = await axios.get('/api/approval');
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const UpdateApprovalApi = async (id,updateData) => {
     return new Promise((resolve, reject) => {
         axios.put(`/api/approval/${id}`, updateData)

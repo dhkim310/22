@@ -1,43 +1,55 @@
 import React, {useEffect, useState} from "react";
 import Modal from "react-modal";
 import {useForm} from "react-hook-form";
-import {useParams} from "react-router-dom";
-import {vacationInsert} from "../api/Vacation";
+import {vacationDetail, vacationUpdate} from "../api/Vacation";
 import DatePicker from "react-datepicker";
 
-function calculateDayDifference(startDate, endDate) {
-    if (startDate && endDate) {
-        const oneDay = 24 * 60 * 60 * 1000; // 1 day in milliseconds
-        const differenceInDays = Math.round((endDate - startDate) / oneDay);
+function calculateDayDifference(startDate1, endDate1) {
+    if (startDate1 && endDate1) {
+        const oneDay = 24 * 60 * 60 * 1000;
+        const differenceInDays = Math.round((endDate1 - startDate1) / oneDay);
         return differenceInDays;
     }
-    return 0; // Default to 0 if start or end date is not selected
+    return 0;
 }
 
-function VacationInsertComponent({isOpen, closeModal, empId}) {
+function VacationUpdateComponent({isOpen, closeModal, empId}) {
     const {register, formState: {errors}, handleSubmit} = useForm();
-    const [startdate, setStartdate] = useState(null);
-    const [enddate, setEnddate] = useState(null);
+    const [startdate1, setStartdate] = useState(null);
+    const [enddate1, setEnddate] = useState(null);
     const [usedDayOff, setUsedDayOff] = useState(0);
+    const [detail, setDetail] = useState({});
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await vacationDetail(empId);
+                setDetail(data);
+            } catch (error) {
+                console.log('error', error);
+            }
+        };
+        fetchData();
+    }, [empId]);
     const onValid = async ({
-                               vacationTotalVacation,
-                               vacationUsedVacation,
-                               vacationTotalDayOff,
-                               vacationUsedDayOff,
-                               vacationStartDate,
-                               vacationEndDate,
-                               vacationWhy,
+                               totalVacation,
+                               usedVacation,
+                               totalDayOff,
+                               usedDayOff,
+                               startDate,
+                               endDate,
+                               why,
                            }) => {
-        const dayOffDifference = calculateDayDifference(startdate, enddate);
-        await vacationInsert({
+        const dayOffDifference = calculateDayDifference(startdate1, enddate1);
+        await vacationUpdate(empId, {
             empId: empId,
-            vacationTotalVacation,
-            vacationUsedVacation,
-            vacationTotalDayOff,
-            vacationUsedDayOff: dayOffDifference,
-            vacationStartDate: startdate,
-            vacationEndDate: enddate,
-            vacationWhy,
+            totalVacation,
+            usedVacation,
+            totalDayOff,
+            usedDayOff: dayOffDifference,
+            startDate: startdate1,
+            endDate: enddate1,
+            why,
         })
             .then((res) => {
                 if (res.status === 200) {
@@ -51,12 +63,12 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
     };
 
     useEffect(() => {
-        if (startdate && enddate) {
-            setUsedDayOff(calculateDayDifference(startdate, enddate));
+        if (startdate1 && enddate1) {
+            setUsedDayOff(calculateDayDifference(startdate1, enddate1));
         } else {
             setUsedDayOff(0);
         }
-    }, [startdate, enddate]);
+    }, [startdate1, enddate1]);
 
     const customModalStyles = {
         content: {
@@ -96,7 +108,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                             background: 'rgba(253,126,20,0)',
                             marginBottom: '20px'
                         }}>
-                            <span style={{fontSize: '22px', fontWeight: 'bold'}}>휴가 등록</span>
+                            <span style={{fontSize: '22px', fontWeight: 'bold'}}>휴가 등록 {empId}</span>
                         </div>
                         <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
                              style={{height: '100%', width: '63%'}}>
@@ -136,7 +148,9 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
                                         <div className="d-xxl-flex align-items-xxl-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
-                                            <input type="text" {...register('vacationTotalVacation')}/>
+                                            <input type="text" {...register('totalVacation')}
+                                                   value={detail.totalVacation}
+                                                   readOnly/>
                                         </div>
                                     </div>
 
@@ -160,7 +174,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
                                         <div className="d-xxl-flex align-items-xxl-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
-                                            <input type="text" {...register('vacationUsedVacation')} />
+                                            <input type="text" {...register('usedVacation')} />
                                         </div>
                                     </div>
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
@@ -183,7 +197,9 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
                                         <div className="d-xxl-flex align-items-xxl-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
-                                            <input type="text" name="totaldayoff" {...register('vacationTotalDayOff')} />
+                                            <input type="text" name="totaldayoff" {...register('totalDayOff')}
+                                                   value={detail.totalDayOff}
+                                                   readOnly/>
                                         </div>
                                     </div>
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
@@ -203,14 +219,14 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                              }}>
                                             <span>사용 연차</span>
                                         </div>
-                                        <div style={{ background: 'rgba(111,66,193,0)', height: '2px', width: '100%' }} />
+                                        <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
                                         <div className="d-xxl-flex align-items-xxl-center"
-                                             style={{ background: 'rgba(111,66,193,0)', height: '40%', width: '100%' }}>
+                                             style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input
                                                 type="text"
                                                 name="useddayoff"
-                                                value={usedDayOff} // Set the value of usedDayOff
-                                                readOnly // Make it read-only
+                                                value={usedDayOff}
+                                                readOnly
                                             />
                                         </div>
                                     </div>
@@ -235,7 +251,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                         <div className="d-xxl-flex align-items-xxl-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '60%', width: '100%'}}>
                                             <DatePicker
-                                                selected={startdate}
+                                                selected={startdate1}
                                                 onChange={date => setStartdate(date)}
                                                 dateFormat="yyyy-MM-dd"
                                                 placeholderText="날짜를 선택하세요"
@@ -266,7 +282,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                         <div className="d-xxl-flex align-items-xxl-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '60%', width: '100%'}}>
                                             <DatePicker
-                                                selected={enddate}
+                                                selected={enddate1}
                                                 onChange={date => setEnddate(date)}
                                                 dateFormat="yyyy-MM-dd"
                                                 placeholderText="날짜를 선택하세요"
@@ -293,7 +309,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
                                         <div className="d-xxl-flex align-items-xxl-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
-                                            <input type="text" name="why" {...register('vacationWhy')} />
+                                            <input type="text" name="why" {...register('why')} />
                                         </div>
                                     </div>
                                     <div style={{width: '100%', height: '2%', background: 'rgba(214,51,132,0)'}}/>
@@ -325,4 +341,4 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
     )
 }
 
-export default VacationInsertComponent;
+export default VacationUpdateComponent;

@@ -3,6 +3,8 @@ package erp.backend.domain.emp.controller;
 import erp.backend.domain.emp.dto.*;
 import erp.backend.domain.emp.entity.EmpPicture;
 import erp.backend.domain.emp.service.EmpService;
+import erp.backend.domain.vacation.entity.Vacation;
+import erp.backend.domain.vacation.service.VacationService;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -20,6 +22,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class EmpController {
     private final EmpService empService;
+    private final VacationService vacationService;
 
     @PostMapping("/sign-in")
     public ResponseEntity<SignInResponse> signIn(@RequestBody @Valid SignInRequest request, HttpServletResponse httpResponse) {
@@ -41,6 +44,14 @@ public class EmpController {
     @PutMapping("/emp/fix-info")
     public ResponseEntity<Long> fixInfoPasswordUpdate(@RequestBody EmpPasswordUpdateRequest request) throws MessagingException, UnsupportedEncodingException {
         return ResponseEntity.ok(empService.passwordUpdate(request));
+    }
+    @PutMapping("/emp/fix-address")
+    public ResponseEntity<Long> fixAddress(@RequestBody EmpAddressRequest request) {
+        return ResponseEntity.ok(empService.addressUpdate(request));
+    }
+    @PutMapping("/emp/fix-detail-address")
+    public ResponseEntity<Long> fixDetailAddress(@RequestBody EmpAddressRequest request) {
+        return ResponseEntity.ok(empService.detailAddressUpdate(request));
     }
 
     @PutMapping("/emp/picture-update")

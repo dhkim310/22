@@ -55,6 +55,8 @@ public class SecurityConfig {
                                 "/api/sign-up",
                                 "/api/sign-in",
                                 "/api/emp/fix-info",
+                                "/api/emp/fix-address",
+                                "/api/emp/fix-detail-address",
                                 "/api/emp/picture-update",
                                 "/api/emp/salary-list",
                                 "/api/emp/salary/{empName}",
@@ -91,7 +93,8 @@ public class SecurityConfig {
                                 "/api/message/{id}",
                                 "/api/message/test/{messageId}",
                                 "/api/file/{uuid}",
-                                "/api/vacation"
+                                "/api/vacation",
+                                "/api/vacation/{id}"
                         )
                         .permitAll()
                         .anyRequest().hasRole("USER"))
