@@ -21,6 +21,26 @@ export const boardInsert = async (formData) => {
     }
 };
 
+export const boardUpdate = async (id, formData) => {
+    try {
+        const response = await axios.put(`/api/board/${id}`, formData, {
+            headers: {'Content-Type': 'multipart/form-data'},
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const fetchBoardDelete = async (id) => {
+    try {
+        const response = await axios.delete(`/api/board/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const fetchBoardDetail = async (id) => {
     try {
         const response = await axios.get(`/api/board/${id}`);

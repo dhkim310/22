@@ -38,3 +38,21 @@ export const fetchNoticeDetail = async (id) => {
         throw error;
     }
 };
+
+export const fetchNoticeUpdate = async (id, formData) => {
+    try {
+        const response = await axios.put(`/api/notice/${id}`, formData);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const fetchNoticeDelete = async (id) => {
+    try {
+        const response = await axios.delete(`/api/notice/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
