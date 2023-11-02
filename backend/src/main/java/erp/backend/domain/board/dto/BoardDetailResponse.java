@@ -24,4 +24,5 @@ public class BoardDetailResponse {
     private LocalDateTime boardModifiedDate;
     private List<UploadFile> boardFileList;
     private List<CommentResponse> boardCommentList;
+    private boolean hasPermission;
 }

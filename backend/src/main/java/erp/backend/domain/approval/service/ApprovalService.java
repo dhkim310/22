@@ -6,6 +6,7 @@ import erp.backend.domain.approval.entity.ApprovalFile;
 import erp.backend.domain.approval.repository.ApprovalFileRepository;
 import erp.backend.domain.approval.repository.ApprovalRepository;
 import erp.backend.domain.emp.entity.Emp;
+import erp.backend.domain.emp.repository.EmpRepository;
 import erp.backend.domain.uploadfile.entity.UploadFile;
 import erp.backend.domain.uploadfile.service.UploadFileService;
 import erp.backend.global.config.security.SecurityHelper;
@@ -29,6 +30,7 @@ public class ApprovalService {
     private final ApprovalRepository approvalRepository;
     private final ApprovalFileRepository approvalFileRepository;
     private final UploadFileService uploadFileService;
+    private final EmpRepository empRepository;
 
     @Transactional(readOnly = true)//결재 대기 및 반려 리스트
     public ApprovalListResult approvalListResult(Pageable pageable) {
@@ -107,13 +109,14 @@ public class ApprovalService {
     @Transactional
     public Long approvalInsert(ApprovalInsert request, List<MultipartFile> files) {
         Emp emp = SecurityHelper.getAccount();
+        Emp checkMan = empRepository.findByEmpId(request.getApprovalCheckManId());
         Approval entity = Approval.builder()
                 .emp(emp)
                 .approvalSubject(request.getApprovalSubject())
                 .approvalContent(request.getApprovalContent())
                 .approvalCheck("결재요청")
-                .approvalCheckMan(request.getApprovalCheckMan())
-                .approvalCheckManPosition(request.getApprovalCheckManPosition())
+                .approvalCheckMan(checkMan.getEmpName())
+                .approvalCheckManPosition(checkMan.getEmpPosition())
                 .approvalUpLoadDate(LocalDate.now())
                 .build();
         approvalRepository.save(entity);

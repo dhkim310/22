@@ -8,6 +8,5 @@ import lombok.Setter;
 public class ApprovalInsert {
     private String approvalSubject;
     private String approvalContent;
-    private String approvalCheckMan;
-    private String approvalCheckManPosition;
+    private Long approvalCheckManId;
 }
