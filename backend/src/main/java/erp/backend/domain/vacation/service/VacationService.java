@@ -39,9 +39,10 @@ public class VacationService {
 
     // 업데이트부분
     @Transactional
-    public Long vacationUpdate(VacationUpdate request){
-        Vacation vacation = vacationRepository.findVacationByEmpEmpId(request.getEmpId());
+    public Long vacationUpdate(Long empId, VacationUpdate request){
+        Vacation vacation = vacationRepository.findVacationByEmpEmpId(empId);
         vacation.update(request);
+        vacationRepository.save(vacation);
         return vacation.getVacationId();
     }
 
