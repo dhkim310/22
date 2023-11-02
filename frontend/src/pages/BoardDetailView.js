@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
-import {commentDelete, fetchBoardDetail, postComment} from '../api/Board';
+import {commentDelete, fetchBoardDelete, fetchBoardDetail, postComment} from '../api/Board';
 import {FormatDate} from '../component/FormatDate';
 import Comment from '../component/Comment';
 import DownloadFile from '../component/DownloadFile';
@@ -93,6 +93,19 @@ function BoardDetail() {
 
     const handleBoardClick = () => {
         navigate("/board"); // "/api/board" 대신 실제 경로로 수정
+    };
+
+    const handleUpdate = (boardId) => {
+        navigate(`/board-update/${boardId}`);
+    };
+
+    const handleDelete = async (boardId) => {
+        try {
+            await fetchBoardDelete(boardId);
+            navigate('/board'); // 삭제 성공시 공지사항 리스트로 이동
+        } catch (error) {
+            alert('삭제할 수 없는 글입니다.');
+        }
     };
 
     // 버튼 클릭 시 스크롤을 맨 위로 올려주는 함수
@@ -220,7 +233,11 @@ function BoardDetail() {
                             }}>{content.subject}</span>
                         </div>
                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                             style={{width: "100%", height: "40%", borderBottom: "2px ridge rgba(128,128,128,0.32)"}}>
+                             style={{
+                                 width: "100%",
+                                 height: "40%",
+                                 borderBottom: "2px ridge rgba(128,128,128,0.32)"
+                             }}>
                             <div style={{
                                 textAlign: "center",
                                 height: "auto",
@@ -231,61 +248,9 @@ function BoardDetail() {
                                       style={{fontSize: 20, fontWeight: "bold"}}>{content.writer}</span>
                             </div>
                             <div style={{fontSize: 14, marginLeft: "2%"}}>{FormatDate(content.boardCreatedDate)}</div>
-                            <div style={{fontSize: 14, marginLeft: "2%"}}>
+                            <div style={{fontSize: 14, marginLeft: "2%", marginRight: "1%"}}>
                                 {content.boardModifiedDate ? FormatDate(content.boardModifiedDate) : null}
                             </div>
-                        </div>
-                    </div>
-
-                    {/* 첨부파일 부분 */}
-                    <div style={{height: "100%", width: "47%"}}>
-                        <div
-                            className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
-                            style={{width: '85%', height: '60%', borderTop: '2px ridge rgba(128,128,128,0.32)'}}
-                        >
-                            <button
-                                className="btn btn-primary"
-                                data-bss-hover-animate="pulse"
-                                type="button"
-                                style={{
-                                    background: 'rgba(13,110,253,0)',
-                                    color: 'black',
-                                    borderStyle: 'none',
-                                }}
-                                onClick={fileListIsOpen ? closeFileList : openFileList}
-                            >
-                                {fileListIsOpen ? '닫기' : `첨부파일(${content.boardFileList ? content.boardFileList.length : 0})`}
-                            </button>
-                            {fileListIsOpen &&
-                                <div
-                                    style={{
-                                        position: 'fixed',
-                                        top: "5%",
-                                        right: 0,
-                                        bottom: "5%",
-                                        width: '15%',
-                                        background: 'rgba(0, 0, 0, 0.1)',
-                                        color: 'black', overflowY: 'auto',
-                                        whiteSpace: "nowrap"
-                                    }}>
-                                    <ul>
-                                        <div style={{ marginTop: "50px", fontSize: "20px", marginBottom: "3%" }}>파일 다운로드</div>
-                                        {fileListIsOpen &&
-                                            content &&
-                                            content.boardFileList &&
-                                            content.boardFileList.length > 0 &&
-                                            content.boardFileList.map((file, index) => (
-                                                <li key={index} style={{ fontSize: '16px', marginBottom: "2%" }}>
-                                                    {file.name}
-                                                    <DownloadFile file={file} />
-                                                </li>
-                                            ))}
-                                    </ul>
-                                </div>
-                            }
-                        </div>
-                        <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
-                             style={{width: "85%", height: "40%", borderBottom: "2px ridge rgba(128,128,128,0.32)"}}>
                             <div style={{
                                 textAlign: "left",
                                 height: "auto",
@@ -300,21 +265,6 @@ function BoardDetail() {
                                 fontSize: 14,
                                 marginRight: "3%"
                             }}>{content.views}
-                            </div>
-                            <div style={{
-                                textAlign: "left",
-                                height: "auto",
-                                width: 45,
-                            }}>
-                                <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                      style={{fontSize: 14}}>좋아요</span>
-                            </div>
-                            <div style={{
-                                paddingRight: "3%",
-                                borderRight: "3px ridge rgba(128,128,128,0.32)",
-                                fontSize: 14,
-                                marginRight: "3%"
-                            }}>11
                             </div>
                             <div style={{
                                 textAlign: "left",
@@ -354,6 +304,89 @@ function BoardDetail() {
                             </div>
                         </div>
                     </div>
+
+                    {/* 첨부파일 부분 */}
+                    <div style={{height: "100%", width: "47%"}}>
+                        <div
+                            className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                            style={{width: '85%', height: '60%', borderTop: '2px ridge rgba(128,128,128,0.32)'}}
+                        >
+                            <button
+                                className="btn btn-primary"
+                                data-bss-hover-animate="pulse"
+                                type="button"
+                                style={{
+                                    background: 'rgba(13,110,253,0)',
+                                    color: 'black',
+                                    borderStyle: 'none',
+                                    marginBottom: '1%',
+                                }}
+                                onClick={fileListIsOpen ? closeFileList : openFileList}
+                            >
+                                {fileListIsOpen ? '닫기' : `첨부파일(${content.boardFileList ? content.boardFileList.length : 0})`}
+                            </button>
+                            {fileListIsOpen &&
+                                <div
+                                    style={{
+                                        position: 'fixed',
+                                        top: "5%",
+                                        right: 0,
+                                        bottom: "5%",
+                                        width: '15%',
+                                        background: 'rgba(0, 0, 0, 0.1)',
+                                        color: 'black', overflowY: 'auto',
+                                        whiteSpace: "nowrap"
+                                    }}>
+                                    <ul>
+                                        <div style={{marginTop: "50px", fontSize: "20px", marginBottom: "3%"}}>파일 다운로드
+                                        </div>
+                                        {fileListIsOpen &&
+                                            content &&
+                                            content.boardFileList &&
+                                            content.boardFileList.length > 0 &&
+                                            content.boardFileList.map((file, index) => (
+                                                <li key={index} style={{fontSize: '16px', marginBottom: "2%"}}>
+                                                    {file.name}
+                                                    <DownloadFile file={file}/>
+                                                </li>
+                                            ))}
+                                    </ul>
+                                </div>
+                            }
+                        </div>
+                        <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                             style={{width: "85%", height: "40%", borderBottom: "2px ridge rgba(128,128,128,0.32)"}}>
+                            {/* 수정 버튼 */}
+                            {content.hasPermission && ( // content에 권한 정보인 hasPermission이 존재하고 true일 때만 수정 버튼을 보여줍니다
+                                <button
+                                    className="btn btn-primary"
+                                    onClick={() => handleUpdate(content.boardId)}
+                                    style={{
+                                        background: 'rgba(0, 0, 0)',
+                                        marginBottom: '20px',
+                                        marginRight: '1%',
+                                        borderColor: 'black'
+                                    }}
+                                >
+                                    수정
+                                </button>
+                            )}
+                            {/* 삭제 버튼*/}
+                            {content.hasPermission && ( // content에 권한 정보인 hasPermission이 존재하고 true일 때만 수정 버튼을 보여줍니다
+                                <button
+                                    className="btn btn-primary"
+                                    onClick={() => handleDelete(content.boardId)} // 이벤트 핸들러 함수를 작성해야 합니다.
+                                    style={{
+                                        background: 'rgba(0, 0, 0)',
+                                        marginBottom: "20px",
+                                        borderColor: 'black'
+                                    }} // borderColor를 추가하여 검정색으로 설정
+                                >
+                                    삭제
+                                </button>
+                            )}
+                        </div>
+                    </div>
                 </div>
 
                 {/* 게시글 내용(텍스트, 에디터 등) */}
@@ -361,7 +394,7 @@ function BoardDetail() {
                     style={{
                         marginTop: "2%",
                         marginLeft: "4%",
-                        minHeight: "50%",
+                        minHeight: "20%",
                         width: "85%",
                         height: "30%",
                         border: "2px ridge rgba(128,128,128,0.32)",

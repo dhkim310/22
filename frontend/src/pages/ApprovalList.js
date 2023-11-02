@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import {SelectApprovalWaitListApi} from '../api/Approval';
 import PaginationButtons from '../component/PaginationButton';
 
-function Approval() {
+function ApprovalList() {
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
     const [approvalList, setApprovalList] = useState([]);
@@ -17,6 +17,9 @@ function Approval() {
     };
     const navigateToDetail = (id) => {
         navigate(`/approval/${id}`);
+    };
+    const navigateToApprovalInsert = () => {
+        navigate("/approval-insert");
     }
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -65,7 +68,7 @@ function Approval() {
                     }}>
                         <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
                              style={{background: 'rgba(102,16,242,0)', width: '100%', height: '7%'}}>
-                            <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{
+                            <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" onClick={navigateToApprovalInsert} style={{
                                 background: 'rgba(13,110,253,0)',
                                 border: '1px ridge black',
                                 width: 'auto',
@@ -221,4 +224,4 @@ function Approval() {
     )
 };
 
-export default Approval;
+export default ApprovalList;

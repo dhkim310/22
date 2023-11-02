@@ -41,3 +41,14 @@ export const UpdateApprovalApi = async (id,updateData) => {
     });
 }
 
+export const approvalInsert = async (formData) => {
+    try {
+        const response = await axios.post('/api/approval', formData, {
+            headers: {'Content-Type': 'multipart/form-data'},
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+

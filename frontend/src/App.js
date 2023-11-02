@@ -5,7 +5,7 @@ import Header from "./component/Header";
 import PrivateRoute from "./routes/PrivateRoute";
 import ReactBigCalendar from "./pages/ReactBigCalendar";
 import FixInfo from "./pages/FixInfo";
-import Approval from "./pages/Approval";
+import ApprovalList from "./pages/ApprovalList";
 import ApprovalComplete from "./pages/ApprovalComplete"
 import ApprovalDetail from "./pages/ApprovalDetail"
 import ApprovalCompleteDetail from "./pages/ApprovalCompleteDetail"
@@ -29,6 +29,9 @@ import MessageList from "./component/MessageList";
 import MessageSend from "./component/MessageSend";
 import ServiceMovieList from "./pages/ServiceMovieList";
 import MemberDetail from "./pages/MemberDetail";
+import ApprovalInsert from "./pages/ApprovalInsert";
+import BoardUpdate from "./pages/BoardUpdate";
+import NoticeUpdate from "./pages/NoticeUpdate";
 
 function App() {
     return (
@@ -40,7 +43,8 @@ function App() {
 
                 <Route element={<PrivateRoute/>}>
                     <Route path="/main" element={<Main/>}/>
-                    <Route path="/approval" element={<Approval/>}/>
+                    <Route path="/approval-insert" element={<ApprovalInsert/>}/>
+                    <Route path="/approval-list" element={<ApprovalList/>}/>
                     <Route path="/approval-complete" element={<ApprovalComplete/>}/>
                     <Route path="/approval/:id" element={<ApprovalDetail/>}/>
                     <Route path="/approval-complete/:id" element={<ApprovalCompleteDetail/>}/>
@@ -51,8 +55,10 @@ function App() {
                     <Route path="/board-insert" element={<BoardInsert/>}/>
                     <Route path="/board" element={<BoardList/>}/>
                     <Route path="/board/:id" element={<BoardDetail/>}/>
+                    <Route path="/board-update/:id" element={<BoardUpdate/>}/>
                     <Route path="/notice" element={<NoticeList/>}/>
                     <Route path="/notice/:id" element={<NoticeDetail/>}/>
+                    <Route path="/notice-update/:id" element={<NoticeUpdate/>}/>
                     <Route path="/hrm" element={<Hrm/>}/>
                     <Route path="/memo" element={<MemoComponent/>}/>
                     <Route path="/reshuffle/:id" element={<Reshuffle/>}/>

@@ -83,6 +83,11 @@ public class BoardService {
         List<UploadFile> uploadFileList = null;
         List<Comment> comments = commentRepository.findByBoardBoardIdOrderByCommentIdDesc(id);
         List<CommentResponse> commentResponses = new ArrayList<>();
+
+        // 권한 정보 로직 추가 수정버튼 표시
+        Emp emp = SecurityHelper.getAccount();
+        boolean hasPermission = emp.getEmpId().equals(entity.getEmp().getEmpId()) || emp.getRoles().startsWith("ROLE_ADMIN");
+
         if (!boardFiles.isEmpty())
             uploadFileList = uploadFileService.fileList(id, SchemaType.board);
 
@@ -100,6 +105,7 @@ public class BoardService {
                 .boardModifiedDate(entity.getBoardModifiedDate())
                 .boardFileList(uploadFileList)
                 .boardCommentList(commentResponses)
+                .hasPermission(hasPermission)
                 .build();
     }
 

@@ -13,7 +13,7 @@ function Approval() {
     const [totalPages, setTotalPages] = useState(); // 전체 페이지 수
     const navigate = useNavigate();
     const navigateToApproval = () => {
-        navigate("/approval");
+        navigate("/approval-list");
     };
     const navigateToDetail = (id) => {
         navigate(`/approval-complete/${id}`);
