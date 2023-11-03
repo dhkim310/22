@@ -75,7 +75,7 @@ function MessageList() {
                        <div className="d-flex align-items-center" style={{height: 'auto', width: '150px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{e.messageSenderName}</span></div>
                        <div className="d-flex align-items-center" style={{height: 'auto', width: '400px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{e.messageSubject}</span></div>
                        <div className="d-flex align-items-center" style={{height: 'auto', width: '150px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{FormatDate(e.messageSendTime)}</span></div>
-                       <div className="d-flex align-items-center" style={{height: 'auto', width: '100px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{e.messageStatus}</span></div>
+                       <div className="d-flex align-items-center" style={{height: 'auto', width: '100px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>g{e.messageStatus}</span></div>
                    </div>
                    ))}
 
