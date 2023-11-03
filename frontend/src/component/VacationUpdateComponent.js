@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Modal from "react-modal";
 import {useForm} from "react-hook-form";
-import {vacationDetail, vacationUpdate} from "../api/Vacation";
+import {vacationDetail, vacationInsert} from "../api/Vacation";
 import DatePicker from "react-datepicker";
 
 function calculateDayDifference(startDate1, endDate1) {
@@ -22,29 +22,28 @@ function VacationUpdateComponent({isOpen, closeModal, empId}) {
 
 
     const onValid = async ({
-                               totalVacation,
-                               usedVacation,
-                               totalDayOff,
-                               usedDayOff,
-                               startDate,
-                               endDate,
-                               why,
+                               vacationTotalVacation,
+                               vacationUsedVacation,
+                               vacationTotalDayOff,
+                               vacationUsedDayOff,
+                               vacationStartDate,
+                               vacationEndDate,
+                               vacationWhy,
                            }) => {
         const dayOffDifference = calculateDayDifference(startdate1, enddate1);
-        await vacationUpdate(empId, {
+        await vacationInsert({
             empId: empId,
-            totalVacation,
-            usedVacation,
-            totalDayOff,
-            usedDayOff: dayOffDifference,
-            startDate: startdate1,
-            endDate: enddate1,
-            why,
+            vacationTotalVacation,
+            vacationUsedVacation,
+            vacationTotalDayOff,
+            vacationUsedDayOff: dayOffDifference,
+            vacationStartDate: startdate1,
+            vacationEndDate: enddate1,
+            vacationWhy,
         })
             .then((res) => {
                 if (res.status === 200) {
                     closeModal();
-                    console.log({totalVacation});
                 }
             })
             .catch((err) => {
@@ -71,6 +70,7 @@ function VacationUpdateComponent({isOpen, closeModal, empId}) {
         };
         fetchData();
     }, [empId]);
+
 
     const customModalStyles = {
         content: {
@@ -150,9 +150,10 @@ function VacationUpdateComponent({isOpen, closeModal, empId}) {
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
                                         <div className="d-xxl-flex align-items-xxl-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
-                                            <input type="text" {...register('totalVacation')}
+                                            <input type="text" {...register('vacationTotalVacation')}
                                                    value={detail.totalVacation}
-                                                   />
+                                                   readOnly
+                                                   autoFocus/>
                                         </div>
                                     </div>
 
@@ -176,7 +177,7 @@ function VacationUpdateComponent({isOpen, closeModal, empId}) {
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
                                         <div className="d-xxl-flex align-items-xxl-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
-                                            <input type="text" {...register('usedVacation')} />
+                                            <input type="text" {...register('vacationUsedVacation')} />
                                         </div>
                                     </div>
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
@@ -199,9 +200,10 @@ function VacationUpdateComponent({isOpen, closeModal, empId}) {
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
                                         <div className="d-xxl-flex align-items-xxl-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
-                                            <input type="text" name="totaldayoff" {...register('totalDayOff')}
+                                            <input type="text" name="totaldayoff" {...register('vacationTotalDayOff')}
                                                    value={detail.totalDayOff}
-                                                   readOnly/>
+                                                   readOnly
+                                                   autoFocus/>
                                         </div>
                                     </div>
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
@@ -311,7 +313,7 @@ function VacationUpdateComponent({isOpen, closeModal, empId}) {
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
                                         <div className="d-xxl-flex align-items-xxl-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
-                                            <input type="text" name="why" {...register('why')} />
+                                            <input type="text" name="why" {...register('vacationWhy')} />
                                         </div>
                                     </div>
                                     <div style={{width: '100%', height: '2%', background: 'rgba(214,51,132,0)'}}/>
