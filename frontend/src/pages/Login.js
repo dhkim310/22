@@ -62,22 +62,27 @@ function Login() {
     return (
         <div>
             <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                 style={{height: '1080px', background: 'url("img/f05ee6c832afa3bac801c2c1825426ba.jpg") center / contain no-repeat, white'}}>
-                <div style={{width: '350px', height: '450px', background: 'rgba(0,0,0,0.63)'}}>
+                 style={{
+                     height: '800px',
+                     background: 'url("img/loginpaper.png") center / contain no-repeat, white',
+                     marginTop: '100px',
+                 }}
+            >
+                <div style={{width: '350px', height: '450px', background: 'rgba(0,0,0,0.0)'}}>
                     <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-end"
-                         style={{height: '100px'}}><span style={{fontWeight: 'bold', fontSize: '28px', color: 'white'}}>엄용민 프로덕션</span>
+                         style={{height: '100px'}}>
                     </div>
                     <div className="justify-content-xxl-center align-items-xxl-center" style={{height: '350px'}}>
                         <div className="d-xxl-flex justify-content-xxl-center" style={{width: '100%', height: '70%'}}>
                             <form className="text-start" id="form-login" onSubmit={handleSubmit(onValid)}>
                                 <div className="mb-3"><label className="form-label" id="lbl-usuario"
                                                              htmlFor="txt-usuario"
-                                                             style={{color: 'white'}}>Email</label><input
+                                                             style={{color: 'black'}}>Email</label><input
                                     className="form-control" type="text" id="txt-usuario" {...register('empEmail')}
                                     style={{width: '245px'}}/></div>
                                 <div className="mb-3"><label className="form-label" id="lbl-password"
                                                              htmlFor="txt-password"
-                                                             style={{color: 'white'}}>Password</label><input
+                                                             style={{color: 'black'}}>Password</label><input
                                     className="form-control" type="password" id="txt-password" {...register('password')}
                                     style={{width: '245px'}}/></div>
                                 <div className="d-xxl-flex justify-content-xxl-center"
@@ -86,10 +91,10 @@ function Login() {
                                             style={{
                                                 width: '245px',
                                                 height: '36px',
-                                                background: 'rgba(13,110,253,0)',
+                                                background: 'black',
                                                 borderRadius: '6px',
                                                 borderStyle: 'ridge',
-                                                borderColor: 'white'
+                                                borderColor: 'black'
                                             }}>Login
                                     </button>
                                 </div>
