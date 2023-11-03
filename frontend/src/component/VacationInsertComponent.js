@@ -13,7 +13,7 @@ function calculateDayDifference(startDate1, endDate1) {
     return 0;
 }
 
-function VacationUpdateComponent({isOpen, closeModal, empId}) {
+function VacationInsertComponent({isOpen, closeModal, empId}) {
     const {register, formState: {errors}, handleSubmit} = useForm();
     const [startdate1, setStartdate] = useState(null);
     const [enddate1, setEnddate] = useState(null);
@@ -69,8 +69,7 @@ function VacationUpdateComponent({isOpen, closeModal, empId}) {
             }
         };
         fetchData();
-    }, [empId]);
-
+    }, []);
 
     const customModalStyles = {
         content: {
@@ -345,4 +344,4 @@ function VacationUpdateComponent({isOpen, closeModal, empId}) {
     )
 }
 
-export default VacationUpdateComponent;
+export default VacationInsertComponent;

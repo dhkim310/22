@@ -28,10 +28,5 @@ public class VacationController {
         return ResponseEntity.ok(vacationService.vacationInsert(request));
     }
 
-    // 업데이트부분
-    @PutMapping("/{id}")
-    public ResponseEntity<Long> vacationUpdate(@PathVariable("id") Long id, @RequestBody VacationUpdate request) {
-        return ResponseEntity.ok(vacationService.vacationUpdate(id, request));
-    }
 }
 
