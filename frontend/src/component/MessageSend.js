@@ -67,6 +67,7 @@ function MessageSend() {
                            {list.map((e) => (
                                <option key={e.empId} value={e.empId}>{e.empName}</option>
                             ))}
+                            autoFocus
                            </select></div>
 
                         </div>

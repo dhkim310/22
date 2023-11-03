@@ -20,17 +20,7 @@ function VacationUpdateComponent({isOpen, closeModal, empId}) {
     const [usedDayOff, setUsedDayOff] = useState(0);
     const [detail, setDetail] = useState({});
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const data = await vacationDetail(empId);
-                setDetail(data);
-            } catch (error) {
-                console.log('error', error);
-            }
-        };
-        fetchData();
-    }, [empId]);
+
     const onValid = async ({
                                totalVacation,
                                usedVacation,
@@ -54,7 +44,7 @@ function VacationUpdateComponent({isOpen, closeModal, empId}) {
             .then((res) => {
                 if (res.status === 200) {
                     closeModal();
-                    window.location.reload();
+                    console.log({totalVacation});
                 }
             })
             .catch((err) => {
@@ -69,6 +59,18 @@ function VacationUpdateComponent({isOpen, closeModal, empId}) {
             setUsedDayOff(0);
         }
     }, [startdate1, enddate1]);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await vacationDetail(empId);
+                setDetail(data);
+            } catch (error) {
+                console.log('error', error);
+            }
+        };
+        fetchData();
+    }, [empId]);
 
     const customModalStyles = {
         content: {
@@ -150,7 +152,7 @@ function VacationUpdateComponent({isOpen, closeModal, empId}) {
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input type="text" {...register('totalVacation')}
                                                    value={detail.totalVacation}
-                                                   readOnly/>
+                                                   />
                                         </div>
                                     </div>
 
