@@ -27,7 +27,7 @@ function Main() {
     };
 
     const navigateToApproval = () => {
-        navigate("/approval");
+        navigate("/approval-list");
     };
 
     const navigateToNotice = (id) => {
