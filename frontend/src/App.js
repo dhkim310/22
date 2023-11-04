@@ -9,7 +9,6 @@ import ApprovalList from "./pages/ApprovalList";
 import ApprovalComplete from "./pages/ApprovalComplete"
 import ApprovalDetail from "./pages/ApprovalDetail"
 import ApprovalCompleteDetail from "./pages/ApprovalCompleteDetail"
-import SweetAlert from "./component/SweetAlert"
 import NoticeInsert from "./pages/NoticeInsert"
 import NoticeList from "./pages/NoticeList"
 import BoardInsert from "./pages/BoardInsert";
@@ -55,7 +54,6 @@ function App() {
                     <Route path="/approval-complete/:id" element={<ApprovalCompleteDetail/>}/>
                     <Route path="/fix-info" element={<FixInfo/>}/>
                     <Route path="/schedule" element={<ReactBigCalendar/>}/>
-                    <Route path="/sweetalert" element={<SweetAlert/>}/>
                     <Route path="/notice-insert" element={<NoticeInsert/>}/>
                     <Route path="/board-insert" element={<BoardInsert/>}/>
                     <Route path="/board" element={<BoardList/>}/>

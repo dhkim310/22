@@ -1,157 +1,319 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
-import '../assets/css/animate.min.css'
-import {useNavigate} from 'react-router-dom';
-import Alarm from '../component/Alarm'
-import {removeCookieToken} from '../storage/Cookie';
-
+import '../assets/css/animate.min.css';
+import { useNavigate } from 'react-router-dom';
+import Alarm from '../component/Alarm';
+import { removeCookieToken } from '../storage/Cookie';
 
 function Header() {
-    const url_a=window.location.pathname.includes("/")
-    const url_b=window.location.pathname.startsWith("/login")
-    const url_c =window.location.pathname.startsWith("/message")
+  const url_b = window.location.pathname.startsWith('/login');
+  const url_c = window.location.pathname.startsWith('/message');
 
-    const navigate = useNavigate();
-    const navigateToCat = () => {
-        navigate("/sweetalert");
-    };
-    const navigateToMain = () => {
-        navigate("/main");
-    };
-    const navigateToSchedule = () => {
-        navigate("/schedule");
-    };
-    const navigateToList = () => {
-        navigate("/notice");
-    };
-    const navigateToHrm = () => {
-        navigate("/hrm");
-    };
-    const navigateToApprovalList = () => {
-        navigate("/approval-list");
-    };
-    const navigateToEmpList = () => {
-        navigate("/salary")
-    };
-    const navigateToMovieList = () => {
-        navigate("/movie")
-    };
-    const navigateToMemberList = () => {
-        navigate("/member")
-    }
-    const logout = () => {
-        removeCookieToken();
-        window.location.reload();
-    }
+  const navigate = useNavigate();
+  const navigateToMain = () => {
+    navigate('/main');
+  };
+  const navigateToSchedule = () => {
+    navigate('/schedule');
+  };
+  const navigateToList = () => {
+    navigate('/notice');
+  };
+  const navigateToBoard = () => {
+    navigate('/board');
+  };
+  const navigateToHrm = () => {
+    navigate('/hrm');
+  };
+  const navigateToApprovalList = () => {
+    navigate('/approval-list');
+  };
+  const navigateToEmpList = () => {
+    navigate('/salary');
+  };
+  const navigateToMovieList = () => {
+    navigate('/movie');
+  };
+  const navigateToMemberList = () => {
+    navigate('/member');
+  };
+  const navigateToCommute = () => {
+    navigate('/department-hr');
+  };
+  const logout = () => {
+    removeCookieToken();
+    window.location.reload();
+  };
 
-    const navigateToMessageList = () => {
-         const width = 800;
-         const height = 500;
-         const left = window.innerWidth / 2 - width / 2;
-         const top = window.innerHeight / 2 - height / 2;
-         window.open('/message', '_blank', `width=${width},height=${height},left=${left}`);
-    }
-    const [isMobile, setIsMobile] = useState(false);
-    const [hoverAnimationList, setHoverAnimationList] = useState([]);
+  const navigateToMessageList = () => {
+    const width = 800;
+    const height = 500;
+    const left = window.innerWidth / 2 - width / 2;
+    window.open('/message', '_blank', `width=${width},height=${height},left=${left}`);
+  };
 
+  const [isMobile, setIsMobile] = useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [dropdownVisible1, setDropdownVisible1] = useState(false);
+  const dropdownRef = useRef(null); // Ref for the main dropdown
+  const dropdownRef1 = useRef(null); // Ref for the first sub-dropdown
 
-    useEffect(() => {
-        const getWidth = () => {
-            return window.innerWidth;
-        };
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
 
-        setIsMobile(getWidth() < 768);
+  const toggleDropdown1 = () => {
+    setDropdownVisible1(!dropdownVisible1);
+  };
 
-        const elements = document.querySelectorAll('[data-bss-hover-animate]');
-        setHoverAnimationList(elements);
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownVisible(false);
+      }
+      if (dropdownRef1.current && !dropdownRef1.current.contains(event.target)) {
+        setDropdownVisible1(false);
+      }
+    };
 
-        elements.forEach((element) => {
-            element.addEventListener('mouseenter', () => {
-                element.classList.add('animated', element.dataset.bssHoverAnimate);
-            });
-            element.addEventListener('mouseleave', () => {
-                element.classList.remove('animated', element.dataset.bssHoverAnimate);
-            });
-        });
-    }, []);
+    window.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      window.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
-    return (
-    (url_b || url_c)? null : (
-        <div>
-            <Alarm/>
-        <div style={{
-            position: 'fixed', // 상단 고정
-            top: 0, // 화면 맨 위에 위치
-            width: '100%', // 화면 가로폭 전체
-            zIndex: 100, // z-index 값을 조절하여 다른 콘텐츠 위에 나타낼 수 있습니다.
+  useEffect(() => {
+    const getWidth = () => {
+      return window.innerWidth;
+    };
+
+    setIsMobile(getWidth() < 768);
+
+    const elements = document.querySelectorAll('[data-bss-hover-animate]');
+    elements.forEach((element) => {
+      element.addEventListener('mouseenter', () => {
+        element.classList.add('animated', element.dataset.bssHoverAnimate);
+      });
+      element.addEventListener('mouseleave', () => {
+        element.classList.remove('animated', element.dataset.bssHoverAnimate);
+      });
+    });
+  }, []);
+
+  return (
+    url_b || url_c ? null : (
+      <div>
+        <Alarm />
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            width: '100%',
+            zIndex: 100,
             background: '#000000',
-        }}>
-            <div>
-                <div className="d-lg-flex align-items-lg-center justify-content-xxl-start"
-                     style={{width: 'auto', height: '50px', background: '#000000'}}>
-                    <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
-                            onClick={navigateToMain} style={{
-                        background: 'url("img/logo.png") center / contain no-repeat rgba(128,128,128,0)',
-                        borderRadius: '0px',
-                        borderStyle: 'none',
-                        height: '50px',
-                        width: '25%'
-                    }}></button>
-                    <div style={{height: 'auto', width: '400px'}}/>
-                    <div className="d-lg-flex justify-content-lg-end justify-content-xxl-start"
-                         style={{height: 'auto', width: '100%'}}>
-                        <div className="btn-group d-lg-flex justify-content-lg-center" role="group" style={{
-                            height: 'auto',
-                            width: 'auto',
-                            fontSize: '14px',
-                            maxHeight: 'none',
-                            maxWidth: 'none'
-                        }}>
-                            <button className="btn btn-primary text-nowrap" data-bss-hover-animate="pulse" type="button"
-                                    onClick={navigateToMemberList}
-                                    style={{borderStyle: 'none', background: 'rgba(0,0,0,0)'}}>회원관리
-                            </button>
-                            <button className="btn btn-primary text-nowrap" data-bss-hover-animate="pulse" type="button"
-                                    onClick={navigateToSchedule}
-                                    style={{borderStyle: 'none', background: 'rgba(0,0,0,0)'}}>일정
-                            </button>
-                            <button className="btn btn-primary text-nowrap" data-bss-hover-animate="pulse" type="button"
-                                    onClick={navigateToList}
-                                    style={{borderStyle: 'none', background: 'rgba(0,0,0,0)'}}>게시판
-                            </button>
-                            <button className="btn btn-primary text-nowrap" data-bss-hover-animate="pulse" type="button"
-                                    onClick={navigateToEmpList}
-                                    style={{borderStyle: 'none', background: 'rgba(0,0,0,0)'}}>급여관리
-
-                            </button>
-                            <button className="btn btn-primary text-nowrap" data-bss-hover-animate="pulse" type="button"
-                                    onClick={navigateToHrm}
-                                    style={{borderStyle: 'none', background: 'rgba(0,0,0,0)'}}>인사관리
-                            </button>
-                            <button className="btn btn-primary text-nowrap" data-bss-hover-animate="pulse" type="button"
-                                    onClick={navigateToApprovalList}
-                                    style={{borderStyle: 'none', background: 'rgba(0,0,0,0)'}}>결재
-                            </button>
-                            <button className="btn btn-primary text-nowrap" data-bss-hover-animate="pulse" type="button"
-                                    onClick={navigateToMovieList}
-                                    style={{borderStyle: 'none', background: 'rgba(0,0,0,0)'}}>콘텐츠관리
-                            </button>
-                        </div>
-                    </div>
-                    <div className="d-lg-flex justify-content-lg-end" style={{height: 'auto', width: '100%'}}>
-                        <button className="btn btn-primary text-nowrap" type="button" onClick={navigateToMessageList}
-                                style={{borderStyle: 'none',height: '35px', background: 'url("img/message.png") center / contain no-repeat', width: '30px'}}>
+          }}
+        >
+          <div>
+            <div
+              className="d-lg-flex align-items-lg-center justify-content-xxl-start"
+              style={{ width: 'auto', height: '50px', background: '#000000' }}
+            >
+              <button
+                className="btn btn-primary"
+                data-bss-hover-animate="pulse"
+                type="button"
+                onClick={navigateToMain}
+                style={{
+                  background: 'url("img/logo.png") center / contain no-repeat rgba(128,128,128,0)',
+                  borderRadius: '0px',
+                  borderStyle: 'none',
+                  height: '50px',
+                  width: '25%',
+                }}
+              ></button>
+              <div style={{ height: 'auto', width: '400px' }} />
+              <div
+                className="d-lg-flex justify-content-lg-end justify-content-xxl-start"
+                style={{ height: 'auto', width: '100%' }}
+              >
+                <div
+                  className="btn-group d-lg-flex justify-content-lg-center"
+                  role="group"
+                  style={{
+                    height: 'auto',
+                    width: 'auto',
+                    fontSize: '14px',
+                    maxHeight: 'none',
+                    maxWidth: 'none',
+                  }}
+                >
+                  <button
+                    className="btn btn-primary text-nowrap"
+                    data-bss-hover-animate="pulse"
+                    type="button"
+                    onClick={navigateToMemberList}
+                    style={{ borderStyle: 'none', background: 'rgba(0,0,0,0)' }}
+                  >
+                    회원관리
+                  </button>
+                  <button
+                    className="btn btn-primary text-nowrap"
+                    data-bss-hover-animate="pulse"
+                    type="button"
+                    onClick={navigateToSchedule}
+                    style={{ borderStyle: 'none', background: 'rgba(0,0,0,0)' }}
+                  >
+                    일정
+                  </button>
+                  <div ref={dropdownRef1} className="dropdown" style={{ position: 'relative' }}>
+                    <button
+                      className="btn btn-primary text-nowrap dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      aria-expanded={dropdownVisible1}
+                      onClick={toggleDropdown1}
+                      style={{ borderStyle: 'none', background: 'rgba(0,0,0,0)' }}
+                    >
+                      게시판
+                    </button>
+                    <ul className={`dropdown-menu ${dropdownVisible1 ? 'show' : ''}`}>
+                      <li>
+                        <button
+                          className="btn btn-primary text-nowrap"
+                          data-bss-hover-animate="pulse"
+                          type="button"
+                          onClick={navigateToList}
+                          style={{
+                            borderStyle: 'none',
+                            background: 'rgba(0,0,0,0)',
+                            color: 'black',
+                          }}
+                        >
+                          공지사항
                         </button>
-                        <button className="btn btn-primary text-nowrap" type="button" onClick={logout}
-                                style={{borderStyle: 'none', background: 'rgba(0,0,0,0)', width: '90px'}}>로그아웃
+                      </li>
+                      <li>
+                        <button
+                          className="btn btn-primary text-nowrap"
+                          data-bss-hover-animate="pulse"
+                          type="button"
+                          onClick={navigateToBoard}
+                          style={{
+                            borderStyle: 'none',
+                            background: 'rgba(0,0,0,0)',
+                            color: 'black',
+                          }}
+                        >
+                          사내게시판
                         </button>
-                    </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div ref={dropdownRef} className="dropdown" style={{ position: 'relative' }}>
+                    <button
+                      className="btn btn-primary text-nowrap dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      aria-expanded={dropdownVisible}
+                      onClick={toggleDropdown}
+                      style={{ borderStyle: 'none', background: 'rgba(0,0,0,0)' }}
+                    >
+                      통합관리
+                    </button>
+                    <ul className={`dropdown-menu ${dropdownVisible ? 'show' : ''}`}>
+                      <li>
+                        <button
+                          className="btn btn-primary text-nowrap"
+                          data-bss-hover-animate="pulse"
+                          type="button"
+                          onClick={navigateToEmpList}
+                          style={{
+                            borderStyle: 'none',
+                            background: 'rgba(0,0,0,0)',
+                            color: 'black',
+                          }}
+                        >
+                          급여
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          className="btn btn-primary text-nowrap"
+                          data-bss-hover-animate="pulse"
+                          type="button"
+                          onClick={navigateToHrm}
+                          style={{
+                            borderStyle: 'none',
+                            background: 'rgba(0,0,0,0)',
+                            color: 'black',
+                          }}
+                        >
+                          인사
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          className="btn btn-primary text-nowrap"
+                          data-bss-hover-animate="pulse"
+                          type="button"
+                          onClick={navigateToCommute}
+                          style={{
+                            borderStyle: 'none',
+                            background: 'rgba(0,0,0,0)',
+                            color: 'black',
+                          }}
+                        >
+                          근태
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                  <button
+                    className="btn btn-primary text-nowrap"
+                    data-bss-hover-animate="pulse"
+                    type="button"
+                    onClick={navigateToApprovalList}
+                    style={{ borderStyle: 'none', background: 'rgba(0,0,0,0)' }}
+                  >
+                    결재
+                  </button>
+                  <button
+                    className="btn btn-primary text-nowrap"
+                    data-bss-hover-animate="pulse"
+                    type="button"
+                    onClick={navigateToMovieList}
+                    style={{ borderStyle: 'none', background: 'rgba(0,0,0,0)' }}
+                  >
+                    콘텐츠관리
+                  </button>
                 </div>
+              </div>
+              <div className="d-lg-flex justify-content-lg-end" style={{ height: 'auto', width: '100%' }}>
+                <button
+                  className="btn btn-primary text-nowrap"
+                  type="button"
+                  onClick={navigateToMessageList}
+                  style={{
+                    borderStyle: 'none',
+                    height: '35px',
+                    background: 'url("img/message.png") center / contain no-repeat',
+                    width: '30px',
+                  }}
+                ></button>
+                <button
+                  className="btn btn-primary text-nowrap"
+                  type="button"
+                  onClick={logout}
+                  style={{ borderStyle: 'none', background: 'rgba(0,0,0,0)', width: '90px' }}
+                >
+                  로그아웃
+                </button>
+              </div>
             </div>
+          </div>
         </div>
-        </div>
-        )
-    );
-};
+      </div>
+    )
+  );
+}
 
 export default Header;
