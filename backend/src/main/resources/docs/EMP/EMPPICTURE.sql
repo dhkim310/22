@@ -1,0 +1,14 @@
+-- 사원 프로필 사진
+DROP TABLE IF EXISTS `final`.emppicture;
+CREATE TABLE `final`.emppicture
+(
+    `EMPPICTURE_ID`         BIGINT       NOT NULL AUTO_INCREMENT COMMENT '사원프로필사진코드',
+    `EMPPICTURE_EMP_ID`     BIGINT       NOT NULL COMMENT '사원코드',
+    `EMPPICTURE_UPLOADFILE_ID` BIGINT NOT NULL COMMENT '업로드파일코드',
+    PRIMARY KEY (`EMPPICTURE_ID`)
+)
+    ENGINE = InnoDB COMMENT '사원 프로필 사진'
+    AUTO_INCREMENT = 1;
+
+ALTER TABLE `final`.emppicture
+    ADD CONSTRAINT `FK_EMPPICTURE_EMP` FOREIGN KEY (`EMPPICTURE_EMP_ID`) REFERENCES `final`.emp (`EMP_ID`);

@@ -1,0 +1,18 @@
+-- 게시판
+DROP TABLE IF EXISTS `final`.board;
+CREATE TABLE `final`.board
+(
+    `BOARD_ID`           BIGINT       NOT NULL AUTO_INCREMENT COMMENT '게시판코드',
+    `BOARD_EMP_ID`       BIGINT       NOT NULL COMMENT '사원코드',
+    `BOARD_SUBJECT`      VARCHAR(255) NOT NULL COMMENT '게시판제목',
+    `BOARD_CONTENT`      LONGTEXT     NOT NULL COMMENT '게시판내용',
+    `BOARD_VIEWS`        INT          NOT NULL COMMENT '게시판조회수',
+    `BOARD_CREATEDDATE`  DATETIME     NOT NULL COMMENT '게시판작성일',
+    `BOARD_MODIFIEDDATE` DATETIME     NULL COMMENT '게시판수정일',
+    PRIMARY KEY (`BOARD_ID`)
+)
+    ENGINE = InnoDB COMMENT '게시판'
+    AUTO_INCREMENT = 1;
+
+ALTER TABLE `final`.board
+    ADD CONSTRAINT `FK_BOARD_EMP` FOREIGN KEY (`BOARD_EMP_ID`) REFERENCES `final`.emp (`EMP_ID`);
