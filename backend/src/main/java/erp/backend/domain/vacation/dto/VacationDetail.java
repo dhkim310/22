@@ -11,9 +11,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VacationDetail {
-    private int totalVacation;
-    private int usedVacation;
-    private int totalDayOff;
-    private int usedDayOff;
+    private int vacationTotalVacation;
+    private int vacationUsedVacation;
+    private int vacationTotalDayOff;
+    private int vacationUsedDayOff;
 
 }

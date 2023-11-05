@@ -6,6 +6,7 @@ import erp.backend.domain.emp.repository.EmpRepository;
 import erp.backend.domain.vacation.dto.*;
 import erp.backend.domain.vacation.entity.Vacation;
 import erp.backend.domain.vacation.repository.VacationRepository;
+import erp.backend.domain.vacation.vo.VacationVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ import java.util.List;
 public class VacationService {
     private final VacationRepository vacationRepository;
     private final EmpRepository empRepository;
+    private final VacationVO vacationVO;
 
     @Transactional
     public Long vacationInsert(VacationInsertRequest request) {
@@ -29,7 +31,7 @@ public class VacationService {
                 .vacationTotalVacation(request.getVacationTotalVacation())
                 .vacationUsedVacation(request.getVacationUsedVacation())
                 .vacationTotalDayOff(request.getVacationTotalDayOff())
-                .vacationUsedDayOff(request.getVacationUsedDayOff())
+                .vacationUsedDayOff(vacationVO.differenceInDays(request.getVacationEndDate(), request.getVacationStartDate()))
                 .vacationStartDate(request.getVacationStartDate())
                 .vacationEndDate(request.getVacationEndDate())
                 .vacationWhy(request.getVacationWhy())
@@ -41,10 +43,10 @@ public class VacationService {
     public VacationDetail vacationDetail(Long empId){
         Vacation entity = vacationRepository.findVacationByEmpEmpId(empId);
         return VacationDetail.builder()
-                .totalVacation(entity.getVacationTotalVacation())
-                .usedVacation(entity.getVacationUsedVacation())
-                .totalDayOff(entity.getVacationTotalDayOff())
-                .usedDayOff(entity.getVacationUsedDayOff())
+                .vacationTotalVacation(entity.getVacationTotalVacation())
+                .vacationUsedVacation(entity.getVacationUsedVacation())
+                .vacationTotalDayOff(entity.getVacationTotalDayOff())
+                .vacationUsedDayOff(entity.getVacationUsedDayOff())
                 .build();
     }
     @Transactional(readOnly = true)

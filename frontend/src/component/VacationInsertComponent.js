@@ -20,45 +20,6 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
     const [usedDayOff, setUsedDayOff] = useState(0);
     const [detail, setDetail] = useState({});
 
-
-    const onValid = async ({
-                               vacationTotalVacation,
-                               vacationUsedVacation,
-                               vacationTotalDayOff,
-                               vacationUsedDayOff,
-                               vacationStartDate,
-                               vacationEndDate,
-                               vacationWhy,
-                           }) => {
-        const dayOffDifference = calculateDayDifference(startdate1, enddate1);
-        await vacationInsert({
-            empId: empId,
-            vacationTotalVacation,
-            vacationUsedVacation,
-            vacationTotalDayOff,
-            vacationUsedDayOff: dayOffDifference,
-            vacationStartDate: startdate1,
-            vacationEndDate: enddate1,
-            vacationWhy,
-        })
-            .then((res) => {
-                if (res.status === 200) {
-                    closeModal();
-                }
-            })
-            .catch((err) => {
-                console.log('err', err)
-            })
-    };
-
-    useEffect(() => {
-        if (startdate1 && enddate1) {
-            setUsedDayOff(calculateDayDifference(startdate1, enddate1));
-        } else {
-            setUsedDayOff(0);
-        }
-    }, [startdate1, enddate1]);
-
     useEffect(() => {
         async function fetchData() {
             try {
@@ -70,6 +31,66 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
         };
         fetchData();
     }, []);
+
+    const onValid = async ({
+                               vacationTotalVacation,
+                               vacationUsedVacation,
+                               vacationTotalDayOff,
+                               vacationUsedDayOff,
+                               vacationStartDate,
+                               vacationEndDate,
+                               vacationWhy,
+                           }) => {
+        const startDate = new Date(startdate1);
+        const endDate = new Date(enddate1);
+
+        if (startDate > endDate) {
+            alert("날짜를 다시 입력하세요");
+            setUsedDayOff(null);
+            setStartdate(null);
+            setEnddate(null);
+        } else {
+            const dayOffDifference = calculateDayDifference(startdate1, enddate1);
+            const totalDays = parseInt(vacationTotalVacation, 10) + parseInt(vacationTotalDayOff, 10);
+
+            if (dayOffDifference > totalDays) {
+                alert("사용일이 남은 휴가보다 많습니다.");
+                setUsedDayOff(null);
+                setStartdate(null);
+                setEnddate(null);
+            } else {
+                await vacationInsert({
+                    empId: empId,
+                    vacationTotalVacation,
+                    vacationUsedVacation,
+                    vacationTotalDayOff,
+                    vacationUsedDayOff: dayOffDifference,
+                    vacationStartDate: startdate1,
+                    vacationEndDate: enddate1,
+                    vacationWhy,
+                })
+                    .then((res) => {
+                        if (res.status === 200) {
+                            closeModal();
+                            alert('휴가 등록 완료!');
+                            window.location.reload();
+                        }
+                    })
+                    .catch((err) => {
+                        alert('값을 모두 입력하세요');
+                        console.log('err', err);
+                    });
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (startdate1 && enddate1) {
+            setUsedDayOff(calculateDayDifference(startdate1, enddate1));
+        } else {
+            setUsedDayOff(0);
+        }
+    }, [startdate1, enddate1]);
 
     const customModalStyles = {
         content: {
@@ -109,7 +130,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                             background: 'rgba(253,126,20,0)',
                             marginBottom: '20px'
                         }}>
-                            <span style={{fontSize: '22px', fontWeight: 'bold'}}>휴가 등록 {empId}</span>
+                            <span style={{fontSize: '22px', fontWeight: 'bold'}}>휴가 등록</span>
                         </div>
                         <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
                              style={{height: '100%', width: '63%'}}>
@@ -150,33 +171,8 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                         <div className="d-xxl-flex align-items-xxl-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input type="text" {...register('vacationTotalVacation')}
-                                                   value={detail.totalVacation}
-                                                   readOnly
+                                                   value={ detail.vacationTotalVacation }
                                                    autoFocus/>
-                                        </div>
-                                    </div>
-
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                         style={{
-                                             background: 'rgba(102,16,242,0)',
-                                             width: '100%',
-                                             height: '10%',
-                                             marginTop: '10px',
-                                             marginBottom: '10px'
-                                         }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                             style={{
-                                                 background: 'rgba(111,66,193,0)',
-                                                 height: '50%',
-                                                 width: '100%',
-                                                 fontSize: '15px'
-                                             }}>
-                                            <span>사용 휴가</span>
-                                        </div>
-                                        <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-xxl-flex align-items-xxl-center"
-                                             style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
-                                            <input type="text" {...register('vacationUsedVacation')} />
                                         </div>
                                     </div>
                                     <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
@@ -200,8 +196,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                         <div className="d-xxl-flex align-items-xxl-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input type="text" name="totaldayoff" {...register('vacationTotalDayOff')}
-                                                   value={detail.totalDayOff}
-                                                   readOnly
+                                                   value ={detail.vacationTotalDayOff}
                                                    autoFocus/>
                                         </div>
                                     </div>
@@ -220,7 +215,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                                  width: '100%',
                                                  fontSize: '15px'
                                              }}>
-                                            <span>사용 연차</span>
+                                            <span>사용일</span>
                                         </div>
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
                                         <div className="d-xxl-flex align-items-xxl-center"
