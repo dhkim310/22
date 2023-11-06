@@ -4,7 +4,7 @@ import '../assets/css/animate.min.css';
 import EmpCreateComponent from "../component/EmpCreateComponent";
 import {selectHrmListApi} from "../api/Emp";
 import {useParams, useNavigate} from 'react-router-dom';
-import VacationUpdateComponent from "../component/VacationUpdateComponent";
+import VacationInsertComponent from "../component/VacationInsertComponent";
 
 
 function Hrm() {
@@ -97,7 +97,7 @@ function Hrm() {
                 <EmpCreateComponent isOpen={isModalOpen} closeModal={closeModal}/>
             </div>
             <div>
-                <VacationUpdateComponent isOpen={isVacationModalOpen} closeModal={closeVacationModal} empId={selectedEmpId}/>
+                <VacationInsertComponent isOpen={isVacationModalOpen} closeModal={closeVacationModal} empId={selectedEmpId}/>
             </div>
 
             <div style={{background: 'rgba(111,66,193,0)', height: '100%', width: 'Auto'}}>

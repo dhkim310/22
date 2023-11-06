@@ -6,6 +6,7 @@ import erp.backend.domain.emp.repository.EmpRepository;
 import erp.backend.domain.vacation.dto.*;
 import erp.backend.domain.vacation.entity.Vacation;
 import erp.backend.domain.vacation.repository.VacationRepository;
+import erp.backend.domain.vacation.vo.VacationVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,25 +38,28 @@ public class VacationService {
         return vacationRepository.save(entity).getVacationId();
     }
 
-    // 업데이트부분
     @Transactional
-    public Long vacationUpdate(Long empId, VacationUpdate request){
-        Vacation vacation = vacationRepository.findVacationByEmpEmpId(empId);
-        vacation.update(request);
-        vacationRepository.save(vacation);
-        return vacation.getVacationId();
+    public VacationDetail vacationDetail(Long empId) {
+        List<Vacation> vacations = vacationRepository.findVacationsByEmpEmpId(empId);
+        if (!vacations.isEmpty()) {
+            Vacation lastVacation = vacations.get(vacations.size() - 1);
+            return VacationDetail.builder()
+                    .vacationTotalVacation(lastVacation.getVacationTotalVacation())
+                    .vacationUsedVacation(lastVacation.getVacationUsedVacation())
+                    .vacationTotalDayOff(lastVacation.getVacationTotalDayOff())
+                    .vacationUsedDayOff(lastVacation.getVacationUsedDayOff())
+                    .build();
+        } else {
+
+            return VacationDetail.builder()
+                    .vacationTotalVacation(0)
+                    .vacationUsedVacation(0)
+                    .vacationTotalDayOff(0)
+                    .vacationUsedDayOff(0)
+                    .build();
+        }
     }
 
-    @Transactional
-    public VacationDetail vacationDetail(Long empId){
-        Vacation entity = vacationRepository.findVacationByEmpEmpId(empId);
-        return VacationDetail.builder()
-                .totalVacation(entity.getVacationTotalVacation())
-                .usedVacation(entity.getVacationUsedVacation())
-                .totalDayOff(entity.getVacationTotalDayOff())
-                .usedDayOff(entity.getVacationUsedDayOff())
-                .build();
-    }
     @Transactional(readOnly = true)
     public List<VacationListResponse> vacationList() {
         List<Vacation> list = vacationRepository.findAll();
