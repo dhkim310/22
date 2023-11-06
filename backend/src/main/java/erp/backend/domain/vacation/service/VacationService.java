@@ -3,10 +3,11 @@ package erp.backend.domain.vacation.service;
 
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
-import erp.backend.domain.vacation.dto.*;
+import erp.backend.domain.vacation.dto.VacationDetail;
+import erp.backend.domain.vacation.dto.VacationInsertRequest;
+import erp.backend.domain.vacation.dto.VacationListResponse;
 import erp.backend.domain.vacation.entity.Vacation;
 import erp.backend.domain.vacation.repository.VacationRepository;
-import erp.backend.domain.vacation.vo.VacationVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,9 +41,9 @@ public class VacationService {
 
     @Transactional
     public VacationDetail vacationDetail(Long empId) {
-        List<Vacation> vacations = vacationRepository.findVacationsByEmpEmpId(empId);
-        if (!vacations.isEmpty()) {
-            Vacation lastVacation = vacations.get(vacations.size() - 1);
+        List<Vacation> vacation = vacationRepository.findVacationsByEmpEmpId(empId);
+        if (!vacation.isEmpty()) {
+            Vacation lastVacation = vacation.get(vacation.size() - 1);
             return VacationDetail.builder()
                     .vacationTotalVacation(lastVacation.getVacationTotalVacation())
                     .vacationUsedVacation(lastVacation.getVacationUsedVacation())

@@ -47,7 +47,6 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                vacationTotalVacation,
                                vacationUsedVacation,
                                vacationTotalDayOff,
-                               vacationUsedDayOff,
                                vacationStartDate,
                                vacationEndDate,
                                vacationWhy,
@@ -62,7 +61,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
             setEnddate(null);
         } else {
             const dayOffDifference = calculateDayDifference(startdate1, enddate1);
-            const totalDays = parseInt(vacationTotalVacation, 10) + parseInt(vacationTotalDayOff, 10);
+            const totalDays = parseInt(vacationTotalVacation, 10);
 
             if (dayOffDifference > totalDays) {
                 alert("사용일이 남은 휴가보다 많습니다.");
@@ -73,8 +72,8 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                 await vacationInsert({
                     empId: empId,
                     vacationTotalVacation,
-                    vacationUsedVacation,
-                    vacationTotalDayOff,
+                    vacationUsedVacation: dayOffDifference,
+                    vacationTotalDayOff: vacationTotalDayOff,
                     vacationUsedDayOff: dayOffDifference,
                     vacationStartDate: startdate1,
                     vacationEndDate: enddate1,
