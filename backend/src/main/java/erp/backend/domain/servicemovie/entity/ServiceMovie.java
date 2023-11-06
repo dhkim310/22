@@ -52,11 +52,11 @@ public class ServiceMovie {
     private String serviceMovieProducer;
     public void update(ServiceMovieUpdate request) {
         this.serviceMovieAmount = request.getAmount();
-        this.serviceMoviePaymentDate = request.getPaymentDate();
+        this.serviceMoviePaymentDate = request.getPaymentDate().plusDays(1);
         this.serviceMoviePaymentBank = request.getPaymentBank();
         this.serviceMovieAccountNumber = request.getAccountNumber();
-        this.serviceMovieStartDate = request.getStartDate();
-        this.serviceMovieEndDate = request.getEndDate();
+        this.serviceMovieStartDate = request.getStartDate().plusDays(1);
+        this.serviceMovieEndDate = request.getEndDate().plusDays(1);
         this.serviceMovieProducer = request.getProducer();
     }
 }

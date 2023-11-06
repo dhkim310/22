@@ -184,9 +184,6 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                             <input type="text" {...register('vacationTotalVacation')}
                                                    value={ detail.vacationTotalVacation }
                                                    autoFocus/>
-                                            <input type="text" {...register('totalVacation')}
-                                                   value={detail.totalVacation}
-                                            />
                                         </div>
                                     </div>
 
@@ -211,7 +208,6 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                         <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input type="text" {...register('usedVacation')} />
-                                            >>>>>>> 8e24e91fec25a22851d86e456752945240d11166:frontend/src/component/VacationUpdateComponent.js
                                         </div>
                                     </div>
                                     <div className="d-flex justify-content-start align-items-center"
