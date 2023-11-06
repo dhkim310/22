@@ -134,7 +134,7 @@ function BoardDetail() {
     };
 
     return (
-        <div className="d-xxl-flex justify-content-xxl-start"
+        <div className="d-flex justify-content-start"
              style={{paddingTop: "50px", width: "100%", background: "rgba(0,0,0,0)", height: 2000}}>
             <div style={{height: "100%", width: "2%"}}/>
 
@@ -148,7 +148,7 @@ function BoardDetail() {
                 alignItems: "center", // 수평 중앙 정렬
             }}>
                 {/* 글쓰기 버튼 */}
-                <div className="d-xxl-flex justify-content-center align-items-xxl-center"
+                <div className="d-flex justify-content-center align-items-center"
                      style={{background: "rgba(102,16,242,0)", width: "100%", height: "7%"}}>
                     <button
                         className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
@@ -166,10 +166,10 @@ function BoardDetail() {
                 </div>
 
                 {/* 게시판 선택(공지사항, 사내게시판) */}
-                <div className="d-xxl-flex justify-content-center align-items-xxl-center"
+                <div className="d-flex justify-content-center align-items-center"
                      style={{width: "100%", background: "rgba(13, 110, 253, 0)", height: "2%"}}>
                     <div style={{width: "50%", display: "flex", justifyContent: "center"}}>
-                        <button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start"
+                        <button className="btn btn-primary text-start d-flex justify-content-start"
                                 data-bss-hover-animate="pulse" type="button" onClick={handleNoticeClick}
                                 style={{
                                     color: isBoardPage ? 'darkgray' : 'black',
@@ -181,10 +181,10 @@ function BoardDetail() {
                         </button>
                     </div>
                 </div>
-                <div className="d-xxl-flex justify-content-center align-items-xxl-center"
+                <div className="d-flex justify-content-center align-items-center"
                      style={{width: "100%", background: "rgba(13, 110, 253, 0)", height: "2%"}}>
                     <div style={{width: "50%", display: "flex", justifyContent: "center"}}>
-                        <button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start"
+                        <button className="btn btn-primary text-start d-flex justify-content-start"
                                 data-bss-hover-animate="pulse" type="button" onClick={handleBoardClick}
                                 style={{
                                     color: isBoardPage ? 'black' : 'darkgray',
@@ -204,7 +204,7 @@ function BoardDetail() {
 
             {/* 게시글 내용 부분 */}
             <div style={{width: "75%", height: "100%"}}>
-                <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{
+                <div className="d-flex justify-content-start align-items-center" style={{
                     marginTop: "1%",
                     background: "rgba(13,110,253,0)",
                     width: "100%",
@@ -215,11 +215,11 @@ function BoardDetail() {
                 </div>
 
                 {/* 게시글 내용 */}
-                <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                <div className="d-flex justify-content-start align-items-center"
                      style={{background: "rgba(13,110,253,0)", width: "100%", height: "4%"}}>
                     <div style={{height: "100%", width: "4%", background: "rgba(220,53,69,0)"}}/>
                     <div style={{height: "100%", width: "45%"}}>
-                        <div className="d-xxl-flex align-items-xxl-center" style={{
+                        <div className="d-flex align-items-center" style={{
                             width: "100%",
                             height: "60%",
                             borderTop: "2px ridge rgba(128,128,128,0.32)",
@@ -232,7 +232,7 @@ function BoardDetail() {
                                 fontWeight: "bold"
                             }}>{content.subject}</span>
                         </div>
-                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                        <div className="d-flex justify-content-start align-items-center"
                              style={{
                                  width: "100%",
                                  height: "40%",
@@ -244,8 +244,8 @@ function BoardDetail() {
                                 width: "auto",
                                 marginRight: "1%",
                             }}>
-                                <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                      style={{fontSize: 20, fontWeight: "bold"}}>{content.writer}</span>
+                                <span className="d-flex justify-content-start align-items-center"
+                                      style={{fontSize: 15, fontWeight: "bold"}}>{content.writer}</span>
                             </div>
                             <div style={{fontSize: 14, marginLeft: "2%"}}>{FormatDate(content.boardCreatedDate)}</div>
                             <div style={{fontSize: 14, marginLeft: "2%", marginRight: "1%"}}>
@@ -256,7 +256,7 @@ function BoardDetail() {
                                 height: "auto",
                                 width: 45,
                             }}>
-                                <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                <span className="d-flex justify-content-start align-items-center"
                                       style={{fontSize: 14}}>조회수</span>
                             </div>
                             <div style={{
@@ -271,7 +271,7 @@ function BoardDetail() {
                                 height: "auto",
                                 width: 25,
                             }}>
-                                <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                <span className="text-nowrap d-flex justify-content-start align-items-center"
                                       style={{fontSize: 14}}>댓글
                                 </span>
                             </div>
@@ -308,7 +308,7 @@ function BoardDetail() {
                     {/* 첨부파일 부분 */}
                     <div style={{height: "100%", width: "47%"}}>
                         <div
-                            className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                            className="d-flex justify-content-end align-items-center"
                             style={{width: '85%', height: '60%', borderTop: '2px ridge rgba(128,128,128,0.32)'}}
                         >
                             <button
@@ -354,7 +354,7 @@ function BoardDetail() {
                                 </div>
                             }
                         </div>
-                        <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                        <div className="d-flex justify-content-end align-items-center"
                              style={{width: "85%", height: "40%", borderBottom: "2px ridge rgba(128,128,128,0.32)"}}>
                             {/* 수정 버튼 */}
                             {content.hasPermission && ( // content에 권한 정보인 hasPermission이 존재하고 true일 때만 수정 버튼을 보여줍니다
@@ -410,7 +410,7 @@ function BoardDetail() {
                 <div>
                     {/* 댓글을 추가하세요 */}
                     <div
-                        className="d-xxl-flex justify-content-xxl-start"
+                        className="d-flex justify-content-start"
                         style={{width: "100%", height: "87%"}}
                     >
                         <div style={{width: "4%", height: "100%"}}/>
@@ -425,12 +425,12 @@ function BoardDetail() {
                             <div style={{width: "100%", height: "3%"}}/>
                             <div style={{width: "100%", height: "8%"}}>
                                 <div
-                                    className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                                    className="d-flex justify-content-end align-items-center"
                                     style={{width: "100%", height: "40%"}}
                                 >
                                     <div className="btn-group" role="group"/>
                                     <button
-                                        className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                        className="btn btn-primary d-flex justify-content-center align-items-center"
                                         data-bss-hover-animate="pulse"
                                         style={{
                                             width: "auto",
@@ -451,7 +451,7 @@ function BoardDetail() {
                                 </div>
                             </div>
                             <div
-                                className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                className="d-flex justify-content-start align-items-center"
                                 style={{
                                     width: "100%",
                                     height: "3%",
@@ -459,7 +459,7 @@ function BoardDetail() {
                                 }}
                             >
                                 <div
-                                    className="d-xxl-flex align-items-xxl-center"
+                                    className="d-flex align-items-center"
                                     style={{
                                         height: "auto",
                                         width: 115,
@@ -469,12 +469,12 @@ function BoardDetail() {
                                     <span>전체 댓글</span>
                                 </div>
                                 <div
-                                    className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                    className="d-flex justify-content-center align-items-center"
                                     style={{width: 100, height: "auto"}}
                                 >
                                 </div>
                                 <div
-                                    className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                                    className="d-flex justify-content-end align-items-center"
                                     style={{
                                         width: "93%",
                                         height: "100%",
@@ -482,7 +482,7 @@ function BoardDetail() {
                                     }}
                                 >
                                     <div
-                                        className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                        className="d-flex justify-content-center align-items-center"
                                         style={{
                                             height: "auto",
                                             width: 115,
@@ -509,7 +509,7 @@ function BoardDetail() {
                                         >본문보기</span>
                                     </div>
                                     <div
-                                        className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                        className="d-flex justify-content-center align-items-center"
                                         onClick={handleCommentView}
                                         style={{height: "auto", width: 115}}
                                     >

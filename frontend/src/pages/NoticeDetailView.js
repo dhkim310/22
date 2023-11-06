@@ -75,7 +75,7 @@ function NoticeDetail() {
                 left: 0,
             }}
         >
-            <div className="d-xxl-flex justify-content-xxl-start"
+            <div className="d-flex justify-content-start"
                  style={{width: "100%", background: "rgba(0,0,0,0)", height: 2000}}>
                 <div style={{height: "100%", width: "2%"}}/>
 
@@ -89,7 +89,7 @@ function NoticeDetail() {
                     alignItems: "center", // 수평 중앙 정렬
                 }}>
                     {/* 글쓰기 버튼 */}
-                    <div className="d-xxl-flex justify-content-center align-items-xxl-center"
+                    <div className="d-flex justify-content-center align-items-center"
                          style={{background: "rgba(102,16,242,0)", width: "100%", height: "7%"}}>
                         <button
                             className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
@@ -106,10 +106,10 @@ function NoticeDetail() {
                         </button>
                     </div>
                     {/* 게시판 선택(공지사항, 사내게시판) */}
-                    <div className="d-xxl-flex justify-content-center align-items-xxl-center"
+                    <div className="d-flex justify-content-center align-items-center"
                          style={{width: "100%", background: "rgba(13, 110, 253, 0)", height: "2%"}}>
                         <div style={{width: "50%", display: "flex", justifyContent: "center"}}>
-                            <button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start"
+                            <button className="btn btn-primary text-start d-flex justify-content-start"
                                     data-bss-hover-animate="pulse" type="button" onClick={handleNoticeClick}
                                     style={{
                                         color: isNoticePage ? 'black' : 'darkgray',
@@ -121,10 +121,10 @@ function NoticeDetail() {
                             </button>
                         </div>
                     </div>
-                    <div className="d-xxl-flex justify-content-center align-items-xxl-center"
+                    <div className="d-flex justify-content-center align-items-center"
                          style={{width: "100%", background: "rgba(13, 110, 253, 0)", height: "2%"}}>
                         <div style={{width: "50%", display: "flex", justifyContent: "center"}}>
-                            <button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start"
+                            <button className="btn btn-primary text-start d-flex justify-content-start"
                                     data-bss-hover-animate="pulse" type="button" onClick={handleBoardClick}
                                     style={{
                                         color: isNoticePage ? 'darkgray' : 'black',
@@ -144,7 +144,7 @@ function NoticeDetail() {
 
                 {/* 게시글 내용 부분 */}
                 <div style={{width: "75%", height: "100%"}}>
-                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{
+                    <div className="d-flex justify-content-start align-items-center" style={{
                         marginTop: "1%",
                         marginBottom: "1%",
                         background: "rgba(13,110,253,0)",
@@ -156,11 +156,11 @@ function NoticeDetail() {
                     </div>
 
                     {/* 게시글 내용 */}
-                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                    <div className="d-flex justify-content-start align-items-center"
                          style={{background: "rgba(13,110,253,0)", width: "100%", height: "4%"}}>
                         <div style={{height: "100%", width: "4%", background: "rgba(220,53,69,0)"}}/>
                         <div style={{height: "100%", width: "45%"}}>
-                            <div className="d-xxl-flex align-items-xxl-center" style={{
+                            <div className="d-flex align-items-center" style={{
                                 width: "100%",
                                 height: "60%",
                                 borderTop: "2px ridge rgba(128,128,128,0.32)",
@@ -173,7 +173,7 @@ function NoticeDetail() {
                                 fontWeight: "bold",
                             }}>{content.subject}</span>
                             </div>
-                            <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                            <div className="d-flex justify-content-start align-items-center"
                                  style={{
                                      width: "100%",
                                      height: "40%",
@@ -185,8 +185,8 @@ function NoticeDetail() {
                                     width: 45,
                                     marginRight: "1%",
                                 }}>
-                                <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
-                                      style={{whiteSpace: "nowrap", fontSize: 20, fontWeight: "bold"}}>{content.writer}</span>
+                                <span className="d-flex justify-content-start align-items-center"
+                                      style={{whiteSpace: "nowrap", fontSize: 15, fontWeight: "bold"}}>{content.writer}</span>
                                 </div>
                                 <div style={{
                                     paddingLeft: "4px",
@@ -194,7 +194,7 @@ function NoticeDetail() {
                                     height: "auto",
                                     width: 45,
                                 }}>
-                                <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                <span className="d-flex justify-content-start align-items-center"
                                       style={{fontSize: 13}}>작성일</span>
                                 </div>
                                 <div style={{
@@ -210,7 +210,7 @@ function NoticeDetail() {
                                     height: "auto",
                                     width: 45,
                                 }}>
-                                <span className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                <span className="d-flex justify-content-start align-items-center"
                                       style={{fontSize: 11}}>조회수</span>
                                 </div>
                                 <div style={{
@@ -225,7 +225,7 @@ function NoticeDetail() {
                         {/* 첨부파일 부분 */}
                         <div style={{height: "100%", width: "47%"}}>
                             <div
-                                className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                                className="d-flex justify-content-end align-items-center"
                                 style={{width: '85%', height: '60%', borderTop: '2px ridge rgba(128,128,128,0.32)'}}
                             >
                                 <button
@@ -272,7 +272,7 @@ function NoticeDetail() {
                                     </div>
                                 }
                             </div>
-                            <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                            <div className="d-flex justify-content-end align-items-center"
                                  style={{
                                      width: "85%",
                                      height: "40%",

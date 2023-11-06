@@ -100,12 +100,12 @@ function MovieList() {
             <ServiceMovieInsert isOpen={isModalOpen} closeModal={closeModal} movieId={selectedMovieId} />
         </div>
             <div style={{width: '100%', height: '100%'}}>
-                <div className="d-xxl-flex justify-content-xxl-center"
+                <div className="d-flex justify-content-center"
                      style={{width: '100%', height: '100%', background: 'transparent'}}>
-                    <div className="d-xxl-flex justify-content-xxl-center"
+                    <div className="d-flex justify-content-center"
                          style={{width: '10%', height: '100%', background: 'white'}}>
                         <button
-                            className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                            className="btn btn-primary d-flex justify-content-center align-items-center"
                             data-bss-hover-animate="pulse" type="button" onClick={newMovie} style={{
                             width: '150px',
                             height: '50px',
@@ -121,7 +121,7 @@ function MovieList() {
                     <div style={{background: 'white', width: '90%', height: '100%'}}>
                         <div
                             style={{width: '100%', height: '7%', borderBottom: '2px ridge rgba(128,128,128,0.26)'}}>
-                            <div className="d-xxl-flex align-items-xxl-end" style={{width: '100%', height: '50%'}}>
+                            <div className="d-flex align-items-end" style={{width: '100%', height: '50%'}}>
                                 <span style={{
                                     fontSize: '30px',
                                     fontWeight: 'bold',
@@ -130,12 +130,12 @@ function MovieList() {
                                 }}>컨텐츠 목록</span>
 
                             </div>
-                            <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
+                            <div className="d-flex justify-content-start align-items-end"
                                  style={{width: '100%', height: '50%'}}>
-                                <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                <div className="d-flex justify-content-start align-items-center"
                                      style={{width: '30%', height: '100%'}}>
                                     <button
-                                        className={`btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center ${isMoviePage ? 'active' : ''}`}
+                                        className={`btn btn-primary d-flex justify-content-center align-items-center ${isMoviePage ? 'active' : ''}`}
                                         data-bss-hover-animate="pulse"
                                         type="button"
                                         onClick={handleMovieClick}
@@ -151,7 +151,7 @@ function MovieList() {
                                         컨텐츠
                                     </button>
                                     <button
-                                        className={`btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center ${isMoviePage ? 'active' : ''}`}
+                                        className={`btn btn-primary d-flex justify-content-center align-items-center ${isMoviePage ? 'active' : ''}`}
                                         data-bss-hover-animate="pulse"
                                         type="button"
                                         onClick={handleServiceMovieClick}
@@ -172,12 +172,12 @@ function MovieList() {
 
 
                             </div>
-                            <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
+                            <div className="d-flex justify-content-start align-items-end"
                                  style={{width: '100%', height: '50%'}}/>
                         </div>
                         <div style={{width: '100%', height: '100%'}}>
-                            {/* <div className="list-group d-xxl-flex" style={{ */}
-                            <div className="list-group d-xxl-flex" style={{
+                            {/* <div className="list-group d-flex" style={{ */}
+                            <div className="list-group d-flex" style={{
                                 marginLeft: '0px',
                                 marginRight: '0px',
                                 maxHeight: '1000px',
@@ -265,10 +265,10 @@ function MovieList() {
                                                 textAlign: 'center'
                                             }}>{item.rating}</div>
 
-                                            <div className="d-xxl-flex justify-content-xxl-center"
+                                            <div className="d-flex justify-content-center"
                                                                      style={{width: '30%', height: '100%', background: 'white'}}>
                                             <button
-                                                    className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                                    className="btn btn-primary text-nowrap d-flex justify-content-center align-items-center"
                                                     data-bss-hover-animate="pulse" type="button"
                                                     onClick={() => handleItemClick(item.id)}
                                                     //onClick={() => openModal(item.id)}
@@ -290,7 +290,7 @@ function MovieList() {
                                                     </button>
 
                                                     <button
-                                                    className="btn btn-primary text-nowrap d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                                    className="btn btn-primary text-nowrap d-flex justify-content-center align-items-center"
                                                     data-bss-hover-animate="pulse"
                                                     type="button"
                                                     onClick={() => openModal(item.id)}
@@ -321,7 +321,7 @@ function MovieList() {
             </div>
             <div style={{width: '100%', height: '50px'}}/>
 
-            <div className="d-xxl-flex justify-content-xxl-start"
+            <div className="d-flex justify-content-start"
                  style={{background: 'rgba(111,66,193,0)', height: '109px'}}>
                 <div style={{width: '42%', height: '100%'}}/>
 

@@ -67,8 +67,8 @@ function MessageDetail() {
                                 <div className="d-flex align-items-start" style={{height: '50%', width: '25%'}}>
                                     <div style={{width: '15px'}} /><span>{detail.messageSender}</span>
                                 </div>
-                                <div className="d-flex align-items-start" style={{height: '50%', width: '25%'}}>
-                                    <div style={{width: '15px'}} /><span style={{width: '141.3px'}}>{FormatDate(detail.messageSendTime)}</span>
+                                <div className="d-flex align-items-start" style={{height: '50%', width: '45%'}}>
+                                    <div style={{width: '15px'}} /><span style={{width: '200px'}}>{FormatDate(detail.messageSendTime)}</span>
                                 </div>
                             </div>
                             <div className="d-flex" style={{width: '100%', height: '70%', borderBottom: '2px ridge rgba(128,128,128,0.32)'}}>
