@@ -50,7 +50,6 @@ public class VacationService {
                     .vacationUsedDayOff(lastVacation.getVacationUsedDayOff())
                     .build();
         } else {
-
             return VacationDetail.builder()
                     .vacationTotalVacation(0)
                     .vacationUsedVacation(0)

@@ -186,30 +186,6 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                                    autoFocus/>
                                         </div>
                                     </div>
-
-                                    <div className="d-flex justify-content-start align-items-center"
-                                         style={{
-                                             background: 'rgba(102,16,242,0)',
-                                             width: '100%',
-                                             height: '10%',
-                                             marginTop: '10px',
-                                             marginBottom: '10px'
-                                         }}>
-                                        <div className="d-flex justify-content-start align-items-center"
-                                             style={{
-                                                 background: 'rgba(111,66,193,0)',
-                                                 height: '50%',
-                                                 width: '100%',
-                                                 fontSize: '15px'
-                                             }}>
-                                            <span>사용 휴가</span>
-                                        </div>
-                                        <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-flex align-items-center"
-                                             style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
-                                            <input type="text" {...register('usedVacation')} />
-                                        </div>
-                                    </div>
                                     <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
