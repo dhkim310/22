@@ -118,7 +118,7 @@ function FixInfo() {
     }, []);
 
     return (<div style={{paddingTop: "50px"}}>
-        <div className="d-xxl-flex align-items-xxl-center"
+        <div className="d-flex align-items-center"
              style={{height: '70px',}}><span style={{
             fontWeight: 'bold',
             fontSize: '30px',
@@ -128,10 +128,10 @@ function FixInfo() {
             paddingBottom: '13px'
         }}>개인정보 수정</span></div>
 
-        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
+        <div className="d-flex justify-content-start align-items-end"
              style={{height: '200px', background: 'rgba(111,66,193,0)', width: 'auto'}}>
             <span style={{paddingRight: '0px', paddingLeft: '110px', height: '200px'}}>사진</span>
-            <div className="d-xxl-flex" style={{
+            <div className="d-flex" style={{
                 width: 'auto',
                 height: '200px',
                 paddingLeft: '0px',
@@ -150,7 +150,7 @@ function FixInfo() {
             <input type="file" style={{display: 'none'}} accept="image/*" onChange={handleImageChange}
                    ref={fileInputRef}/> {/* 파일 선택을 위한 input */}
             <button
-                className="btn btn-primary text-nowrap text-center d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                className="btn btn-primary text-nowrap text-center d-flex justify-content-center align-items-center"
                 data-bss-hover-animate="pulse" type="button" onClick={() => fileInputRef.current.click()} style={{
                 background: 'white',
                 height: '26px',
@@ -174,7 +174,7 @@ function FixInfo() {
                 style={{paddingRight: '0px', paddingLeft: '110px'}}>이름</span><input type="text" style={{
                 marginLeft: '47px', marginTop: '20px'
             }} value={empInfo.empName} readOnly/>
-                <div className="d-xxl-flex" style={{
+                <div className="d-flex" style={{
                     width: '705px',
                     height: '60px',
                     background: 'rgba(220,53,69,0)',
@@ -200,7 +200,7 @@ function FixInfo() {
                 style={{paddingRight: '0px', paddingLeft: '110px'}}>부서</span><input type="text" style={{
                 marginLeft: '47px', marginTop: '20px'
             }} value={empInfo.dept} readOnly/></div>
-            <div className="d-xxl-flex" style={{
+            <div className="d-flex" style={{
                 width: '705px',
                 height: '60px',
                 background: 'rgba(220,53,69,0)',
@@ -217,7 +217,7 @@ function FixInfo() {
                                    marginLeft: '31px', marginTop: '20px', paddingLeft: '0px', width: '327px'
                                }}
                                defaultValue='1541' {...register('password')}/>
-                        <button className="btn btn-primary text-center d-xxl-flex align-items-xxl-center"
+                        <button className="btn btn-primary text-center d-flex align-items-center"
                                 data-bss-hover-animate="pulse" type="submit" style={{
                             background: 'var(--bs-black)',
                             height: '30px',
@@ -249,12 +249,12 @@ function FixInfo() {
             style={{paddingRight: '0px', paddingLeft: '110px'}}>입사일</span><input type="text" style={{
             marginLeft: '31px', marginTop: '20px'
         }} value={empInfo.empStartDate} readOnly/></div>
-        <div className="d-xxl-flex align-items-xxl-center"
+        <div className="d-flex align-items-center"
              style={{height: '104px', marginTop: '-42px', paddingTop: '0px', width: 'auto'}}><span
             style={{paddingRight: '0px', paddingLeft: '110px'}}>주소</span><input type="text" style={{
             marginLeft: '47px', marginTop: '0px'
         }} value={empInfo.empAddress} readOnly/>
-            <button className="btn btn-primary text-center d-xxl-flex align-items-xxl-center"
+            <button className="btn btn-primary text-center d-flex align-items-center"
                     data-bss-hover-animate="pulse" type="button" onClick={handleAddressSearch} style={{
                 background: 'var(--bs-black)', height: '30px', borderWidth: '0px', borderBottomWidth: '0px'
             }}>우편번호 찾기
@@ -275,12 +275,12 @@ function FixInfo() {
                     onComplete={handleAddressSelected}
                   />
                   <form onSubmit={handleSubmit(onValid1)}>
-                    <div className="d-xxl-flex align-items-xxl-center"
+                    <div className="d-flex align-items-center"
                          style={{height: '104px', marginTop: '0px', paddingTop: '0px', width: 'auto'}}><span
                         style={{paddingRight: '0px', paddingLeft: '295px'}}>상세주소</span><input type="text" style={{
                         marginLeft: '35px', marginTop: '0px'
                     }} defaultValue={empInfo.empDetailAddress} {...register('empDetailAddress')} />
-                        <button className="btn btn-primary text-center d-xxl-flex align-items-xxl-center"
+                        <button className="btn btn-primary text-center d-flex align-items-center"
                                 data-bss-hover-animate="pulse" type="submit" style={{
                             background: 'var(--bs-black)', height: '30px', borderWidth: '0px', borderBottomWidth: '0px'
                         }}>수정

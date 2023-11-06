@@ -86,7 +86,7 @@ function MovieDetail() {
             영화 상세 정보
           </span>
         </div>
-        <div className="d-xxl-flex justify-content-xxl-center" style={{ paddingTop: '20px' }}>
+        <div className="d-flex justify-content-center" style={{ paddingTop: '20px' }}>
           <img
             style={imageStyle}
             src={detail.moviePosterPath}
