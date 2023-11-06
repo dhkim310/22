@@ -3,10 +3,11 @@ package erp.backend.domain.vacation.service;
 
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
-import erp.backend.domain.vacation.dto.*;
+import erp.backend.domain.vacation.dto.VacationDetail;
+import erp.backend.domain.vacation.dto.VacationInsertRequest;
+import erp.backend.domain.vacation.dto.VacationListResponse;
 import erp.backend.domain.vacation.entity.Vacation;
 import erp.backend.domain.vacation.repository.VacationRepository;
-import erp.backend.domain.vacation.vo.VacationVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,11 +29,10 @@ public class VacationService {
         Vacation entity = Vacation.builder()
                 .emp(emp)
                 .vacationTotalVacation(request.getVacationTotalVacation())
-                .vacationUsedVacation(request.getVacationUsedVacation())
                 .vacationTotalDayOff(request.getVacationTotalDayOff())
-                .vacationUsedDayOff(request.getVacationUsedDayOff())
-                .vacationStartDate(request.getVacationStartDate())
-                .vacationEndDate(request.getVacationEndDate())
+                .vacationUsedCount(request.getVacationUsedCount())
+                .vacationStartDate(request.getVacationStartDate().plusDays(1))
+                .vacationEndDate(request.getVacationEndDate().plusDays(1))
                 .vacationWhy(request.getVacationWhy())
                 .build();
         return vacationRepository.save(entity).getVacationId();
@@ -40,21 +40,19 @@ public class VacationService {
 
     @Transactional
     public VacationDetail vacationDetail(Long empId) {
-        List<Vacation> vacations = vacationRepository.findVacationsByEmpEmpId(empId);
-        if (!vacations.isEmpty()) {
-            Vacation lastVacation = vacations.get(vacations.size() - 1);
+        List<Vacation> vacation = vacationRepository.findVacationsByEmpEmpId(empId);
+        if (!vacation.isEmpty()) {
+            Vacation lastVacation = vacation.get(vacation.size() - 1);
             return VacationDetail.builder()
                     .vacationTotalVacation(lastVacation.getVacationTotalVacation())
-                    .vacationUsedVacation(lastVacation.getVacationUsedVacation())
                     .vacationTotalDayOff(lastVacation.getVacationTotalDayOff())
-                    .vacationUsedDayOff(lastVacation.getVacationUsedDayOff())
+                    .vacationUsedCount(lastVacation.getVacationUsedCount())
                     .build();
         } else {
             return VacationDetail.builder()
                     .vacationTotalVacation(0)
-                    .vacationUsedVacation(0)
                     .vacationTotalDayOff(0)
-                    .vacationUsedDayOff(0)
+                    .vacationUsedCount(0)
                     .build();
         }
     }
@@ -69,9 +67,8 @@ public class VacationService {
                             .vacationId(vacation.getVacationId())
                             .empId(vacation.getEmp().getEmpId())
                             .vacationTotalVacation(vacation.getVacationTotalVacation())
-                            .vacationUsedVacation(vacation.getVacationUsedVacation())
                             .vacationTotalDayOff(vacation.getVacationTotalDayOff())
-                            .vacationUsedDayOff(vacation.getVacationUsedDayOff())
+                            .vacationUsedCount(vacation.getVacationUsedCount())
                             .vacationStartDate(vacation.getVacationStartDate())
                             .vacationEndDate(vacation.getVacationEndDate())
                             .vacationWhy(vacation.getVacationWhy())
@@ -82,9 +79,8 @@ public class VacationService {
         else {
             VacationListResponse vacationListResponse = VacationListResponse.builder()
                     .vacationTotalVacation(0)
-                    .vacationUsedVacation(0)
                     .vacationTotalDayOff(0)
-                    .vacationUsedDayOff(0)
+                    .vacationUsedCount(0)
                     .vacationStartDate(LocalDate.now())
                     .vacationEndDate(LocalDate.now())
                     .vacationWhy("-")

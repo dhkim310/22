@@ -99,9 +99,8 @@ public class EmpService {
         Vacation vacation = Vacation.builder()
                 .emp(emp)
                 .vacationTotalVacation(18)
-                .vacationUsedVacation(0)
                 .vacationTotalDayOff(12)
-                .vacationUsedDayOff(0)
+                .vacationUsedCount(0)
                 .build();
         vacationRepository.save(vacation);
     }

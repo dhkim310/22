@@ -14,9 +14,8 @@ import java.time.LocalDate;
 public class VacationUpdate {
     private Long empId;
     private int totalVacation;
-    private int usedVacation;
     private int totalDayOff;
-    private int usedDayOff;
+    private int usedCount;
     private LocalDate startDate;
     private LocalDate endDate;
     private String why;
