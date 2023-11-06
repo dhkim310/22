@@ -21,7 +21,6 @@ import java.util.List;
 public class VacationService {
     private final VacationRepository vacationRepository;
     private final EmpRepository empRepository;
-    private final VacationVO vacationVO;
 
     @Transactional
     public Long vacationInsert(VacationInsertRequest request) {
@@ -31,7 +30,7 @@ public class VacationService {
                 .vacationTotalVacation(request.getVacationTotalVacation())
                 .vacationUsedVacation(request.getVacationUsedVacation())
                 .vacationTotalDayOff(request.getVacationTotalDayOff())
-                .vacationUsedDayOff(vacationVO.differenceInDays(request.getVacationEndDate(), request.getVacationStartDate()))
+                .vacationUsedDayOff(request.getVacationUsedDayOff())
                 .vacationStartDate(request.getVacationStartDate())
                 .vacationEndDate(request.getVacationEndDate())
                 .vacationWhy(request.getVacationWhy())
@@ -40,15 +39,27 @@ public class VacationService {
     }
 
     @Transactional
-    public VacationDetail vacationDetail(Long empId){
-        Vacation entity = vacationRepository.findVacationByEmpEmpId(empId);
-        return VacationDetail.builder()
-                .vacationTotalVacation(entity.getVacationTotalVacation())
-                .vacationUsedVacation(entity.getVacationUsedVacation())
-                .vacationTotalDayOff(entity.getVacationTotalDayOff())
-                .vacationUsedDayOff(entity.getVacationUsedDayOff())
-                .build();
+    public VacationDetail vacationDetail(Long empId) {
+        List<Vacation> vacations = vacationRepository.findVacationsByEmpEmpId(empId);
+        if (!vacations.isEmpty()) {
+            Vacation lastVacation = vacations.get(vacations.size() - 1);
+            return VacationDetail.builder()
+                    .vacationTotalVacation(lastVacation.getVacationTotalVacation())
+                    .vacationUsedVacation(lastVacation.getVacationUsedVacation())
+                    .vacationTotalDayOff(lastVacation.getVacationTotalDayOff())
+                    .vacationUsedDayOff(lastVacation.getVacationUsedDayOff())
+                    .build();
+        } else {
+
+            return VacationDetail.builder()
+                    .vacationTotalVacation(0)
+                    .vacationUsedVacation(0)
+                    .vacationTotalDayOff(0)
+                    .vacationUsedDayOff(0)
+                    .build();
+        }
     }
+
     @Transactional(readOnly = true)
     public List<VacationListResponse> vacationList() {
         List<Vacation> list = vacationRepository.findAll();

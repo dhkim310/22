@@ -11,6 +11,5 @@ public class VacationVO {
     public int differenceInDays(LocalDate endDate, LocalDate startDate){
         return (int) ChronoUnit.DAYS.between(startDate, endDate);
     }
-    // 휴가 더 많이 들어갈 때
     // 둘 중에 하나 ( 연차 or 휴가 )
 }

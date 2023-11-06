@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import {useForm} from "react-hook-form";
 import {vacationDetail, vacationInsert} from "../api/Vacation";
 import DatePicker from "react-datepicker";
+import {serviceMovieDetailApi} from "../api/serviceMovie";
 
 function calculateDayDifference(startDate1, endDate1) {
     if (startDate1 && endDate1) {
@@ -19,6 +20,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
     const [enddate1, setEnddate] = useState(null);
     const [usedDayOff, setUsedDayOff] = useState(0);
     const [detail, setDetail] = useState({});
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -26,11 +28,20 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                 const data = await vacationDetail(empId);
                 setDetail(data);
             } catch (error) {
-                console.log('error', error);
+                console.error('Error fetching data:', error);
             }
         };
+        const getWidth = () => {
+            return window.innerWidth;
+        };
+
+        setIsMobile(getWidth() < 768);
+
         fetchData();
-    }, []);
+    }, [empId]);
+
+    useEffect(() => {
+    }, [empId]);
 
     const onValid = async ({
                                vacationTotalVacation,
