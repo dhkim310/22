@@ -32,8 +32,8 @@ public class VacationService {
                 .vacationUsedVacation(request.getVacationUsedVacation())
                 .vacationTotalDayOff(request.getVacationTotalDayOff())
                 .vacationUsedDayOff(request.getVacationUsedDayOff())
-                .vacationStartDate(request.getVacationStartDate())
-                .vacationEndDate(request.getVacationEndDate())
+                .vacationStartDate(request.getVacationStartDate().plusDays(1))
+                .vacationEndDate(request.getVacationEndDate().plusDays(1))
                 .vacationWhy(request.getVacationWhy())
                 .build();
         return vacationRepository.save(entity).getVacationId();

@@ -61,7 +61,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
             setEnddate(null);
         } else {
             const dayOffDifference = calculateDayDifference(startdate1, enddate1);
-            const totalDays = parseInt(vacationTotalVacation, 10);
+            const totalDays = parseInt(detail.vacationTotalVacation, 10);
 
             if (dayOffDifference > totalDays) {
                 alert("사용일이 남은 휴가보다 많습니다.");
@@ -71,7 +71,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
             } else {
                 await vacationInsert({
                     empId: empId,
-                    vacationTotalVacation,
+                    vacationTotalVacation: totalDays-dayOffDifference,
                     vacationUsedVacation: dayOffDifference,
                     vacationTotalDayOff: vacationTotalDayOff,
                     vacationUsedDayOff: dayOffDifference,
@@ -180,9 +180,9 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
                                         <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
-                                            <input type="text" {...register('vacationTotalVacation')}
+                                            <input type="text"
                                                    value={ detail.vacationTotalVacation }
-                                                   autoFocus/>
+                                                   readOnly/>
                                         </div>
                                     </div>
                                     <div className="d-flex justify-content-start align-items-center"

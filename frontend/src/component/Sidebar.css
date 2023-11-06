@@ -1,0 +1,10 @@
+.sidebar {
+  width: 50px;
+  height: 100%;
+  background-color: #333;
+  transition: width 0.3s ease-in-out;
+}
+
+.sidebar.expanded {
+  width: 200px;
+}
