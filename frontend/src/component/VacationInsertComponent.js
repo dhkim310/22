@@ -69,11 +69,9 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                 setStartdate(null);
                 setEnddate(null);
             } else {
-                const newTotalVacation = totalDays - dayOffDifference;
-
                 await vacationInsert({
                     empId: empId,
-                    vacationTotalVacation: newTotalVacation,
+                    vacationTotalVacation,
                     vacationUsedVacation: dayOffDifference,
                     vacationTotalDayOff: vacationTotalDayOff,
                     vacationUsedDayOff: dayOffDifference,
@@ -86,7 +84,6 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                             closeModal();
                             alert('휴가 등록 완료!');
                             window.location.reload();
-                            console.log('dddddddd', newTotalVacation);
                         }
                     })
                     .catch((err) => {
@@ -96,8 +93,6 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
             }
         }
     };
-
-
 
     useEffect(() => {
         if (startdate1 && enddate1) {
