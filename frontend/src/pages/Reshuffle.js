@@ -60,7 +60,7 @@ function Reshuffle() {
     return (
         <div style={{paddingTop: "50px"}}>
             <div>
-                <div className="d-xxl-flex align-items-xxl-center"
+                <div className="d-flex align-items-center"
                      style={{height: '70px', paddingTop: '0px', paddingRight: '0px', paddingLeft: '0px'}}><span style={{
                     fontWeight: 'bold',
                     fontSize: '30px',
@@ -69,10 +69,10 @@ function Reshuffle() {
                     paddingTop: '0px',
                     paddingBottom: '13px'
                 }}>인사정보</span></div>
-                <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-end"
+                <div className="d-flex justify-content-start align-items-end"
                      style={{height: '200px', background: 'rgba(111,66,193,0)', width: 'auto'}}><span
                     style={{paddingRight: '0px', paddingLeft: '110px', height: '200px'}}>사진</span>
-                    <div className="d-xxl-flex" style={{
+                    <div className="d-flex" style={{
                         width: 'auto',
                         height: '200px',
                         paddingLeft: '0px',
@@ -124,7 +124,7 @@ function Reshuffle() {
                     }} value={detail.empStartDate} readOnly/></div>
                     <div div style={{height: '60px', display: 'flex', alignItems: 'center'}}><span
                         style={{whiteSpace: 'nowrap', paddingRight: '30px', paddingLeft: '110px'}}>퇴직일</span>
-                        <div className="d-xxl-flex align-items-xxl-center"
+                        <div className="d-flex align-items-center"
                              style={{background: 'rgba(111,66,193,0)', height: '60%', width: '100%'}}>
                             <DatePicker
                                 selected={date1}
@@ -158,7 +158,7 @@ function Reshuffle() {
                         paddingLeft: '0px',
                         width: '327px'
                     }} value={detail.empEmail} readOnly/></div>
-                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{
+                    <div className="d-flex justify-content-start align-items-center" style={{
                         height: '60px',
                         marginTop: '-25px',
                         paddingRight: '0px',
@@ -166,7 +166,7 @@ function Reshuffle() {
                         width: 'auto'
                     }}>
                         <button
-                            className="btn btn-primary text-nowrap text-center d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                            className="btn btn-primary text-nowrap text-center d-flex justify-content-center align-items-center"
                             data-bss-hover-animate="pulse" type="submit" style={{
                             background: 'white',
                             height: '26px',

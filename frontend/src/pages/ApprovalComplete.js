@@ -58,7 +58,7 @@ function Approval() {
     return (
         <div>
             <div>
-                <div className="d-xxl-flex justify-content-xxl-start"
+                <div className="d-flex justify-content-start"
                      style={{paddingTop: "50px", width: '100%', background: 'rgba(0,0,0,0)', height: '800px'}}>
                     <div style={{height: '100%', width: '2%'}}/>
                     <div style={{
@@ -67,7 +67,7 @@ function Approval() {
                         background: 'rgba(13,110,253,0)',
                         borderRight: '2px ridge rgba(128,128,128,0.32)'
                     }}>
-                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                        <div className="d-flex justify-content-start align-items-center"
                              style={{background: 'rgba(102,16,242,0)', width: '100%', height: '7%'}}>
                             <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
                                     onClick={navigateToApprovalInsert} style={{
@@ -79,13 +79,13 @@ function Approval() {
                             }}>새 결재 진행
                             </button>
                         </div>
-                        <div className="d-xxl-flex"
+                        <div className="d-flex"
                              style={{width: '100%', height: 'auto', background: 'rgba(220,53,69,0)'}}><span
-                            className="d-xxl-flex"
+                            className="d-flex"
                             style={{width: 'auto', height: 'auto', fontWeight: 'bold', fontSize: '20px'}}>결재하기</span>
                         </div>
                         <div style={{width: '100%', background: 'rgba(214,51,132,0)', height: '7%'}}>
-                            <button className="btn btn-primary text-start d-xxl-flex justify-content-xxl-start"
+                            <button className="btn btn-primary text-start d-flex justify-content-start"
                                     data-bss-hover-animate="pulse" type="button" onClick={navigateToApproval} style={{
                                 background: 'rgba(13,110,253,0)',
                                 borderStyle: 'none',
@@ -96,7 +96,7 @@ function Approval() {
                                 paddingLeft: '0px'
                             }}>결재 대기 문서
                             </button>
-                            <button className="btn btn-primary d-xxl-flex" data-bss-hover-animate="pulse" type="button"
+                            <button className="btn btn-primary d-flex" data-bss-hover-animate="pulse" type="button"
                                     style={{
                                         background: 'rgba(13,110,253,0)',
                                         borderStyle: 'none',
@@ -109,7 +109,7 @@ function Approval() {
                         </div>
                     </div>
                     <div style={{width: '88%', height: '100%'}}>
-                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                        <div className="d-flex justify-content-start align-items-center"
                              style={{background: 'rgba(13,110,253,0)', width: '100%', height: '8%'}}>
                             <div style={{height: '100%', width: '4%', background: 'rgba(220,53,69,0)'}}/>
                             <span style={{
@@ -120,7 +120,7 @@ function Approval() {
                             }}>결재 완료 문서</span>
                         </div>
                         <div style={{background: 'rgba(220,53,69,0)', height: '82%', width: '100%'}}>
-                            <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{
+                            <div className="d-flex justify-content-start align-items-center" style={{
                                 width: '100%',
                                 height: '5%',
                                 background: 'rgba(220,53,69,0)',
@@ -128,31 +128,31 @@ function Approval() {
                                 borderBottom: '2px ridge rgba(128,128,128,0.32)'
                             }}>
                                 <div style={{height: '100%', width: '4%', background: 'rgba(220,53,69,0)'}}/>
-                                <div className="d-xxl-flex align-items-xxl-center"
+                                <div className="d-flex align-items-center"
                                      style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}>
                                     <span>기안일</span></div>
-                                <div className="d-xxl-flex align-items-xxl-center"
+                                <div className="d-flex align-items-center"
                                      style={{height: '100%', width: '41%', background: 'rgba(220,53,69,0)'}}>
                                     <span>제목</span></div>
-                                <div className="d-xxl-flex align-items-xxl-center"
+                                <div className="d-flex align-items-center"
                                      style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}>
                                     <span>기안자</span></div>
-                                <div className="d-xxl-flex align-items-xxl-center"
+                                <div className="d-flex align-items-center"
                                      style={{height: '100%', width: '8%', background: 'rgba(220,53,69,0)'}}>
                                     <span>결재권자</span></div>
-                                <div className="d-xxl-flex align-items-xxl-center"
+                                <div className="d-flex align-items-center"
                                      style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}>
                                     <span>결재상태</span></div>
-                                <div className="d-xxl-flex align-items-xxl-center"
+                                <div className="d-flex align-items-center"
                                      style={{height: '100%', width: '13%', background: 'rgba(220,53,69,0)'}}>
                                     <span>승인날짜</span></div>
                             </div>
                             <div>
                                 {approvalList.map((item) => (
                                     <div
-                                        className="d-xxl-flex justify-content-center justify-content-xxl-start align-items-xxl-center list-group"
+                                        className="d-flex justify-content-center justify-content-start align-items-center list-group"
                                         style={{marginLeft: '0px', marginRight: '0px', width: '100%', height: '100%'}}>
-                                        <a className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start"
+                                        <a className="d-flex list-group-item list-group-item-action flex-column align-items-start"
                                            onClick={() => navigateToDetail(item.approvalId)} style={{
                                             height: '100%',
                                             marginBottom: '2px',
@@ -161,7 +161,7 @@ function Approval() {
                                             maxHeight: '5%',
                                             borderStyle: 'none'
                                         }}>
-                                            <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                            <div className="d-flex justify-content-start align-items-center"
                                                  style={{
                                                      width: '100%',
                                                      background: 'rgba(220,53,69,0)',
@@ -172,32 +172,32 @@ function Approval() {
                                                     width: '4%',
                                                     background: 'rgba(220,53,69,0)'
                                                 }}/>
-                                                <div className="d-xxl-flex align-items-xxl-center" style={{
+                                                <div className="d-flex align-items-center" style={{
                                                     height: '100%',
                                                     width: '13%',
                                                     background: 'rgba(220,53,69,0)'
                                                 }}><span>{item.approvalUpLoadDate}</span></div>
-                                                <div className="d-xxl-flex align-items-xxl-center" style={{
+                                                <div className="d-flex align-items-center" style={{
                                                     height: '100%',
                                                     width: '41%',
                                                     background: 'rgba(220,53,69,0)'
                                                 }}><span>{item.approvalSubject}</span></div>
-                                                <div className="d-xxl-flex align-items-xxl-center" style={{
+                                                <div className="d-flex align-items-center" style={{
                                                     height: '100%',
                                                     width: '8%',
                                                     background: 'rgba(220,53,69,0)'
                                                 }}><span>{item.approvalDrafter}</span></div>
-                                                <div className="d-xxl-flex align-items-xxl-center" style={{
+                                                <div className="d-flex align-items-center" style={{
                                                     height: '100%',
                                                     width: '8%',
                                                     background: 'rgba(220,53,69,0)'
                                                 }}><span>{item.approvalCheckMan}</span></div>
-                                                <div className="d-xxl-flex align-items-xxl-center" style={{
+                                                <div className="d-flex align-items-center" style={{
                                                     height: '100%',
                                                     width: '13%',
                                                     background: 'rgba(220,53,69,0)'
                                                 }}><span>{item.approvalCheck}</span></div>
-                                                <div className="d-xxl-flex align-items-xxl-center" style={{
+                                                <div className="d-flex align-items-center" style={{
                                                     height: '100%',
                                                     width: '13%',
                                                     background: 'rgba(220,53,69,0)'
@@ -208,7 +208,7 @@ function Approval() {
                                 ))}
                             </div>
                         </div>
-                        <div className="d-xxl-flex justify-content-xxl-start"
+                        <div className="d-flex justify-content-start"
                              style={{background: 'rgba(111,66,193,0)', height: '109px'}}>
                             <div style={{width: '50%', height: '100%'}}/>
 

@@ -61,7 +61,7 @@ function Login() {
 
     return (
         <div>
-            <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+            <div className="d-flex justify-content-center align-items-center"
                  style={{
                      height: '800px',
                      background: 'url("img/loginpaper.png") center / contain no-repeat, white',
@@ -69,11 +69,11 @@ function Login() {
                  }}
             >
                 <div style={{width: '350px', height: '450px', background: 'rgba(0,0,0,0.0)'}}>
-                    <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-end"
+                    <div className="d-flex justify-content-center align-items-end"
                          style={{height: '100px'}}>
                     </div>
-                    <div className="justify-content-xxl-center align-items-xxl-center" style={{height: '350px'}}>
-                        <div className="d-xxl-flex justify-content-xxl-center" style={{width: '100%', height: '70%'}}>
+                    <div className="justify-content-center align-items-center" style={{height: '350px'}}>
+                        <div className="d-flex justify-content-center" style={{width: '100%', height: '70%'}}>
                             <form className="text-start" id="form-login" onSubmit={handleSubmit(onValid)}>
                                 <div className="mb-3"><label className="form-label" id="lbl-usuario"
                                                              htmlFor="txt-usuario"
@@ -85,7 +85,7 @@ function Login() {
                                                              style={{color: 'black'}}>Password</label><input
                                     className="form-control" type="password" id="txt-password" {...register('password')}
                                     style={{width: '245px'}}/></div>
-                                <div className="d-xxl-flex justify-content-xxl-center"
+                                <div className="d-flex justify-content-center"
                                      style={{width: '100%', height: '30%'}}>
                                     <button className="btn btn-primary" data-bss-hover-animate="pulse" type="submit"
                                             style={{
