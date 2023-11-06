@@ -1,7 +1,6 @@
 package erp.backend.domain.vacation.entity;
 
 import erp.backend.domain.emp.entity.Emp;
-import erp.backend.domain.vacation.dto.VacationUpdate;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,13 +42,4 @@ public class Vacation {
 
     @Column(name = "VACATION_WHY")
     private String vacationWhy;
-
-    public void update(VacationUpdate request) {
-        this.vacationTotalVacation = request.getTotalVacation();
-        this.vacationTotalDayOff = request.getTotalDayOff();
-        this.vacationUsedCount = request.getUsedCount();
-        this.vacationStartDate = request.getStartDate();
-        this.vacationEndDate = request.getEndDate();
-        this.vacationWhy = request.getWhy();
-    }
 }
