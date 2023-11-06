@@ -116,7 +116,7 @@ function Header() {
         >
           <div>
             <div
-              className="d-lg-flex align-items-lg-center justify-content-xxl-start"
+              className="d-flex align-items-lg-center justify-content-start"
               style={{ width: 'auto', height: '50px', background: '#000000' }}
             >
               <button
@@ -128,13 +128,13 @@ function Header() {
                   background: 'url("img/logo.png") center / contain no-repeat rgba(128,128,128,0)',
                   borderRadius: '0px',
                   borderStyle: 'none',
-                  height: '50px',
+                  height: '100%',
                   width: '25%',
                 }}
               ></button>
               <div style={{ height: 'auto', width: '400px' }} />
               <div
-                className="d-lg-flex justify-content-lg-end justify-content-xxl-start"
+                className="d-lg-flex justify-content-lg-start justify-content-start"
                 style={{ height: 'auto', width: '100%' }}
               >
                 <div
@@ -170,6 +170,7 @@ function Header() {
                     <button
                       className="btn btn-primary text-nowrap dropdown-toggle"
                       data-bs-toggle="dropdown"
+                      data-bss-hover-animate="pulse"
                       aria-expanded={dropdownVisible1}
                       onClick={toggleDropdown1}
                       style={{ borderStyle: 'none', background: 'rgba(0,0,0,0)' }}
@@ -213,6 +214,7 @@ function Header() {
                     <button
                       className="btn btn-primary text-nowrap dropdown-toggle"
                       data-bs-toggle="dropdown"
+                      data-bss-hover-animate="pulse"
                       aria-expanded={dropdownVisible}
                       onClick={toggleDropdown}
                       style={{ borderStyle: 'none', background: 'rgba(0,0,0,0)' }}
@@ -290,6 +292,7 @@ function Header() {
               <div className="d-lg-flex justify-content-lg-end" style={{ height: 'auto', width: '100%' }}>
                 <button
                   className="btn btn-primary text-nowrap"
+                  data-bss-hover-animate="pulse"
                   type="button"
                   onClick={navigateToMessageList}
                   style={{
@@ -301,6 +304,7 @@ function Header() {
                 ></button>
                 <button
                   className="btn btn-primary text-nowrap"
+                  data-bss-hover-animate="pulse"
                   type="button"
                   onClick={logout}
                   style={{ borderStyle: 'none', background: 'rgba(0,0,0,0)', width: '90px' }}

@@ -76,10 +76,10 @@ function EmpCreateComponent({isOpen, closeModal}) {
                     borderRadius: '34px',
                     borderStyle: 'none'
                 }}>
-                    <div className="d-xxl-flex justify-content-xxl-start"
+                    <div className="d-flex justify-content-start"
                          style={{width: '100%', height: '11%', background: 'rgba(253,126,20,0)'}}>
                         <div style={{width: '6%', height: '100%'}}/>
-                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{
+                        <div className="d-flex justify-content-start align-items-center" style={{
                             height: '100%',
                             width: '26%',
                             background: 'rgba(253,126,20,0)',
@@ -87,7 +87,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                         }}>
                             <span style={{fontSize: '22px', fontWeight: 'bold'}}>직원 생성</span>
                         </div>
-                        <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                        <div className="d-flex justify-content-end align-items-center"
                              style={{height: '100%', width: '63%'}}>
                             <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{
                                 background: 'url("assets/img/icons8-취소하다-500.png") center / contain no-repeat',
@@ -97,15 +97,15 @@ function EmpCreateComponent({isOpen, closeModal}) {
                             }}/>
                         </div>
                     </div>
-                    <div className="d-xxl-flex justify-content-xxl-center"
+                    <div className="d-flex justify-content-center"
                          style={{width: '100%', height: '85%', background: 'rgba(253,126,20,0)'}}>
                         <div style={{width: '6%', height: '100%', background: 'rgba(253,126,20,0)'}}/>
-                        <div className="align-items-xxl-start"
+                        <div className="align-items-start"
                              style={{height: '100%', width: '88%', background: 'rgba(253,126,20,0)'}}>
-                            <div className="justify-content-xxl-center" style={{width: '100%', height: '100%'}}>
+                            <div className="justify-content-center" style={{width: '100%', height: '100%'}}>
                                 <div style={{width: '100%', height: '2%', background: 'rgba(214,51,132,0)'}}/>
                                 <form onSubmit={handleSubmit(onValid)}>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -113,7 +113,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -123,13 +123,13 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                             <span>이름</span>
                                         </div>
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-xxl-flex align-items-xxl-center"
+                                        <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input type="text" {...register('empName')}/>
                                         </div>
                                     </div>
 
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -137,7 +137,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -147,12 +147,12 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                             <span>이메일</span>
                                         </div>
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-xxl-flex align-items-xxl-center"
+                                        <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input type="email" {...register('empEmail')} />
                                         </div>
                                     </div>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -160,7 +160,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -170,12 +170,12 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                             <span>연락처</span>
                                         </div>
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-xxl-flex align-items-xxl-center"
+                                        <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input type="text" name="empPhoneNumber" {...register('empPhoneNumber')} />
                                         </div>
                                     </div>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -183,7 +183,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -202,7 +202,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                         </select>
 
                                     </div>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -210,7 +210,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -227,7 +227,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                             <option value="부장">부장</option>
                                         </select>
                                     </div>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -235,7 +235,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -245,7 +245,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                             <span>생년월일</span>
                                         </div>
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-xxl-flex align-items-xxl-center"
+                                        <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '60%', width: '100%'}}>
                                             <DatePicker
                                                 selected={birthdate}
@@ -258,7 +258,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                             />
                                         </div>
                                     </div>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -266,7 +266,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -276,7 +276,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                             <span>입사일</span>
                                         </div>
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-xxl-flex align-items-xxl-center"
+                                        <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '60%', width: '100%'}}>
                                             <DatePicker
                                                 selected={joindate}
@@ -286,7 +286,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                             />
                                         </div>
                                     </div>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -294,7 +294,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -309,7 +309,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                             <option value="여성">여성</option>
                                         </select>
                                     </div>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -317,7 +317,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -327,18 +327,18 @@ function EmpCreateComponent({isOpen, closeModal}) {
                                             <span>주소</span>
                                         </div>
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-xxl-flex align-items-xxl-center"
+                                        <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input type="text" {...register('empAddress')} />
                                         </div>
                                     </div>
                                     <div style={{width: '100%', height: '2%', background: 'rgba(214,51,132,0)'}}/>
-                                    <div className="d-xxl-flex align-items-xxl-end"
+                                    <div className="d-flex align-items-end"
                                          style={{width: '100%', height: '21%'}}>
-                                        <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                                        <div className="d-flex justify-content-end align-items-center"
                                              style={{width: '100%', height: '52%'}}>
                                             <button
-                                                className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                                className="btn btn-primary d-flex justify-content-center align-items-center"
                                                 data-bss-hover-animate="pulse" type="submit" style={{
                                                 width: '15%',
                                                 height: '60%',

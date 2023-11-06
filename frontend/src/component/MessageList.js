@@ -80,7 +80,7 @@ function MessageList() {
                    ))}
 
 
-                            <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center" style={{ width: '100%', height: '20%' }}>
+                            <div className="d-flex justify-content-end align-items-center" style={{ width: '100%', height: '20%' }}>
                                 <div style={buttonContainerStyle}>
                                     <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" onClick={navigateToSend} style={{ color: 'black', fontSize: '13px', background: 'rgba(13,110,253,0)', borderWidth: '0px', borderBottomWidth: '0px', borderBottomColor: 'rgba(13,110,253,0)' }}>
                                         쪽지 보내기

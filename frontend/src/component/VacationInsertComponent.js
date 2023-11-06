@@ -132,10 +132,10 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                     borderRadius: '34px',
                     borderStyle: 'none'
                 }}>
-                    <div className="d-xxl-flex justify-content-xxl-start"
+                    <div className="d-flex justify-content-start"
                          style={{width: '100%', height: '11%', background: 'rgba(253,126,20,0)'}}>
                         <div style={{width: '6%', height: '100%'}}/>
-                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center" style={{
+                        <div className="d-flex justify-content-start align-items-center" style={{
                             height: '100%',
                             width: '26%',
                             background: 'rgba(253,126,20,0)',
@@ -143,7 +143,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                         }}>
                             <span style={{fontSize: '22px', fontWeight: 'bold'}}>휴가 등록</span>
                         </div>
-                        <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                        <div className="d-flex justify-content-end align-items-center"
                              style={{height: '100%', width: '63%'}}>
                             <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{
                                 background: 'url("assets/img/icons8-취소하다-500.png") center / contain no-repeat',
@@ -153,15 +153,15 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                             }}/>
                         </div>
                     </div>
-                    <div className="d-xxl-flex justify-content-xxl-center"
+                    <div className="d-flex justify-content-center"
                          style={{width: '100%', height: '85%', background: 'rgba(253,126,20,0)'}}>
                         <div style={{width: '6%', height: '100%', background: 'rgba(253,126,20,0)'}}/>
-                        <div className="align-items-xxl-start"
+                        <div className="align-items-start"
                              style={{height: '100%', width: '88%', background: 'rgba(253,126,20,0)'}}>
-                            <div className="justify-content-xxl-center" style={{width: '100%', height: '100%'}}>
+                            <div className="justify-content-center" style={{width: '100%', height: '100%'}}>
                                 <div style={{width: '100%', height: '2%', background: 'rgba(214,51,132,0)'}}/>
                                 <form onSubmit={handleSubmit(onValid)}>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -169,7 +169,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -179,14 +179,18 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                             <span>총 휴가</span>
                                         </div>
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-xxl-flex align-items-xxl-center"
+                                        <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input type="text" {...register('vacationTotalVacation')}
                                                    value={ detail.vacationTotalVacation }
                                                    autoFocus/>
+                                            <input type="text" {...register('totalVacation')}
+                                                   value={detail.totalVacation}
+                                            />
                                         </div>
                                     </div>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -194,7 +198,31 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
+                                             style={{
+                                                 background: 'rgba(111,66,193,0)',
+                                                 height: '50%',
+                                                 width: '100%',
+                                                 fontSize: '15px'
+                                             }}>
+                                            <span>사용 휴가</span>
+                                        </div>
+                                        <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
+                                        <div className="d-flex align-items-center"
+                                             style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
+                                            <input type="text" {...register('usedVacation')} />
+                                            >>>>>>> 8e24e91fec25a22851d86e456752945240d11166:frontend/src/component/VacationUpdateComponent.js
+                                        </div>
+                                    </div>
+                                    <div className="d-flex justify-content-start align-items-center"
+                                         style={{
+                                             background: 'rgba(102,16,242,0)',
+                                             width: '100%',
+                                             height: '10%',
+                                             marginTop: '10px',
+                                             marginBottom: '10px'
+                                         }}>
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -204,14 +232,14 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                             <span>총 연차</span>
                                         </div>
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-xxl-flex align-items-xxl-center"
+                                        <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input type="text" name="totaldayoff" {...register('vacationTotalDayOff')}
                                                    value ={detail.vacationTotalDayOff}
                                                    autoFocus/>
                                         </div>
                                     </div>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -219,7 +247,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -229,7 +257,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                             <span>사용일</span>
                                         </div>
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-xxl-flex align-items-xxl-center"
+                                        <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input
                                                 type="text"
@@ -239,7 +267,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                             />
                                         </div>
                                     </div>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -247,7 +275,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -257,7 +285,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                             <span>시작일</span>
                                         </div>
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-xxl-flex align-items-xxl-center"
+                                        <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '60%', width: '100%'}}>
                                             <DatePicker
                                                 selected={startdate1}
@@ -270,7 +298,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                             />
                                         </div>
                                     </div>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -278,7 +306,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -288,7 +316,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                             <span>종료일</span>
                                         </div>
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-xxl-flex align-items-xxl-center"
+                                        <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '60%', width: '100%'}}>
                                             <DatePicker
                                                 selected={enddate1}
@@ -298,7 +326,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                             />
                                         </div>
                                     </div>
-                                    <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                    <div className="d-flex justify-content-start align-items-center"
                                          style={{
                                              background: 'rgba(102,16,242,0)',
                                              width: '100%',
@@ -306,7 +334,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                              marginTop: '10px',
                                              marginBottom: '10px'
                                          }}>
-                                        <div className="d-xxl-flex justify-content-xxl-start align-items-xxl-center"
+                                        <div className="d-flex justify-content-start align-items-center"
                                              style={{
                                                  background: 'rgba(111,66,193,0)',
                                                  height: '50%',
@@ -316,18 +344,18 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                             <span>사유</span>
                                         </div>
                                         <div style={{background: 'rgba(111,66,193,0)', height: '2px', width: '100%'}}/>
-                                        <div className="d-xxl-flex align-items-xxl-center"
+                                        <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input type="text" name="why" {...register('vacationWhy')} />
                                         </div>
                                     </div>
                                     <div style={{width: '100%', height: '2%', background: 'rgba(214,51,132,0)'}}/>
-                                    <div className="d-xxl-flex align-items-xxl-end"
+                                    <div className="d-flex align-items-end"
                                          style={{width: '100%', height: '21%'}}>
-                                        <div className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
+                                        <div className="d-flex justify-content-end align-items-center"
                                              style={{width: '100%', height: '52%'}}>
                                             <button
-                                                className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center"
+                                                className="btn btn-primary d-flex justify-content-center align-items-center"
                                                 data-bss-hover-animate="pulse" type="submit" style={{
                                                 width: '15%',
                                                 height: '60%',
