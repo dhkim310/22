@@ -18,7 +18,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
     const {register, formState: {errors}, handleSubmit} = useForm();
     const [startdate1, setStartdate] = useState(null);
     const [enddate1, setEnddate] = useState(null);
-    const [usedDayOff, setUsedDayOff] = useState(0);
+    const [usedCount, setUsedCount] = useState(0);
     const [detail, setDetail] = useState({});
     const [isMobile, setIsMobile] = useState(false);
 
@@ -40,13 +40,11 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
         fetchData();
     }, [empId]);
 
-    useEffect(() => {
-    }, [empId]);
 
     const onValid = async ({
                                vacationTotalVacation,
-                               vacationUsedVacation,
                                vacationTotalDayOff,
+        vacationUsedCount,
                                vacationStartDate,
                                vacationEndDate,
                                vacationWhy,
@@ -56,25 +54,32 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
 
         if (startDate > endDate) {
             alert("날짜를 다시 입력하세요");
-            setUsedDayOff(null);
+            setUsedCount(null);
             setStartdate(null);
             setEnddate(null);
         } else {
             const dayOffDifference = calculateDayDifference(startdate1, enddate1);
-            const totalDays = parseInt(detail.vacationTotalVacation, 10);
+            const totalVacation = parseInt(detail.vacationTotalVacation, 10);
+            const totalDayOff = parseInt(detail.vacationTotalDayOff, 10);
+            let newTotalVacation = totalVacation - dayOffDifference;
+            let newTotalDayOff = totalDayOff - Math.max(0, dayOffDifference - totalVacation);
 
-            if (dayOffDifference > totalDays) {
+            if (newTotalVacation < 0) {
+                newTotalVacation = 0;
+            }
+
+            if (dayOffDifference > totalVacation + totalDayOff) {
                 alert("사용일이 남은 휴가보다 많습니다.");
-                setUsedDayOff(null);
+                setUsedCount(null);
                 setStartdate(null);
                 setEnddate(null);
             } else {
                 await vacationInsert({
                     empId: empId,
-                    vacationTotalVacation: totalDays-dayOffDifference,
+                    vacationTotalVacation: newTotalVacation,
                     vacationUsedVacation: dayOffDifference,
-                    vacationTotalDayOff: vacationTotalDayOff,
-                    vacationUsedDayOff: dayOffDifference,
+                    vacationTotalDayOff: newTotalDayOff,
+                    vacationUsedCount: dayOffDifference,
                     vacationStartDate: startdate1,
                     vacationEndDate: enddate1,
                     vacationWhy,
@@ -94,11 +99,12 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
         }
     };
 
+
     useEffect(() => {
         if (startdate1 && enddate1) {
-            setUsedDayOff(calculateDayDifference(startdate1, enddate1));
+            setUsedCount(calculateDayDifference(startdate1, enddate1));
         } else {
-            setUsedDayOff(0);
+            setUsedCount(0);
         }
     }, [startdate1, enddate1]);
 
@@ -181,7 +187,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                         <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input type="text"
-                                                   value={ detail.vacationTotalVacation }
+                                                   value={detail.vacationTotalVacation}
                                                    readOnly/>
                                         </div>
                                     </div>
@@ -207,7 +213,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                         <div className="d-flex align-items-center"
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input type="text" name="totaldayoff" {...register('vacationTotalDayOff')}
-                                                   value ={detail.vacationTotalDayOff}
+                                                   value={detail.vacationTotalDayOff}
                                                    autoFocus/>
                                         </div>
                                     </div>
@@ -233,8 +239,8 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                              style={{background: 'rgba(111,66,193,0)', height: '40%', width: '100%'}}>
                                             <input
                                                 type="text"
-                                                name="useddayoff"
-                                                value={usedDayOff}
+                                                name="usedCount"
+                                                value={usedCount}
                                                 readOnly
                                             />
                                         </div>
