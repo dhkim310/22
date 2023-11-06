@@ -79,7 +79,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                     vacationTotalVacation: newTotalVacation,
                     vacationUsedVacation: dayOffDifference,
                     vacationTotalDayOff: newTotalDayOff,
-                    vacationUsedCount: dayOffDifference,
+                    vacationUsedCount: dayOffDifference+1,
                     vacationStartDate: startdate1,
                     vacationEndDate: enddate1,
                     vacationWhy,
