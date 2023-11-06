@@ -9,6 +9,7 @@ import {useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
 import MemoComponent from "../component/MemoComponent";
 import {ApprovalCountApi} from '../api/Approval';
+import Sidebar from '../component/Sidebar';
 
 function Main() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -145,158 +146,14 @@ function Main() {
 
             <div>
                 <div className="d-grid d-lg-flex justify-content-lg-center"
-                     style={{width: 'auto', height: '100%', minHeight: '0px', background: 'white'}}>
-                    <div style={{height: '100%', width: '10%', minHeight: '0px', background: 'white'}}>
-                        <div style={{height: '13px'}}/>
+                     style={{width: 'auto', height: '100%', minHeight: '0px', background: 'gary'}}>
+                    <div style={{height: '100%', width: '10%', minHeight: '0px', background: 'var(--bs-gray-200)'}}>
                         <div style={{height: 'auto', background: 'rgba(0,0,0,0)', paddingBottom: '5px'}}>
-                            <div className="d-lg-flex justify-content-lg-center"
-                                 style={{height: '30px', background: 'rgba(126,126,126,0)'}}>
-                                <div className="d-lg-flex justify-content-lg-start justify-content-xxl-center"
-                                     style={{width: '170px', height: '35px', background: 'black'}}><span
-                                    style={{fontSize: '17px', width: 'auto', color: 'white'}}>고객관리</span></div>
-                            </div>
-                            <button className="btn btn-primary text-center" type="button" style={{
-                                background: 'rgba(13,110,253,0)',
-                                borderStyle: 'none',
-                                width: '98.5px',
-                                fontSize: '13px',
-                                minWidth: '98.5px',
-                                color: 'black',
-                                paddingTop: '15px'
-                            }}>&nbsp; &nbsp;리스트
-                            </button>
-                            <button className="btn btn-primary text-center" type="button" style={{
-                                background: 'rgba(13,110,253,0)',
-                                borderStyle: 'none',
-                                width: '98.5px',
-                                fontSize: '13px',
-                                color: 'black',
-                                paddingTop: '0px'
-                            }}>등록
-                            </button>
-                        </div>
-                        <div style={{height: 'auto', background: 'rgba(0,0,0,0)', paddingBottom: '5px'}}>
-                            <div className="d-lg-flex justify-content-lg-center"
-                                 style={{height: '30px', background: 'rgba(126,126,126,0)'}}>
-                                <div className="d-lg-flex justify-content-lg-start justify-content-xxl-center"
-                                     style={{width: '170px', height: '35px', background: 'black', color: 'white'}}><span
-                                    style={{fontSize: '17px', width: 'auto'}}>용민관리</span></div>
-                            </div>
-                            <button className="btn btn-primary text-center" type="button" style={{
-                                background: 'rgba(13,110,253,0)',
-                                borderStyle: 'none',
-                                width: '98.5px',
-                                fontSize: '13px',
-                                minWidth: '98.5px',
-                                color: 'black',
-                                paddingTop: '15px'
-                            }}>&nbsp; &nbsp;불주먹
-                            </button>
-                            <button className="btn btn-primary text-center" type="button" style={{
-                                background: 'rgba(13,110,253,0)',
-                                borderStyle: 'none',
-                                width: '98.5px',
-                                fontSize: '13px',
-                                color: 'black',
-                                paddingTop: '0px'
-                            }}>등록
-                            </button>
-                        </div>
-                        <div style={{height: 'auto', background: 'rgba(0,0,0,0)', paddingBottom: '5px'}}>
-                            <div className="d-lg-flex justify-content-lg-center"
-                                 style={{height: '30px', background: 'rgba(126,126,126,0)'}}>
-                                <div className="d-lg-flex justify-content-lg-start justify-content-xxl-center"
-                                     style={{width: '170px', height: '35px', background: 'black', color: 'white'}}><span
-                                    style={{fontSize: '17px', width: 'auto'}}>현동관리</span></div>
-                            </div>
-                            <button className="btn btn-primary text-center" type="button" style={{
-                                background: 'rgba(13,110,253,0)',
-                                borderStyle: 'none',
-                                width: '98.5px',
-                                fontSize: '13px',
-                                minWidth: '98.5px',
-                                color: 'black',
-                                paddingTop: '15px'
-                            }}>&nbsp; &nbsp;물주먹
-                            </button>
-                            <button className="btn btn-primary text-center" type="button" style={{
-                                background: 'rgba(13,110,253,0)',
-                                borderStyle: 'none',
-                                width: '98.5px',
-                                fontSize: '13px',
-                                color: 'black',
-                                paddingTop: '0px'
-                            }}>등록
-                            </button>
-                        </div>
-                        <div style={{height: 'auto', background: 'rgba(0,0,0,0)', paddingBottom: '5px'}}>
-                            <div className="d-lg-flex justify-content-xxl-center"
-                                 style={{height: '30px', background: 'rgba(126,126,126,0)'}}>
-                                <div className="d-lg-flex justify-content-lg-start justify-content-xxl-center"
-                                     style={{width: '170px', height: '35px', background: 'black', color: 'white'}}><span
-                                    style={{fontSize: '17px', width: 'auto'}}>고객관리</span></div>
-                            </div>
-                            <button className="btn btn-primary text-center" type="button" style={{
-                                background: 'rgba(13,110,253,0)',
-                                borderStyle: 'none',
-                                width: '98.5px',
-                                fontSize: '13px',
-                                minWidth: '98.5px',
-                                color: 'black',
-                                paddingTop: '15px'
-                            }}>&nbsp; &nbsp;리스트
-                            </button>
-                            <button className="btn btn-primary text-center" type="button" style={{
-                                background: 'rgba(13,110,253,0)',
-                                borderStyle: 'none',
-                                width: '98.5px',
-                                fontSize: '13px',
-                                color: 'black',
-                                paddingTop: '0px'
-                            }}>등록
-                            </button>
-                        </div>
-                        <div style={{height: 'auto', background: 'rgba(0,0,0,0)', paddingBottom: '5px'}}>
-                            <div className="d-lg-flex justify-content-xxl-center"
-                                 style={{height: '30px', background: 'rgba(126,126,126,0)'}}>
-                                <div className="d-lg-flex justify-content-lg-start justify-content-xxl-center"
-                                     style={{width: '170px', height: '35px', background: 'black', color: 'white'}}><span
-                                    style={{fontSize: '17px', width: 'auto'}}>근태관리</span></div>
+                            <div className="d-lg-flex justify-content-lg-start"
+                                 style={{height: '1000px', background: 'rgba(126,126,126,0)'}}>
+                                <Sidebar/>
                             </div>
                         </div>
-                        <form onSubmit={onValid}>
-                            <div className="d-lg-flex justify-content-xxl-center"
-                                 style={{height: '30px', background: 'rgba(126,126,126,0)', paddingTop: '10px'}}>
-                                <button
-                                    className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                                    data-bss-hover-animate="pulse" type="submit" style={{
-                                    width: '150px',
-                                    height: '30px',
-                                    color: 'black',
-                                    background: 'rgba(13,110,253,0)',
-                                    borderRadius: '6px',
-                                    borderColor: 'black'
-                                }}>출근
-                                </button>
-                            </div>
-                        </form>
-
-                        <form onSubmit={onValid1}>
-                            <div className="d-lg-flex justify-content-xxl-center"
-                                 style={{height: '30px', background: 'rgba(126,126,126,0)', paddingTop: '22px'}}>
-                                <button
-                                    className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                                    data-bss-hover-animate="pulse" type="submit" style={{
-                                    width: '150px',
-                                    height: '30px',
-                                    color: 'black',
-                                    background: 'rgba(13,110,253,0)',
-                                    borderRadius: '6px',
-                                    borderColor: 'black'
-                                }}>퇴근
-                                </button>
-                            </div>
-                        </form>
 
                         <div style={{
                             height: 'auto', background: 'rgba(0,0,0,0)', paddingBottom: '15px', paddingTop: '37px'

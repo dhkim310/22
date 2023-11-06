@@ -11,7 +11,7 @@ function Sidebar() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Sidebar content */}
+      {isHovered ? '조직도' : ''}
     </div>
   );
 }
