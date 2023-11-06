@@ -191,6 +191,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                                              width: '100%',
                                              height: '10%',
                                              marginTop: '10px',
+
                                              marginBottom: '10px'
                                          }}>
                                         <div className="d-flex justify-content-start align-items-center"
