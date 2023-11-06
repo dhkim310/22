@@ -13,6 +13,13 @@ function DepartmentCommuteList() {
     const [selectedPosition, setSelectedPosition] = useState('all'); // Default value for job position filter
     const [selectedDepartment, setSelectedDepartment] = useState('all'); // Default value for department filter
     const navigate = useNavigate();
+
+    const navigateToDepartment = () => {
+        navigate('/department-hr');
+    };
+    const navigateToUsedList = () => {
+        navigate('/used-list');
+    };
     const navigateToList = (id) => {
         navigate(`/commute/${id}`);
     };
@@ -85,7 +92,7 @@ function DepartmentCommuteList() {
             <div style={{height: '100%', width: '11%', background: 'rgba(13,110,253,0)', borderRight: '2px ridge rgba(128,128,128,0.32)'}}>
               <div style={{width: '100%', height: '2%'}} />
               <div className="d-flex" style={{width: '100%', height: 'auto', background: 'rgba(220,53,69,0)'}}><span className="d-flex" style={{width: 'auto', height: 'auto', fontWeight: 'bold', fontSize: '20px'}}>근태관리</span></div>
-              <div style={{width: '100%', background: 'rgba(214,51,132,0)', height: '2000px'}}><button className="btn btn-primary text-start d-flex justify-content-start" data-bss-hover-animate="pulse" type="button" style={{background: 'rgba(13,110,253,0)', borderStyle: 'none', color: 'black', width: 'auto', height: 'auto', paddingRight: '12px', paddingLeft: '0px'}}>내 연차 내역</button><button className="btn btn-primary d-flex" data-bss-hover-animate="pulse" type="button" style={{background: 'rgba(13,110,253,0)', borderStyle: 'none', color: 'black', width: 'auto', height: 'auto', paddingLeft: '0px'}}>부서별 근태 현황</button></div>
+              <div style={{width: '100%', background: 'rgba(214,51,132,0)', height: '2000px'}}><button className="btn btn-primary text-start d-flex justify-content-start" data-bss-hover-animate="pulse" type="button" onClick={ navigateToUsedList } style={{background: 'rgba(13,110,253,0)', borderStyle: 'none', color: 'black', width: 'auto', height: 'auto', paddingRight: '12px', paddingLeft: '0px'}}>내 연차 내역</button><button className="btn btn-primary d-flex" data-bss-hover-animate="pulse" type="button"  onClick={ navigateToDepartment }  style={{background: 'rgba(13,110,253,0)', borderStyle: 'none', color: 'black', width: 'auto', height: 'auto', paddingLeft: '0px'}}>부서별 근태 현황</button></div>
             </div>
             <div style={{width: '87%', height: '100%'}}>
 
