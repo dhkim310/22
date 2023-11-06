@@ -7,7 +7,5 @@ import java.util.List;
 
 
 public interface VacationRepository extends JpaRepository<Vacation, Long> {
-    Vacation findByVacationId(long vacationId);
-
     List<Vacation> findVacationsByEmpEmpId(Long empId);
 }
