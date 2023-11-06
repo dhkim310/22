@@ -14,7 +14,6 @@ import java.time.LocalDate;
 public class VacationListResponse {
 
     private Long vacationId;
-    private Long empId;
     private int vacationTotalVacation;
     private int vacationTotalDayOff;
     private int vacationUsedCount;

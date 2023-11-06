@@ -65,7 +65,6 @@ public class VacationService {
             return list.stream()
                     .map(vacation -> VacationListResponse.builder()
                             .vacationId(vacation.getVacationId())
-                            .empId(vacation.getEmp().getEmpId())
                             .vacationTotalVacation(vacation.getVacationTotalVacation())
                             .vacationTotalDayOff(vacation.getVacationTotalDayOff())
                             .vacationUsedCount(vacation.getVacationUsedCount())
