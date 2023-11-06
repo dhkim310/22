@@ -8,7 +8,14 @@ export const vacationDetail = async (id) => {
         throw error;
     }
 }
-
+export const vacationInsert = async (params) => {
+    try {
+        const response = await axios.post('/api/vacation', params);
+        return response;
+    }catch (error){
+        throw error;
+    }
+}
 export const vacationUpdate = async (id, {updateData}) => {
     return new Promise((resolve, reject) => {
         axios.put(`api/vacation/${id}`, {updateData})
