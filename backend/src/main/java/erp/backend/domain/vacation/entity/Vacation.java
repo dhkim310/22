@@ -29,14 +29,11 @@ public class Vacation {
     @Column(name = "VACATION_TOTALVACATION")
     private int vacationTotalVacation;
 
-    @Column(name = "VACATION_USEDVACATION")
-    private int vacationUsedVacation;
-
     @Column(name = "VACATION_TOTALDAYOFF")
     private int vacationTotalDayOff;
 
-    @Column(name = "VACATION_USEDDAYOFF")
-    private int vacationUsedDayOff;
+    @Column(name = "VACATION_USEDCOUNT")
+    private int vacationUsedCount;
 
     @Column(name = "VACATION_STARTDATE")
     private LocalDate vacationStartDate;
@@ -49,9 +46,8 @@ public class Vacation {
 
     public void update(VacationUpdate request) {
         this.vacationTotalVacation = request.getTotalVacation();
-        this.vacationUsedVacation = request.getUsedVacation();
         this.vacationTotalDayOff = request.getTotalDayOff();
-        this.vacationUsedDayOff = request.getUsedDayOff();
+        this.vacationUsedCount = request.getUsedCount();
         this.vacationStartDate = request.getStartDate();
         this.vacationEndDate = request.getEndDate();
         this.vacationWhy = request.getWhy();
