@@ -16,18 +16,6 @@ export const vacationInsert = async (params) => {
         throw error;
     }
 }
-export const vacationUpdate = async (id, {updateData}) => {
-    return new Promise((resolve, reject) => {
-        axios.put(`api/vacation/${id}`, {updateData})
-            .then((res) => {
-                return resolve(res);
-            })
-            .catch((err) => {
-                return reject(err);
-            })
-    });
-}
-
 export const SelectUsedVacationListApi = async (page) => {
     try {
         const response = await axios.get('/api/vacation');

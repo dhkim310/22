@@ -21,7 +21,7 @@ import java.util.List;
 public class VacationService {
     private final VacationRepository vacationRepository;
     private final EmpRepository empRepository;
-//query dsl 사용하기
+
     @Transactional
     public Long vacationInsert(VacationInsertRequest request) {
         Emp emp = empRepository.findByEmpId(request.getEmpId());
@@ -39,21 +39,12 @@ public class VacationService {
 
     @Transactional
     public VacationDetail vacationDetail(Long empId) {
-        List<Vacation> vacation = vacationRepository.findVacationsByEmpEmpId(empId);
-        if (!vacation.isEmpty()) {
-            Vacation lastVacation = vacation.get(vacation.size() - 1);
-            return VacationDetail.builder()
-                    .vacationTotalVacation(lastVacation.getVacationTotalVacation())
-                    .vacationTotalDayOff(lastVacation.getVacationTotalDayOff())
-                    .vacationUsedCount(lastVacation.getVacationUsedCount())
-                    .build();
-        } else {
-            return VacationDetail.builder()
-                    .vacationTotalVacation(0)
-                    .vacationTotalDayOff(0)
-                    .vacationUsedCount(0)
-                    .build();
-        }
+        Vacation lastVacation = vacationRepository.findTopByEmpEmpIdOrderByVacationIdDesc(empId);
+        return VacationDetail.builder()
+                .vacationTotalVacation(lastVacation.getVacationTotalVacation())
+                .vacationTotalDayOff(lastVacation.getVacationTotalDayOff())
+                .vacationUsedCount(lastVacation.getVacationUsedCount())
+                .build();
     }
 
     @Transactional(readOnly = true)

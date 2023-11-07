@@ -18,8 +18,9 @@ public class VacationController {
     public ResponseEntity<List<VacationListResponse>> vacationList() {
         return ResponseEntity.ok(vacationService.vacationList());
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<VacationDetail> vacationDetail(@PathVariable("id") Long id){
+    public ResponseEntity<VacationDetail> vacationDetail(@PathVariable("id") Long id) {
         return ResponseEntity.ok(vacationService.vacationDetail(id));
     }
 

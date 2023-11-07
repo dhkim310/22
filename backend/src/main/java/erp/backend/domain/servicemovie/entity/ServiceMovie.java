@@ -3,14 +3,13 @@ package erp.backend.domain.servicemovie.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import erp.backend.domain.movie.entity.Movie;
 import erp.backend.domain.servicemovie.dto.ServiceMovieUpdate;
-import erp.backend.domain.vacation.dto.VacationUpdate;
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity //jpa 사용할때!
 @AllArgsConstructor // 파라미터있는생성자
