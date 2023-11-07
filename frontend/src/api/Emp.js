@@ -45,7 +45,7 @@ export const updateHrmApi = async (id,params) => {
 
 export const selectEmpList = async (params) => {
     try {
-        const response = await axios.get('api/emp/salary-list');
+        const response = await axios.get('/api/emp/salary-list');
         return response.data;
     } catch (error) {
         throw error;

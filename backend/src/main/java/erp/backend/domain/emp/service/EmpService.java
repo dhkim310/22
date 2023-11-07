@@ -19,6 +19,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -170,6 +171,7 @@ public class EmpService {
         }
         return emp.getEmpId();
     }
+
     @Transactional
     public Long addressUpdate(EmpAddressRequest request) {
         Emp emp = SecurityHelper.getAccount();
@@ -177,6 +179,7 @@ public class EmpService {
         empRepository.save(emp);
         return emp.getEmpId();
     }
+
     @Transactional
     public Long detailAddressUpdate(EmpAddressRequest request) {
         Emp emp = SecurityHelper.getAccount();
