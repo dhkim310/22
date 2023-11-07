@@ -57,7 +57,6 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
             setStartdate(null);
             setEnddate(null);
         } else {
-            endDate.setHours(23, 59, 59, 59)
             const dayOffDifference = calculateDayDifference(startdate1, enddate1);
             const totalVacation = parseInt(detail.vacationTotalVacation, 10);
             const totalDayOff = parseInt(detail.vacationTotalDayOff, 10);
