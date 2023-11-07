@@ -3,12 +3,11 @@ import Modal from "react-modal";
 import {useForm} from "react-hook-form";
 import {vacationDetail, vacationInsert} from "../api/Vacation";
 import DatePicker from "react-datepicker";
-import {serviceMovieDetailApi} from "../api/serviceMovie";
 
 function calculateDayDifference(startDate1, endDate1) {
     if (startDate1 && endDate1) {
         const oneDay = 24 * 60 * 60 * 1000;
-        const differenceInDays = Math.round((endDate1 - startDate1) / oneDay);
+        const differenceInDays = Math.round((endDate1 - startDate1) / oneDay) + 1;
         return differenceInDays;
     }
     return 0;
@@ -44,7 +43,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
     const onValid = async ({
                                vacationTotalVacation,
                                vacationTotalDayOff,
-        vacationUsedCount,
+                               vacationUsedCount,
                                vacationStartDate,
                                vacationEndDate,
                                vacationWhy,
@@ -58,6 +57,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
             setStartdate(null);
             setEnddate(null);
         } else {
+            endDate.setHours(23, 59, 59, 59)
             const dayOffDifference = calculateDayDifference(startdate1, enddate1);
             const totalVacation = parseInt(detail.vacationTotalVacation, 10);
             const totalDayOff = parseInt(detail.vacationTotalDayOff, 10);
@@ -79,7 +79,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
                     vacationTotalVacation: newTotalVacation,
                     vacationUsedVacation: dayOffDifference,
                     vacationTotalDayOff: newTotalDayOff,
-                    vacationUsedCount: dayOffDifference+1,
+                    vacationUsedCount: dayOffDifference,
                     vacationStartDate: startdate1,
                     vacationEndDate: enddate1,
                     vacationWhy,
@@ -107,6 +107,7 @@ function VacationInsertComponent({isOpen, closeModal, empId}) {
             setUsedCount(0);
         }
     }, [startdate1, enddate1]);
+
 
     const customModalStyles = {
         content: {
