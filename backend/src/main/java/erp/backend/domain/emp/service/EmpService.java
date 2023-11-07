@@ -87,12 +87,12 @@ public class EmpService {
                 .empPosition(request.getEmpPosition())
                 .roles(empVo.type1(request.getEmpPosition()))
                 .empAmount(empVo.type2(request.getEmpPosition()))
-                .empBirthday(request.getEmpBirthday())
+                .empBirthday(request.getEmpBirthday().plusDays(1))
                 .empPhoneNumber(request.getEmpPhoneNumber())
                 .empAddress(request.getEmpAddress())
                 .empDetailAddress(request.getEmpDetailAddress())
                 .empGender(request.getEmpGender())
-                .empStartDate(request.getEmpStartDate())
+                .empStartDate(request.getEmpStartDate().plusDays(1))
                 .empStatus("재직")
                 .build();
         empRepository.save(emp);

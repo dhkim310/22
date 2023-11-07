@@ -40,6 +40,10 @@ function Header() {
   const navigateToCommute = () => {
     navigate('/department-hr');
   };
+  const navigateToServiceMovieList = () => {
+      navigate('/serviceMovie');
+  };
+
   const logout = () => {
     removeCookieToken();
     window.location.reload();
@@ -55,8 +59,11 @@ function Header() {
   const [isMobile, setIsMobile] = useState(false);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [dropdownVisible1, setDropdownVisible1] = useState(false);
+  const [dropdownVisible2, setDropdownVisible2] = useState(false);
+
   const dropdownRef = useRef(null); // Ref for the main dropdown
   const dropdownRef1 = useRef(null); // Ref for the first sub-dropdown
+  const dropdownRef2 = useRef(null); // Ref for the first sub-dropdown
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -64,6 +71,10 @@ function Header() {
 
   const toggleDropdown1 = () => {
     setDropdownVisible1(!dropdownVisible1);
+  };
+
+  const toggleDropdown2 = () => {
+    setDropdownVisible2(!dropdownVisible2);
   };
 
   // Close dropdown when clicking outside
@@ -74,6 +85,9 @@ function Header() {
       }
       if (dropdownRef1.current && !dropdownRef1.current.contains(event.target)) {
         setDropdownVisible1(false);
+      }
+      if (dropdownRef2.current && !dropdownRef2.current.contains(event.target)) {
+         setDropdownVisible2(false);
       }
     };
 
@@ -278,15 +292,52 @@ function Header() {
                   >
                     결재
                   </button>
-                  <button
-                    className="btn btn-primary text-nowrap"
-                    data-bss-hover-animate="pulse"
-                    type="button"
-                    onClick={navigateToMovieList}
-                    style={{ borderStyle: 'none', background: 'rgba(0,0,0,0)' }}
-                  >
-                    콘텐츠관리
-                  </button>
+
+                  <div ref={dropdownRef2} className="dropdown" style={{ position: 'relative' }}>
+                                      <button
+                                        className="btn btn-primary text-nowrap dropdown-toggle"
+                                        data-bs-toggle="dropdown"
+                                        data-bss-hover-animate="pulse"
+                                        aria-expanded={dropdownVisible2}
+                                        onClick={toggleDropdown2}
+                                        style={{ borderStyle: 'none', background: 'rgba(0,0,0,0)' }}
+                                      >
+                                        콘텐츠관리
+                                      </button>
+                                      <ul className={`dropdown-menu ${dropdownVisible2 ? 'show' : ''}`}>
+                                        <li>
+                                          <button
+                                            className="btn btn-primary text-nowrap"
+                                            data-bss-hover-animate="pulse"
+                                            type="button"
+                                            onClick={navigateToMovieList}
+                                            style={{
+                                              borderStyle: 'none',
+                                              background: 'rgba(0,0,0,0)',
+                                              color: 'black',
+                                            }}
+                                          >
+                                            콘텐츠
+                                          </button>
+                                        </li>
+                                        <li>
+                                          <button
+                                            className="btn btn-primary text-nowrap"
+                                            data-bss-hover-animate="pulse"
+                                            type="button"
+                                            onClick={navigateToServiceMovieList}
+                                            style={{
+                                              borderStyle: 'none',
+                                              background: 'rgba(0,0,0,0)',
+                                              color: 'black',
+                                            }}
+                                          >
+                                            서비스콘텐츠
+                                          </button>
+                                        </li>
+                                      </ul>
+                                    </div>
+
                 </div>
               </div>
               <div className="d-lg-flex justify-content-lg-end" style={{ height: 'auto', width: '100%' }}>

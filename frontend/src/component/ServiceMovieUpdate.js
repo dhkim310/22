@@ -18,6 +18,7 @@ function ServiceMovieUpdate({isOpen, closeModal, movieId}) {
     const [detail, setDetail] = useState({});
     const [date1, setDate1] = useState(null);
 
+
     const [amount, setAmount] = useState("");
     const onChange = (e) => {
         setAmount(e.target.value);

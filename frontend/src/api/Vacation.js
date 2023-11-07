@@ -27,3 +27,12 @@ export const vacationUpdate = async (id, {updateData}) => {
             })
     });
 }
+
+export const SelectUsedVacationListApi = async (page) => {
+    try {
+        const response = await axios.get('/api/vacation');
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

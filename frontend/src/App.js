@@ -34,6 +34,7 @@ import NoticeUpdate from "./pages/NoticeUpdate";
 import MessageDetail from "./component/MessageDetail";
 import MovieDetail from "./pages/MovieDetail";
 import VacationInsertComponent from "./component/VacationInsertComponent";
+import UsedVacationList from "./pages/UsedVacationList";
 
 function App() {
 
@@ -78,6 +79,7 @@ function App() {
                     <Route path="/serviceMovie" element={<ServiceMovieList/>}/>
                     <Route path="/movieDetail/:id" element={<MovieDetail/>}/>
                     <Route path="/vacation/:id" element={<VacationInsertComponent/>}/>
+                    <Route path="/used-list" element={<UsedVacationList/>}/>
                 </Route>
             </Routes>
         </Router>

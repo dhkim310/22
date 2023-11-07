@@ -8,12 +8,11 @@ import erp.backend.domain.vacation.dto.VacationInsertRequest;
 import erp.backend.domain.vacation.dto.VacationListResponse;
 import erp.backend.domain.vacation.entity.Vacation;
 import erp.backend.domain.vacation.repository.VacationRepository;
+import erp.backend.global.config.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -22,7 +21,7 @@ import java.util.List;
 public class VacationService {
     private final VacationRepository vacationRepository;
     private final EmpRepository empRepository;
-
+//query dsl 사용하기
     @Transactional
     public Long vacationInsert(VacationInsertRequest request) {
         Emp emp = empRepository.findByEmpId(request.getEmpId());
@@ -59,33 +58,20 @@ public class VacationService {
 
     @Transactional(readOnly = true)
     public List<VacationListResponse> vacationList() {
-        List<Vacation> list = vacationRepository.findAll();
+        Emp emp = SecurityHelper.getAccount();
+        List<Vacation> list = vacationRepository.findVacationsByEmpEmpId(emp.getEmpId());
 
-        if (!list.isEmpty())
-            return list.stream()
-                    .map(vacation -> VacationListResponse.builder()
-                            .vacationId(vacation.getVacationId())
-                            .empId(vacation.getEmp().getEmpId())
-                            .vacationTotalVacation(vacation.getVacationTotalVacation())
-                            .vacationTotalDayOff(vacation.getVacationTotalDayOff())
-                            .vacationUsedCount(vacation.getVacationUsedCount())
-                            .vacationStartDate(vacation.getVacationStartDate())
-                            .vacationEndDate(vacation.getVacationEndDate())
-                            .vacationWhy(vacation.getVacationWhy())
-                            .build()
-                    )
-
-                    .toList();
-        else {
-            VacationListResponse vacationListResponse = VacationListResponse.builder()
-                    .vacationTotalVacation(0)
-                    .vacationTotalDayOff(0)
-                    .vacationUsedCount(0)
-                    .vacationStartDate(LocalDate.now())
-                    .vacationEndDate(LocalDate.now())
-                    .vacationWhy("-")
-                    .build();
-            return Collections.singletonList(vacationListResponse);
-        }
+        return list.stream()
+                .map(vacation -> VacationListResponse.builder()
+                        .vacationId(vacation.getVacationId())
+                        .vacationTotalVacation(vacation.getVacationTotalVacation())
+                        .vacationTotalDayOff(vacation.getVacationTotalDayOff())
+                        .vacationUsedCount(vacation.getVacationUsedCount())
+                        .vacationStartDate(vacation.getVacationStartDate())
+                        .vacationEndDate(vacation.getVacationEndDate())
+                        .vacationWhy(vacation.getVacationWhy())
+                        .build()
+                )
+                .toList();
     }
 }
