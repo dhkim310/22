@@ -114,7 +114,7 @@ function MovieList() {
                             borderRadius: '6px',
                             borderColor: 'black',
                             marginTop: '24px'
-                        }}>컨텐츠 업데이트
+                        }}>콘텐츠 업데이트
                         </button>
                     </div>
 
@@ -127,7 +127,7 @@ function MovieList() {
                                     fontWeight: 'bold',
                                     paddingTop: '0px',
                                     marginLeft: '41px'
-                                }}>컨텐츠 목록</span>
+                                }}>콘텐츠</span>
 
                             </div>
                             <div className="d-flex justify-content-start align-items-end"
@@ -148,7 +148,7 @@ function MovieList() {
                                             border: '0px none black',
                                         }}
                                     >
-                                        컨텐츠
+                                        콘텐츠
                                     </button>
                                     <button
                                         className={`btn btn-primary d-flex justify-content-center align-items-center ${isMoviePage ? 'active' : ''}`}
@@ -166,7 +166,7 @@ function MovieList() {
                                             borderBottomStyle: 'none',
                                         }}
                                     >
-                                        서비스컨텐츠
+                                        서비스 콘텐츠
                                     </button>
                                 </div>
 

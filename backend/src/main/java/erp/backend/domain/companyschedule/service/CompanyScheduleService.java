@@ -23,7 +23,7 @@ public class CompanyScheduleService {
         CompanySchedule entity = CompanySchedule.builder()
                 .emp(emp)
                 .companyScheduleStartDate(request.getStart().plusDays(1))
-                .companyScheduleEndDate(request.getEnd())
+                .companyScheduleEndDate(request.getEnd().plusDays(1))
                 .companyScheduleContent(request.getTitle())
                 .build();
 
