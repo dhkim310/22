@@ -32,24 +32,23 @@ __OTT회사의 인/물적 자원 관리를 위한 ERP 프로그램 웹 서비스
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"> <img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white"> 
 
 
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
 <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white">
 
 
 <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white">
 
 
-➕ JSP, JPA, toss API
+➕ SPRING SECURITY, JPA, 영화 API
 
 
 - - -
 
 # 💻 기능소개
-* 로그인/회원가입/로그인 유지
-* 상품 선택 및 장바구니 담기 기능
-* Toss API를 이용한 결제 구현
-* 상품 리뷰 및 문의 게시판 구현
-* 상품 검색 및 게시판 글 검색
+* 시큐리티를 사용한 로그인시 토큰 발급
+* 직급에 따른 권한 부여
+* 인사 관리, 재무 관리, 콘텐츠 관리, 회원 관리 기능 구현
+* 영화 API를 이용한 영화 목록 업데이트 기능 구현
 
 - - -
 
