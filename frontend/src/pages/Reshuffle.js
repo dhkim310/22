@@ -20,7 +20,7 @@ function Reshuffle() {
             .then((res) => {
                 if (res.status === 200) {
                     alert('인사이동 완료')
-                    return navigate('/hrm')
+                    return navigate('/hrm-list')
                 }
             })
             .catch((err) => {
@@ -83,7 +83,7 @@ function Reshuffle() {
                         height: '200px',
                         borderWidth: '1px',
                         borderStyle: 'solid',
-                        background: `url(${detail.empPicturePath}) center / contain no-repeat`
+                        background: `url(../${detail.empPicturePath}) center / contain no-repeat`
                     }}/></div>
                 </div>
                 <form onSubmit={handleSubmit(onValid)}>

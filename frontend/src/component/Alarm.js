@@ -24,11 +24,11 @@ const Alarm = () => {
 
 
   return (
-    <div>
-      <ToastContainer
-      hideProgressBar
-      />
-    </div>
+      <div>
+        <ToastContainer
+            hideProgressBar
+        />
+      </div>
   );
 };
 

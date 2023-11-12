@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VacationListResponse {
-
     private Long vacationId;
     private int vacationTotalVacation;
     private int vacationTotalDayOff;

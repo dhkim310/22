@@ -211,7 +211,6 @@ function Approval() {
                         <div className="d-flex justify-content-start"
                              style={{background: 'rgba(111,66,193,0)', height: '109px'}}>
                             <div style={{width: '50%', height: '100%'}}/>
-
                             { /* PaginationButtons 컴포넌트 사용 */}
                             <PaginationButtons
                                 currentPage={currentPage}

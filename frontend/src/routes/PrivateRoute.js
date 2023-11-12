@@ -2,7 +2,6 @@ import {Navigate, Outlet} from 'react-router';
 import {useLocation} from 'react-router-dom';
 import {CheckToken} from '../auth/CheckTokenl';
 
-
 export default function PrivateRoute() {
     const location = useLocation();
     const {isAuth} = CheckToken(location.key);

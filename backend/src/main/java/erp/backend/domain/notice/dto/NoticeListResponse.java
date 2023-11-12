@@ -19,6 +19,7 @@ public class NoticeListResponse {
     private int views; // 조회수
     private LocalDateTime noticeCreatedDate; // 작성일
     private LocalDateTime noticeModifiedDate; // 수정일
+    private boolean hasPermission;
 
     public static NoticeListResponse fromNotice(Notice notice) {
         return NoticeListResponse.builder()

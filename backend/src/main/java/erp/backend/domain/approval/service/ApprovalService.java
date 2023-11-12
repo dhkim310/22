@@ -4,6 +4,7 @@ import erp.backend.domain.approval.dto.*;
 import erp.backend.domain.approval.entity.Approval;
 import erp.backend.domain.approval.entity.ApprovalFile;
 import erp.backend.domain.approval.repository.ApprovalFileRepository;
+import erp.backend.domain.approval.repository.ApprovalQueryDsl;
 import erp.backend.domain.approval.repository.ApprovalRepository;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.repository.EmpRepository;
@@ -32,10 +33,11 @@ public class ApprovalService {
     private final UploadFileService uploadFileService;
     private final EmpRepository empRepository;
 
+    private final ApprovalQueryDsl approvalQueryDsl;
+
     @Transactional(readOnly = true)//결재 대기 및 반려 리스트
     public ApprovalListResult approvalListResult(Pageable pageable) {
-        List<Approval> approvalList = approvalRepository
-                .findByApprovalCheckOrderByApprovalIdDesc();
+        List<Approval> approvalList = approvalQueryDsl.approvalList();
 
         List<ApprovalListResponse> approvalListResponses = approvalList
                 .stream()
@@ -61,8 +63,7 @@ public class ApprovalService {
 
     @Transactional(readOnly = true)//결재 완료 리스트
     public ApprovalListResult approvalSuccessListResult(Pageable pageable) {
-        List<Approval> approvalList = approvalRepository
-                .findByApprovalCheckOrderByApprovalIdDesc("결재완료");
+        List<Approval> approvalList = approvalQueryDsl.approvalList("결재완료");
 
         List<ApprovalListResponse> approvalListResponses = approvalList
                 .stream()
@@ -153,20 +154,17 @@ public class ApprovalService {
     @Transactional(readOnly = true)
     public Long approvalCount() {
         Emp emp = SecurityHelper.getAccount();
-        return approvalRepository.countByApprovalCheck(emp.getEmpName());
+        return approvalQueryDsl.countByApprovalCheck(emp.getEmpName());
     }
 
     private Approval getApproval(Long id) {
         return approvalRepository.findByApprovalId(id);
     }
 
-
     private Approval getApproval(Long id, Emp emp) {
         Approval entity = approvalRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 데이터 입니다"));
         if (entity.getApprovalCheckMan().equals(emp.getEmpName())) {
-            System.out.println("#####"+entity.getApprovalCheckMan());
-            System.out.println(emp.getEmpName());
             return entity;
         } else {
             throw new IllegalArgumentException("권한이 없습니다.");

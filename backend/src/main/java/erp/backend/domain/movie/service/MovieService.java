@@ -3,18 +3,11 @@ package erp.backend.domain.movie.service;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import erp.backend.domain.board.dto.BoardDetailResponse;
-import erp.backend.domain.board.entity.Board;
-import erp.backend.domain.board.entity.BoardFile;
-import erp.backend.domain.comment.dto.CommentResponse;
-import erp.backend.domain.comment.entity.Comment;
 import erp.backend.domain.movie.dto.MovieDetailResponse;
 import erp.backend.domain.movie.dto.MovieListResponse;
 import erp.backend.domain.movie.dto.MovieListResult;
 import erp.backend.domain.movie.entity.Movie;
 import erp.backend.domain.movie.repository.MovieRepository;
-import erp.backend.domain.uploadfile.entity.UploadFile;
-import erp.backend.global.util.SchemaType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -41,7 +34,7 @@ public class MovieService {
 
         JsonArray list = null;
 
-        log.info("서비스 시작" );
+        log.info("서비스 시작");
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonObject = (JsonObject) jsonParser.parse(result);
         list = (JsonArray) jsonObject.get("results");
@@ -66,8 +59,6 @@ public class MovieService {
                             .movieOverView(contents.get("overview").toString())
                             .build()
             );
-            System.out.println("$$$$$$$$$"+contents.get("id").toString());
-            System.out.println("$$$$$$$$$"+contents.get("title").toString());
         }
         return "ok";
     }

@@ -14,7 +14,7 @@ create table `final`.emp
     `EMP_AMOUNT`        BIGINT       NULL NULL COMMENT '연봉',
     `EMP_BIRTHDAY`      DATE         NOT NULL COMMENT '생년월일',
     `EMP_STARTDATE`     DATE         NOT NULL COMMENT '입사일',
-    `EMP_ENDDATE`       DATE         NOT NULL COMMENT '퇴사일',
+    `EMP_ENDDATE`       DATE         NULL COMMENT '퇴사일',
     `EMP_STATUS`        VARCHAR(255) NOT NULL COMMENT '재직상태',
     `EMP_GENDER`        VARCHAR(255) NOT NULL COMMENT '성별',
     `EMP_ADDRESS`       VARCHAR(255) NOT NULL COMMENT '주소',

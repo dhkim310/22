@@ -23,7 +23,6 @@ import java.util.Date;
 @Component
 @RequiredArgsConstructor
 public class JwtProvider {
-
     private final JwtEnvironment jwtEnvironment;
     // 만료시간 : 1Hour
     private final long exp = 1000L * 60 * 60;

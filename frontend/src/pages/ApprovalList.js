@@ -71,7 +71,8 @@ function Approval() {
                     }}>
                         <div className="d-flex justify-content-start align-items-center"
                              style={{background: 'rgba(102,16,242,0)', width: '100%', height: '7%'}}>
-                            <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" onClick={navigateToApprovalInsert} style={{
+                            <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
+                                    onClick={navigateToApprovalInsert} style={{
                                 background: 'rgba(13,110,253,0)',
                                 border: '1px ridge black',
                                 width: 'auto',

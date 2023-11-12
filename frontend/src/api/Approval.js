@@ -4,7 +4,7 @@ export const SelectApprovalWaitListApi = async (page) => {
     try {
         const response = await axios.get(`/api/approval/wait?page=${page}`);
         if(response.data.approvalBackDate===null) {
-        response.data.approvalBackDate=""
+            response.data.approvalBackDate=""
         }
         return response.data;
     } catch (error) {
@@ -60,4 +60,3 @@ export const approvalInsert = async (formData) => {
         throw error;
     }
 };
-

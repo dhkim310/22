@@ -3,11 +3,8 @@ package erp.backend.domain.notice.controller;
 import erp.backend.domain.notice.dto.*;
 import erp.backend.domain.notice.service.NoticeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,15 +18,17 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @GetMapping
-    public ResponseEntity<NoticeListResult> noticeList(@PageableDefault(size = 10, sort = "noticeId", direction = Sort.Direction.DESC) Pageable pageable,
-                                                       Model model) {
-        NoticeListResult listResult = noticeService.noticeListResult(pageable);
-        model.addAttribute("listResult", listResult);
+    public ResponseEntity<NoticeListResult> noticeList(@RequestParam(value = "size") int size,
+                                                       @RequestParam(value = "page") int page) {
+        NoticeListResult listResult = noticeService.noticeListResult(PageRequest.of(page, size));
         return ResponseEntity.ok(listResult);
     }
 
     @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<Long> noticeInsert(@RequestPart(value = "requestDto") NoticeRequest request, @RequestPart(value = "files", required = false) List<MultipartFile> files) throws IOException {
+    public ResponseEntity<Long> noticeInsert(@RequestPart(value = "requestDto")
+                                             NoticeRequest request,
+                                             @RequestPart(value = "files", required = false)
+                                             List<MultipartFile> files) throws IOException {
         return ResponseEntity.ok(noticeService.noticeInsert(request, files));
     }
 
@@ -46,7 +45,11 @@ public class NoticeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> noticeUpdate(@PathVariable("id") Long id, @RequestPart(value = "requestDto") NoticeUpdate request, @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+    public ResponseEntity<Long> noticeUpdate(@PathVariable("id") Long id,
+                                             @RequestPart(value = "requestDto")
+                                             NoticeUpdate request,
+                                             @RequestPart(value = "files", required = false)
+                                             List<MultipartFile> files) {
         return ResponseEntity.ok(noticeService.noticeUpdate(id, request, files));
     }
 

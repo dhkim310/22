@@ -20,7 +20,6 @@ public class Vacation {
     @Column(name = "VACATION_ID")
     private long vacationId;
 
-    //외래키
     @ManyToOne(fetch = FetchType.LAZY) // 필요할때만 호출
     @JoinColumn(name = "VACATION_EMP_ID", referencedColumnName = "EMP_ID")
     private Emp emp;

@@ -104,7 +104,8 @@ function ApprovalDetail() {
                     }}>
                         <div className="d-flex justify-content-start align-items-center"
                              style={{background: 'rgba(102,16,242,0)', width: '100%', height: '7%'}}>
-                            <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" onClick={navigateToApprovalInsert} style={{
+                            <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button"
+                                    onClick={navigateToApprovalInsert} style={{
                                 background: 'rgba(13,110,253,0)',
                                 width: 'auto',
                                 height: 'auto',
@@ -235,15 +236,21 @@ function ApprovalDetail() {
                                                         whiteSpace: "nowrap"
                                                     }}>
                                                     <ul>
-                                                        <div style={{ marginTop: "50px", fontSize: "20px", marginBottom: "3%" }}>파일 다운로드</div>
+                                                        <div style={{
+                                                            marginTop: "50px",
+                                                            fontSize: "20px",
+                                                            marginBottom: "3%"
+                                                        }}>파일 다운로드
+                                                        </div>
                                                         {fileListIsOpen &&
                                                             detail &&
                                                             detail.approvalFileList &&
                                                             detail.approvalFileList.length > 0 &&
                                                             detail.approvalFileList.map((file, index) => (
-                                                                <li key={index} style={{ fontSize: '16px', marginBottom: "2%" }}>
+                                                                <li key={index}
+                                                                    style={{fontSize: '16px', marginBottom: "2%"}}>
                                                                     {file.name}
-                                                                    <DownloadFile file={file} />
+                                                                    <DownloadFile file={file}/>
                                                                 </li>
                                                             ))}
                                                     </ul>

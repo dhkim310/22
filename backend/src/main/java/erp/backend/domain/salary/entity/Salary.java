@@ -15,7 +15,6 @@ import java.time.LocalDate;
 @AllArgsConstructor // 파라미터있는생성자
 @NoArgsConstructor // 기본생성자
 public class Salary {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SALARY_ID")

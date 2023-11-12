@@ -16,7 +16,6 @@ public class NoticeFile {
     @Column(name = "NOTICEFILE_ID")
     private Long noticeFileId;
 
-    // 외래키
     @ManyToOne
     @JoinColumn(name = "NOTICEFILE_NOTICE_ID")
     @JsonIgnore
@@ -34,5 +33,5 @@ public class NoticeFile {
         this.notice = notice;
         this.uploadFile = uploadFile;
     }
-    
+
 }

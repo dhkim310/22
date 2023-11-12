@@ -29,14 +29,14 @@ function MemberDetail(){
         }
         fetchData();
     }, [id])
-        // const getWidth = () => {
-        //     return window.innerWidth;
-        // };
-        //
-        // setIsMobile(getWidth() < 768);
+    // const getWidth = () => {
+    //     return window.innerWidth;
+    // };
+    //
+    // setIsMobile(getWidth() < 768);
 
 
-    
+
     return(
         <div>
             <div style={{paddingTop: "50px", background: 'rgba(111, 66, 193, 0)', height: '100%', width: 'auto'}}>
@@ -69,32 +69,32 @@ function MemberDetail(){
                                  style={{height: '100%', width: '175px'}}><span>결제계좌</span></div>
                         </div>
                         <div style={{width: '100%', height: '20px'}}></div>
-                                <div className="d-flex justify-content-start align-items-center" style={{
-                                    background: 'rgba(13, 110, 253, 0)',
-                                    height: '45px',
-                                    borderTop: '2px none rgba(128, 128, 128, 0.32)',
-                                    borderBottom: '2px none rgba(128, 128, 128, 0.32)',
-                                    width: '100%'
-                                }}>
-                                    <div className="d-flex justify-content-start"
-                                         style={{height: '45px', width: '115px'}}></div>
-                                    <div className="d-flex justify-content-start align-items-center"
-                                         style={{height: '45px', width: '175px'}}><span>{memberDetail.memberName}</span></div>
-                                    <div className="d-flex justify-content-start align-items-center"
-                                         style={{height: '45px', width: '175px'}}><span>{memberDetail.memberPhoneNumber}</span>
-                                    </div>
-                                    <div className="d-flex justify-content-start align-items-center"
-                                         style={{height: '45px', width: '175px'}}><span>{memberDetail.memberBirthDay}</span></div>
-                                    <div className="d-flex justify-content-start align-items-center"
-                                         style={{height: '45px', width: '175px'}}><span>{memberDetail.memberPaymentBank}</span></div>
-                                    <div className="d-flex justify-content-start align-items-center"
-                                         style={{height: '45px', width: '175px'}}><span>{memberDetail.memberAccountNumber}</span>
-                                    </div>
-                                    <div className="d-flex justify-content-start align-items-center"
-                                         style={{height: '45px', width: '50px'}}>
-                                    </div>
-                                </div>
-                                <div style={{width: '100%', height: '50px'}}></div>
+                        <div className="d-flex justify-content-start align-items-center" style={{
+                            background: 'rgba(13, 110, 253, 0)',
+                            height: '45px',
+                            borderTop: '2px none rgba(128, 128, 128, 0.32)',
+                            borderBottom: '2px none rgba(128, 128, 128, 0.32)',
+                            width: '100%'
+                        }}>
+                            <div className="d-flex justify-content-start"
+                                 style={{height: '45px', width: '115px'}}></div>
+                            <div className="d-flex justify-content-start align-items-center"
+                                 style={{height: '45px', width: '175px'}}><span>{memberDetail.memberName}</span></div>
+                            <div className="d-flex justify-content-start align-items-center"
+                                 style={{height: '45px', width: '175px'}}><span>{memberDetail.memberPhoneNumber}</span>
+                            </div>
+                            <div className="d-flex justify-content-start align-items-center"
+                                 style={{height: '45px', width: '175px'}}><span>{memberDetail.memberBirthDay}</span></div>
+                            <div className="d-flex justify-content-start align-items-center"
+                                 style={{height: '45px', width: '175px'}}><span>{memberDetail.memberPaymentBank}</span></div>
+                            <div className="d-flex justify-content-start align-items-center"
+                                 style={{height: '45px', width: '175px'}}><span>{memberDetail.memberAccountNumber}</span>
+                            </div>
+                            <div className="d-flex justify-content-start align-items-center"
+                                 style={{height: '45px', width: '50px'}}>
+                            </div>
+                        </div>
+                        <div style={{width: '100%', height: '50px'}}></div>
                     </div>
                     <div style={{background: 'rgba(13, 110, 253, 0)', height: '100%', width: '15%'}}>
                         <div style={{

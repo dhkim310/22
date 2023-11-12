@@ -31,7 +31,6 @@ public class ServiceMovie {
     private long serviceMovieAmount;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-//  @CreationTimestamp
     @Column(name = "SERVICEMOVIE_PAYMENTDATE")
     private LocalDate serviceMoviePaymentDate;
 
@@ -49,6 +48,7 @@ public class ServiceMovie {
 
     @Column(name = "SERVICEMOVIE_PRODUCER")
     private String serviceMovieProducer;
+
     public void update(ServiceMovieUpdate request) {
         this.serviceMovieAmount = request.getAmount();
         this.serviceMoviePaymentDate = request.getPaymentDate().plusDays(1);

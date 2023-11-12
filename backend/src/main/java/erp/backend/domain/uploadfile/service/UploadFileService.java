@@ -39,7 +39,6 @@ public class UploadFileService {
     private final BoardFileRepository boardFileRepository;
     private final ApprovalFileRepository approvalFileRepository;
 
-
     // 지원하지 않는 확장자
     private final List<String> DENIED_EXTENSION = Arrays.asList("exe", "zip");
     private final List<String> DENIED_CONTENT_TYPE = Arrays.asList("application/x-msdos-program", "application/zip");
@@ -75,7 +74,7 @@ public class UploadFileService {
         String extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
         String saveId = uuid + "." + extension; // S3에 저장된 파일 이름
 
-        if (! IMG_EXTENSION.contains(extension)) {
+        if (!IMG_EXTENSION.contains(extension)) {
             throw new IOException("지원 하지 않는 확장자.");
         }
 

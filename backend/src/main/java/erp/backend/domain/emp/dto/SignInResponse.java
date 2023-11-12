@@ -12,10 +12,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignInResponse {
-
     private String token;
     private Long empId;
     private String empName;
     private String empEmail;
+    private String hasPermission;
     private List<String> roles;
 }

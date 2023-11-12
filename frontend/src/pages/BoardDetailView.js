@@ -203,7 +203,7 @@ function BoardDetail() {
             </div>
 
             {/* 게시글 내용 부분 */}
-            <div style={{width: "75%", height: "100%"}}>
+            <div style={{whiteSpace: 'nowrap', width: "75%", height: "100%"}}>
                 <div className="d-flex justify-content-start align-items-center" style={{
                     marginTop: "1%",
                     background: "rgba(13,110,253,0)",
@@ -248,7 +248,7 @@ function BoardDetail() {
                                       style={{fontSize: 15, fontWeight: "bold"}}>{content.writer}</span>
                             </div>
                             <div style={{fontSize: 14, marginLeft: "2%"}}>{FormatDate(content.boardCreatedDate)}</div>
-                            <div style={{fontSize: 14, marginLeft: "2%", marginRight: "1%"}}>
+                            <div style={{fontSize: 14, marginLeft: "2%", marginRight: "1%", whiteSpace: 'nowrap'}}>
                                 {content.boardModifiedDate ? FormatDate(content.boardModifiedDate) : null}
                             </div>
                             <div style={{

@@ -21,5 +21,4 @@ public class ApprovalListResponse {
     private LocalDate approvalUpLoadDate;
     private LocalDate approvalBackDate;
     private LocalDate approvalSuccessDate;
-
 }

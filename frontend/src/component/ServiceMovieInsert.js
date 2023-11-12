@@ -90,7 +90,7 @@ function ServiceMovieInsert({ isOpen, closeModal, movieId }) {
                     <input type="text" {...register('accountNumber')} defaultValue= "0" className="form-control" id="accountNumber" />
                 </div>
                 <div className="mb-3">
-                <label htmlFor="startDate" className="form-label">서비스 시작일</label>
+                    <label htmlFor="startDate" className="form-label">서비스 시작일</label>
                     <br></br>
                     <DatePicker
                         selected={startDateI}

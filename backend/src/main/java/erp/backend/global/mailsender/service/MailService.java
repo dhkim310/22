@@ -13,7 +13,6 @@ import java.io.UnsupportedEncodingException;
 @RequiredArgsConstructor
 @Service
 public class MailService implements MailServiceImpl {
-
     private final JavaMailSender emailSender;
 
     @Override
@@ -35,7 +34,6 @@ public class MailService implements MailServiceImpl {
 
     @Override
     public void sendSimpleMessage(String to) throws Exception {
-
         MimeMessage message = message(to); // "to" 로 메일 발송
 
         try { // 예외처리

@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor // 파라미터있는생성자
 @NoArgsConstructor // 기본생성자
-
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

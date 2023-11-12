@@ -14,4 +14,5 @@ public class Dept {
 
     @Column(name = "DEPT_NAME")
     private String deptName;
+
 }

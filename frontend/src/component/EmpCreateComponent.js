@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {insertEmpApi} from "../api/Emp";
-import {useForm, useFiled} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 
 
 function EmpCreateComponent({isOpen, closeModal}) {
@@ -44,6 +44,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
             })
             .catch((err) => {
                 alert('에러 : 이메일이 이미 존재하거나 기입하지 않은 데이터가 있습니다.');
+                console.log(err);
             })
     };
 
@@ -90,7 +91,7 @@ function EmpCreateComponent({isOpen, closeModal}) {
                         <div className="d-flex justify-content-end align-items-center"
                              style={{height: '100%', width: '63%'}}>
                             <button className="btn btn-primary" data-bss-hover-animate="pulse" type="button" style={{
-                                background: 'url("assets/img/icons8-취소하다-500.png") center / contain no-repeat',
+                                background: 'url("assets/img/취소.png") center / contain no-repeat',
                                 width: '38px',
                                 height: '37px',
                                 borderStyle: 'none'
@@ -362,4 +363,3 @@ function EmpCreateComponent({isOpen, closeModal}) {
 }
 
 export default EmpCreateComponent;
-

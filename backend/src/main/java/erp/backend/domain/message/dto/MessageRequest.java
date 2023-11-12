@@ -1,6 +1,5 @@
 package erp.backend.domain.message.dto;
 
-import erp.backend.domain.emp.entity.Emp;
 import lombok.Getter;
 import lombok.Setter;
 

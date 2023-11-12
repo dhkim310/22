@@ -11,6 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EmpMainResponse {
     private String empName;
+    private String empDept;
+    private String empEmail;
+    private String empPhoneNumber;
     private String empPosition;
     private String empPicturePath;
 }

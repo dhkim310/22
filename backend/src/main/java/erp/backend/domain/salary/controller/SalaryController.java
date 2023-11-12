@@ -13,7 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/salary")
 public class SalaryController {
-
     private final SalaryService salaryService;
 
     @PostMapping

@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MessageListResponse {
-
     private long messageId;
     private long messageSenderEmpId;
     private String messageSenderName;

@@ -1,6 +1,8 @@
 package erp.backend.domain.vacation.controller;
 
-import erp.backend.domain.vacation.dto.*;
+import erp.backend.domain.vacation.dto.VacationDetail;
+import erp.backend.domain.vacation.dto.VacationInsertRequest;
+import erp.backend.domain.vacation.dto.VacationListResponse;
 import erp.backend.domain.vacation.service.VacationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -30,4 +32,3 @@ public class VacationController {
     }
 
 }
-

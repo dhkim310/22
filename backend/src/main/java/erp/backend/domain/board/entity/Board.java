@@ -24,14 +24,12 @@ import java.util.List;
 @Getter
 @Builder
 @JsonIgnoreProperties(value = {"boardFileList", "comment"})
-//Binint = long , int = int
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BOARD_ID")
     private long boardId;
 
-    //외래키
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "BOARD_EMP_ID", referencedColumnName = "EMP_ID", updatable = false)

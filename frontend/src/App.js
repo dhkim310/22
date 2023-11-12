@@ -46,7 +46,6 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
 
                 <Route element={<PrivateRoute/>}>
-                    <Route path="/" element={<Login/>}/>
                     <Route path="/main" element={<Main/>}/>
                     <Route path="/approval-insert" element={<ApprovalInsert/>}/>
                     <Route path="/approval-list" element={<ApprovalList/>}/>
@@ -63,7 +62,7 @@ function App() {
                     <Route path="/notice" element={<NoticeList/>}/>
                     <Route path="/notice/:id" element={<NoticeDetail/>}/>
                     <Route path="/notice-update/:id" element={<NoticeUpdate/>}/>
-                    <Route path="/hrm" element={<Hrm/>}/>
+                    <Route path="/hrm-list" element={<Hrm/>}/>
                     <Route path="/memo" element={<MemoComponent/>}/>
                     <Route path="/reshuffle/:id" element={<Reshuffle/>}/>
                     <Route path="/salary" element={<EmpSalaryList/>}/>

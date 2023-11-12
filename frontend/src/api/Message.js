@@ -8,23 +8,24 @@ export const selectMessageListApi = async (params) => {
         throw error;
     }
 };
-export const selectHrmListApi = async (params) => {
+
+export const selectEmpList = async (params) => {
     try {
-      const response = await axios.get('api/emp/hrm-list');
-      return response.data;
+        const response = await axios.get('/api/emp-list');
+        return response.data;
     } catch (error) {
-      throw error;
+        throw error;
     }
 };
 export const insertMessageApi = async (params) => {
     return new Promise((resolve,reject)=> {
         axios.post('/api/message', params)
-        .then((res)=>{
-            return resolve(res);
-        })
-        .catch((err)=>{
-            return reject(err);
-        })
+            .then((res)=>{
+                return resolve(res);
+            })
+            .catch((err)=>{
+                return reject(err);
+            })
     });
 }
 

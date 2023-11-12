@@ -10,5 +10,4 @@ public interface MailServiceImpl {
 
     // 메일 발송
     void sendSimpleMessage(String to) throws Exception;
-
 }

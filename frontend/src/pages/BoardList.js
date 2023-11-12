@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {fetchBoardList} from '../api/Board';
+import {fetchBoardSearchList} from '../api/Board';
 import {FormatDate} from "../component/FormatDate";
 import PaginationButtons from '../component/PaginationButton';
 
@@ -19,10 +19,9 @@ function BoardList() {
     };
 
     useEffect(() => {
-        // 데이터를 가져오는 비동기 함수를 정의
         const fetchData = async () => {
             try {
-                const data = await fetchBoardList(currentPage - 1);
+                const data = await fetchBoardSearchList(searchKeyword, currentPage - 1);
                 setBoardList(data.list.content);
                 setTotalPages(data.totalPageCount);
             } catch (error) {
@@ -50,6 +49,18 @@ function BoardList() {
     const handleItemClick = (id) => {
         navigate(`/board/${id}`)
     }
+
+    const [searchKeyword, setSearchKeyword] = useState('');
+
+    const handleSearch = async () => {
+        try {
+            const data = await fetchBoardSearchList(searchKeyword, currentPage - 1);
+            setBoardList(data.list.content);
+            setTotalPages(data.totalPageCount);
+        } catch (error) {
+            console.error('데이터 가져오기 오류:', error);
+        }
+    };
 
     useEffect(() => {
         const getWidth = () => {
@@ -131,14 +142,23 @@ function BoardList() {
                                 </div>
                                 <div className="d-flex justify-content-end align-items-center"
                                      style={{width: '70%', height: '100%'}}>
-                                    <input type="search"/>
-                                    <button className="btn btn-primary text-nowrap" type="button" style={{
-                                        background: 'url("img/Search.png") center / contain no-repeat',
-                                        borderStyle: 'none',
-                                        width: '54.3px',
-                                        height: '36px',
-                                        color: 'black'
-                                    }}>
+                                    <input type="search"
+                                           onChange={(e) => setSearchKeyword(e.target.value)}
+                                           onKeyUp={(e) => {
+                                               if (e.key === 'Enter') {
+                                                   handleSearch();
+                                               }
+                                           }}
+                                           placeholder='제목으로 검색'
+                                    />
+                                    <button onClick={handleSearch} className="btn btn-primary text-nowrap" type="button"
+                                            style={{
+                                                background: 'url("img/Search.png") center / contain no-repeat',
+                                                borderStyle: 'none',
+                                                width: '54.3px',
+                                                height: '36px',
+                                                color: 'black'
+                                            }}>
                                     </button>
                                 </div>
                             </div>
@@ -185,7 +205,7 @@ function BoardList() {
                                 <div>
                                     {boardList.map((item) => (
                                         <button
-                                            className="list-group-item list-group-item-action d-flex flex-row align-items-start"
+                                            className="list-group-item list-group-item-action d-flex flex-row align-items-center"
                                             onClick={() => handleItemClick(item.id)} // 클릭 시 상세보기 페이지로 이동
                                             style={{
                                                 height: '50px',
@@ -245,7 +265,6 @@ function BoardList() {
             <div className="d-flex justify-content-start"
                  style={{background: 'rgba(111,66,193,0)', height: '109px'}}>
                 <div style={{width: '42%', height: '100%'}}/>
-
                 { /* PaginationButtons 컴포넌트 사용 */}
                 <PaginationButtons
                     currentPage={currentPage}

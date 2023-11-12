@@ -5,19 +5,20 @@ export const fetchMovieList = async (page) => {
         const response = await axios.get(`/api/movie?page=${page}`);
         return response.data;
     } catch (error) {
-        throw error;
+        alert("권한이 없습니다."); // 에러 메시지를 보여줌
+        window.location.href = '/main'; // 메인 페이지로 이동
     }
 };
 
 export const insertMovieApi = async () => {
-    return new Promise((resolve,reject)=> {
+    return new Promise((resolve, reject) => {
         axios.get('/api/movie/getInfo')
-        .then((res)=>{
-            return resolve(res);
-        })
-        .catch((err)=>{
-            return reject(err);
-        })
+            .then((res) => {
+                return resolve(res);
+            })
+            .catch((err) => {
+                return reject(err);
+            })
     });
 };
 
@@ -38,6 +39,3 @@ export const fetchMovieDetail = async (id) => {
         throw error;
     }
 };
-
-
-

@@ -70,14 +70,14 @@ function MessageList() {
                                 <div className="d-flex align-items-center" style={{ height: 'auto', width: '100px' }}><span style={textStyle}>날짜</span></div>
                                 <div className="d-flex align-items-center" style={{ height: 'auto', width: '100px' }}><span style={textStyle}>상태</span></div>
                             </div>
-                    {message.map((e) => (
-                            <div key={e.messageId} className="d-flex align-items-center" onClick={() => navigateToDetail(e.messageId)} style={{ width: '100%', background: 'rgba(214,51,132,0)', height: '12%', borderBottom: '2px ridge rgba(128,128,128,0.32)' }}>
-                       <div className="d-flex align-items-center" style={{height: 'auto', width: '150px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{e.messageSenderName}</span></div>
-                       <div className="d-flex align-items-center" style={{height: 'auto', width: '400px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{e.messageSubject}</span></div>
-                       <div className="d-flex align-items-center" style={{height: 'auto', width: '150px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{FormatDate(e.messageSendTime)}</span></div>
-                       <div className="d-flex align-items-center" style={{height: 'auto', width: '100px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{e.messageStatus}</span></div>
-                   </div>
-                   ))}
+                            {message.map((e) => (
+                                <div key={e.messageId} className="d-flex align-items-center" onClick={() => navigateToDetail(e.messageId)} style={{ width: '100%', background: 'rgba(214,51,132,0)', height: '12%', borderBottom: '2px ridge rgba(128,128,128,0.32)' }}>
+                                    <div className="d-flex align-items-center" style={{height: 'auto', width: '150px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{e.messageSenderName}</span></div>
+                                    <div className="d-flex align-items-center" style={{height: 'auto', width: '400px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{e.messageSubject}</span></div>
+                                    <div className="d-flex align-items-center" style={{height: 'auto', width: '150px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{FormatDate(e.messageSendTime)}</span></div>
+                                    <div className="d-flex align-items-center" style={{height: 'auto', width: '100px'}}><span style={{fontSize: '12px', fontWeight: 'bold'}}>{e.messageStatus}</span></div>
+                                </div>
+                            ))}
 
 
                             <div className="d-flex justify-content-end align-items-center" style={{ width: '100%', height: '20%' }}>

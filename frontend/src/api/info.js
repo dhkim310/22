@@ -45,22 +45,22 @@ export const uploadImage = async (formData) => {
 export const updateAddress = async (params) => {
     return new Promise((resolve,reject)=>{
         axios.put('api/emp/fix-address',params)
-        .then((res)=>{
-             return resolve(res);
-        })
-        .catch((err)=>{
-             return reject(err);
-        })
+            .then((res)=>{
+                return resolve(res);
+            })
+            .catch((err)=>{
+                return reject(err);
+            })
     });
 }
 export const updateDetailAddress = async (params) => {
     return new Promise((resolve,reject)=>{
         axios.put('/api/emp/fix-detail-address',params)
-        .then((res)=>{
-             return resolve(res);
-        })
-        .catch((err)=>{
-             return reject(err);
-        })
+            .then((res)=>{
+                return resolve(res);
+            })
+            .catch((err)=>{
+                return reject(err);
+            })
     });
 }

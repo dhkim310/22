@@ -9,7 +9,9 @@ import {useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
 import MemoComponent from "../component/MemoComponent";
 import {ApprovalCountApi} from '../api/Approval';
-import Sidebar from '../component/Sidebar';
+import {FormatDate} from "../component/FormatDate";
+import '../component/MemoComponent.css';
+import DeptEmpTree from "../component/Sidebar";
 
 function Main() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,9 +33,10 @@ function Main() {
         navigate("/approval-list");
     };
 
-    const navigateToNotice = (id) => {
+    const handleItemClick = (id) => {
         navigate(`/notice/${id}`)
-    }
+    };
+
     const [notice, setNotice] = useState([]);
     const [memo, setMemo] = useState({});
     const [logInfo, setLogInfo] = useState({});
@@ -41,33 +44,46 @@ function Main() {
     const [count, setCount] = useState(null)
     const [isMobile, setIsMobile] = useState(false);
     const [hoverAnimationList, setHoverAnimationList] = useState([]);
-    const {register, formState: {errors}, handleSubmit} = useForm();
+    const {register, handleSubmit} = useForm(); // useForm 훅 사용
 
-    const onValid = async ({today}) => {
-        await commuteApi({today})
-            .then((res) => {
-                if (res.status === 200) {
-                    alert('출근')
-                }
-                console.log(res);
-            })
-            .catch((err) => {
-                alert('Error')
-                console.log("err", err);
-            })
+    const fetchCommuteData = async () => {
+        // 버튼 클릭 시 새로운 데이터 불러오기
+        try {
+            const commuteData = await commuteSelectApi();
+            setLogInfo(commuteData);
+        } catch (error) {
+            alert('Error fetching commute data:', error);
+        }
     };
 
-    const onValid1 = async ({today}) => {
-        await commuteUpdateApi({today})
-            .then((res) => {
-                if (res.status === 200) {
-                    alert('퇴근')
-                }
-            })
-            .catch((err) => {
-                alert('Error')
-                console.log("err", err);
-            })
+    const onValid = handleSubmit(async ({today}) => {
+        try {
+            const response = await commuteApi({today});
+            if (response.status === 200) {
+                alert('출근');
+                await fetchCommuteData(); // 출근 성공 후 데이터 다시 가져오기
+            }
+        } catch (error) {
+            console.error('Error during commute:', error);
+            alert('Error');
+        }
+    });
+
+    const onValid1 = handleSubmit(async ({today}) => {
+        try {
+            const response = await commuteUpdateApi({today});
+            if (response.status === 200) {
+                alert('퇴근');
+                await fetchCommuteData(); // 퇴근 성공 후 데이터 다시 가져오기
+            }
+        } catch (error) {
+            console.error('Error during commute:', error);
+            alert('Error');
+        }
+    });
+
+    const navigateToUsedList = () => {
+        navigate('/used-list');
     };
 
     useEffect(() => {
@@ -115,6 +131,7 @@ function Main() {
                 console.error('Error fetching data:', error);
             }
         }
+
         const getWidth = () => {
             return window.innerWidth;
         };
@@ -139,286 +156,364 @@ function Main() {
         fetchData4();
     }, []);
 
-    return (<div style={{paddingTop: "50px"}}>
+    return (
+        <div style={{paddingTop: "50px"}}>
             <div>
                 <MemoComponent isOpen={isModalOpen} closeModal={closeModal} memoContent={memo.memoContent}/>
             </div>
-
-            <div>
-                <div className="d-grid d-lg-flex justify-content-lg-center"
-                     style={{width: 'auto', height: '100%', minHeight: '0px', background: 'gary'}}>
-                    <div style={{height: '100%', width: '10%', minHeight: '0px', background: 'var(--bs-gray-200)'}}>
-                        <div style={{height: 'auto', background: 'rgba(0,0,0,0)', paddingBottom: '5px'}}>
-                            <div className="d-lg-flex justify-content-lg-start"
-                                 style={{height: '1000px', background: 'rgba(126,126,126,0)'}}>
-                                <Sidebar/>
-                            </div>
-                        </div>
-
-                        <div style={{
-                            height: 'auto', background: 'rgba(0,0,0,0)', paddingBottom: '15px', paddingTop: '37px'
-                        }}>
-                            <div className="d-lg-flex justify-content-xxl-start"
-                                 style={{height: '30px', background: 'rgba(126,126,126,0)', fontSize: '12px'}}><span
-                                style={{fontWeight: 'bold'}}>&nbsp; 출근시간 :&nbsp; {logInfo.logCheckIn}</span></div>
-                            <div className="d-lg-flex justify-content-xxl-start"
-                                 style={{height: '30px', background: 'rgba(126,126,126,0)'}}><span style={{
-                                fontSize: '12px', fontWeight: 'bold'
-                            }}>&nbsp; 퇴근시간 :&nbsp; {logInfo.logCheckOut}</span></div>
-                        </div>
-                    </div>
-                    <div style={{width: '90%', background: 'var(--bs-gray-200)', height: '100%'}}>
-
-                        <div className="d-xxl-flex justify-content-xxl-center align-items-xxl-center" style={{
-                            width: 'auto',
-                            height: '100%',
-                            background: 'rgba(206,212,218,0)',
-                            borderBottomStyle: 'none',
-                            paddingTop: '27px'
-                        }}>
-                            <div className="container" style={{maxWidth: '1800px', height: '100%'}}>
-                                <div className="row d-xxl-flex justify-content-xxl-end"
-                                     style={{paddingTop: '0px', height: '100%'}}>
-                                    <div className="col d-xxl-flex align-items-xxl-center" style={{height: '100%'}}>
-                                        <div
-                                            style={{height: 'auto', background: 'rgba(255,255,255,0)', width: '20px'}}/>
-                                        <div style={{height: '850px', background: 'transparent', width: '370px'}}>
-                                            <div style={{background: 'white', width: '100%', height: '400px'}}>
-                                                <div style={{height: '30px'}}/>
-                                                <div style={{
-                                                    height: '300px',
-                                                    background: `url(${main.empPicturePath}) center / contain no-repeat`
-                                                }}/>
-                                                <div
-                                                    className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                                                    style={{height: '70px'}}>
-                                                    <div
-                                                        className="d-xxl-flex justify-content-xxl-end align-items-xxl-center"
-                                                        style={{width: '50%', height: '100%'}}><span style={{
-                                                        fontSize: '26px', fontWeight: 'bold'
-                                                    }}>{main.empName} {main.empPosition}</span></div>
-                                                    <div
-                                                        className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                                                        style={{width: '50%', height: '100%'}}>
-                                                        <button
-                                                            className="btn btn-primary d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                                                            data-bss-hover-animate="pulse" type="button"
-                                                            onClick={navigateToFixInfo} style={{
-                                                            width: '120px',
-                                                            height: '30px',
-                                                            color: 'black',
-                                                            background: 'rgba(13,110,253,0)',
-                                                            borderRadius: '6px',
-                                                            borderColor: 'black'
-                                                        }}>정보수정
-                                                        </button>
-                                                    </div>
-                                                </div>
+            <div style={{display: 'flex'}}>
+                <div style={{width: '10%', height: '100%'}}>
+                    <DeptEmpTree/>
+                </div>
+                <div className="d-flex justify-content-center align-items-center" style={{
+                    height: '1080px',
+                    filter: 'brightness(111%) grayscale(1%)',
+                    background: '#ffffff',
+                    display: 'block',
+                    width: '90%'
+                }}>
+                    <div style={{width: '80%', height: '100%'}}>
+                        <div style={{width: '100%', height: '5%', background: 'transparent'}}/>
+                        <div className="align-items-center"
+                             style={{width: '100%', height: '95%', background: 'transparent'}}>
+                            <div className="d-flex justify-content-center"
+                                 style={{width: '100%', minWidth: '0px', height: '40%', background: 'transparent'}}>
+                                <div className="d-flex justify-content-start"
+                                     style={{width: '40%', height: '100%', background: 'transparent'}}>
+                                    <div style={{
+                                        width: '90%',
+                                        height: '100%',
+                                        background: 'transparent',
+                                        borderRadius: '5px',
+                                        borderWidth: '2px',
+                                        borderStyle: 'solid'
+                                    }}>
+                                        <div className="d-flex justify-content-center align-items-center"
+                                             style={{width: '100%', height: '70%'}}>
+                                            <div className="d-flex justify-content-center align-items-center"
+                                                 style={{width: '40%', height: '100%'}}><img src={main.empPicturePath}
+                                                                                             style={{
+                                                                                                 width: '70%',
+                                                                                                 height: '70%',
+                                                                                                 borderRadius: '5px',
+                                                                                                 borderWidth: '0px',
+                                                                                                 borderStyle: 'solid'
+                                                                                             }} width={138}
+                                                                                             height={201}/>
                                             </div>
-                                            <div className="d-xxl-flex justify-content-xxl-center" style={{
-                                                background: 'white',
-                                                width: '100%',
-                                                height: '200px',
-                                                marginTop: '20px',
-                                                borderStyle: 'solid'
-                                            }}>
-                                                <div/>
-                                                <div
-                                                    className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                                                    style={{width: '50%', height: '100%'}}>
-                                                    <button className="btn btn-primary" onClick = { navigateToApproval } data-bss-hover-animate="pulse"
-                                                            type="button" style={{
-                                                        background: 'url("img/3.png") center / contain no-repeat',
-                                                        width: '55%',
-                                                        height: '65%',
-                                                        borderWidth: '0px'
-                                                    }}/>
+                                            <div className="d-flex align-items-center"
+                                                 style={{width: '60%', height: '100%'}}>
+                                                <div style={{width: '80%', height: '80%'}}>
+                                                    <div className="justify-content-center align-items-center"
+                                                         style={{width: '100%', height: '60%'}}>
+                                                        <div className="d-flex align-items-end"
+                                                             style={{width: '100%', height: '60%'}}>
+                                                        <span style={{
+                                                            fontWeight: 'bold',
+                                                            fontSize: '21px'
+                                                        }}>{main.empDept}</span>
+                                                        </div>
+                                                        <div className="d-flex align-items-center"
+                                                             style={{width: '100%', height: '30%'}}><span style={{
+                                                            fontWeight: 'bold',
+                                                            fontSize: '21px',
+                                                            marginRight: '10px'
+                                                        }}>{main.empPosition}</span><span style={{
+                                                            fontWeight: 'bold',
+                                                            fontSize: '21px'
+                                                        }}>{main.empName}</span></div>
+                                                        <div style={{width: '100%', height: '50%'}}>
+                                                            <div className="d-flex align-items-end"
+                                                                 style={{width: '100%', height: '50%'}}><span
+                                                                className="text-nowrap" style={{
+                                                                fontSize: '17px',
+                                                                marginRight: '27px'
+                                                            }}>이메일</span><span className="text-nowrap"
+                                                                               style={{fontSize: '17px'}}>{main.empEmail}</span>
+                                                            </div>
+                                                            <div style={{width: '100%', height: '50%'}}><span
+                                                                className="text-nowrap" style={{
+                                                                fontSize: '17px',
+                                                                marginRight: '10px'
+                                                            }}>전화번호</span><span className="text-nowrap"
+                                                                                style={{fontSize: '17px'}}>{main.empPhoneNumber}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div style={{width: '50%', height: '100%'}}>
-                                                    <div
-                                                        className="d-xxl-flex justify-content-xxl-center align-items-xxl-end"
-                                                        style={{
-                                                            background: 'transparent', width: '100%', height: '50%'
-                                                        }}><span
-                                                        style={{fontSize: '27px', fontWeight: 'bold'}}>진행중 결재</span>
-                                                    </div>
-                                                    <div className="d-xxl-flex justify-content-xxl-center" style={{
-                                                        background: 'transparent', width: '100%', height: '50%'
-                                                    }}><span style={{fontSize: '31px', fontWeight: 'bold'}}>{count}</span>
-                                                    </div>
+                                                <div style={{width: '20%', height: '100%'}}>
+                                                    <button className="btn btn-primary" data-bss-hover-animate="pulse"
+                                                            type="button" onClick={navigateToFixInfo} style={{
+                                                        background: 'url("img/fixinfo.png") center / contain no-repeat',
+                                                        width: '100%',
+                                                        height: '10%',
+                                                        borderWidth: '0px',
+                                                        marginTop: '10px'
+                                                    }}/>
+                                                    <button className="btn btn-primary" data-bss-hover-animate="pulse"
+                                                            type="button" onClick={navigateToUsedList} style={{
+                                                        background: 'url("img/vacation.png") center / contain no-repeat',
+                                                        width: '100%',
+                                                        height: '10%',
+                                                        borderWidth: '0px',
+                                                        marginTop: '10px'
+                                                    }}/>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style={{
-                                            height: '200px', background: 'rgba(255,255,255,0)', width: '20px'
-                                        }}/>
-                                        <div style={{height: '850px', background: 'transparent', width: '561px'}}>
-                                            <div style={{background: 'white', width: '100%', height: '450px'}}>
-                                                <div className="d-xxl-flex align-items-xxl-center" style={{
-                                                    height: '50px', borderBottom: '1px ridge rgba(128,128,128,0.24)'
-                                                }}><span style={{
-                                                    fontSize: '25px', fontWeight: 'bold', paddingLeft: '23px'
-                                                }}>공지사항</span></div>
-                                                <div
-                                                    className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                                                    style={{width: '100%', height: '400px'}}>
-                                                    <div
-                                                        className="d-xxl-flex justify-content-center justify-content-xxl-center align-items-xxl-center list-group"
-                                                        style={{
-                                                            marginLeft: '0px',
-                                                            marginRight: '34px',
-                                                            maxHeight: '1000px',
-                                                            width: '100%'
-                                                        }}>
-
-                                                        <ul>
-                                                            {notice.map((e, i) => (
-                                                                <li key={i} style={{listStyleType: 'none'}}>
-                                                                    <a className="d-xxl-flex justify-content-xxl-center list-group-item list-group-item-action flex-column align-items-start"
-                                                                       onClick={() => navigateToNotice(e.id)} style={{
-                                                                        height: '70px',
-                                                                        marginBottom: '2px',
-                                                                        width: '561px'
-                                                                    }}>
-                                                                        <div
-                                                                            className="d-flex w-100 justify-content-between"
-                                                                            style={{width: '100%'}}>
-                                                                            <h5 className="mb-1"
-                                                                                style={{width: '100%'}}>{e.subject}</h5>
-                                                                        </div>
-                                                                    </a>
-                                                                </li>))}
-                                                        </ul>
-
-
-                                                    </div>
+                                        <div className="justify-content-center align-items-center" style={{
+                                            width: '100%',
+                                            height: '30%',
+                                            borderTopWidth: '2px',
+                                            borderTopStyle: 'solid'
+                                        }}>
+                                            <div className="d-flex justify-content-center align-items-center"
+                                                 style={{width: '100%', height: '50%'}}>
+                                                <div className="d-flex align-items-center"
+                                                     style={{width: '50%', height: '100%'}}>
+                                                    <button className="btn btn-primary" data-bss-hover-animate="pulse"
+                                                            type="button" onClick={onValid} style={{
+                                                        background: 'white',
+                                                        color: 'black',
+                                                        borderWidth: '1px',
+                                                        borderColor: 'black',
+                                                        marginLeft: '20px',
+                                                        width: '70%',
+                                                        height: 'auto'
+                                                    }}>출근
+                                                    </button>
+                                                </div>
+                                                <div className="d-flex align-items-center"
+                                                     style={{width: '50%', height: '100%'}}>
+                                                    <span>{logInfo.logCheckIn}</span>
                                                 </div>
                                             </div>
-                                            <div style={{
-                                                background: 'white', width: '100%', height: '300px', marginTop: '20px'
-                                            }}>
-                                                <div className="d-xxl-flex align-items-xxl-center" style={{
-                                                    height: '50px', borderBottom: '1px ridge rgba(128,128,128,0.24)'
-                                                }}><span style={{
-                                                    fontSize: '25px', fontWeight: 'bold', paddingLeft: '23px'
-                                                }}>메모</span></div>
-                                                <div
-                                                    className="d-xxl-flex justify-content-xxl-center align-items-xxl-center"
-                                                    onClick={openModal} style={{width: '100%', height: '300px'}}>
-                                                    <div
-                                                        className="d-xxl-flex justify-content-center justify-content-xxl-center align-items-xxl-center list-group"
-                                                        style={{
-                                                            marginLeft: '0px',
-                                                            marginRight: '0px',
-                                                            maxHeight: '1000px',
-                                                            width: '100%'
-                                                        }}><a
-                                                        className="d-xxl-flex list-group-item list-group-item-action flex-column align-items-start"
-                                                        style={{height: '300px', marginBottom: '2px', width: '561px'}}>
-                                                        <div className="d-flex w-100 justify-content-between"
-                                                             style={{width: '100%'}}>
-                                                            <h5 className="mb-1"
-                                                                style={{width: '100%'}}>{memo.memoContent}</h5>
-                                                        </div>
-                                                    </a></div>
+                                            <div className="d-flex justify-content-center align-items-center"
+                                                 style={{width: '100%', height: '50%'}}>
+                                                <div className="d-flex align-items-center"
+                                                     style={{width: '50%', height: '100%'}}>
+                                                    <button className="btn btn-primary" data-bss-hover-animate="pulse"
+                                                            type="button" onClick={onValid1} style={{
+                                                        background: 'white',
+                                                        color: 'black',
+                                                        borderWidth: '1px',
+                                                        borderColor: 'black',
+                                                        marginLeft: '20px',
+                                                        width: '70%',
+                                                        height: 'auto'
+                                                    }}>퇴근
+                                                    </button>
+                                                </div>
+                                                <div className="d-flex align-items-center"
+                                                     style={{width: '50%', height: '100%'}}>
+                                                    <span>{logInfo.logCheckOut}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a
-                                        data-bss-hover-animate="pulse"
-                                        className="list-group-item list-group-item-action flex-column align-items-start"
-                                        style={{
-                                        height: '200px',
-                                        marginBottom: '2px',
-                                        width: 'auto',
-                                        borderStyle: 'none',
-                                        background: 'white'
+                                </div>
+                                <div className="d-flex justify-content-center align-items-center"
+                                     style={{width: '60%', height: '100%', background: 'transparent'}}>
+                                    <div style={{
+                                        width: '30%',
+                                        height: '100%',
+                                        borderWidth: '2px',
+                                        borderStyle: 'solid',
+                                        borderRadius: '5px'
                                     }}>
-                                        <div
-                                            className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between"
-                                            style={{background: 'black'}}>
-                                            <h5 className="mb-1" style={{color: 'white'}}>9/18</h5>
+                                        <div className="d-flex justify-content-center align-items-center" style={{
+                                            width: '100%',
+                                            height: '10%',
+                                            borderBottomWidth: '2px',
+                                            borderBottomStyle: 'solid'
+                                        }}><span className="text-nowrap" style={{fontWeight: 'bold'}}>진행중 결재</span>
                                         </div>
-                                        <p className="mb-1" style={{
-                                            background: 'white',
-                                            textAlign: 'center',
-                                            borderBottom: '1px ridge rgba(128,128,128,0.18)'
-                                        }}>Mon</p>
-                                    </a></div>
-                                    <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a
-                                        data-bss-hover-animate="pulse"
-                                        className="list-group-item list-group-item-action flex-column align-items-start"
-                                        style={{
-                                        height: '200px', marginBottom: '2px', width: 'auto', background: 'white'
-                                    }}>
-                                        <div
-                                            className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between"
-                                            style={{background: 'black'}}>
-                                            <h5 className="mb-1" style={{color: 'white'}}>9/19</h5>
+                                        <div className="d-flex justify-content-center align-items-center"
+                                             style={{width: '100%', height: '60%'}}>
+                                            <button className="btn btn-primary" data-bss-hover-animate="pulse"
+                                                    onClick={navigateToApproval} type="button"
+                                                    style={{
+                                                        background: 'url("img/approval.png") center / contain no-repeat, white',
+                                                        color: 'black',
+                                                        marginLeft: '0px',
+                                                        width: '70%',
+                                                        height: '60%',
+                                                        padding: '0px 0px',
+                                                        paddingTop: '-2px',
+                                                        borderWidth: '0px',
+                                                        borderColor: 'black',
+                                                        borderBottomWidth: '0px'
+                                                    }}/>
                                         </div>
-                                        <p className="mb-1" style={{
-                                            background: 'white',
-                                            textAlign: 'center',
-                                            borderBottom: '1px ridge rgba(128,128,128,0.18)'
-                                        }}>Tue</p>
-                                    </a></div>
-                                    <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a
-                                        data-bss-hover-animate="pulse"
-                                        className="list-group-item list-group-item-action flex-column align-items-start"
-                                        style={{
-                                        height: '200px', marginBottom: '2px', width: 'auto', background: 'white'
-                                    }}>
-                                        <div
-                                            className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between"
-                                            style={{background: 'black'}}>
-                                            <h5 className="mb-1" style={{color: 'white'}}>9/20</h5>
+                                        <div className="d-flex justify-content-center align-items-center" style={{
+                                            width: '100%',
+                                            height: '30%',
+                                            borderTopWidth: '2px',
+                                            borderTopStyle: 'solid'
+                                        }}><span className="text-nowrap"
+                                                 style={{fontWeight: 'bold', fontSize: '30px'}}>{count} 건</span></div>
+                                    </div>
+                                    <div className="d-flex justify-content-center align-items-center"
+                                         style={{width: '90%', height: '100%'}}>
+                                        <div style={{width: '5%', height: '100%'}}/>
+                                        <div style={{
+                                            width: '95%',
+                                            height: '100%',
+                                            borderWidth: '2px',
+                                            borderStyle: 'solid',
+                                            borderRadius: '5px',
+                                        }}>
+                                            <div className="text-nowrap d-flex align-items-center" style={{
+                                                width: '100%',
+                                                height: '10%',
+                                                borderBottomWidth: '2px',
+                                                borderBottomStyle: 'solid'
+                                            }}><span className="text-nowrap"
+                                                     style={{fontWeight: 'bold', marginLeft: '10px'}}>메모</span></div>
+                                            <div
+                                                className="d-flex justify-content-center justify-content-center align-items-center list-group"
+                                                style={{
+                                                    marginLeft: '0px',
+                                                    marginRight: '0px',
+                                                    maxHeight: '1000px',
+                                                    width: '100%',
+                                                    height: '90%',
+                                                }}
+                                            >
+                                                <div
+                                                    className="back color-6 SMN_effect-6 list-group-item list-group-item-action flex-column align-items-start"
+                                                    onClick={openModal}
+                                                    style={{
+                                                        height: '100%',
+                                                        marginBottom: '0px',
+                                                        width: '100%',
+                                                        overflow: 'auto'
+                                                    }}
+                                                >
+                                                    <div className="d-flex w-100 justify-content-between"
+                                                         style={{fontSize: '20px'}}>
+                                                        <h5 className="mb-1" data-hover={memo.memoContent}
+                                                            style={{width: '100%'}}>
+                                                            <div
+                                                                dangerouslySetInnerHTML={{__html: memo.memoContent}}></div>
+                                                        </h5>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p className="mb-1" style={{
-                                            background: 'white',
-                                            textAlign: 'center',
-                                            borderBottom: '1px ridge rgba(128,128,128,0.18)'
-                                        }}>Wed</p>
-                                    </a></div>
-                                    <div className="col-md-3 col-xxl-1" style={{maxWidth: '10%', height: '100%'}}><a
-                                        data-bss-hover-animate="pulse"
-                                        className="list-group-item list-group-item-action flex-column align-items-start"
-                                        style={{
-                                        height: '200px', marginBottom: '2px', width: 'auto', background: 'white'
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="d-flex justify-content-center"
+                                 style={{
+                                     marginTop: '2%',
+                                     width: '100%',
+                                     minWidth: '0px',
+                                     height: '40%',
+                                     background: 'transparent',
+                                     borderWidth: '2px',
+                                     borderStyle: 'solid',
+                                     borderRadius: '5px'
+                                 }}>
+                                <div style={{width: '100%', height: '100%'}}>
+                                    <div className="list-group d-xxl-flex" style={{
+                                        width: '100%',
+                                        maxHeight: '1000px',
                                     }}>
-                                        <div
-                                            className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between"
-                                            style={{background: 'black'}}>
-                                            <h5 className="mb-1" style={{color: 'white'}}>9/21</h5>
+                                        <div className="d-flex justify-content-start align-items-center" style={{
+                                            marginLeft: '10px',
+                                            marginTop: '10px',
+                                            marginBottom: '10px',
+                                            ontSize: '30px',
+                                            fontWeight: 'bold'
+                                        }}>공지사항
                                         </div>
-                                        <p className="mb-1" style={{
-                                            textAlign: 'center', borderBottom: '1px ridge rgba(128,128,128,0.18)'
-                                        }}>Thu</p>
-                                    </a></div>
-                                    <div className="col-md-3 col-xxl-1" style={{maxWidth: '25%', height: '100%'}}><a
-                                        data-bss-hover-animate="pulse"
-                                        className="list-group-item list-group-item-action flex-column align-items-start"
-                                        style={{
-                                        height: '200px',
-                                        marginBottom: '2px',
-                                        width: 'auto',
-                                        background: 'white',
-                                        borderRadius: '-20px'
-                                    }}>
                                         <div
-                                            className="d-xxl-flex justify-content-xxl-center d-flex w-100 justify-content-between"
+                                            className="list-group-item list-group-item-action d-flex flex-row align-items-start"
                                             style={{
-                                                background: 'black',
-                                                borderRadius: '0px',
+                                                height: '30px',
+                                                width: '100%',
+                                                paddingTop: '0px',
+                                                paddingRight: '0px',
+                                                paddingBottom: '0px',
+                                                paddingLeft: '0px',
+                                                borderTopRightRadius: '0px',
                                                 borderTopLeftRadius: '0px',
-                                                borderTopRightRadius: '0px'
+                                                borderStyle: 'solid',
+                                                borderColor: 'black',
+                                                borderRightStyle: 'none',
+                                                borderLeftStyle: 'none',
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center', // 추가: 세로 중앙 정렬
+                                                textAlign: "center",
                                             }}>
-                                            <h5 className="mb-1" style={{color: 'white'}}>9/22</h5>
+
+                                            <div style={{width: '5%', fontWeight: 'bold', whiteSpace: "nowrap"}}>글번호
+                                            </div>
+                                            <div style={{width: '50%', fontWeight: 'bold', whiteSpace: "nowrap"}}>제목
+                                            </div>
+                                            <div style={{width: '10%', fontWeight: 'bold', whiteSpace: "nowrap"}}>조회수
+                                            </div>
+                                            <div style={{width: '10%', fontWeight: 'bold', whiteSpace: "nowrap"}}>작성자
+                                            </div>
+                                            <div style={{width: '35%', fontWeight: 'bold', whiteSpace: "nowrap"}}>작성일
+                                            </div>
                                         </div>
-                                        <p className="mb-1" style={{
-                                            textAlign: 'center', borderBottom: '1px ridge rgba(128,128,128,0.18)'
-                                        }}>Fri</p>
-                                    </a></div>
+                                        <div>
+                                            {notice.map((item) => (
+                                                <button
+                                                    className="list-group-item list-group-item-action d-flex flex-row align-items-center"
+                                                    onClick={() => handleItemClick(item.id)}
+                                                    style={{
+                                                        height: '50px',
+                                                        marginBottom: '2px',
+                                                        marginTop: '15px',
+                                                        width: '100%',
+                                                        paddingTop: '0px',
+                                                        paddingRight: '0px',
+                                                        paddingBottom: '0px',
+                                                        paddingLeft: '0px',
+                                                        borderTopRightRadius: '0px',
+                                                        borderTopLeftRadius: '0px',
+                                                        borderStyle: 'none',
+                                                        borderColor: 'black',
+                                                        borderRightStyle: 'none',
+                                                        borderLeftStyle: 'none',
+                                                        display: 'flex',
+                                                        justifyContent: 'space-between'
+                                                    }}
+                                                    key={item.id}
+                                                >
+                                                    <div style={{
+                                                        width: '5%',
+                                                        fontWeight: 'bold',
+                                                        textAlign: 'center'
+                                                    }}>{item.id}</div>
+                                                    <div style={{
+                                                        width: '50%',
+                                                        fontWeight: 'bold',
+                                                        textAlign: 'left'
+                                                    }}>{item.subject}</div>
+                                                    <div style={{
+                                                        width: '10%',
+                                                        fontWeight: 'bold',
+                                                        textAlign: 'center'
+                                                    }}>{item.views}</div>
+                                                    <div style={{
+                                                        width: '10%',
+                                                        fontWeight: 'bold',
+                                                        textAlign: 'center'
+                                                    }}>{item.writer}</div>
+                                                    <div style={{
+                                                        width: '35%',
+                                                        fontWeight: 'bold',
+                                                        textAlign: 'center'
+                                                    }}>{FormatDate(item.createdDate)}</div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -426,7 +521,6 @@ function Main() {
                 </div>
             </div>
         </div>
-
     )
 }
 

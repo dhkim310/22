@@ -1,11 +1,14 @@
 package erp.backend.domain.emp.service;
 
+import erp.backend.domain.dept.repository.DeptQueryDsl;
 import erp.backend.domain.emp.dto.*;
 import erp.backend.domain.emp.entity.Emp;
 import erp.backend.domain.emp.entity.EmpPicture;
 import erp.backend.domain.emp.repository.EmpPictureRepository;
 import erp.backend.domain.emp.repository.EmpRepository;
 import erp.backend.domain.emp.vo.EmpVo;
+import erp.backend.domain.memo.entity.Memo;
+import erp.backend.domain.memo.repository.MemoRepository;
 import erp.backend.domain.uploadfile.entity.UploadFile;
 import erp.backend.domain.uploadfile.repository.UploadFileRepository;
 import erp.backend.domain.uploadfile.service.UploadFileService;
@@ -19,7 +22,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,8 @@ public class EmpService {
     private final EmpPictureRepository empPictureRepository;
     private final UploadFileRepository uploadFileRepository;
     private final VacationRepository vacationRepository;
+    private final MemoRepository memoRepository;
+    private final DeptQueryDsl deptQueryDsl;
 
     private final UploadFileService uploadFileService;
 
@@ -56,24 +60,43 @@ public class EmpService {
     public List<EmpHrmListResponse> searchAllList() {
         List<Emp> list = empRepository.findAll();
 
-        return list.stream().map(emp -> EmpHrmListResponse.builder().empId(emp.getEmpId()).empName(emp.getEmpName()).empPosition(emp.getEmpPosition()).empEmail(emp.getEmpEmail()).empStatus(emp.getEmpStatus()).dept(emp.getDept().getDeptName()).build()).toList();
+        return list.stream()
+                .map(emp -> EmpHrmListResponse.builder()
+                        .empId(emp.getEmpId())
+                        .empName(emp.getEmpName())
+                        .empPosition(emp.getEmpPosition())
+                        .empEmail(emp.getEmpEmail())
+                        .empStatus(emp.getEmpStatus())
+                        .dept(emp.getDept().getDeptName())
+                        .build())
+                .toList();
     }
 
     @Transactional(readOnly = true) // 인사이동 페이지
     public EmpReshuffleResponse reshuffleResponse(Long id) {
         Emp emp = getEmpAccountId(id);
         EmpPicture picturePath = empPictureRepository.findByEmp_EmpId(emp.getEmpId());
-//        if (picturePath == null ) {
-//            picturePath = empPictureRepository.findByEmp_EmpId(99999L);
-//        }
-        picturePath = (picturePath != null) ? picturePath : empPictureRepository.findByEmp_EmpId(99999L);
-        return EmpReshuffleResponse.builder().empId(emp.getEmpId()).deptId(emp.getDept().getDeptId()).empName(emp.getEmpName()).deptName(emp.getDept().getDeptName()).empEmail(emp.getEmpEmail()).empPosition(emp.getEmpPosition()).empStartDate(emp.getEmpStartDate()).empEndDate(emp.getEmpEndDate()).empStatus(emp.getEmpStatus()).empPicturePath(picturePath.getUploadFile().getPath()).build();
+        picturePath = (picturePath != null) ? picturePath : empPictureRepository.findByEmp_EmpId(101L);
+
+        return EmpReshuffleResponse.builder()
+                .empId(emp.getEmpId())
+                .deptId(emp.getDept().getDeptId())
+                .empName(emp.getEmpName())
+                .deptName(emp.getDept().getDeptName())
+                .empEmail(emp.getEmpEmail())
+                .empPosition(emp.getEmpPosition())
+                .empStartDate(emp.getEmpStartDate())
+                .empEndDate(emp.getEmpEndDate())
+                .empStatus(emp.getEmpStatus())
+                .empPicturePath(picturePath.getUploadFile().getPath())
+                .build();
     }
 
     @Transactional // 인사이동 업데이트
     public Long updateReshuffle(Long id, EmpReshuffleRequest request) {
         Emp emp = getEmpAccountId(id);
         emp.updateReshuffle(request);
+
         return emp.getEmpId();
     }
 
@@ -97,6 +120,8 @@ public class EmpService {
                 .empStatus("재직")
                 .build();
         empRepository.save(emp);
+
+
         Vacation vacation = Vacation.builder()
                 .emp(emp)
                 .vacationTotalVacation(18)
@@ -104,6 +129,13 @@ public class EmpService {
                 .vacationUsedCount(0)
                 .build();
         vacationRepository.save(vacation);
+
+        Memo memo = Memo.builder()
+                .emp(emp)
+                .memoContent(" ")
+                .build();
+
+        memoRepository.save(memo);
     }
 
     @Transactional(readOnly = true)
@@ -119,16 +151,16 @@ public class EmpService {
         List<String> roles = Arrays.stream(emp.getRoles().split(",")).toList();
         String encode = URLEncoder.encode("Bearer ", StandardCharsets.UTF_8).replaceAll("\\+", "%20") + token;
         Cookie cookie = new Cookie("Authorization", encode);
-        // cookie.setHttpOnly(true);
-        // cookie.setSecure(true);
         cookie.setPath("/");
 
         httpResponse.addCookie(cookie);
+
         return SignInResponse.builder()
                 .token(token)
                 .empId(emp.getEmpId())
                 .empName(emp.getEmpName())
                 .empEmail(emp.getEmpEmail())
+                .hasPermission(emp.getDept().getDeptName())
                 .roles(roles)
                 .build();
     }
@@ -137,10 +169,7 @@ public class EmpService {
     public EmpDetailResponse empDetailResponse() {
         Emp emp = SecurityHelper.getAccount();
         EmpPicture empPicture = empPictureRepository.findByEmp_EmpId(emp.getEmpId());
-        if (empPicture == null) {
-            empPicture = empPictureRepository.findByEmp_EmpId(99999L);
-        }
-        System.out.println(empPicture.getUploadFile().getPath());
+        empPicture = (empPicture != null) ? empPicture : empPictureRepository.findByEmp_EmpId(101L);
         String empPicturePathLoad = empPicture.getUploadFile().getPath();
 
         return EmpDetailResponse.builder()
@@ -218,7 +247,15 @@ public class EmpService {
     public List<EmpSalaryListResponse> getEmpList() {
         Emp emp = SecurityHelper.getAccount();
         List<Emp> list = empRepository.findAll();
-        return list.stream().map(emp1 -> EmpSalaryListResponse.builder().empId(emp1.getEmpId()).empName(emp1.getEmpName()).empPosition(emp1.getEmpPosition()).empAmount(emp1.getEmpAmount()).dept(emp1.getDept().getDeptName()).build()).toList();
+        return list.stream()
+                .map(emp1 -> EmpSalaryListResponse.builder()
+                        .empId(emp1.getEmpId())
+                        .empName(emp1.getEmpName())
+                        .empPosition(emp1.getEmpPosition())
+                        .empAmount(emp1.getEmpAmount())
+                        .dept(emp1.getDept().getDeptName())
+                        .build())
+                .toList();
     }
 
     @Transactional(readOnly = true)
@@ -226,13 +263,25 @@ public class EmpService {
         Emp emp = SecurityHelper.getAccount();
         EmpPicture empPicture = empPictureRepository.findByEmp_EmpId(emp.getEmpId());
         if (empPicture == null) {
-            empPicture = empPictureRepository.findByEmp_EmpId(99999L);
+            empPicture = empPictureRepository.findByEmp_EmpId(101L);
         }
-        return EmpMainResponse.builder().empName(emp.getEmpName()).empPosition(emp.getEmpPosition()).empPicturePath(empPicture.getUploadFile().getPath()).build();
+        return EmpMainResponse.builder()
+                .empName(emp.getEmpName())
+                .empDept(emp.getDept().getDeptName())
+                .empEmail(emp.getEmpEmail())
+                .empPhoneNumber(emp.getEmpPhoneNumber())
+                .empPosition(emp.getEmpPosition())
+                .empPicturePath(empPicture.getUploadFile().getPath())
+                .build();
+    }
+
+    // 조직도
+    @Transactional(readOnly = true)
+    public DeptEmpList empTreeList(String deptName) {
+        return deptQueryDsl.getDeptAndEmp(deptName);
     }
 
     private Emp getEmpAccountId(Long id) {
-
         return empRepository.findByEmpId(id);
     }
 

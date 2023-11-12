@@ -1,9 +1,13 @@
 package erp.backend.domain.board.service;
 
-import erp.backend.domain.board.dto.*;
+import erp.backend.domain.board.dto.BoardDetailResponse;
+import erp.backend.domain.board.dto.BoardListResult;
+import erp.backend.domain.board.dto.BoardRequest;
+import erp.backend.domain.board.dto.BoardUpdate;
 import erp.backend.domain.board.entity.Board;
 import erp.backend.domain.board.entity.BoardFile;
 import erp.backend.domain.board.repository.BoardFileRepository;
+import erp.backend.domain.board.repository.BoardQueryDsl;
 import erp.backend.domain.board.repository.BoardRepository;
 import erp.backend.domain.comment.dto.CommentResponse;
 import erp.backend.domain.comment.entity.Comment;
@@ -16,10 +20,7 @@ import erp.backend.global.util.FileUtils;
 import erp.backend.global.util.SchemaType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +32,7 @@ import java.util.List;
 import static erp.backend.global.util.ArrayUtils.isNullOrEmpty;
 import static erp.backend.global.util.FileUtils.generatorFilePath;
 
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -41,23 +43,14 @@ public class BoardService {
 
     private final UploadFileService uploadFileService;
 
+    private final BoardQueryDsl boardQueryDsl;
+
+    //TODO : 기본 Null 검색 버튼 클릭시 keyword
     @Transactional(readOnly = true)
-    public BoardListResult boardListResult(Pageable pageable) {
-        List<Board> list = boardRepository.findAll(Sort.by(Sort.Order.desc("boardId")));
-        List<BoardListResponse> boardListResponses = new ArrayList<>();
-
-        for (Board board : list) {
-            BoardListResponse response = BoardListResponse.fromBoard(board);
-            boardListResponses.add(response);
-        }
-
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), boardListResponses.size());
-        List<BoardListResponse> sublist = boardListResponses.subList(start, end);
-
-        Page<BoardListResponse> page = new PageImpl<>(sublist, pageable, boardListResponses.size());
-
-        return new BoardListResult(pageable.getPageNumber(), boardListResponses.size(), pageable.getPageSize(), page);
+    public BoardListResult boardSearchListResult(String keyword, PageRequest pageRequest) {
+        return BoardListResult.from(
+                boardQueryDsl.searchBoardList(keyword, pageRequest)
+        );
     }
 
     @Transactional

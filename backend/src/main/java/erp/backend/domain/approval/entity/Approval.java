@@ -68,5 +68,4 @@ public class Approval {
             this.approvalBackDate = LocalDate.now();
         }
     }
-
 }

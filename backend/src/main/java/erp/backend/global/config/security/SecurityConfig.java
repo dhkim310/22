@@ -45,29 +45,20 @@ public class SecurityConfig {
                         sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .authorizeHttpRequests(authorize -> authorize
-                        // .requestMatchers(
-                        // "/api/**"
-                        // ).hasAnyRole("ADMIN_총무부", "ADMIN_재무부", "ADMIN_콘텐츠관리부", "ADMIN_회원관리부")
-                        // .requestMatchers(
-                        // "/main"
-                        // ).hasRole("USER")
                         .requestMatchers(
-                                "/api/sign-up",
+                                "/api/main",
                                 "/api/sign-in",
+                                "/api/emp/tree",
                                 "/api/emp/fix-info",
                                 "/api/emp/fix-address",
                                 "/api/emp/fix-detail-address",
                                 "/api/emp/picture-update",
-                                "/api/emp/salary-list",
-                                "/api/emp/salary/{empName}",
-                                "/api/salary",
-                                "/api/salary/list/{id}",
-                                "/api/main",
                                 "/api/notice",
                                 "/api/notice/{id}",
                                 "/api/notice/first-list",
                                 "/api/board",
                                 "/api/board/{id}",
+                                "/api/board/search",
                                 "/api/comment/{boardId}",
                                 "/api/comment/{id}",
                                 "/api/approval",
@@ -77,26 +68,41 @@ public class SecurityConfig {
                                 "/api/schedule",
                                 "/api/log",
                                 "/api/log/{id}",
-                                "/api/member",
-                                "/api/member/list",
-                                "/api/member/detail/{id}",
                                 "/api/memo",
-                                "/api/emp/hrm-list",
-                                "/api/emp/hrm/{id}",
-                                "/api/movie",
-                                "/api/movie/getInfo",
-                                "/api/movie/{id}",
-                                "/api/serviceMovie/{movieId}",
-                                "/api/serviceMovie/{id}",
-                                "/api/serviceMovie",
                                 "/api/message",
                                 "/api/message/{id}",
                                 "/api/message/test/{messageId}",
                                 "/api/file/{uuid}",
                                 "/api/vacation",
-                                "/api/vacation/{id}"
+                                "/api/sign-up",
+                                "/api/emp-list"
                         )
                         .permitAll()
+                        .requestMatchers(
+                                "/api/emp/hrm-list",
+                                "/api/emp/hrm/{id}",
+                                "/api/vacation",
+                                "/api/vacation/{id}"
+                        ).hasAnyRole("ADMIN_인사부", "USER_인사부")
+                        .requestMatchers(
+                                "/api/movie",
+                                "/api/movie/getInfo",
+                                "/api/movie/{id}",
+                                "/api/serviceMovie/{movieId}",
+                                "/api/serviceMovie/{id}",
+                                "/api/serviceMovie"
+                        ).hasAnyRole("ADMIN_콘텐츠관리부", "USER_콘텐츠관리부")
+                        .requestMatchers(
+                                "/api/member",
+                                "/api/member/list",
+                                "/api/member/detail/{id}"
+                        ).hasAnyRole("ADMIN_회원관리부", "USER_회원관리부")
+                        .requestMatchers(
+                                "/api/emp/salary-list",
+                                "/api/emp/salary/{empName}",
+                                "/api/salary",
+                                "/api/salary/list/{id}"
+                        ).hasAnyRole("ADMIN_재무부", "USER_재무부")
                         .anyRequest().hasRole("USER"))
                 .addFilterBefore(jwtSecurityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

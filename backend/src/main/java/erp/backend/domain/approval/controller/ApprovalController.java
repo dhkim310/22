@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -35,9 +34,11 @@ public class ApprovalController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> approvalInsert(@RequestPart(value = "requestDto") ApprovalInsert request, @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+    public ResponseEntity<Long> approvalInsert(@RequestPart(value = "requestDto") ApprovalInsert request,
+                                               @RequestPart(value = "files", required = false) List<MultipartFile> files) {
         return ResponseEntity.ok(approvalService.approvalInsert(request, files));
     }
+
     @GetMapping
     public Long approvalCount() {
         return approvalService.approvalCount();
@@ -50,7 +51,8 @@ public class ApprovalController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> approvalUpdate(@PathVariable("id") Long id, @RequestBody ApprovalUpdate request) throws IOException {
+    public ResponseEntity<Long> approvalUpdate(@PathVariable("id") Long id,
+                                               @RequestBody ApprovalUpdate request) {
         return ResponseEntity.ok(approvalService.update(id, request));
     }
 }

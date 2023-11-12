@@ -26,7 +26,6 @@ public class Notice {
     @Column(name = "NOTICE_ID")
     private long noticeId;
 
-    //외래키
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER) // 필요할때만 호출
     @JoinColumn(name = "NOTICE_EMP_ID", referencedColumnName = "EMP_ID", updatable = false) // 작성자 수정 불가

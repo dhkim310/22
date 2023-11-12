@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import '../assets/bootstrap/css/bootstrap.min.css';
 import '../assets/css/animate.min.css'
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {salaryDelete, selectSalaryList} from "../api/Salary";
 
 function EmpSalary() {
@@ -46,7 +46,9 @@ function EmpSalary() {
                 <div className="d-flex align-items-center"
                      style={{height: '70px', padding: '0', width: 'auto'}}>
                     <span
-                        style={{fontWeight: 'bold', fontSize: '30px', paddingLeft: '110px', width: '100%'}}>급여내역</span>
+                        style={{fontWeight: 'bold', fontSize: '30px', paddingLeft: '110px', width: '100%'}}>
+                        급여내역
+                    </span>
                 </div>
 
                 <div className="d-flex" style={{width: 'auto', height: '1080px'}}>
@@ -59,46 +61,68 @@ function EmpSalary() {
                             width: '100%'
                         }}>
                             <div className="d-flex justify-content-start"
-                                 style={{height: '100%', width: '115px'}}></div>
+                                 style={{height: '100%', width: '115px'}}/>
                             <div className="d-flex justify-content-start align-items-center"
-                                 style={{height: '100%', width: '175px'}}><span>지급은행</span></div>
+                                 style={{height: '100%', width: '175px'}}>
+                                <span>지급은행</span>
+                            </div>
                             <div className="d-flex justify-content-start align-items-center"
-                                 style={{height: '100%', width: '200px'}}><span>계좌번호</span></div>
+                                 style={{height: '100%', width: '200px'}}>
+                                <span>계좌번호</span>
+                            </div>
                             <div className="d-flex justify-content-start align-items-center"
-                                 style={{height: '100%', width: '175px'}}><span>지급금액(월)</span></div>
+                                 style={{height: '100%', width: '175px'}}>
+                                <span>지급금액(월)</span>
+                            </div>
                             <div className="d-flex justify-content-start align-items-center"
-                                 style={{height: '100%', width: '175px'}}><span>성과금</span></div>
+                                 style={{height: '100%', width: '175px'}}>
+                                <span>성과금</span>
+                            </div>
                             <div className="d-flex justify-content-start align-items-center"
-                                 style={{height: '100%', width: '175px'}}><span>제세공과금</span></div>
+                                 style={{height: '100%', width: '175px'}}>
+                                <span>제세공과금</span>
+                            </div>
                             <div className="d-flex justify-content-start align-items-center"
-                                 style={{height: '100%', width: '175px'}}><span>지급일</span></div>
+                                 style={{height: '100%', width: '175px'}}>
+                                <span>지급일</span>
+                            </div>
                         </div>
                         <div style={{width: '100%', height: '20px'}}></div>
                         {salaryList.map((item, index) => (
                             <div key={index}>
-                                <div className="d-flex justify-content-start align-items-center" style={{
-                                    background: 'rgba(13, 110, 253, 0)',
-                                    height: '45px',
-                                    borderTop: '2px none rgba(128, 128, 128, 0.32)',
-                                    borderBottom: '2px none rgba(128, 128, 128, 0.32)',
-                                    width: '100%'
-                                }}>
+                                <div className="d-flex justify-content-start align-items-center"
+                                     style={{
+                                         background: 'rgba(13, 110, 253, 0)',
+                                         height: '45px',
+                                         borderTop: '2px none rgba(128, 128, 128, 0.32)',
+                                         borderBottom: '2px none rgba(128, 128, 128, 0.32)',
+                                         width: '100%'
+                                     }}>
                                     <div className="d-flex justify-content-start"
-                                         style={{height: '45px', width: '115px'}}></div>
+                                         style={{height: '45px', width: '115px'}}/>
                                     <div className="d-flex justify-content-start align-items-center"
-                                         style={{height: '45px', width: '175px'}}><span>{item.salaryBank}</span></div>
-                                    <div className="d-flex justify-content-start align-items-center"
-                                         style={{height: '45px', width: '200px'}}>
-                                        <span>{item.salaryAccountNumber}</span></div>
-                                    <div className="d-flex justify-content-start align-items-center"
-                                         style={{height: '45px', width: '175px'}}><span>{item.salaryPayMoney}</span>
+                                         style={{height: '45px', width: '175px'}}>
+                                        <span>{item.salaryBank}</span>
                                     </div>
                                     <div className="d-flex justify-content-start align-items-center"
-                                         style={{height: '45px', width: '175px'}}><span>{item.salaryBonus}</span></div>
+                                         style={{height: '45px', width: '200px'}}>
+                                        <span>{item.salaryAccountNumber}</span>
+                                    </div>
                                     <div className="d-flex justify-content-start align-items-center"
-                                         style={{height: '45px', width: '175px'}}><span>{item.salaryTax}</span></div>
+                                         style={{height: '45px', width: '175px'}}>
+                                        <span>{item.salaryPayMoney}</span>
+                                    </div>
                                     <div className="d-flex justify-content-start align-items-center"
-                                         style={{height: '45px', width: '175px'}}><span>{item.salaryPayDate}</span>
+                                         style={{height: '45px', width: '175px'}}>
+                                        <span>{item.salaryBonus}</span>
+                                    </div>
+                                    <div className="d-flex justify-content-start align-items-center"
+                                         style={{height: '45px', width: '175px'}}>
+                                        <span>{item.salaryTax}</span>
+                                    </div>
+                                    <div className="d-flex justify-content-start align-items-center"
+                                         style={{height: '45px', width: '175px'}}>
+                                        <span>{item.salaryPayDate}</span>
                                     </div>
                                     <div className="d-flex justify-content-start align-items-center"
                                          style={{height: '45px', width: '50px'}}>

@@ -19,7 +19,6 @@ public class Memo {
     @Column(name = "MEMO_ID")
     private long memoId;
 
-    //외래키
     @ManyToOne(fetch = FetchType.LAZY) // 필요할때만 호출
     @JoinColumn(name = "MEMO_EMP_ID", referencedColumnName = "EMP_ID")
     private Emp emp;
@@ -27,7 +26,7 @@ public class Memo {
     @Column(name = "MEMO_CONTENT")
     private String memoContent;
 
-    public void update(Emp emp, MemoUpdate request) {
+    public void update(MemoUpdate request) {
         this.memoContent = request.getContent();
     }
 }

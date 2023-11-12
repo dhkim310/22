@@ -12,25 +12,25 @@ function FixInfo() {
     const [selectedAddress, setSelectedAddress] = useState(''); // 선택한 주소를 저장할 state
 
     const openModal = () => {
-      setIsModalOpen(true);
+        setIsModalOpen(true);
     };
 
     const closeModal = () => {
-      setIsModalOpen(false);
+        setIsModalOpen(false);
     };
 
     const handleAddressSearch = () => {
-      openModal(); // 주소 검색 모달 열기
+        openModal(); // 주소 검색 모달 열기
     };
 
     const handleAddressSelected = async (data) => {
-      try {
-        await updateAddress({ empAddress: data.address });
-        closeModal();
-        window.location.reload();
-      } catch (error) {
-        console.error('Error updating address:', error);
-      }
+        try {
+            await updateAddress({ empAddress: data.address });
+            closeModal();
+            window.location.reload();
+        } catch (error) {
+            console.error('Error updating address:', error);
+        }
     };
     const {register, formState: {errors}, handleSubmit} = useForm();
     const navigate = useNavigate();
@@ -259,34 +259,34 @@ function FixInfo() {
                 background: 'var(--bs-black)', height: '30px', borderWidth: '0px', borderBottomWidth: '0px'
             }}>우편번호 찾기
             </button>
-                  <Postcode
-                      style={{
-                        display: isModalOpen ? 'block' : 'none',
-                        position: 'fixed',
-                        width: '450px',
-                        height: '550px',
-                        backgroundColor: 'white',
-                        borderStyle: 'solid',
-                        top: '50%', // 화면 상단에서 중앙으로 이동
-                        left: '50%', // 화면 왼쪽에서 중앙으로 이동
-                        transform: 'translate(-50%, -50%)', // 중앙 정렬
-                        zIndex: '9999', // 화면 위에 나타나도록 설정
-                      }}
-                    onComplete={handleAddressSelected}
-                  />
-                  <form onSubmit={handleSubmit(onValid1)}>
-                    <div className="d-flex align-items-center"
-                         style={{height: '104px', marginTop: '0px', paddingTop: '0px', width: 'auto'}}><span
-                        style={{paddingRight: '0px', paddingLeft: '295px'}}>상세주소</span><input type="text" style={{
-                        marginLeft: '35px', marginTop: '0px'
-                    }} defaultValue={empInfo.empDetailAddress} {...register('empDetailAddress')} />
-                        <button className="btn btn-primary text-center d-flex align-items-center"
-                                data-bss-hover-animate="pulse" type="submit" style={{
-                            background: 'var(--bs-black)', height: '30px', borderWidth: '0px', borderBottomWidth: '0px'
-                        }}>수정
-                        </button>
-                     </div>
-                  </form>
+            <Postcode
+                style={{
+                    display: isModalOpen ? 'block' : 'none',
+                    position: 'fixed',
+                    width: '450px',
+                    height: '550px',
+                    backgroundColor: 'white',
+                    borderStyle: 'solid',
+                    top: '50%', // 화면 상단에서 중앙으로 이동
+                    left: '50%', // 화면 왼쪽에서 중앙으로 이동
+                    transform: 'translate(-50%, -50%)', // 중앙 정렬
+                    zIndex: '9999', // 화면 위에 나타나도록 설정
+                }}
+                onComplete={handleAddressSelected}
+            />
+            <form onSubmit={handleSubmit(onValid1)}>
+                <div className="d-flex align-items-center"
+                     style={{height: '104px', marginTop: '0px', paddingTop: '0px', width: 'auto'}}><span
+                    style={{paddingRight: '0px', paddingLeft: '295px'}}>상세주소</span><input type="text" style={{
+                    marginLeft: '35px', marginTop: '0px'
+                }} defaultValue={empInfo.empDetailAddress} {...register('empDetailAddress')} />
+                    <button className="btn btn-primary text-center d-flex align-items-center"
+                            data-bss-hover-animate="pulse" type="submit" style={{
+                        background: 'var(--bs-black)', height: '30px', borderWidth: '0px', borderBottomWidth: '0px'
+                    }}>수정
+                    </button>
+                </div>
+            </form>
         </div>
     </div>)
 }

@@ -38,7 +38,7 @@ function NoticeInsert() {
                 alert('게시물이 성공적으로 업로드되었습니다.');
                 navigate('/notice');
             } catch (error) {
-                alert('게시물이 업로드 실패.' + error.message);
+                alert('공지사항은 관리자만 작성할 수 있습니다');
             }
         }
     };

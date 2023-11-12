@@ -13,6 +13,7 @@ function NoticeList() {
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation(); // 현재 위치 가져오기
     const isNoticePage = location.pathname === '/notice'; // "/notice" 경로에 있는지 확인
+    const [hasPermission, setHasPermission] = useState(false); // 적절한 초기값으로 설정
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
@@ -25,6 +26,9 @@ function NoticeList() {
                 const data = await fetchNoticeList(currentPage - 1);
                 setNoticeList(data.list.content);
                 setTotalPages(data.totalPageCount);
+
+                const hasPermission = data.hasPermission == true; // 예시: 'admin' 권한이 있는 경우 true로 설정
+                setHasPermission(hasPermission);
             } catch (error) {
                 console.error('데이터 가져오기 오류:', error);
             }
@@ -65,18 +69,25 @@ function NoticeList() {
                      style={{width: '100%', height: '100%', background: 'transparent'}}>
                     <div className="d-flex justify-content-start align-items-center"
                          style={{marginTop: "3%", marginLeft: "3%", width: '10%', height: '100%', background: 'white'}}>
-                        <button
-                            className="btn btn-primary d-flex justify-content-center align-items-center"
-                            data-bss-hover-animate="pulse" type="button" onClick={navigateToWrite} style={{
-                            background: "rgba(13,110,253,0)",
-                            border: "2px ridge black",
-                            width: "auto",
-                            height: "auto",
-                            color: "black",
-                            paddingRight: 35,
-                            paddingLeft: 35
-                        }}>글쓰기
-                        </button>
+                        {hasPermission && ( // hasPermission이 true일 때만 버튼이 나타납니다.
+                            <button
+                                className="btn btn-primary d-flex justify-content-center align-items-center"
+                                data-bss-hover-animate="pulse"
+                                type="button"
+                                onClick={navigateToWrite}
+                                style={{
+                                    background: "rgba(13,110,253,0)",
+                                    border: "2px ridge black",
+                                    width: "auto",
+                                    height: "auto",
+                                    color: "black",
+                                    paddingRight: 35,
+                                    paddingLeft: 35
+                                }}
+                            >
+                                글쓰기
+                            </button>
+                        )}
                     </div>
                     <div style={{background: 'white', width: '90%', height: '100%'}}>
                         <div
@@ -128,18 +139,6 @@ function NoticeList() {
                                         게시판
                                     </button>
                                 </div>
-                                <div className="d-flex justify-content-end align-items-center"
-                                     style={{width: '70%', height: '100%'}}>
-                                    <input type="search"/>
-                                    <button className="btn btn-primary text-nowrap" type="button" style={{
-                                        background: 'url("img/Search.png") center / contain no-repeat',
-                                        borderStyle: 'none',
-                                        width: '54.3px',
-                                        height: '36px',
-                                        color: 'black'
-                                    }}>
-                                    </button>
-                                </div>
                             </div>
                             <div className="d-flex justify-content-start align-items-end"
                                  style={{width: '100%', height: '50%'}}/>
@@ -183,7 +182,7 @@ function NoticeList() {
                                 <div>
                                     {noticeList.map((item) => (
                                         <button
-                                            className="list-group-item list-group-item-action d-flex flex-row align-items-start"
+                                            className="list-group-item list-group-item-action d-flex flex-row align-items-center"
                                             onClick={() => handleItemClick(item.id)} // 클릭 시 상세보기 페이지로 이동
                                             style={{
                                                 height: '50px',

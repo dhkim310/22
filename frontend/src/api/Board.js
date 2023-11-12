@@ -1,9 +1,8 @@
 import axios from "axios";
 
-// 게시판 리스트를 가져오는 함수
-export const fetchBoardList = async (page) => {
+export const fetchBoardSearchList = async (keyword, page) => {
     try {
-        const response = await axios.get(`/api/board?page=${page}`);
+        const response = await axios.get(`/api/board?keyword=${keyword}&page=${page}&size=${10}`);
         return response.data;
     } catch (error) {
         throw error;

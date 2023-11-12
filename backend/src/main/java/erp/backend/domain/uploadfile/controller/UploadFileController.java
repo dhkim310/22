@@ -17,9 +17,7 @@ public class UploadFileController {
 
     @GetMapping("/file/{uuid}")
     private ResponseEntity<Resource> fileDownload(@PathVariable("uuid") String uuid) {
-       return uploadFileService.downloadFile(uuid);
+        return uploadFileService.downloadFile(uuid);
     }
 
 }
-
-

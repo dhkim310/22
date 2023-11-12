@@ -9,14 +9,13 @@ import java.util.Properties;
 
 @Configuration
 public class MailConfig {
-
     @Bean
     public JavaMailSender NaverMailService() {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 
         javaMailSender.setHost("smtp.naver.com");  // SMTP 서버명
-        javaMailSender.setUsername("umanmyeong@naver.com"); // 네이버 아이디
-        javaMailSender.setPassword("dbwogud!234"); // 네이버 비밀번호
+        javaMailSender.setUsername(""); // 네이버 아이디
+        javaMailSender.setPassword(""); // 네이버 비밀번호
         javaMailSender.setPort(465); // SMTP 포트
         javaMailSender.setJavaMailProperties(getMailProperties()); // 메일 인증서버 가져오기
 
@@ -25,7 +24,6 @@ public class MailConfig {
 
     // 메일 인증서버 정보 가져오기
     private Properties getMailProperties() {
-
         Properties properties = new Properties();
         properties.setProperty("mail.transport.protocol", "smtp"); // 프로토콜 설정
         properties.setProperty("mail.smtp.auth", "true"); // smtp 인증

@@ -16,7 +16,7 @@ export const vacationInsert = async (params) => {
         throw error;
     }
 }
-export const SelectUsedVacationListApi = async (page) => {
+export const SelectUsedVacationListApi = async () => {
     try {
         const response = await axios.get('/api/vacation');
         return response.data;

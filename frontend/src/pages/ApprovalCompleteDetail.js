@@ -97,7 +97,8 @@ function ApprovalCompleteDetail() {
                                 paddingLeft: '0px'
                             }}>결재 대기 문서
                             </button>
-                            <button className="btn btn-primary text-nowrap d-flex" data-bss-hover-animate="pulse" type="button"
+                            <button className="btn btn-primary text-nowrap d-flex" data-bss-hover-animate="pulse"
+                                    type="button"
                                     onClick={navigateToCompleteList} style={{
                                 background: 'rgba(13,110,253,0)',
                                 borderStyle: 'none',

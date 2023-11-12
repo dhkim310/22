@@ -14,7 +14,8 @@ function MemberList() {
                 const data = await selectMemberList();
                 setMemberList(data);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                alert('회원관리부만 접근 가능합니다');
+                navigate('/main');
             }
         }
 

@@ -5,6 +5,7 @@ import erp.backend.domain.log.Vo.LogVo;
 import erp.backend.domain.log.dto.LogListResponse;
 import erp.backend.domain.log.dto.LogResponse;
 import erp.backend.domain.log.entity.Log;
+import erp.backend.domain.log.repository.LogQueryDsl;
 import erp.backend.domain.log.repository.LogRepository;
 import erp.backend.global.config.security.SecurityHelper;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,8 @@ public class LogService {
     private final LogRepository logRepository;
     private final LogVo logVo;
 
+    private final LogQueryDsl logQueryDsl;
+
     @Transactional
     public Long logInsert() {
         Emp emp = SecurityHelper.getAccount();
@@ -38,7 +41,7 @@ public class LogService {
     @Transactional
     public Long logUpdate() {
         Emp emp = SecurityHelper.getAccount();
-        Log entity = logRepository.findTopByEmpEmpIdOrderByLogIdDesc(emp.getEmpId());
+        Log entity = logQueryDsl.log(emp.getEmpId());
         entity.update(emp);
 
         return entity.getLogId();
@@ -47,7 +50,7 @@ public class LogService {
     @Transactional(readOnly = true)
     public LogResponse logResponse() {
         Emp emp = SecurityHelper.getAccount();
-        Optional<Log> entity = Optional.ofNullable(logRepository.findTopByEmpEmpIdOrderByLogIdDesc(emp.getEmpId()));
+        Optional<Log> entity = Optional.ofNullable(logQueryDsl.log(emp.getEmpId()));
         return LogResponse.builder()
                 .logCheckIn(entity.map(e -> logVo.type3(e.getLogCheckIn())).orElse(null))
                 .logCheckOut(entity.map(e -> logVo.type3(e.getLogCheckOut())).orElse(null))

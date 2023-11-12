@@ -1,16 +1,9 @@
 package erp.backend.domain.servicemovie.service;
 
-import erp.backend.domain.board.dto.BoardDetailResponse;
-import erp.backend.domain.board.entity.Board;
-import erp.backend.domain.board.entity.BoardFile;
-import erp.backend.domain.comment.dto.CommentResponse;
-import erp.backend.domain.comment.entity.Comment;
 import erp.backend.domain.movie.repository.MovieRepository;
 import erp.backend.domain.servicemovie.dto.*;
 import erp.backend.domain.servicemovie.entity.ServiceMovie;
 import erp.backend.domain.servicemovie.repository.ServiceMovieRepository;
-import erp.backend.domain.uploadfile.entity.UploadFile;
-import erp.backend.global.util.SchemaType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -28,7 +21,6 @@ import java.util.List;
 @Service
 @Slf4j
 public class ServiceMovieService {
-
     private final ServiceMovieRepository serviceMovieRepository;
     private final MovieRepository movieRepository;
 
@@ -77,6 +69,7 @@ public class ServiceMovieService {
         entity.update(request);
         return entity.getServiceMovieId();
     }
+
     @Transactional(readOnly = true)
     public ServiceMovieListResult serviceMovieListResult(Pageable pageable) {
         List<ServiceMovie> list = serviceMovieRepository.findAll(Sort.by(Sort.Order.desc("serviceMovieId")));

@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {useForm} from 'react-hook-form';
-import {SET_TOKEN} from '../store/Auth';
-import {SET_USER_INFO} from '../store/UserInfo';
 import {loginApi} from '../api/Login';
 import {useCookies} from 'react-cookie';
 import '../assets/bootstrap/css/bootstrap.min.css';
@@ -22,20 +20,14 @@ function Login() {
             .then((res) => {
                 if (res.status === 200) {
 //                setCookie('Authorization', 'Bearer ' + res.data.token)
-                    dispatch(SET_TOKEN(res.data.token))
-                    console.log(res.data.token)
-                    const data = res.data
-                    delete data.token;
-                    const userInfo = {...data}
-                    dispatch(SET_USER_INFO(userInfo))
-                    localStorage.setItem('empId',data.empId);
+                    localStorage.setItem('empId', res.data.empId);
                     alert('로그인 성공');
                     return navigate('/main')
                 }
                 console.log(res);
             })
             .catch((err) => {
-                console.log("로그인 실패입니다: ", err);
+                alert("아이디, 비밀번호를 확인해주세요");
             })
     };
 

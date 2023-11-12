@@ -64,53 +64,53 @@ function MovieDetail() {
     paddingTop: '20px',
   };
 
-    const buttonStyle = {
-      background: 'white',
-      height: '40px',
-      width: '200px',
-      border: '1px solid black',
-      borderRadius: '5px',
-      color: 'black',
-      marginBottom: '4%',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      position: 'fixed',
+  const buttonStyle = {
+    background: 'white',
+    height: '40px',
+    width: '200px',
+    border: '1px solid black',
+    borderRadius: '5px',
+    color: 'black',
+    marginBottom: '4%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    position: 'fixed',
 
-    };
+  };
 
   return (
-    <div style={{ paddingTop: "80px" }}>
-      <div>
-        <div style={{ height: '70px', paddingTop: '0px', paddingRight: '0px', paddingLeft: '0px' }}>
+      <div style={{ paddingTop: "80px" }}>
+        <div>
+          <div style={{ height: '70px', paddingTop: '0px', paddingRight: '0px', paddingLeft: '0px' }}>
           <span style={{ fontWeight: 'bold', fontSize: '30px', textAlign: 'center', display: 'block' }}>
             영화 상세 정보
           </span>
-        </div>
-        <div className="d-flex justify-content-center" style={{ paddingTop: '20px' }}>
-          <img
-            style={imageStyle}
-            src={detail.moviePosterPath}
-            alt={detail.krName}
-          />
-        </div>
-        <div style={contentStyle}>
-          <div>한글 제목 : {detail.krName}</div><br></br>
-          <div>원제 : {detail.ogName}</div><br></br>
-          <div>줄거리 : {detail.movieOverView}</div><br></br>
-          <div>
-            <button
-              className= "justify-content-center fixed-bottom"
-              data-bss-hover-animate="pulse"
-              type="submit"
-              onClick={() => handleMovieClick()}
-              style={buttonStyle}
-            >
-              영화 리스트로 돌아가기
-            </button>
+          </div>
+          <div className="d-flex justify-content-center" style={{ paddingTop: '20px' }}>
+            <img
+                style={imageStyle}
+                src={detail.moviePosterPath}
+                alt={detail.krName}
+            />
+          </div>
+          <div style={contentStyle}>
+            <div>한글 제목 : {detail.krName}</div><br></br>
+            <div>원제 : {detail.ogName}</div><br></br>
+            <div>줄거리 : {detail.movieOverView}</div><br></br>
+            <div>
+              <button
+                  className= "justify-content-center fixed-bottom"
+                  data-bss-hover-animate="pulse"
+                  type="submit"
+                  onClick={() => handleMovieClick()}
+                  style={buttonStyle}
+              >
+                영화 리스트로 돌아가기
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

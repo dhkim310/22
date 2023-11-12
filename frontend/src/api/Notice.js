@@ -12,7 +12,7 @@ export const selectNoticeTop4Api = async (params) => {
 // 공지사항 리스트를 가져오는 함수
 export const fetchNoticeList = async (page) => {
     try {
-        const response = await axios.get(`/api/notice?page=${page}`);
+        const response = await axios.get(`/api/notice?page=${page}&size=${10}`);
         return response.data;
     } catch (error) {
         throw error;

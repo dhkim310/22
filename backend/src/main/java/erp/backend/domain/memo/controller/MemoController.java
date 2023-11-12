@@ -20,11 +20,6 @@ public class MemoController {
         return ResponseEntity.ok(memoResponse);
     }
 
-    @PostMapping
-    public ResponseEntity<Long> memoInsert(@RequestBody MemoInsert request) {
-        return ResponseEntity.ok(memoService.memoInsert(request));
-    }
-
     @PutMapping
     public ResponseEntity<Long> memoUpdate(@RequestBody MemoUpdate request) {
         return ResponseEntity.ok(memoService.memoUpdate(request));
