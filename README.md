@@ -1,6 +1,6 @@
 # 🛍️ OTT회사의 인/물적 자원 관리를 위한 ERP 프로그램 웹 서비스 개발
 
-![main22](https://github.com/whatiiiii/sec_project/assets/140373535/2d3a5b78-5231-410a-ab58-11797c1adb89)
+![main22](https://github.com/dhkim310/Final-Project/assets/140153367/dfddd0d3-24e7-405c-b778-4d89d40cda75)
 - - - 
 
 # 📋 목차 
